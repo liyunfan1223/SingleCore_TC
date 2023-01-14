@@ -8,12 +8,15 @@ using namespace std;
 
 Unit* PartyMemberValue::FindPartyMember(list<Player*>* party, FindPlayerPredicate &predicate)
 {
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "FindPartyMember: party size: %d", party->size());
     for (list<Player*>::iterator i = party->begin(); i != party->end(); ++i)
     {
         Player* player = *i;
-
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "FindPartyMember");
         if (!player)
             continue;
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "FindPartyMember: %s", 
+            player->GetName());
 
         if (Check(player) && predicate.Check(player))
             return player;
@@ -33,15 +36,17 @@ Unit* PartyMemberValue::FindPartyMember(list<Player*>* party, FindPlayerPredicat
 Unit* PartyMemberValue::FindPartyMember(FindPlayerPredicate &predicate)
 {
     Player* master = GetMaster();
-	list<ObjectGuid> nearestPlayers = AI_VALUE(list<ObjectGuid>, "nearest friendly players");
-
+	// list<ObjectGuid> nearestPlayers = AI_VALUE(list<ObjectGuid>, "nearest friendly players");
+    Group* group = bot->GetGroup();
+    if (!group)
+        return NULL;
+    // bool isRaid = bot->GetGroup()->isRaidGroup();
     list<Player*> healers, tanks, others, masters;
 	if (master) masters.push_back(master);
-	for (list<ObjectGuid>::iterator i = nearestPlayers.begin(); i != nearestPlayers.end(); ++i)
+    for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
     {
-		Player* player = dynamic_cast<Player*>(ai->GetUnit(*i));
-		if (!player || player == bot) continue;
-
+        Player* player = gref->GetSource();
+        if (!player || player == bot) continue;
         if (ai->IsHeal(player))
             healers.push_back(player);
         else if (ai->IsTank(player))
@@ -49,11 +54,10 @@ Unit* PartyMemberValue::FindPartyMember(FindPlayerPredicate &predicate)
         else if (player != master)
             others.push_back(player);
     }
-
     list<list<Player*>* > lists;
+    lists.push_back(&masters);
     lists.push_back(&healers);
     lists.push_back(&tanks);
-    lists.push_back(&masters);
     lists.push_back(&others);
 
     for (list<list<Player*>* >::iterator i = lists.begin(); i != lists.end(); ++i)

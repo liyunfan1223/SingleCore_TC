@@ -55,6 +55,7 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 {
     NonCombatStrategy::InitTriggers(triggers);
 
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "InitTriggers size: %d", triggers.size());
     triggers.push_back(new TriggerNode(
         "mark of the wild",
         NextAction::array(0, new NextAction("mark of the wild", 12.0f), NULL)));

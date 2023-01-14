@@ -29,6 +29,7 @@ public:
     virtual bool Check(Unit* unit)
     {
         Player* player = dynamic_cast<Player*>(unit);
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "player->getDeathState(), name: %d, %s", player->getDeathState(), player->GetName());
         return player && player->getDeathState() == CORPSE && !value->IsTargetOfSpellCast(player, predicate);
     }
 
