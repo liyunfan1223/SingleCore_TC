@@ -93,6 +93,8 @@ Player* PlayerbotHolder::GetPlayerBot(uint64 playerGuid) const
 
 void PlayerbotHolder::OnBotLogin(Player * const bot)
 {
+    uint32 accountId = sObjectMgr->GetPlayerAccountIdByGUID(bot->GetGUID());
+    bool isRandomAccount = sPlayerbotAIConfig.IsInRandomAccountList(accountId);
     PlayerbotAI* ai = new PlayerbotAI(bot);
     bot->SetPlayerbotAI(ai);
     OnBotLoginInternal(bot);
@@ -110,7 +112,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
         //thesawolf - check for alt account playerbot
         uint32 botAccount = bot->GetSession()->GetAccountId();
         uint32 masterGacct = master->GetSession()->GetAccountId();
-        if (masterGacct != botAccount)
+        if (isRandomAccount)
         {        
             //thesawolf - faction change - still flags opposing for pvp.. but non-KOS
             bot->setFaction(master->getFaction());
@@ -226,6 +228,9 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
     bool isRandomAccount = sPlayerbotAIConfig.IsInRandomAccountList(botAccount);
     bool isMasterAccount = (masterAccountId == botAccount);
 
+    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "botAccount, isRandomBot, isRandomAccount, isMasterAccount, guid, masterGuildId : %d, %d, %d, %d, %d", 
+    //     botAccount, isRandomBot, isRandomAccount, isMasterAccount, guid, masterGuildId);
+
     if (isRandomAccount && !isRandomBot && !admin) //thesawolf
     {
         Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
@@ -233,15 +238,13 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
             return "not in your guild";
     }
 
-    if (!isRandomAccount && !isMasterAccount) // && !admin) thesawolf
-        return "not in your account";
-
     if (cmd == "add" || cmd == "login")
     {
-
+        // Player* bot = sObjectMgr->GetPlayerByLowGUID(guid.GetRawValue());
+        // if (bot->GetGuildId() != masterGuildId && !isMasterAccount)
+            // return "not in your guild and not in your account";
         if (sObjectMgr->GetPlayerByLowGUID(guid))
             return "player already logged in";
-
         AddPlayerBot(guid.GetRawValue(), masterAccountId);
         return "ok";
     }
@@ -266,7 +269,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
         
         return(LockPlayerBot(guid.GetRawValue()));
     }
-    if (admin || !admin) // thesawolf - giving all players access (for now)
+    if (admin) // thesawolf - giving all players access (for now)
     {
         Player* bot = GetPlayerBot(guid.GetRawValue());
         if (!bot)
@@ -282,7 +285,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
         {
             if (cmd == "init=white" || cmd == "init=common")
             {
-                if (botAcct != masterGacct)
+                if (isRandomAccount)
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_NORMAL);
                     factory.CleanRandomize();
@@ -293,7 +296,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
             }
             else if (cmd == "init=green" || cmd == "init=uncommon")
             {
-                if (botAcct != masterGacct)
+                if (isRandomAccount)
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_UNCOMMON);
                     factory.CleanRandomize();
@@ -304,7 +307,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
             }
             else if (cmd == "init=blue" || cmd == "init=rare")
             {
-                if (botAcct != masterGacct)
+                if (isRandomAccount)
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_RARE);
                     factory.CleanRandomize();
@@ -315,9 +318,20 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
             }
             else if (cmd == "init=epic" || cmd == "init=purple")
             {
-                if (botAcct != masterGacct)
+                if (isRandomAccount)
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_EPIC);
+                    factory.CleanRandomize();
+                    return "ok";
+                }
+                else
+                    return "ERROR: You cannot use INIT on an ALT!";
+            }
+            else if (cmd == "init=legendary" || cmd == "init=orange")
+            {
+                if (isRandomAccount)
+                {            
+                    PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_LEGENDARY);
                     factory.CleanRandomize();
                     return "ok";
                 }

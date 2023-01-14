@@ -59,7 +59,7 @@ AiObjectContext* AiFactory::createAiObjectContext(Player* player, PlayerbotAI* a
 int AiFactory::GetPlayerSpecTab(Player* player)
 {
     int c0 = 0, c1 = 0, c2 = 0;
-    PlayerTalentMap& talentMap = player->GetTalentMap(0);
+    PlayerTalentMap& talentMap = player->GetTalentMap(player->GetActiveSpec());
     for (PlayerTalentMap::iterator i = talentMap.begin(); i != talentMap.end(); ++i)
     {
         uint32 spellId = i->first;
@@ -145,7 +145,9 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("dps", "melee aoe", "bdps", "threat", NULL);
             break;
         case CLASS_PALADIN:
-            if (tab == 1)
+            if (tab == 0)
+                engine->addStrategies("heal", "bmana", "flee", NULL);
+            else if (tab == 1)
                 engine->addStrategies("tank", "tank aoe", "bthreat", NULL);
             else
                 engine->addStrategies("dps", "bdps", "threat", NULL);

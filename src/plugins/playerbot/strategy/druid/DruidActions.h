@@ -63,7 +63,9 @@ namespace ai
 	class CastReviveAction : public ResurrectPartyMemberAction
 	{
 	public:
-		CastReviveAction(PlayerbotAI* ai) : ResurrectPartyMemberAction(ai, "revive") {}
+		CastReviveAction(PlayerbotAI* ai) : ResurrectPartyMemberAction(ai, "revive") {
+			sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CastReviveAction");
+		}
 
 		virtual NextAction** getPrerequisites() {
 			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), ResurrectPartyMemberAction::getPrerequisites());

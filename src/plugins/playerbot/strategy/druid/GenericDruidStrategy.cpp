@@ -115,7 +115,7 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 
 	triggers.push_back(new TriggerNode(
-		"party member dead",
+		"party member to rescurrent",
 		NextAction::array(0, new NextAction("rebirth", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(

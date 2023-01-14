@@ -125,6 +125,7 @@ uint32 RandomPlayerbotMgr::AddRandomBots()
 			}
 		} while (result->NextRow());
 		//delete result;
+		if (bots.size() >= maxAllowedBotCount) break;
 	}
 
 	return guids.size();
@@ -493,47 +494,13 @@ void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
 		minLevel = level - level % 10;
 		maxLevel = level - (level % 10) + 9;
 	}
-	for (int attempt = 0; attempt < 10; ++attempt)
-	{
-		vector<GameTele const*> locs;
-		int index = urand(0, sPlayerbotAIConfig.randomBotMaps.size() - 1);
-
-		uint16 mapId = sPlayerbotAIConfig.randomBotMaps[index];
-
-		GameTeleContainer const & teleMap = sObjectMgr->GetGameTeleMap();
-		for (GameTeleContainer::const_iterator itr = teleMap.begin(); itr != teleMap.end(); ++itr)
-		{
-			GameTele const* tele = &itr->second;
-			if (tele->mapId == mapId)
-				locs.push_back(tele);
-		}
-
-        index = urand(0, locs.size() - 1);
-        GameTele const* tele = locs[index];
-		//caching.. if not, it will create excessive database load
-		if (mapIdToLevel.find(tele->mapId) == mapIdToLevel.end())
-		{
-			level = GetZoneLevel(tele->mapId, tele->position_x, tele->position_y, tele->position_z);
-			mapIdToLevel.emplace(tele->mapId, level);
-		}
-		else {
-			level = mapIdToLevel[tele->mapId];
-		}
-		if (level > maxLevel || level < minLevel)
-			continue;
-
-        if (level<=0) level = 1;
-		if (!takePlayerLevel)
-		{
-			if (urand(0, 100) < 100 * sPlayerbotAIConfig.randomBotMaxLevelChance)
-				level = maxLevel;
-		}
-
-        PlayerbotFactory factory(bot, level);
-        factory.CleanRandomize();
-		RandomTeleportForLevel(bot);
-        break;
-    }
+	else {
+		// try to random level
+		level = urand(minLevel, maxLevel);
+	}
+	PlayerbotFactory factory(bot, level);
+	factory.CleanRandomize();
+	RandomTeleportForLevel(bot);
 }
 
 uint32 RandomPlayerbotMgr::GetMasterLevel()
@@ -754,6 +721,7 @@ bool RandomPlayerbotMgr::HandlePlayerbotConsoleCommand(ChatHandler* handler, cha
 
             if (cmd == "init")
             {
+		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Detected cmd is init.");
                 sRandomPlayerbotMgr.RandomizeFirst(bot);
             }
             else if (cmd == "teleport")

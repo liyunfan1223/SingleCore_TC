@@ -73,7 +73,7 @@ namespace ai
             creators["medium threat"] = &TriggerContext::MediumThreat;
 
             creators["dead"] = &TriggerContext::Dead;
-            creators["party member dead"] = &TriggerContext::PartyMemberDead;
+            creators["party member to rescurrent"] = &TriggerContext::PartyMemberDead;
             creators["no pet"] = &TriggerContext::no_pet;
             creators["has attackers"] = &TriggerContext::has_attackers;
             creators["no possible targets"] = &TriggerContext::no_possible_targets;
