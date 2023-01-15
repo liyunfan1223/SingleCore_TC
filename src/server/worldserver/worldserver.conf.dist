@@ -72,7 +72,7 @@ RealmID = 1
 #        Example:     "@prefix@/share/trinitycore"
 #        Default:     "."
 
-DataDir = "Data"
+DataDir = "/usr/local/data"
 
 #
 #    LogsDir
@@ -98,9 +98,9 @@ LogsDir = "Logs"
 #                     "127.0.0.1;3306;trinity;trinity;world"      - (WorldDatabaseInfo)
 #                     "127.0.0.1;3306;trinity;trinity;characters" - (CharacterDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;root;123456;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;root;123456;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;root;123456;characters"
+LoginDatabaseInfo     = "127.0.0.1;3306;root;root;auth"
+WorldDatabaseInfo     = "127.0.0.1;3306;root;root;world"
+CharacterDatabaseInfo = "127.0.0.1;3306;root;root;characters"
 
 #
 #    LoginDatabase.WorkerThreads
@@ -3255,7 +3255,7 @@ AuctionHouseBot.Update.Interval = 20
 #       Default:     0 - (Disabled)
 #                    1 - (Enabled)
 
-AuctionHouseBot.Seller.Enabled = 1
+# AuctionHouseBot.Seller.Enabled = 1
 
 #
 #    AuctionHouseBot.Alliance.Items.Amount.Ratio
@@ -3642,7 +3642,7 @@ AuctionHouseBot.Class.RandomStackRatio.Glyph = 0
 #       Default:     0 - (Disabled)
 #                    1 - (Enabled)
 
-AuctionHouseBot.Buyer.Enabled = 1
+# AuctionHouseBot.Buyer.Enabled = 1
 
 #
 #    AuctionHouseBot.Buyer.FACTION.Enabled
@@ -4787,6 +4787,3 @@ Dungeon.Checkpoints.Enable = 1
 #                     1 (enabled)
 
 Congrats.Level = 0
-
-#
-###################################################################################################

@@ -63,8 +63,8 @@ REPLACE INTO `creature_template_outfits` (`entry`, `race`, `gender`, `skin`, `fa
 --
 -- Indexes for table `creature_template_outfits`
 --
-ALTER TABLE `creature_template_outfits`
-  ADD PRIMARY KEY IF NOT EXISTS (`entry`);
+/*ALTER TABLE `creature_template_outfits`
+  ADD PRIMARY KEY IF NOT EXISTS (`entry`); */
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

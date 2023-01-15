@@ -86,10 +86,8 @@ void PlayerbotHolder::AddPlayerBot(uint64 playerGuid, uint32 masterAccount)
 {
     // has bot already been added?
 	Player* bot = sObjectMgr->GetPlayerByLowGUID(playerGuid);
-
 	if (bot && bot->IsInWorld())
         return;
-
     uint32 accountId = sObjectMgr->GetPlayerAccountIdByGUID(ObjectGuid(playerGuid));
     if (accountId == 0)
         return;
@@ -131,9 +129,11 @@ void PlayerbotHolder::AddPlayerBot(uint64 playerGuid, uint32 masterAccount)
         OnBotLogin(bot);
     else if (masterSession)
     {
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Add bot not allowed!");
+        OnBotLogin(bot);
+        LogoutPlayerBot(bot->GetGUID());
         ChatHandler ch(masterSession);
         ch.PSendSysMessage("You are not allowed to control bot %s...", bot->GetName().c_str());
-        LogoutPlayerBot(bot->GetGUID());
     }
 }
 
