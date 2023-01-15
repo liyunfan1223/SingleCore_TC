@@ -24,7 +24,6 @@ uint32 SpellIdValue::Calculate()
     int spellLength = wnamepart.length();
 
     int loc = bot->GetSession()->GetSessionDbcLocale();
-
     uint32 foundSpellId = 0;
     bool foundMatchUsesNoReagents = false;
 
@@ -47,7 +46,6 @@ uint32 SpellIdValue::Calculate()
             continue;
 
         bool usesNoReagents = (pSpellInfo->Reagent[0] <= 0);
-
         // if we already found a spell
         bool useThisSpell = true;
         if (foundSpellId > 0) {

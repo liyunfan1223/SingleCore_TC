@@ -86,7 +86,7 @@ namespace ai
                 creators["entangling roots"] = &TriggerFactoryInternal::entangling_roots;
                 creators["bear form"] = &TriggerFactoryInternal::bear_form;
                 creators["cat form"] = &TriggerFactoryInternal::cat_form;
-                creators["tree form"] = &TriggerFactoryInternal::tree_form;
+                creators["tree of life"] = &TriggerFactoryInternal::tree_of_life;
                 creators["eclipse (solar)"] = &TriggerFactoryInternal::eclipse_solar;
                 creators["eclipse (lunar)"] = &TriggerFactoryInternal::eclipse_lunar;
                 creators["bash on enemy healer"] = &TriggerFactoryInternal::bash_on_enemy_healer;
@@ -111,7 +111,7 @@ namespace ai
             static Trigger* entangling_roots(PlayerbotAI* ai) { return new EntanglingRootsTrigger(ai); }
             static Trigger* bear_form(PlayerbotAI* ai) { return new BearFormTrigger(ai); }
             static Trigger* cat_form(PlayerbotAI* ai) { return new CatFormTrigger(ai); }
-            static Trigger* tree_form(PlayerbotAI* ai) { return new TreeFormTrigger(ai); }
+            static Trigger* tree_of_life(PlayerbotAI* ai) { return new TreeFormTrigger(ai); }
             static Trigger* bash_on_enemy_healer(PlayerbotAI* ai) { return new BashInterruptEnemyHealerSpellTrigger(ai); }
         };
     };
@@ -137,7 +137,7 @@ namespace ai
                 creators["dire bear form"] = &AiObjectContextInternal::dire_bear_form;
                 creators["moonkin form"] = &AiObjectContextInternal::moonkin_form;
                 creators["cat form"] = &AiObjectContextInternal::cat_form;
-                creators["tree form"] = &AiObjectContextInternal::tree_form;
+                creators["tree of life"] = &AiObjectContextInternal::tree_of_life;
                 creators["caster form"] = &AiObjectContextInternal::caster_form;
                 creators["mangle (bear)"] = &AiObjectContextInternal::mangle_bear;
                 creators["maul"] = &AiObjectContextInternal::maul;
@@ -172,9 +172,11 @@ namespace ai
                 creators["mark of the wild"] = &AiObjectContextInternal::mark_of_the_wild;
                 creators["mark of the wild on party"] = &AiObjectContextInternal::mark_of_the_wild_on_party;
                 creators["regrowth"] = &AiObjectContextInternal::regrowth;
+                creators["wild growth"] = &AiObjectContextInternal::wild_growth;
                 creators["rejuvenation"] = &AiObjectContextInternal::rejuvenation;
                 creators["healing touch"] = &AiObjectContextInternal::healing_touch;
                 creators["regrowth on party"] = &AiObjectContextInternal::regrowth_on_party;
+                creators["wild growth on party"] = &AiObjectContextInternal::wild_growth_on_party;
                 creators["rejuvenation on party"] = &AiObjectContextInternal::rejuvenation_on_party;
                 creators["healing touch on party"] = &AiObjectContextInternal::healing_touch_on_party;
                 creators["rebirth"] = &AiObjectContextInternal::rebirth;
@@ -199,7 +201,7 @@ namespace ai
             static Action* bear_form(PlayerbotAI* ai) { return new CastBearFormAction(ai); }
             static Action* dire_bear_form(PlayerbotAI* ai) { return new CastDireBearFormAction(ai); }
             static Action* cat_form(PlayerbotAI* ai) { return new CastCatFormAction(ai); }
-            static Action* tree_form(PlayerbotAI* ai) { return new CastTreeFormAction(ai); }
+            static Action* tree_of_life(PlayerbotAI* ai) { return new CastTreeFormAction(ai); }
             static Action* caster_form(PlayerbotAI* ai) { return new CastCasterFormAction(ai); }
             static Action* mangle_bear(PlayerbotAI* ai) { return new CastMangleBearAction(ai); }
             static Action* maul(PlayerbotAI* ai) { return new CastMaulAction(ai); }
@@ -235,9 +237,11 @@ namespace ai
             static Action* mark_of_the_wild(PlayerbotAI* ai) { return new CastMarkOfTheWildAction(ai); }
             static Action* mark_of_the_wild_on_party(PlayerbotAI* ai) { return new CastMarkOfTheWildOnPartyAction(ai); }
             static Action* regrowth(PlayerbotAI* ai) { return new CastRegrowthAction(ai); }
+            static Action* wild_growth(PlayerbotAI* ai) { return new CastWildGrowthAction(ai); }
             static Action* rejuvenation(PlayerbotAI* ai) { return new CastRejuvenationAction(ai); }
             static Action* healing_touch(PlayerbotAI* ai) { return new CastHealingTouchAction(ai); }
             static Action* regrowth_on_party(PlayerbotAI* ai) { return new CastRegrowthOnPartyAction(ai); }
+            static Action* wild_growth_on_party(PlayerbotAI* ai) { return new CastWildGrowthOnPartyAction(ai); }
             static Action* rejuvenation_on_party(PlayerbotAI* ai) { return new CastRejuvenationOnPartyAction(ai); }
             static Action* healing_touch_on_party(PlayerbotAI* ai) { return new CastHealingTouchOnPartyAction(ai); }
             static Action* rebirth(PlayerbotAI* ai) { return new CastRebirthAction(ai); }

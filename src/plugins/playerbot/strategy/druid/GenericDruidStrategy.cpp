@@ -96,27 +96,25 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "low health",
-        NextAction::array(0, new NextAction("regrowth", ACTION_MEDIUM_HEAL + 2), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "low health",
+    //     NextAction::array(0, new NextAction("regrowth", ACTION_MEDIUM_HEAL + 2), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member low health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member low health",
+    //     NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
+    // triggers.push_back(new TriggerNode(
+    //     "critical health",
+    //     NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 2), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "critical health",
-        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 2), new NextAction("healing touch", ACTION_CRITICAL_HEAL + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member critical health",
-        NextAction::array(0,  new NextAction("regrowth on party", ACTION_CRITICAL_HEAL + 1), new NextAction("healing touch on party", ACTION_CRITICAL_HEAL + 1), NULL)));
-
+    // triggers.push_back(new TriggerNode(
+    //     "party member critical health",
+    //     NextAction::array(0,  new NextAction("regrowth on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"party member to resurrect",
-		NextAction::array(0, new NextAction("rebirth", ACTION_HIGH + 1), NULL)));
+		NextAction::array(0, new NextAction("rebirth", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
@@ -127,9 +125,9 @@ void DruidCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "cure poison",
-        NextAction::array(0, new NextAction("abolish poison", ACTION_DISPEL + 2), NULL)));
+        NextAction::array(0, new NextAction("abolish poison", ACTION_EMERGENCY + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",
-        NextAction::array(0, new NextAction("abolish poison on party", ACTION_DISPEL + 1), NULL)));
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 8), NULL)));
 }

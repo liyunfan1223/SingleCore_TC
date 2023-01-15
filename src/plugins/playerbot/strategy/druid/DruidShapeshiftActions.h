@@ -30,6 +30,10 @@ namespace ai {
 	class CastTreeFormAction : public CastBuffSpellAction {
 	public:
 		CastTreeFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tree of life") {}
+		// test
+		bool isUseful() {
+			return true;
+		}
 	};
 
 	class CastMoonkinFormAction : public CastBuffSpellAction { 
@@ -42,8 +46,10 @@ namespace ai {
 		CastCasterFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "caster form") {} 
 
 		virtual bool isUseful() {
+			// return ai->HasAnyAuraOf(GetTarget(), "dire bear form", "bear form", "cat form", "travel form", "aquatic form", 
+			// 	"flight form", "swift flight form", "moonkin form", "tree of life", NULL);
 			return ai->HasAnyAuraOf(GetTarget(), "dire bear form", "bear form", "cat form", "travel form", "aquatic form", 
-				"flight form", "swift flight form", "moonkin form", "tree of life", NULL);
+				"flight form", "swift flight form", "moonkin form", NULL);
 		}
 		virtual bool isPossible() { return true; }
 		

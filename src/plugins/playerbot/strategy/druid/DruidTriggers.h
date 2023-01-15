@@ -97,7 +97,10 @@ namespace ai {
     {
     public:
         TreeFormTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "tree of life") {}
-        virtual bool IsActive() { return !ai->HasAura("tree of life", bot); }
+        virtual bool IsActive() { 
+            // use another aura instead of tree of life
+            return !ai->HasAura(34123, bot);
+        }
     };
 
     class CatFormTrigger : public BuffTrigger
