@@ -81,13 +81,17 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
         "mark of the wild on party",
         NextAction::array(0, new NextAction("mark of the wild on party", 11.0f), NULL)));
 
+    // triggers.push_back(new TriggerNode(
+    //     "tree of life",
+    //     NextAction::array(0, new NextAction("tree of life", ACTION_NORMAL + 10), NULL)));
+
     triggers.push_back(new TriggerNode(
         "cure poison",
-        NextAction::array(0, new NextAction("abolish poison", 21.0f), NULL)));
+        NextAction::array(0, new NextAction("abolish poison", ACTION_EMERGENCY + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",
-        NextAction::array(0, new NextAction("abolish poison on party", 20.0f), NULL)));
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 8), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"party member to resurrect",
@@ -97,31 +101,31 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
         "low mana",
         NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
     
-    triggers.push_back(new TriggerNode(
-        "party member critical health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 5), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member critical health",
+    //     NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 5), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member critical health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 6), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member critical health",
+    //     NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 6), NULL)));
         
-    triggers.push_back(new TriggerNode(
-        "party member low health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 3), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member low health",
+    //     NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 3), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member low health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 4), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member low health",
+    //     NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 4), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member medium health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member medium health",
+    //     NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member medium health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 2), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member medium health",
+    //     NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 2), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member almost full health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_LIGHT_HEAL + 2), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "party member almost full health",
+    //     NextAction::array(0, new NextAction("rejuvenation on party", ACTION_LIGHT_HEAL + 2), NULL)));
 }

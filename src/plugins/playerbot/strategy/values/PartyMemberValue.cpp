@@ -8,16 +8,11 @@ using namespace std;
 
 Unit* PartyMemberValue::FindPartyMember(list<Player*>* party, FindPlayerPredicate &predicate)
 {
-    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "FindPartyMember: party size: %d", party->size());
     for (list<Player*>::iterator i = party->begin(); i != party->end(); ++i)
     {
         Player* player = *i;
-        // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "FindPartyMember");
         if (!player)
             continue;
-        // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "FindPartyMember: %s", 
-            // player->GetName());
-
         if (Check(player) && predicate.Check(player))
             return player;
 

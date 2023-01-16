@@ -1256,45 +1256,29 @@ bool PlayerbotAI::CanCastSpell(string name, Unit* target)
 
 bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
 {
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 1");
     if (!spellid)
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 2");
     if (!target)
         target = bot;
 
     if (checkHasSpell && !bot->HasSpell(spellid))
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 3");
+
     if (bot->GetSpellHistory()->HasCooldown(spellid))
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 4");
+
     SpellInfo const *spellInfo = sSpellMgr->GetSpellInfo(spellid );
     if (!spellInfo)
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 5");
     bool positiveSpell = spellInfo->IsPositive();
     if (positiveSpell && bot->IsHostileTo(target))
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 6");
     if (!positiveSpell && bot->IsFriendlyTo(target))
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 7");
     if (target->IsImmunedToSpell(spellInfo))
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 8");
     if (bot != target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance)
         return false;
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 9");
     Unit* oldSel = bot->GetSelectedUnit();
     bot->SetSelection(target->GetGUID());
     Spell *spell = new Spell(bot, spellInfo, TRIGGERED_NONE);
@@ -1306,8 +1290,6 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
     delete spell;
 	if (oldSel)
 		bot->SetSelection(oldSel->GetGUID());
-// if (spellid == 33891)
-// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CanCastSpell 10");
     switch (result)
     {
     case SPELL_FAILED_NOT_INFRONT:
@@ -1450,10 +1432,10 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 	if (oldSel)
 		bot->SetSelection(oldSel->GetGUID());
 	LastSpellCast& lastSpell = aiObjectContext->GetValue<LastSpellCast&>("last spell cast")->Get();
-    if (spellId == 33891)
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!PlayerbotAI::CastSpell ok2 %d %s %d", 
-        spellId, target->GetName().c_str(),
-        target->HasAura(33891));
+    // if (spellId == 33891)
+    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!PlayerbotAI::CastSpell ok2 %d %s %d", 
+        // spellId, target->GetName().c_str(),
+        // target->HasAura(33891));
 	return lastSpell.id == spellId;
 }
 

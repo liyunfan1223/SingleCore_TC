@@ -28,7 +28,7 @@ private:
     {
         return new ActionNode ("lifeblood",  
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("gift of the naaru"), NULL), 
+            /*A*/ NULL, 
             /*C*/ NULL);
 	}
 	static ActionNode* berserking(PlayerbotAI* ai)
@@ -91,7 +91,7 @@ private:
 	{
 		return new ActionNode("gift of the naaru",
 			/*P*/ NULL,
-			/*A*/ NextAction::array(0, new NextAction("lifeblood"), NULL),
+			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 	static ActionNode* arcane_torrent(PlayerbotAI* ai)

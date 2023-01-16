@@ -22,7 +22,7 @@ public:
     }
     static ActionNode* nourish_on_party(PlayerbotAI* ai)
     {
-        return new ActionNode ("nourish_on_party",
+        return new ActionNode ("nourish on party",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("healing touch on party"), NULL),
             /*C*/ NULL);
@@ -44,12 +44,12 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "tree of life",
-        NextAction::array(0, new NextAction("tree of life", ACTION_NORMAL + 10), NULL)));
+        "cure poison",
+        NextAction::array(0, new NextAction("abolish poison", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",
-        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 8), NULL)));
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "entangling roots",
