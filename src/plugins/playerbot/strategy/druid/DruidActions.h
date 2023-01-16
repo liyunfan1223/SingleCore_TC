@@ -4,6 +4,7 @@
 #include "DruidShapeshiftActions.h"
 #include "DruidBearActions.h"
 #include "DruidCatActions.h"
+#include "DruidHealActions.h"
 
 namespace ai
 {
@@ -76,7 +77,7 @@ namespace ai
 	{
 	public:
 		CastReviveAction(PlayerbotAI* ai) : ResurrectPartyMemberAction(ai, "revive") {
-			sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CastReviveAction");
+			// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CastReviveAction");
 		}
 
 		virtual NextAction** getPrerequisites() {

@@ -1181,6 +1181,36 @@ bool PlayerbotAI::HasAura(string name, Unit* unit)
     return false;
 }
 
+Aura* PlayerbotAI::GetAura(string name, Unit* unit
+)
+{
+    if (!unit)
+        return nullptr;
+
+    wstring wnamepart;
+    if (!Utf8toWStr(name, wnamepart))
+        return nullptr;
+
+    wstrToLower(wnamepart);
+
+    Unit::AuraApplicationMap& map = unit->GetAppliedAuras();
+    for (Unit::AuraApplicationMap::iterator i = map.begin(); i != map.end(); ++i)
+    {
+        Aura * aura  = i->second->GetBase();
+        if (!aura)
+            continue;
+
+        const string auraName = aura->GetSpellInfo()->SpellName[0];
+        if (auraName.empty() || auraName.length() != wnamepart.length() || !Utf8FitTo(auraName, wnamepart))
+            continue;
+
+        if (IsRealAura(bot, aura, unit))
+            return aura;
+    }
+
+    return nullptr;
+}
+
 bool PlayerbotAI::HasAura(uint32 spellId, const Unit* unit)
 {
     if (!spellId || !unit)
@@ -1302,10 +1332,10 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
 
 bool PlayerbotAI::CastSpell(string name, Unit* target)
 {
-    if (name == "tree of life")
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!!CastSpell %s %d %s %d", 
-        name.c_str(), aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target->GetName().c_str(),
-        target->HasAura(33891));
+    // if (name == "tree of life")
+    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!!CastSpell %s %d %s %d", 
+    //     name.c_str(), aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target->GetName().c_str(),
+    //     target->HasAura(33891));
     bool result = CastSpell(aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target);
     if (result)
     {
@@ -1317,10 +1347,10 @@ bool PlayerbotAI::CastSpell(string name, Unit* target)
 
 bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 {   
-    if (spellId == 33891)
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!PlayerbotAI::CastSpell ok1 %d %s %d", 
-        spellId, target->GetName().c_str(),
-        target->HasAura(33891));
+    // if (spellId == 33891)
+    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!PlayerbotAI::CastSpell ok1 %d %s %d", 
+    //     spellId, target->GetName().c_str(),
+    //     target->HasAura(33891));
     if (!spellId)
         return false;
 

@@ -189,6 +189,12 @@ namespace ai
                 creators["bash on enemy healer"] = &AiObjectContextInternal::bash_on_enemy_healer;
 				creators["prowl"] = &AiObjectContextInternal::prowl;
 				creators["frenzied regeneration"] = &AiObjectContextInternal::frenzied_regeneration;
+                creators["nourish"] = &AiObjectContextInternal::nourish;
+                creators["nourish on party"] = &AiObjectContextInternal::nourish_on_party;
+                creators["lifebloom"] = &AiObjectContextInternal::life_bloom;
+                creators["lifebloom on party"] = &AiObjectContextInternal::life_bloom_on_party;
+                creators["swiftmend on party"] = &AiObjectContextInternal::swiftmend_on_party;
+                creators["natures swiftness"] = &AiObjectContextInternal::natures_swiftness;
             }
 
         private:
@@ -253,6 +259,12 @@ namespace ai
             static Action* bash_on_enemy_healer(PlayerbotAI* ai) { return new CastBashOnEnemyHealerAction(ai); }
 			static Action* prowl(PlayerbotAI *ai) { return new CastProwlAction(ai); }
 			static Action* frenzied_regeneration(PlayerbotAI *ai) { return new CastFrenziedRegenerationAction(ai); }
+            static Action* nourish(PlayerbotAI *ai) { return new CastNourishAction(ai); }
+            static Action* nourish_on_party(PlayerbotAI *ai) { return new CastPartyNourishAction(ai); }
+            static Action* life_bloom(PlayerbotAI *ai) { return new CastLifeBloomAction(ai); }
+            static Action* life_bloom_on_party(PlayerbotAI *ai) { return new CastPartyLifeBloomAction(ai); }
+            static Action* swiftmend_on_party(PlayerbotAI *ai) { return new CastPartySwiftmendAction(ai); }
+            static Action* natures_swiftness(PlayerbotAI *ai) { return new CastNaturesSwiftnessAction(ai); }
         };
     };
 };

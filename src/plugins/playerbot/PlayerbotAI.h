@@ -146,6 +146,7 @@ public:
     virtual bool CanCastSpell(string name, Unit* target);
     virtual bool CastSpell(string name, Unit* target);
     virtual bool HasAura(string spellName, Unit* player);
+    virtual Aura* GetAura(string spellName, Unit* player);
     virtual bool HasAnyAuraOf(Unit* player, ...);
 
     virtual bool IsInterruptableSpellCasting(Unit* player, string spell);
