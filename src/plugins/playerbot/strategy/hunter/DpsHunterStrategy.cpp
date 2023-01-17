@@ -46,7 +46,8 @@ private:
     {
         return new ActionNode ("chimera shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("arcane shot", 10.0f), NULL),
+            // /*A*/ NextAction::array(0, new NextAction("arcane shot", 10.0f), NULL),
+            NULL,
             /*C*/ NULL);
     }
     static ActionNode* explosive_shot(PlayerbotAI* ai)
@@ -73,13 +74,24 @@ DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai
 
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("aimed shot", 11.0f),
-    new NextAction("explosive shot", 11.0f), new NextAction("auto shot", 10.0f), NULL);
+    // return NextAction::array(0, new NextAction("aimed shot", 11.0f),
+    // new NextAction("explosive shot", 11.0f), new NextAction("auto shot", 10.0f), NULL);
+    return NextAction::array(0, 
+        new NextAction("kill shot", 14.0f),
+        new NextAction("chimera shot", 13.0f),
+        new NextAction("aimed shot", 12.0f), 
+        new NextAction("steady shot", 11.0f), 
+        new NextAction("auto shot", 10.0f), 
+        NULL);
 }
 
 void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericHunterStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "tranquilizing shot",
+        NextAction::array(0, new NextAction("tranquilizing shot", 93.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"enemy too close for spell",

@@ -49,6 +49,12 @@ namespace ai
     BEGIN_RANGED_SPELL_ACTION(CastScorpidStingAction, "scorpid sting")
     END_SPELL_ACTION()
 
+    BEGIN_RANGED_SPELL_ACTION(CastSteadyShotAction, "steady shot")
+    END_SPELL_ACTION()
+
+    BEGIN_RANGED_SPELL_ACTION(CastKillShotAction, "kill shot")
+    END_SPELL_ACTION()
+
 	class CastAspectOfTheHawkAction : public CastBuffSpellAction
 	{
 	public:
@@ -154,5 +160,12 @@ namespace ai
     {
     public:
         CastSerpentStingOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "serpent sting") {}
+    };
+
+    class CastTranquilizingShortAction : public CastSpellAction
+    {
+    public:
+        CastTranquilizingShortAction(PlayerbotAI* ai) : CastSpellAction(ai, "tranquilizing shot") {}
+        virtual string GetTargetName() { return "current target"; }
     };
 }

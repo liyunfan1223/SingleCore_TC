@@ -396,6 +396,7 @@ void Engine::ProcessTriggers()
         if (testMode || trigger->needCheck())
         {
             Event event = trigger->Check();
+            // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Engine::ProcessTriggers() %d %s", !event, event.getSource().c_str());
             if (!event)
                 continue;
             fires[trigger] = event;

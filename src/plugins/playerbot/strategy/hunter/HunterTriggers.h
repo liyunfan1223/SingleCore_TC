@@ -83,4 +83,10 @@ namespace ai
     public:
         SerpentStingOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "serpent sting") {}
     };
+    
+    class TargetRemoveEnrageTrigger : public TargetAuraDispelTrigger
+    {
+    public:
+        TargetRemoveEnrageTrigger(PlayerbotAI* ai) : TargetAuraDispelTrigger(ai, "tranquilizing shot", DISPEL_ENRAGE) {}
+    };
 }

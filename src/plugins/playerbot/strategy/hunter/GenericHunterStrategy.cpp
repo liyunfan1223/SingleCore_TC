@@ -49,6 +49,10 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     RangedCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "tranquilizing shot",
+        NextAction::array(0, new NextAction("tranquilizing shot", 61.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "enemy too close for shoot",
         NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
 

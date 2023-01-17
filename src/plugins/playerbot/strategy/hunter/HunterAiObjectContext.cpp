@@ -81,6 +81,7 @@ namespace ai
                 creators["aspect of the viper"] = &TriggerFactoryInternal::aspect_of_the_viper;
                 creators["trueshot aura"] = &TriggerFactoryInternal::trueshot_aura;
                 creators["serpent sting on attacker"] = &TriggerFactoryInternal::serpent_sting_on_attacker;
+                creators["tranquilizing shot"] = &TriggerFactoryInternal::remove_enrage;
             }
 
         private:
@@ -97,6 +98,7 @@ namespace ai
             static Trigger* rapid_fire(PlayerbotAI* ai) { return new RapidFireTrigger(ai); }
             static Trigger* aspect_of_the_hawk(PlayerbotAI* ai) { return new HunterAspectOfTheHawkTrigger(ai); }
             static Trigger* aspect_of_the_wild(PlayerbotAI* ai) { return new HunterAspectOfTheWildTrigger(ai); }
+            static Trigger* remove_enrage(PlayerbotAI* ai) { return new TargetRemoveEnrageTrigger(ai); }
         };
     };
 };
@@ -145,6 +147,9 @@ namespace ai
                 creators["trueshot aura"] = &AiObjectContextInternal::trueshot_aura;
                 creators["feign death"] = &AiObjectContextInternal::feign_death;
                 creators["wing clip"] = &AiObjectContextInternal::wing_clip;
+                creators["tranquilizing shot"] = &AiObjectContextInternal::tranquilizing_shot;
+                creators["steady shot"] = &AiObjectContextInternal::steady_shot;
+                creators["kill shot"] = &AiObjectContextInternal::kill_shot;
             }
 
         private:
@@ -178,6 +183,9 @@ namespace ai
             static Action* aspect_of_the_pack(PlayerbotAI* ai) { return new CastAspectOfThePackAction(ai); }
             static Action* aspect_of_the_cheetah(PlayerbotAI* ai) { return new CastAspectOfTheCheetahAction(ai); }
             static Action* wing_clip(PlayerbotAI* ai) { return new CastWingClipAction(ai); }
+            static Action* tranquilizing_shot(PlayerbotAI* ai) { return new CastTranquilizingShortAction(ai); }
+            static Action* steady_shot(PlayerbotAI* ai) { return new CastSteadyShotAction(ai); }
+            static Action* kill_shot(PlayerbotAI* ai) { return new CastKillShotAction(ai); }
         };
     };
 };

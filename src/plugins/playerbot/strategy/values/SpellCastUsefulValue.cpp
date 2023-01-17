@@ -24,13 +24,13 @@ bool SpellCastUsefulValue::Calculate()
 	}
 	else
 	{
-        uint32 lastSpellId = AI_VALUE(LastSpellCast&, "last spell cast").id;
-        if (spellid == lastSpellId)
-        {
-            Spell* const pSpell = bot->FindCurrentSpellBySpellId(lastSpellId);
-            if (pSpell)
-                return false;
-        }
+        // uint32 lastSpellId = AI_VALUE(LastSpellCast&, "last spell cast").id;
+        // if (spellid == lastSpellId)
+        // {
+        //     Spell* const pSpell = bot->FindCurrentSpellBySpellId(lastSpellId);
+        //     if (pSpell)
+        //         return false;
+        // }
 	}
 
     if (spellInfo->IsAutoRepeatRangedSpell() && bot->GetCurrentSpell(CURRENT_AUTOREPEAT_SPELL) &&
