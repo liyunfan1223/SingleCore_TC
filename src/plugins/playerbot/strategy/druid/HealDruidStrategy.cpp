@@ -10,21 +10,23 @@ class HealDruidStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 public:
     HealDruidStrategyActionNodeFactory()
     {
-        creators["natures swiftness"] = &natures_swiftness;
+        creators["nature's swiftness"] = &natures_swiftness;
         creators["nourish on party"] = &nourish_on_party;
     }
     static ActionNode* natures_swiftness(PlayerbotAI* ai)
     {
-        return new ActionNode ("natures swiftness",
+        return new ActionNode ("nature's swiftness",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("healing touch on party"), NULL));
+            /*C*/ NULL);
+            // /*C*/ NextAction::array(0, new NextAction("healing touch on party"), NULL));
     }
     static ActionNode* nourish_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("nourish on party",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("healing touch on party"), NULL),
+            // /*P*/ NULL,
             /*C*/ NULL);
     }
 private:
@@ -51,6 +53,10 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "entangling roots",
         NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 1), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "tree of life",
+        NextAction::array(0, new NextAction("tree of life", ACTION_NORMAL + 10), NULL)));
+
     // CRITICAL
     triggers.push_back(new TriggerNode(
         "party member critical health",
@@ -66,10 +72,10 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0, new NextAction("natures swiftness", ACTION_CRITICAL_HEAL + 4), NULL)));
+        NextAction::array(0, new NextAction("nature's swiftness", ACTION_CRITICAL_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "median aoe heal",
+        "medium aoe heal",
         NextAction::array(0, new NextAction("tranquility", ACTION_CRITICAL_HEAL + 5), NULL)));
 
     // LOW

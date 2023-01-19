@@ -194,7 +194,7 @@ namespace ai
                 creators["lifebloom"] = &AiObjectContextInternal::life_bloom;
                 creators["lifebloom on party"] = &AiObjectContextInternal::life_bloom_on_party;
                 creators["swiftmend on party"] = &AiObjectContextInternal::swiftmend_on_party;
-                creators["natures swiftness"] = &AiObjectContextInternal::natures_swiftness;
+                creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
             }
 
         private:

@@ -31,6 +31,7 @@ public:
     void InitSpells();
     void ClearSpells();
     void InitAvailableSpells();
+    void InitClassSpells();
     void InitSpecialSpells();
     void InitTalents();
     void InitTalents(uint32 specNo);

@@ -59,7 +59,7 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
     // TEST
     // triggers.push_back(new TriggerNode(
     //     "bear form",
-    //     NextAction::array(0, new NextAction("natures swiftness", 99.0f), NULL)));
+    //     NextAction::array(0, new NextAction("nature's swiftness", 99.0f), NULL)));
     
     // triggers.push_back(new TriggerNode(
     //     "bear form",
@@ -81,9 +81,7 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
         "mark of the wild on party",
         NextAction::array(0, new NextAction("mark of the wild on party", 11.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "tree of life",
-        NextAction::array(0, new NextAction("tree of life", ACTION_NORMAL + 10), NULL)));
+    
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",

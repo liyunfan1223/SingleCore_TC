@@ -115,6 +115,7 @@ void PlayerbotFactory::Randomize(bool incremental)
     CancelAuras();
     bot->SaveToDB();
 
+    InitClassSpells();
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing spells (step 1)...");
     InitAvailableSpells();
 
@@ -1143,6 +1144,52 @@ void PlayerbotFactory::InitAvailableSpells()
             else
                 ai->CastSpell(tSpell->spell, bot);
         }
+    }
+}
+
+void PlayerbotFactory::InitClassSpells()
+{
+    int32_t level = bot->getLevel();
+    switch (bot->getClass())
+    {
+        case CLASS_WARRIOR:
+            if (level >= 10) {
+                // Defensive Stance
+                bot->LearnSpell(71, false);
+            }
+            if (level >= 30) {
+                // Berserker Stance
+                bot->LearnSpell(2458, false);
+            }
+            break;
+        case CLASS_PALADIN:
+            if (level >= 12) {
+                // Defensive Stance
+                bot->LearnSpell(7328, false);
+            }
+            break;
+        case CLASS_ROGUE:
+            break;
+        case CLASS_DEATH_KNIGHT:
+            break;
+        case CLASS_HUNTER:
+            break;
+        case CLASS_PRIEST:
+            break;
+        case CLASS_MAGE:
+            break;
+        case CLASS_WARLOCK:
+            break;
+        case CLASS_DRUID:
+            if (level >= 10) {
+                // bear form
+                bot->LearnSpell(5487, false);
+            }
+            break;
+        case CLASS_SHAMAN:
+            break;
+        default:
+            break;
     }
 }
 

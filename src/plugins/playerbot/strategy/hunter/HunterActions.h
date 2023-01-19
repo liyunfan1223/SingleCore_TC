@@ -61,6 +61,12 @@ namespace ai
 		CastAspectOfTheHawkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the hawk") {}
 	};
 
+    class CastAspectOfTheDragonhawkAction : public CastBuffSpellAction
+	{
+	public:
+		CastAspectOfTheDragonhawkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the dragonhawk") {}
+	};
+
 	class CastAspectOfTheWildAction : public CastBuffSpellAction
 	{
 	public:

@@ -13,6 +13,14 @@ namespace ai
         HunterAspectOfTheHawkTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the hawk") {
 			checkInterval = 1;
 		}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive()
+        {
+            Unit* target = GetTarget();
+            return SpellTrigger::IsActive() &&
+                !ai->HasAura("aspect of the hawk", target) && !ai->HasAura("aspect of the dragonhawk", target) &&
+                (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+        }
     };
 
 	class HunterAspectOfTheWildTrigger : public BuffTrigger
