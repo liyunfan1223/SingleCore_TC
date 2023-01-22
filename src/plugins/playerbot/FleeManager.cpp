@@ -82,9 +82,6 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
             calculateDistanceToCreatures(point);
 			if (point->isReasonable()) {
 				points.push_back(point);
-				// if (bot->GetName() == "Pblr") {
-    			//     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "MovementAction::Flee %f %f %f", point->x, point->y, point->z);
-    			// }
 			}
         }
 	}

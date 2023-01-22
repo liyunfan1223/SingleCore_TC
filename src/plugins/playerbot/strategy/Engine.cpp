@@ -392,14 +392,16 @@ void Engine::ProcessTriggers()
 
         if (!trigger)
             continue;
-
         if (testMode || trigger->needCheck())
         {
+            // if (ai->GetBot()->GetName() == "Pbxd")
+            // LogAction("try T:%s", trigger->getName().c_str());
             Event event = trigger->Check();
             // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Engine::ProcessTriggers() %d %s", !event, event.getSource().c_str());
             if (!event)
                 continue;
             fires[trigger] = event;
+            // if (ai->GetBot()->GetName() == "Pbxd")
             LogAction("T:%s", trigger->getName().c_str());
         }
     }

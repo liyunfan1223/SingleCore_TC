@@ -14,6 +14,8 @@ public:
         creators["mark of the wild on party"] = &mark_of_the_wild_on_party;
         creators["innervate"] = &innervate;
         creators["revive"] =  &revive;
+        creators["regrowth_on_party"] = &regrowth_on_party;
+        creators["rejuvenation on party"] = &rejuvenation_on_party;
     }
 private:
     static ActionNode* mark_of_the_wild(PlayerbotAI* ai)
@@ -40,6 +42,20 @@ private:
 	static ActionNode* revive(PlayerbotAI* ai)
     {
         return new ActionNode ("revive",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* regrowth_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* rejuvenation_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation on party",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/ NULL);
@@ -74,14 +90,16 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
     // TEST END
 
     triggers.push_back(new TriggerNode(
-        "mark of the wild",
-        NextAction::array(0, new NextAction("mark of the wild", 12.0f), NULL)));
+        "tree of life",
+        NextAction::array(0, new NextAction("tree of life", ACTION_NORMAL + 10), NULL)));
+
+    // triggers.push_back(new TriggerNode(
+    //     "mark of the wild",
+    //     NextAction::array(0, new NextAction("mark of the wild", 12.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "mark of the wild on party",
         NextAction::array(0, new NextAction("mark of the wild on party", 11.0f), NULL)));
-
-    
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",
@@ -91,33 +109,24 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 		"party member to resurrect",
 		NextAction::array(0, new NextAction("revive", 22.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "low mana",
-        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "low mana",
+    //     NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
     
     triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 5), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member critical health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 6), NULL)));
-        
-    triggers.push_back(new TriggerNode(
-        "party member low health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 3), NULL)));
+        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 5),
+            new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 4), NULL)));
+        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 3), 
+        new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member medium health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL + 1),
+        new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member almost full health",

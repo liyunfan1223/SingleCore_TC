@@ -67,7 +67,7 @@ private:
     static ActionNode* rebirth(PlayerbotAI* ai)
     {
         return new ActionNode ("rebirth",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/ NULL);
     }
@@ -107,9 +107,9 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 void DruidCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    triggers.push_back(new TriggerNode(
-        "cure poison",
-        NextAction::array(0, new NextAction("abolish poison", ACTION_EMERGENCY + 7), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "cure poison",
+    //     NextAction::array(0, new NextAction("abolish poison", ACTION_EMERGENCY + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",

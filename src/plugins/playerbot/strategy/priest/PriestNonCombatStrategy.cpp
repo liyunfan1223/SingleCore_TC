@@ -55,6 +55,10 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("flash heal on party", 20.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "party member medium health",
+        NextAction::array(0, new NextAction("flash heal on party", 19.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "medium aoe heal",
         NextAction::array(0, new NextAction("circle of healing", 27.0f), NULL)));
 

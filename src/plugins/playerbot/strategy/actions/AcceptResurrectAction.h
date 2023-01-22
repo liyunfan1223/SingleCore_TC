@@ -24,6 +24,7 @@ namespace ai
             bot->GetSession()->QueuePacket(packet);   // queue the packet to get around race condition
 
             ai->ChangeEngine(BOT_STATE_NON_COMBAT);
+            // ai->Reset();
             return true;
         }
     };
