@@ -1260,7 +1260,8 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         return false;
     if (!target)
         target = bot;
-
+    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CanCastSpell() target name: %s, spellid: %d, bot name: %s", 
+        target->GetName(), spellid, bot->GetName());
     if (checkHasSpell && !bot->HasSpell(spellid))
         return false;
 
@@ -1314,10 +1315,6 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
 
 bool PlayerbotAI::CastSpell(string name, Unit* target)
 {
-    // if (name == "tree of life")
-    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!!CastSpell %s %d %s %d", 
-    //     name.c_str(), aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target->GetName().c_str(),
-    //     target->HasAura(33891));
     bool result = CastSpell(aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target);
     if (result)
     {
@@ -1329,16 +1326,13 @@ bool PlayerbotAI::CastSpell(string name, Unit* target)
 
 bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 {   
-    // if (spellId == 33891)
-    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!PlayerbotAI::CastSpell ok1 %d %s %d", 
-    //     spellId, target->GetName().c_str(),
-    //     target->HasAura(33891));
     if (!spellId)
         return false;
 
     if (!target)
         target = bot;
-
+    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() target name: %s, spellid: %d, bot name: %s", 
+        target->GetName(), spellId, bot->GetName());
     Pet* pet = bot->GetPet();
     const SpellInfo* const pSpellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (pet && pet->HasSpell(spellId))
@@ -1354,8 +1348,10 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 
     MotionMaster &mm = *bot->GetMotionMaster();
 
-    if (bot->IsFlying())
+    if (bot->IsFlying()) {
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because flying");
         return false;
+    }
 
     bot->ClearUnitState( UNIT_STATE_ALL_STATE_SUPPORTED );
 
@@ -1365,6 +1361,7 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
     Spell *spell = new Spell(bot, pSpellInfo, TRIGGERED_NONE);
     if (bot->isMoving() && spell->GetCastTime())
     {
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is moving and spell get cast time.");
         delete spell;
         return false;
     }
@@ -1394,6 +1391,7 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
         if (!loot.IsLootPossible(bot))
         {
             delete spell;
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is loot possible");
             return false;
         }
 
@@ -1423,6 +1421,7 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
         bot->SetFacingTo(bot->GetAngle(faceTo));
         delete spell;
         SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is not in front");
         return false;
     }
 	if (spell->GetCastTime()>0)
@@ -1432,10 +1431,9 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 	if (oldSel)
 		bot->SetSelection(oldSel->GetGUID());
 	LastSpellCast& lastSpell = aiObjectContext->GetValue<LastSpellCast&>("last spell cast")->Get();
-    // if (spellId == 33891)
-    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "!PlayerbotAI::CastSpell ok2 %d %s %d", 
-        // spellId, target->GetName().c_str(),
-        // target->HasAura(33891));
+    if (lastSpell.id != spellId) {
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because lastSpell.id != spellId");
+    }
 	return lastSpell.id == spellId;
 }
 

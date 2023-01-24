@@ -7,6 +7,10 @@ using namespace ai;
 
 WorldLocation ArrowFormation::GetLocation()
 {
+    Player* master = ai->GetMaster();
+    if (!master) {
+        return Formation::NullLocation;
+    }
     Build();
 
     int tankLines = 1 + tanks.Size() / 6;
@@ -15,7 +19,6 @@ WorldLocation ArrowFormation::GetLocation()
     int healerLines = 1 + healers.Size() / 6;
     float offset = 0;
 
-    Player* master = ai->GetMaster();
     float orientation = master->GetOrientation();
     MultiLineUnitPlacer placer(orientation);
 

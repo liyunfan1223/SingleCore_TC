@@ -46,10 +46,14 @@ Unit* PartyMemberToHeal::Calculate()
             calc.probe(health, player);
 
         Pet* pet = player->GetPet();
-
+        if (!pet) {
+            continue;
+        }
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() pet name:%s %d %d %lf %d"
+            , pet->GetName(), Check(pet), pet->IsAlive(), pet->GetHealthPct(), isRaid);
         if (!Check(pet) || !pet->IsAlive())
             continue;
-            
+
         if (pet && CanHealPet(pet))
         {
             health = ((Unit*)pet)->GetHealthPct();
