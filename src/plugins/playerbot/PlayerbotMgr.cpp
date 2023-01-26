@@ -139,6 +139,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
             factory.Prepare();
             bot->ResetTalents(true);
             factory.CancelAuras();
+            factory.InitClassSpells();
             factory.InitAvailableSpells(); // spells step1
             factory.InitSkills(); // skills step1
             factory.InitTradeSkills();

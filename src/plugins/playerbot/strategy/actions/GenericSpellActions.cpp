@@ -57,8 +57,6 @@ bool CastSpellAction::isUseful()
 		bot->Dismount();
 		return false;
 	}
-	// if (spell == "tree of life")
-	// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CastSpellAction::isUseful() %d %d", AI_VALUE2(bool, "spell cast useful", spell), GetTarget() && AI_VALUE2(bool, "spell cast useful", spell));
 	return GetTarget() && AI_VALUE2(bool, "spell cast useful", spell);
 }
 

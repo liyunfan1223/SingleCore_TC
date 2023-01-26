@@ -18,8 +18,8 @@ public:
         return new ActionNode ("nature's swiftness",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NULL);
-            // /*C*/ NextAction::array(0, new NextAction("healing touch on party", ACTION_EMERGENCY + 8), NULL));
+            // /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("healing touch on party", ACTION_EMERGENCY + 8), NULL));
     }
     static ActionNode* nourish_on_party(PlayerbotAI* ai)
     {
@@ -59,13 +59,13 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
             // new NextAction("healing touch on party", ACTION_CRITICAL_HEAL + 0),
             NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "party member critical health",
-    //     NextAction::array(0, new NextAction("nature's swiftness", ACTION_CRITICAL_HEAL + 4), NULL)));
+    triggers.push_back(new TriggerNode(
+        "party member critical health",
+        NextAction::array(0, new NextAction("nature's swiftness", ACTION_CRITICAL_HEAL + 4), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "medium aoe heal",
-    //     NextAction::array(0, new NextAction("tranquility", ACTION_CRITICAL_HEAL + 5), NULL)));
+    triggers.push_back(new TriggerNode(
+        "medium aoe heal",
+        NextAction::array(0, new NextAction("tranquility", ACTION_CRITICAL_HEAL + 5), NULL)));
 
     // LOW
     triggers.push_back(new TriggerNode(

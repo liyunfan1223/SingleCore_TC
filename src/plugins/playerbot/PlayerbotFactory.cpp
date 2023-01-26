@@ -1164,7 +1164,7 @@ void PlayerbotFactory::InitClassSpells()
             break;
         case CLASS_PALADIN:
             if (level >= 12) {
-                // Defensive Stance
+                // Redemption
                 bot->LearnSpell(7328, false);
             }
             break;
@@ -1173,6 +1173,16 @@ void PlayerbotFactory::InitClassSpells()
         case CLASS_DEATH_KNIGHT:
             break;
         case CLASS_HUNTER:
+            if (level >= 10) {
+                // call pet
+                bot->LearnSpell(883, false);
+                // tame pet
+                bot->LearnSpell(1515, false);
+                // feed pet
+                bot->LearnSpell(6991, false);
+                // revive pet
+                bot->LearnSpell(982, false);
+            }
             break;
         case CLASS_PRIEST:
             break;

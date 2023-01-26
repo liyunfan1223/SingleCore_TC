@@ -24,32 +24,32 @@ bool LootRollAction::Execute(Event event)
         return false;
 
     RollVote vote = PASS;
-    for (vector<Roll*>::iterator i = group->GetRolls()->begin(); i != group->GetRolls()->end(); ++i)
-    {
-        if ((*i)->isValid() && (*i)->itemGUID == guid && (*i)->itemSlot == slot)
-        {
-            uint32 itemId = (*i)->itemid;
-            ItemTemplate const *proto = sObjectMgr->GetItemTemplate(itemId);
-            if (!proto)
-                continue;
+    // for (vector<Roll*>::iterator i = group->GetRolls()->begin(); i != group->GetRolls()->end(); ++i)
+    // {
+    //     if ((*i)->isValid() && (*i)->itemGUID == guid && (*i)->itemSlot == slot)
+    //     {
+    //         uint32 itemId = (*i)->itemid;
+    //         ItemTemplate const *proto = sObjectMgr->GetItemTemplate(itemId);
+    //         if (!proto)
+    //             continue;
 
-            switch (proto->Class)
-            {
-            case ITEM_CLASS_WEAPON:
-            case ITEM_CLASS_ARMOR:
-                if (QueryItemUsage(proto))
-                    vote = NEED;
-                else if (bot->HasSkill(SKILL_ENCHANTING))
-                    vote = DISENCHANT;
-                break;
-            default:
-                if (IsLootAllowed(itemId))
-                    vote = NEED;
-                break;
-            }
-            break;
-        }
-    }
+    //         switch (proto->Class)
+    //         {
+    //         case ITEM_CLASS_WEAPON:
+    //         case ITEM_CLASS_ARMOR:
+    //             if (QueryItemUsage(proto))
+    //                 vote = NEED;
+    //             else if (bot->HasSkill(SKILL_ENCHANTING))
+    //                 vote = DISENCHANT;
+    //             break;
+    //         default:
+    //             if (IsLootAllowed(itemId))
+    //                 vote = NEED;
+    //             break;
+    //         }
+    //         break;
+    //     }
+    // }
 
     switch (group->GetLootMethod())
     {

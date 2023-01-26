@@ -1260,7 +1260,8 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         return false;
     if (!target)
         target = bot;
-    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CanCastSpell() target name: %s, spellid: %d, bot name: %s", 
+    if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CanCastSpell() target name: %s, spellid: %d, bot name: %s", 
         target->GetName(), spellid, bot->GetName());
     if (checkHasSpell && !bot->HasSpell(spellid))
         return false;
@@ -1331,8 +1332,9 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 
     if (!target)
         target = bot;
-    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() target name: %s, spellid: %d, bot name: %s", 
-        target->GetName(), spellId, bot->GetName());
+    if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() target name: %s, spellid: %d, bot name: %s", 
+            target->GetName(), spellId, bot->GetName());
     Pet* pet = bot->GetPet();
     const SpellInfo* const pSpellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (pet && pet->HasSpell(spellId))
@@ -1349,7 +1351,8 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
     MotionMaster &mm = *bot->GetMotionMaster();
 
     if (bot->IsFlying()) {
-        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because flying");
+        if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because flying");
         return false;
     }
 
@@ -1361,7 +1364,8 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
     Spell *spell = new Spell(bot, pSpellInfo, TRIGGERED_NONE);
     if (bot->isMoving() && spell->GetCastTime())
     {
-        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is moving and spell get cast time.");
+        if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is moving and spell get cast time.");
         delete spell;
         return false;
     }
@@ -1391,7 +1395,8 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
         if (!loot.IsLootPossible(bot))
         {
             delete spell;
-            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is loot possible");
+            if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+                sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is loot possible");
             return false;
         }
 
@@ -1421,7 +1426,8 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
         bot->SetFacingTo(bot->GetAngle(faceTo));
         delete spell;
         SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
-        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is not in front");
+        if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is not in front");
         return false;
     }
 	if (spell->GetCastTime()>0)
@@ -1432,7 +1438,8 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 		bot->SetSelection(oldSel->GetGUID());
 	LastSpellCast& lastSpell = aiObjectContext->GetValue<LastSpellCast&>("last spell cast")->Get();
     if (lastSpell.id != spellId) {
-        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because lastSpell.id != spellId");
+        if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because lastSpell.id != spellId");
     }
 	return lastSpell.id == spellId;
 }
