@@ -352,7 +352,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
 
         if (cmd == "update")
         {
-            if (botAcct != masterGacct)
+            if (isRandomAccount)
             {            
                 PlayerbotFactory factory(bot, bot->getLevel());
                 factory.Refresh();
@@ -363,7 +363,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
         }
         else if (cmd == "random")
         {
-            if (botAcct != masterGacct)
+            if (isRandomAccount)
             {
                 sRandomPlayerbotMgr.Randomize(bot);
                 return "ok";

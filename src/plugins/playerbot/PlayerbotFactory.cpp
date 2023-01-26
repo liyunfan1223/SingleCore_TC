@@ -1555,13 +1555,16 @@ void PlayerbotFactory::InitFood()
     {
         uint32 category = categories[i];
         vector<uint32>& ids = items[category];
-        uint32 index = urand(0, ids.size() - 1);
-        if (index >= ids.size())
-            continue;
+        for (int j = 0; j < 5; j++) {
+            uint32 index = urand(0, ids.size() - 1);
+            if (index >= ids.size())
+                continue;
 
-        uint32 itemId = ids[index];
-        ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
-        bot->StoreNewItemInBestSlots(itemId, urand(1, proto->GetMaxStackSize()));
+            uint32 itemId = ids[index];
+            ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+            // bot->StoreNewItemInBestSlots(itemId, urand(1, proto->GetMaxStackSize()));
+            bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
+        }
    }
 }
 

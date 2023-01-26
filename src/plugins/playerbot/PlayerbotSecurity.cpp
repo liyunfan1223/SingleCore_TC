@@ -13,7 +13,7 @@ PlayerbotSecurity::PlayerbotSecurity(Player* const bot) : bot(bot)
 
 PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* reason, bool ignoreGroup)
 {
-	if (from->GetSession()->GetSecurity() >= SEC_PLAYER) //SEC_GAMEMASTER) thesawolf
+	if (from->GetSession()->GetSecurity() >= SEC_GAMEMASTER)
         return PLAYERBOT_SECURITY_ALLOW_ALL;
 
     if (from->GetPlayerbotAI())
@@ -70,11 +70,11 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
             return PLAYERBOT_SECURITY_TALK;*/
         }
 
-        if (bot->isDead())
-        {
-            if (reason) *reason = PLAYERBOT_DENY_DEAD;
-            return PLAYERBOT_SECURITY_TALK;
-        }
+        // if (bot->isDead())
+        // {
+        //     if (reason) *reason = PLAYERBOT_DENY_DEAD;
+        //     return PLAYERBOT_SECURITY_TALK;
+        // }
 
         group = bot->GetGroup();
         if (!group)
