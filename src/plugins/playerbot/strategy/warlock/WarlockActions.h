@@ -172,5 +172,16 @@ namespace ai
         virtual string GetTargetName() { return "self target"; }
         virtual bool isUseful() { return AI_VALUE2(uint8, "health", "self target") > sPlayerbotAIConfig.lowHealth; }
     };
+	
+	class CastUnstableAfflictionAction: public CastSpellAction
+	{
+	public:
+		CastUnstableAfflictionAction(PlayerbotAI* ai) : CastSpellAction(ai, "unstable affliction") {}
+	};
 
+	class CastHauntAction: public CastSpellAction
+	{
+	public:
+		CastHauntAction(PlayerbotAI* ai) : CastSpellAction(ai, "haunt") {}
+	};
 }

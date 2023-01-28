@@ -13,6 +13,7 @@ public:
     DpsWarlockStrategyActionNodeFactory()
     {
         creators["shadow bolt"] = &shadow_bolt;
+        creators["unstable affliction"] = &unstable_affliction;
     }
 private:
     static ActionNode* shadow_bolt(PlayerbotAI* ai)
@@ -20,6 +21,13 @@ private:
         return new ActionNode ("shadow bolt",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* unstable_affliction(PlayerbotAI* ai)
+    {
+        return new ActionNode ("unstable affliction",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("immolate"), NULL),
             /*C*/ NULL);
     }
 };
@@ -32,7 +40,8 @@ DpsWarlockStrategy::DpsWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy
 
 NextAction** DpsWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0,  new NextAction("incinirate", 10.0f),
+    return NextAction::array(0, 
+        new NextAction("haunt", 14.0f), 
 		new NextAction("shadow bolt", 10.0f), NULL);
 }
 
@@ -74,4 +83,13 @@ void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "corruption",
         NextAction::array(0, new NextAction("corruption", 12.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "unstable affliction",
+        NextAction::array(0, new NextAction("unstable affliction", 30.0f), NULL)));
+
+    // triggers.push_back(new TriggerNode(
+    //     "incinirate",
+    //     NextAction::array(0, new NextAction("incinirate", 20.0f), NULL)));
+
 }

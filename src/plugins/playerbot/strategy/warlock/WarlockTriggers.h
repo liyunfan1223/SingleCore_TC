@@ -26,8 +26,35 @@ namespace ai
         CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
     };
 
-    DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
+    // DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
 
+    class ImmolateTrigger : public SpellTrigger
+    {
+    public:
+        ImmolateTrigger(PlayerbotAI* ai) : SpellTrigger(ai, "immolate") {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive()
+        {
+            Unit* target = GetTarget();
+            return SpellTrigger::IsActive() &&
+                !ai->HasAura("immolate", target) && !ai->HasAura("unstable affliction", target) &&
+                (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+        }
+    };
+
+    class UnstableAfflictionTrigger : public SpellTrigger
+    {
+    public:
+        UnstableAfflictionTrigger(PlayerbotAI* ai) : SpellTrigger(ai, "unstable affliction") {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive()
+        {
+            Unit* target = GetTarget();
+            return SpellTrigger::IsActive() &&
+                !ai->HasAura("unstable affliction", target) &&
+                (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+        }
+    };
     class ShadowTranceTrigger : public HasAuraTrigger
     {
     public:

@@ -76,7 +76,7 @@ namespace ai
                 creators["backlash"] = &TriggerFactoryInternal::backlash;
                 creators["fear"] = &TriggerFactoryInternal::fear;
                 creators["immolate"] = &TriggerFactoryInternal::immolate;
-
+                creators["unstable affliction"] = &TriggerFactoryInternal::unstable_affliction;
 
             }
 
@@ -94,7 +94,7 @@ namespace ai
             static Trigger* backlash(PlayerbotAI* ai) { return new BacklashTrigger(ai); }
             static Trigger* fear(PlayerbotAI* ai) { return new FearTrigger(ai); }
             static Trigger* immolate(PlayerbotAI* ai) { return new ImmolateTrigger(ai); }
-
+            static Trigger* unstable_affliction(PlayerbotAI* ai) { return new UnstableAfflictionTrigger(ai); }
         };
     };
 };
@@ -137,6 +137,8 @@ namespace ai
                 creators["fear on cc"] = &AiObjectContextInternal::fear_on_cc;
                 creators["incinirate"] = &AiObjectContextInternal::incinirate;
                 creators["conflagrate"] = &AiObjectContextInternal::conflagrate;
+                creators["unstable affliction"] = &AiObjectContextInternal::unstable_affliction;
+                creators["haunt"] = &AiObjectContextInternal::haunt;
             }
 
         private:
@@ -167,7 +169,8 @@ namespace ai
             static Action* rain_of_fire(PlayerbotAI* ai) { return new CastRainOfFireAction(ai); }
             static Action* shadowfury(PlayerbotAI* ai) { return new CastShadowfuryAction(ai); }
             static Action* life_tap(PlayerbotAI* ai) { return new CastLifeTapAction(ai); }
-
+            static Action* unstable_affliction(PlayerbotAI* ai) { return new CastUnstableAfflictionAction(ai); }
+            static Action* haunt(PlayerbotAI* ai) { return new CastHauntAction(ai); }
         };
     };
 };

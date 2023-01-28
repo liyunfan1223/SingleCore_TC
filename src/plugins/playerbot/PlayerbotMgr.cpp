@@ -175,7 +175,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
           }
     
           //thesawolf - autosummon to master
-          bot->TeleportTo(master->GetMapId(), master->GetPositionX(), master->GetPositionY(), master->GetPositionZ(), master->GetOrientation());
+          //   bot->TeleportTo(master->GetMapId(), master->GetPositionX(), master->GetPositionY(), master->GetPositionZ(), master->GetOrientation());
           //with pizazz
           bot->CastSpell(bot, 52096, true);
           bot->HandleEmoteCommand(EMOTE_ONESHOT_WAVE);

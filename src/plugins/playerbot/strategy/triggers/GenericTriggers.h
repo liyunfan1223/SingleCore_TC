@@ -389,7 +389,7 @@ namespace ai
 
 	class HasAuraTrigger : public Trigger {
 	public:
-		HasAuraTrigger(PlayerbotAI* ai, string spell) : Trigger(ai, spell, 5) {}
+		HasAuraTrigger(PlayerbotAI* ai, string spell, int checkInterval = 5) : Trigger(ai, spell, checkInterval) {}
 
 		virtual string GetTargetName() { return "self target"; }
 		virtual bool IsActive();

@@ -113,13 +113,13 @@ namespace ai {
     class EclipseSolarTrigger : public HasAuraTrigger
     {
     public:
-        EclipseSolarTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "eclipse (solar)") {}
+        EclipseSolarTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "eclipse (solar)", 1) {}
     };
 
     class EclipseLunarTrigger : public HasAuraTrigger
     {
     public:
-        EclipseLunarTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "eclipse (lunar)") {}
+        EclipseLunarTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "eclipse (lunar)", 1) {}
     };
 
     class BashInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger

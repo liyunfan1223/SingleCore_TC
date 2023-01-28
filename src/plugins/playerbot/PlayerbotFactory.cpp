@@ -220,7 +220,7 @@ void PlayerbotFactory::InitPet()
 
             uint32 guid = map->GenerateLowGuid<HighGuid::Pet>();
             pet = new Pet(bot, HUNTER_PET);
-            if (!pet->Create(guid, map, 0, ids[index], 0))
+            if (!pet->Create(guid, map, 0, ids[index], sObjectMgr->GeneratePetNumber()))
             {
                 delete pet;
                 pet = NULL;

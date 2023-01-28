@@ -496,7 +496,11 @@ void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
 	}
 	else {
 		// try to random level
-		level = urand(minLevel, maxLevel);
+        if (bot->getClass() == CLASS_DEATH_KNIGHT) {
+		    level = urand(std::max(55u, minLevel), std::max(55u, maxLevel));
+        } else {
+            level = urand(minLevel, maxLevel);
+        }
 	}
 	PlayerbotFactory factory(bot, level);
 	factory.CleanRandomize();

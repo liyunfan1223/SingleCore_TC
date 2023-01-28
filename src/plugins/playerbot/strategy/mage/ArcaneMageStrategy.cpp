@@ -56,7 +56,7 @@ void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "arcane blast",
         NextAction::array(0, new NextAction("arcane blast", 15.0f), NULL)));
         
-            triggers.push_back(new TriggerNode(
+        triggers.push_back(new TriggerNode(
         "missile barrage",
         NextAction::array(0, new NextAction("arcane missiles", 15.0f), NULL)));
 
