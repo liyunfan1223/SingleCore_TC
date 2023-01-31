@@ -2,6 +2,15 @@
 
 This project is aimed to fix, optimize and develop playerbots based on TrinityCore / SingleCore.
 
+Tips: It can be compiled successfully in ubuntu16.04. I'm not sure whether it can be compiled in other os or newer version of ubuntu. 
+
+Here is my environment:
+- gcc-6, g++-6
+- boost==1.58.0
+- openssl==1.0.2g
+- glibc=2.23
+- mysql=5.7.33
+
 ## Bug Fix
 
 - Party member heal target error for pet (will make healer bots stuck).
