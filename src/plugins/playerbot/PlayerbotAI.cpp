@@ -1332,9 +1332,11 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
 
     if (!target)
         target = bot;
+
     if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
         sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() target name: %s, spellid: %d, bot name: %s", 
             target->GetName(), spellId, bot->GetName());
+            
     Pet* pet = bot->GetPet();
     const SpellInfo* const pSpellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (pet && pet->HasSpell(spellId))
