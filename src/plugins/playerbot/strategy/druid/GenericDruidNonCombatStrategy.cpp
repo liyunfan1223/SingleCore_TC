@@ -71,24 +71,6 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 {
     NonCombatStrategy::InitTriggers(triggers);
 
-    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "InitTriggers size: %d", triggers.size());
-    // TEST
-    // triggers.push_back(new TriggerNode(
-    //     "bear form",
-    //     NextAction::array(0, new NextAction("nature's swiftness", 99.0f), NULL)));
-    
-    // triggers.push_back(new TriggerNode(
-    //     "bear form",
-    //     NextAction::array(0, new NextAction("rejuvenation on party", 98.0f), NULL)));
-
-    // triggers.push_back(new TriggerNode(
-    //     "bear form",
-    //     NextAction::array(0, new NextAction("swiftmend on party", 97.0f), NULL)));
-    // triggers.push_back(new TriggerNode(
-    //     "bear form",
-    //     NextAction::array(0, new NextAction("nourish on party", 97.0f), NULL)));
-    // TEST END
-
     triggers.push_back(new TriggerNode(
         "tree of life",
         NextAction::array(0, new NextAction("tree of life", ACTION_NORMAL + 10), NULL)));
@@ -109,9 +91,9 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 		"party member to resurrect",
 		NextAction::array(0, new NextAction("revive", 22.0f), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "low mana",
-    //     NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+    triggers.push_back(new TriggerNode(
+        "low mana",
+        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
     
     triggers.push_back(new TriggerNode(
         "party member critical health",
@@ -131,4 +113,20 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
     triggers.push_back(new TriggerNode(
         "party member almost full health",
         NextAction::array(0, new NextAction("rejuvenation on party", ACTION_LIGHT_HEAL + 2), NULL)));
+}
+
+BuffHealthStrategy::BuffHealthStrategy(PlayerbotAI* ai) : Strategy(ai)
+{
+}
+
+void BuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "bear form",
+        NextAction::array(0, new NextAction("dire bear form", ACTION_NORMAL), NULL)));
+    
+    triggers.push_back(new TriggerNode(
+        "thorns",
+        NextAction::array(0, new NextAction("thorns", ACTION_HIGH + 9), NULL)));
+        
 }

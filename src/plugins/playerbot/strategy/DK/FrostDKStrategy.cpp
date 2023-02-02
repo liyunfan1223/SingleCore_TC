@@ -71,8 +71,8 @@ FrostDKStrategy::FrostDKStrategy(PlayerbotAI* ai) : GenericDKStrategy(ai)
 NextAction** FrostDKStrategy::getDefaultActions()
 {
 	return NextAction::array(0, 
-		new NextAction("frost strike", ACTION_NORMAL + 5),
-		new NextAction("obliterate", ACTION_NORMAL + 4), 
+		new NextAction("obliterate", ACTION_NORMAL + 5), 
+		new NextAction("frost strike", ACTION_NORMAL + 4),
 		new NextAction("melee", ACTION_NORMAL), 
 		NULL
 	);
@@ -85,6 +85,10 @@ void FrostDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "empower weapon",
         NextAction::array(0, new NextAction("empower weapon", ACTION_NORMAL + 4), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"pestilence",
+		NextAction::array(0, new NextAction("pestilence", ACTION_HIGH + 9), NULL)));
 }
 
 void FrostDKAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

@@ -158,6 +158,12 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
 		virtual Value<Unit*>* GetTargetValue() { return context->GetValue<Unit*>("party member without mana aura", spell);}
 	};
 
+	class CastDivinePleaAction : public CastBuffSpellAction
+	{
+	public:
+		CastDivinePleaAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine plea") {}
+	};
+
 	class CastBlessingOfKingsAction : public CastBuffSpellAction
 	{
 	public:

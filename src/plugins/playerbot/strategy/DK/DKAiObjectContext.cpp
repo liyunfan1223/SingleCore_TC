@@ -101,11 +101,12 @@ namespace ai
 				creators["blood tap"] = &TriggerFactoryInternal::blood_tap;
 				creators["raise dead"] = &TriggerFactoryInternal::raise_dead;
 				creators["chains of ice"] = &TriggerFactoryInternal::chains_of_ice;
+				creators["pestilence"] = &TriggerFactoryInternal::pestilence;
             }
 
         private:
             static Trigger* bone_shield(PlayerbotAI* ai) { return new BoneShieldTrigger(ai); }
-            static Trigger* pestilence(PlayerbotAI* ai) { return new PestilenceTrigger(ai); }
+            // static Trigger* pestilence(PlayerbotAI* ai) { return new PestilenceTrigger(ai); }
             static Trigger* blood_strike(PlayerbotAI* ai) { return new BloodStrikeTrigger(ai); }
 			static Trigger* plague_strike(PlayerbotAI* ai) { return new PlagueStrikeDebuffTrigger(ai); }
 			static Trigger* plague_strike_on_attacker(PlayerbotAI* ai) { return new PlagueStrikeDebuffOnAttackerTrigger(ai); }
@@ -121,7 +122,7 @@ namespace ai
 			static Trigger* blood_tap(PlayerbotAI* ai) { return new BloodTapTrigger(ai); }
 			static Trigger* raise_dead(PlayerbotAI* ai) { return new RaiseDeadTrigger(ai); }
 			static Trigger* chains_of_ice(PlayerbotAI* ai) { return new ChainsOfIceSnareTrigger(ai); }
-
+			static Trigger* pestilence(PlayerbotAI* ai) { return new PestilenceTrigger(ai); }
 
 		};
     };
@@ -193,6 +194,7 @@ namespace ai
 				//creators["hysteria"] = &AiObjectContextInternal::hysteria;
 				creators["dancing weapon"] = &AiObjectContextInternal::dancing_weapon;
 				creators["dark command"] = &AiObjectContextInternal::dark_command;
+				creators["pestilence"] = &AiObjectContextInternal::pestilence;
             }
 
         private:
@@ -237,7 +239,7 @@ namespace ai
 			// blood
 			static Action* blood_strike(PlayerbotAI* ai) { return new CastBloodStrikeAction(ai); }
 			static Action* blood_tap(PlayerbotAI* ai) { return new CastBloodTapAction(ai); }
-			static Action* pestilence(PlayerbotAI* ai) { return new CastPestilenceAction(ai); }
+			// static Action* pestilence(PlayerbotAI* ai) { return new CastPestilenceAction(ai); }
 			static Action* strangulate(PlayerbotAI* ai) { return new CastStrangulateAction(ai); }
 			static Action* blood_boil(PlayerbotAI* ai) { return new CastBloodBoilAction(ai); }
 			static Action* heart_strike(PlayerbotAI* ai) { return new CastHeartStrikeAction(ai); }
@@ -251,6 +253,7 @@ namespace ai
 			static Action* dancing_weapon(PlayerbotAI* ai) { return new CastDancingWeaponAction(ai); }
 			static Action* dark_command(PlayerbotAI* ai) { return new CastDarkCommandAction(ai); }
             static Action* mind_freeze_on_enemy_healer(PlayerbotAI* ai) { return new CastMindFreezeOnEnemyHealerAction(ai); }
+			static Action* pestilence(PlayerbotAI* ai) { return new CastPestilenceAction(ai); }
 			
         };
     };

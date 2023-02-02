@@ -71,8 +71,8 @@ namespace ai
 	CastRuneStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "rune strike") {}
 	};
 	//debuff
-	BEGIN_DEBUFF_ACTION(CastPestilenceAction, "pestilence")
-		END_SPELL_ACTION()
+	// BEGIN_DEBUFF_ACTION(CastPestilenceAction, "pestilence")
+	// 	END_SPELL_ACTION()
 
 	//debuff
 	BEGIN_DEBUFF_ACTION(CastHowlingBlastAction, "howling blast")
@@ -288,6 +288,12 @@ namespace ai
     public:
 		CastMindFreezeOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "mind freeze") {}
     };
+
+	class CastPestilenceAction : public CastSpellAction
+	{
+	public:
+		CastPestilenceAction(PlayerbotAI* ai) : CastSpellAction(ai, "pestilence") {}
+	};
 
 	class CastRuneTapAction : public CastMeleeSpellAction {
 	public:

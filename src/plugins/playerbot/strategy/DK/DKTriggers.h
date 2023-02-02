@@ -7,8 +7,8 @@ namespace ai
     BUFF_TRIGGER(HornOfWinterTrigger, "horn of winter", "horn of winter")
 	BUFF_TRIGGER(BoneShieldTrigger, "bone shield", "bone shield")
 	BUFF_TRIGGER(ImprovedIcyTalonsTrigger, "improved icy talons", "improved icy talons")
-	DEBUFF_TRIGGER(PlagueStrikeDebuffTrigger, "plague strike", "plague strike")
-	DEBUFF_TRIGGER(IcyTouchDebuffTrigger, "icy touch", "icy touch")
+	DEBUFF_TRIGGER(PlagueStrikeDebuffTrigger, "blood plague", "plague strike")
+	DEBUFF_TRIGGER(IcyTouchDebuffTrigger, "frost fever", "icy touch")
 
 		class PlagueStrikeDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
 	{
@@ -48,10 +48,10 @@ namespace ai
 		DeathCoilTrigger(PlayerbotAI* ai) : SpellCanBeCastTrigger(ai, "death coil") {}
 	};
 
-	class PestilenceTrigger : public DebuffTrigger {
-	public:
-		PestilenceTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "pestilence") {}
-	};
+	// class PestilenceTrigger : public DebuffTrigger {
+	// public:
+	// 	PestilenceTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "pestilence") {}
+	// };
 
 	class BloodStrikeTrigger : public DebuffTrigger {
 	public:
@@ -92,6 +92,25 @@ namespace ai
 	{
 	public:
 		ChainsOfIceSnareTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "chains of ice") {}
+	};
+
+	class PestilenceTrigger : public SpellTrigger
+	{
+	public:
+		PestilenceTrigger(PlayerbotAI* ai) : SpellTrigger(ai, "pestilence") {}
+		virtual string GetTargetName() { return "current target"; }
+		virtual bool IsActive() {
+			if (!SpellTrigger::IsActive()) {
+				return false;
+			}
+			Aura *blood_plague = ai->GetAura("blood plague", GetTarget());
+			Aura *frost_fever = ai->GetAura("frost fever", GetTarget());
+			if ((blood_plague && blood_plague->GetDuration() <= 3000) ||
+			    (frost_fever && frost_fever->GetDuration() <= 3000)) {
+					return true;
+				}
+			return false;
+		}
 	};
 
 	class StrangulateOnEnemyHealerTrigger : public InterruptEnemyHealerTrigger

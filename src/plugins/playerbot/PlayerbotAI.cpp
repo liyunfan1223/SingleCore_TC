@@ -1164,6 +1164,16 @@ bool PlayerbotAI::HasAura(string name, Unit* unit)
     wstrToLower(wnamepart);
 
     Unit::AuraApplicationMap& map = unit->GetAppliedAuras();
+    // if (bot->GetGroup()) {
+    //     for (Unit::AuraApplicationMap::iterator i = map.begin(); i != map.end(); ++i)
+    //     {
+    //         Aura const* aura  = i->second->GetBase();
+    //         if (!aura)
+    //             continue;
+    //         const string auraName = aura->GetSpellInfo()->SpellName[0];
+    //         sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::HasAura %s %s %s", auraName.c_str(), name.c_str(), unit->GetName());
+    //     }
+    // }
     for (Unit::AuraApplicationMap::iterator i = map.begin(); i != map.end(); ++i)
     {
         Aura const* aura  = i->second->GetBase();
@@ -1552,7 +1562,7 @@ bool PlayerbotAI::HasAuraToDispel(Unit* target, uint32 dispelType)
                 continue;
 
             if (canDispel(entry, dispelType)) {
-                sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::HasAuraToDispel %s %s", entry->SpellName[0], target->GetName());
+                // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::HasAuraToDispel %s %s", entry->SpellName[0], target->GetName());
                 return true;
             }
         }

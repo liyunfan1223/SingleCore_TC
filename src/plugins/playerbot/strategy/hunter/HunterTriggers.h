@@ -19,7 +19,7 @@ namespace ai
             Unit* target = GetTarget();
             return SpellTrigger::IsActive() &&
                 !ai->HasAura("aspect of the hawk", target) && !ai->HasAura("aspect of the dragonhawk", target) &&
-                (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+                (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > 70);
         }
     };
 
@@ -37,7 +37,8 @@ namespace ai
         HunterAspectOfTheViperTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the viper") {}
         virtual bool IsActive()
         {
-            return SpellTrigger::IsActive() && !ai->HasAura(spell, GetTarget());
+            return SpellTrigger::IsActive() && !ai->HasAura(spell, GetTarget()) && 
+                AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana;
         }
     };
 

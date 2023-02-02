@@ -96,7 +96,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 	}
 	else {
 		// engine->addStrategies("attack weak", , "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
-        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "cast time", "conserve mana", NULL);
+        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "cast time", NULL);
 	}
 
     switch (player->getClass())
@@ -239,7 +239,7 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
             break;
         case CLASS_DRUID:
             if (tab == 1)
-                nonCombatEngine->addStrategy("tank aoe");
+                nonCombatEngine->addStrategies("tank aoe", "bhealth", NULL);
             else
                 nonCombatEngine->addStrategy("dps assist");
             break;

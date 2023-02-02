@@ -71,4 +71,17 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "rapid fire",
         NextAction::array(0, new NextAction("rapid fire", 55.0f), NULL)));
+
+    	triggers.push_back(new TriggerNode(
+		"aspect of the hawk", 
+		NextAction::array(0, new NextAction("aspect of the dragonhawk", 91.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"aspect of the hawk", 
+		NextAction::array(0, new NextAction("aspect of the hawk", 90.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+        "aspect of the viper",
+        NextAction::array(0, new NextAction("aspect of the viper", 20.0f), NULL)));
+
 }

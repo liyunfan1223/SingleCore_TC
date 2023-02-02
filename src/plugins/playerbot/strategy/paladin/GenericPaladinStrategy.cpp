@@ -42,6 +42,10 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"target critical health",
 		NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH + 1), NULL)));
+
+	triggers.push_back(new TriggerNode(
+        "low mana",
+		NextAction::array(0, new NextAction("divine plea", ACTION_HIGH), NULL)));
 }
 
 void PaladinCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
