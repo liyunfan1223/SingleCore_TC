@@ -59,6 +59,8 @@
 #include "RandomBotUpdateValue.h"
 #include "NearestFriendlyPlayersValue.h"
 #include "NearestNonBotPlayersValue.h"
+#include "PartyMemberWithoutAPAuraValue.h"
+#include "PartyMemberWithoutManaAuraValue.h"
 
 namespace ai
 {
@@ -75,6 +77,8 @@ namespace ai
             creators["nearest corpses"] = &ValueContext::nearest_corpses;
             creators["log level"] = &ValueContext::log_level;
             creators["party member without aura"] = &ValueContext::party_member_without_aura;
+            creators["party member without mana aura"] = &ValueContext::party_member_without_mana_aura;
+            creators["party member without ap aura"] = &ValueContext::party_member_without_ap_aura;
             creators["attacker without aura"] = &ValueContext::attacker_without_aura;
             creators["party member to heal"] = &ValueContext::party_member_to_heal;
             creators["party member to resurrect"] = &ValueContext::party_member_to_resurrect;
@@ -207,6 +211,8 @@ namespace ai
         static UntypedValue* possible_targets(PlayerbotAI* ai) { return new PossibleTargetsValue(ai); }
         static UntypedValue* nearest_adds(PlayerbotAI* ai) { return new NearestAdsValue(ai); }
         static UntypedValue* party_member_without_aura(PlayerbotAI* ai) { return new PartyMemberWithoutAuraValue(ai); }
+        static UntypedValue* party_member_without_mana_aura(PlayerbotAI* ai) { return new PartyMemberWithoutManaAuraValue(ai); }
+        static UntypedValue* party_member_without_ap_aura(PlayerbotAI* ai) { return new PartyMemberWithoutAPAuraValue(ai); }
         static UntypedValue* attacker_without_aura(PlayerbotAI* ai) { return new AttackerWithoutAuraTargetValue(ai); }
         static UntypedValue* party_member_to_heal(PlayerbotAI* ai) { return new PartyMemberToHeal(ai); }
         static UntypedValue* party_member_to_resurrect(PlayerbotAI* ai) { return new PartyMemberToResurrect(ai); }

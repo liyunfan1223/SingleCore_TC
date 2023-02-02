@@ -20,10 +20,14 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium health",
-        NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
+        NextAction::array(0, new NextAction("flash of light on party", ACTION_MEDIUM_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member almost full health",
         NextAction::array(0, new NextAction("flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(

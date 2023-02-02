@@ -41,6 +41,11 @@ namespace ai
     public:
         ArcaneBlastTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "arcane blast") {}
     };
+    
+    class ArcaneBlastStackTrigger : public HasAuraStackTrigger {
+    public:
+        ArcaneBlastStackTrigger(PlayerbotAI* ai) : HasAuraStackTrigger(ai, "arcane blast", 3, 1) {}
+    };
 
     class CounterspellInterruptSpellTrigger : public InterruptSpellTrigger
     {

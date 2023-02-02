@@ -141,6 +141,7 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
 	public:
 		CastBlessingOfMightOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "blessing of might") {}
         virtual string getName() { return "blessing of might on party";}
+		virtual Value<Unit*>* GetTargetValue() { return context->GetValue<Unit*>("party member without ap aura", spell);}
 	};
 
 	class CastBlessingOfWisdomAction : public CastBuffSpellAction
@@ -154,6 +155,7 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
 	public:
 		CastBlessingOfWisdomOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "blessing of wisdom") {}
         virtual string getName() { return "blessing of wisdom on party";}
+		virtual Value<Unit*>* GetTargetValue() { return context->GetValue<Unit*>("party member without mana aura", spell);}
 	};
 
 	class CastBlessingOfKingsAction : public CastBuffSpellAction

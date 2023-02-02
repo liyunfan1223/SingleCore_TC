@@ -12,6 +12,7 @@ public:
     {
         creators["fel armor"] = &fel_armor;
         creators["demon armor"] = &demon_armor;
+        creators["summon felhunter"] = &summon_felhunter;
     }
 private:
     static ActionNode* fel_armor(PlayerbotAI* ai)
@@ -26,6 +27,13 @@ private:
         return new ActionNode ("demon armor",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("demon skin"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* summon_felhunter(PlayerbotAI* ai)
+    {
+        return new ActionNode ("summon felhunter",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("summon imp"), NULL),
             /*C*/ NULL);
     }
 };
@@ -61,7 +69,7 @@ void GenericWarlockNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
 
     triggers.push_back(new TriggerNode(
         "no pet",
-        NextAction::array(0, new NextAction("summon imp", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("summon felhunter", 11.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"in battleground without flag",

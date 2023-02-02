@@ -45,19 +45,19 @@ ArcaneMageStrategy::ArcaneMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai
 
 NextAction** ArcaneMageStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("arcane barrage", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("arcane blast", 10.0f), NULL);
 }
 
 void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericMageStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "arcane blast",
-        NextAction::array(0, new NextAction("arcane blast", 15.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "arcane blast",
+    //     NextAction::array(0, new NextAction("arcane blast", 15.0f), NULL)));
         
-        triggers.push_back(new TriggerNode(
-        "missile barrage",
+    triggers.push_back(new TriggerNode(
+        "arcane blast stack",
         NextAction::array(0, new NextAction("arcane missiles", 15.0f), NULL)));
 
 

@@ -102,6 +102,7 @@ namespace ai
                 creators["living bomb"] = &TriggerFactoryInternal::living_bomb;
                 creators["missile barrage"] = &TriggerFactoryInternal::missile_barrage;
                 creators["arcane blast"] = &TriggerFactoryInternal::arcane_blast;
+                creators["arcane blast stack"] = &TriggerFactoryInternal::arcane_blast_stack;
                 creators["counterspell on enemy healer"] = &TriggerFactoryInternal::counterspell_enemy_healer;
 
             }
@@ -123,6 +124,7 @@ namespace ai
             static Trigger* living_bomb(PlayerbotAI* ai) { return new LivingBombTrigger(ai); }
             static Trigger* missile_barrage(PlayerbotAI* ai) { return new MissileBarrageTrigger(ai); }
             static Trigger* arcane_blast(PlayerbotAI* ai) { return new ArcaneBlastTrigger(ai); }
+            static Trigger* arcane_blast_stack(PlayerbotAI* ai) { return new ArcaneBlastStackTrigger(ai); }
             static Trigger* counterspell_enemy_healer(PlayerbotAI* ai) { return new CounterspellEnemyHealerTrigger(ai); }
         };
     };

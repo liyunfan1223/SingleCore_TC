@@ -62,17 +62,21 @@ public:
 		}
 };
 
-	FrostDKStrategy::FrostDKStrategy(PlayerbotAI* ai) : GenericDKStrategy(ai)
-	{
+FrostDKStrategy::FrostDKStrategy(PlayerbotAI* ai) : GenericDKStrategy(ai)
+{
 	actionNodeFactories.Add(new FrostDKStrategyActionNodeFactory());
-	}
+}
 
 
-	NextAction** FrostDKStrategy::getDefaultActions()
-	{
-    return NextAction::array(0, new NextAction("frost strike", ACTION_NORMAL + 5),
-		new NextAction("obliterate", ACTION_NORMAL + 4), NULL);
-	}
+NextAction** FrostDKStrategy::getDefaultActions()
+{
+	return NextAction::array(0, 
+		new NextAction("frost strike", ACTION_NORMAL + 5),
+		new NextAction("obliterate", ACTION_NORMAL + 4), 
+		new NextAction("melee", ACTION_NORMAL), 
+		NULL
+	);
+}
 
 void FrostDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {

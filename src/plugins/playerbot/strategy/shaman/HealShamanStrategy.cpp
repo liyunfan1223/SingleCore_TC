@@ -19,7 +19,8 @@ private:
     {
         return new ActionNode ("earthliving weapon",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flametongue weapon"), NULL),
+            /*A*/ NULL,
+            // /*A*/ NextAction::array(0, new NextAction("flametongue weapon"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* frostbrand_weapon(PlayerbotAI* ai)

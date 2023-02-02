@@ -396,6 +396,17 @@ namespace ai
 
 	};
 
+    class HasAuraStackTrigger : public Trigger {
+	public:
+		HasAuraStackTrigger(PlayerbotAI* ai, string spell, int stack = 3, int checkInterval = 5) : Trigger(ai, spell, checkInterval),
+            stack(stack) {}
+
+		virtual string GetTargetName() { return "self target"; }
+		virtual bool IsActive();
+    private:
+        int stack;
+	};
+
     class TimerTrigger : public Trigger
     {
     public:

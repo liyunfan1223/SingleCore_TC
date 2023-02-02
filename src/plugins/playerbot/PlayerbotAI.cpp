@@ -1181,8 +1181,7 @@ bool PlayerbotAI::HasAura(string name, Unit* unit)
     return false;
 }
 
-Aura* PlayerbotAI::GetAura(string name, Unit* unit
-)
+Aura* PlayerbotAI::GetAura(string name, Unit* unit)
 {
     if (!unit)
         return nullptr;
@@ -1454,6 +1453,8 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     if (pSpellInfo->IsChanneled())
     {
         int32 duration = pSpellInfo->GetDuration();
+        bot->ModSpellDurationTime(pSpellInfo, duration, spell);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::WaitForSpellCast %.4f %d %s", castTime, duration, pSpellInfo->SpellName[0]);
         if (duration > 0)
             castTime += duration;
     }
@@ -1550,8 +1551,10 @@ bool PlayerbotAI::HasAuraToDispel(Unit* target, uint32 dispelType)
             if (!isPositiveSpell && bot->IsHostileTo(target))
                 continue;
 
-            if (canDispel(entry, dispelType))
+            if (canDispel(entry, dispelType)) {
+                sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::HasAuraToDispel %s %s", entry->SpellName[0], target->GetName());
                 return true;
+            }
         }
     }
     return false;
@@ -1570,14 +1573,14 @@ bool PlayerbotAI::canDispel(const SpellInfo* entry, uint32 dispelType)
 {
     if (entry->Dispel != dispelType)
         return false;
-
     return !entry->SpellName[0] ||
         (strcmpi((const char*)entry->SpellName[0], "demon skin") &&
         strcmpi((const char*)entry->SpellName[0], "mage armor") &&
         strcmpi((const char*)entry->SpellName[0], "frost armor") &&
         strcmpi((const char*)entry->SpellName[0], "wavering will") &&
         strcmpi((const char*)entry->SpellName[0], "chilled") &&
-        strcmpi((const char*)entry->SpellName[0], "ice armor"));
+        strcmpi((const char*)entry->SpellName[0], "frost fever") &&
+        strcmpi((const char*)entry->SpellName[0], "blood plague"));
 }
 
 bool IsAlliance(uint8 race)

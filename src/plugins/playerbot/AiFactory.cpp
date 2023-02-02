@@ -95,8 +95,8 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 		engine->addStrategies("warsong", "attack weak", "racials", "chat", "default", "dps", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
 	}
 	else {
-		// engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
-        engine->addStrategies("attack weak", "chat", "default", "aoe", "cast time", "conserve mana", NULL);
+		// engine->addStrategies("attack weak", , "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
+        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "cast time", "conserve mana", NULL);
 	}
 
     switch (player->getClass())
@@ -144,12 +144,13 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("heal", "bmana", "flee", NULL);
             else
                 engine->addStrategies("dps", "melee aoe", "bdps", "threat", NULL);
+            engine->addStrategies("totems", NULL);
             break;
         case CLASS_PALADIN:
             if (tab == 0)
                 engine->addStrategies("heal", "bmana", "flee", NULL);
             else if (tab == 1)
-                engine->addStrategies("tank", "tank aoe", "bthreat", NULL);
+                engine->addStrategies("tank", "tank aoe", "barmor", NULL);
             else
                 engine->addStrategies("dps", "bdps", "threat", NULL);
             break;
@@ -219,7 +220,7 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
             if (tab == 1)
                 nonCombatEngine->addStrategy("bthreat");
             else
-                nonCombatEngine->addStrategy("bdps");
+                nonCombatEngine->addStrategy("bmana");
             break;
         case CLASS_HUNTER:
             nonCombatEngine->addStrategy("bdps");
@@ -231,7 +232,7 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
                 nonCombatEngine->addStrategy("bdps");
             break;
         case CLASS_MAGE:
-            if (tab == 1)
+            if (tab == 0 || tab == 1)
                 nonCombatEngine->addStrategy("bdps");
             else
                 nonCombatEngine->addStrategy("bmana");
