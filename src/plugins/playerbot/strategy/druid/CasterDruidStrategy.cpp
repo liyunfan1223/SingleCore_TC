@@ -62,7 +62,8 @@ private:
     {
         return new ActionNode ("starfall",
             /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("hurricane"), NULL),
+            /*A*/ NULL,
+            // /*A*/ NextAction::array(0, new NextAction("hurricane"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* insect_swarm(PlayerbotAI* ai)
@@ -118,9 +119,13 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "enemy out of spell",
         NextAction::array(0, new NextAction("reach spell", ACTION_MOVE), NULL)));
 
+    triggers.push_back(new TriggerNode(
+		"insect swarm",
+		NextAction::array(0, new NextAction("insect swarm", ACTION_NORMAL + 8), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"moonfire",
-		NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 4), NULL)));
+		NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "eclipse (solar)",

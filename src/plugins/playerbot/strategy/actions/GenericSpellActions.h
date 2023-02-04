@@ -202,6 +202,10 @@ namespace ai
 		ResurrectPartyMemberAction(PlayerbotAI* ai, string spell) : CastSpellAction(ai, spell) {}
 
 		virtual string GetTargetName() { return "party member to resurrect"; }
+        virtual bool isUseful() {
+            return CastSpellAction::isUseful() && 
+            (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+        }
 	};
     //---------------------------------------------------------------------------------------------------------------------
 

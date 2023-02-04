@@ -8,7 +8,7 @@ namespace ai
     class NearestTriggersValue : public NearestUnitsValue
 	{
 	public:
-        NearestTriggersValue(PlayerbotAI* ai, float range = 10.0f) :
+        NearestTriggersValue(PlayerbotAI* ai, float range = 12.0f) :
             NearestUnitsValue(ai, range) {}
 
     protected:

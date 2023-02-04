@@ -1001,7 +1001,7 @@ bool PlayerbotAI::IsTank(Player* player)
     case CLASS_WARRIOR:
         return true;
     case CLASS_DRUID:
-        return HasAnyAuraOf(player, "bear form", "dire bear form", NULL);
+        return HasAnyAuraOf(player, "bear form", "dire bear form", "thick hide", NULL);
     }
     return false;
 }
