@@ -179,7 +179,8 @@ namespace ai
             if (!group)
                 return Formation::NullLocation;
 
-            float range = sPlayerbotAIConfig.followDistance;
+            // float range = sPlayerbotAIConfig.followDistance;
+            float range = 10.0f;
 
             Player* master = GetMaster();
             if (!master)

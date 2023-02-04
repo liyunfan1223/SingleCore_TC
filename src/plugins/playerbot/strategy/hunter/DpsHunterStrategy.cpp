@@ -75,10 +75,11 @@ DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
     // return NextAction::array(0, new NextAction("aimed shot", 11.0f),
-    // new NextAction("explosive shot", 11.0f), new NextAction("auto shot", 10.0f), NULL);
+    //  new NextAction("auto shot", 10.0f), NULL);
     return NextAction::array(0, 
         new NextAction("kill shot", 14.0f),
         new NextAction("chimera shot", 13.0f),
+        new NextAction("explosive shot", 13.0f),
         new NextAction("aimed shot", 12.0f), 
         new NextAction("steady shot", 11.0f), 
         new NextAction("auto shot", 10.0f), 
@@ -97,21 +98,21 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"enemy too close for spell",
 		NextAction::array(0, new NextAction("wing clip", 50.0f), new NextAction("flee", 49.0f), new NextAction("concussive shot", 48.0f), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "black arrow",
-    //     NextAction::array(0, new NextAction("black arrow", 51.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "black arrow",
+        NextAction::array(0, new NextAction("black arrow", 51.0f), NULL)));
 
     // triggers.push_back(new TriggerNode(
     //     "low mana",
     //     NextAction::array(0, new NextAction("viper sting", ACTION_EMERGENCY + 5), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "no pet",
-    //     NextAction::array(0, new NextAction("call pet", 60.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "no pet",
+        NextAction::array(0, new NextAction("call pet", 60.0f), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "hunters pet low health",
-    //     NextAction::array(0, new NextAction("mend pet", 60.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "hunters pet low health",
+        NextAction::array(0, new NextAction("mend pet", 60.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hunter's mark",

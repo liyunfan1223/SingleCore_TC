@@ -74,6 +74,7 @@ namespace ai
 			creators["random bot update"] = &ActionContext::random_bot_update;
 			creators["reveal gathering item"] = &ActionContext::reveal_gathering_item;
 			creators["delay"] = &ActionContext::delay;
+            creators["avoid aoe"] = &ActionContext::avoid_aoe;
         }
 
     private:
@@ -121,6 +122,7 @@ namespace ai
 		static Action* random_bot_update(PlayerbotAI* ai) { return new RandomBotUpdateAction(ai); }
 		static Action* reveal_gathering_item(PlayerbotAI* ai) { return new RevealGatheringItemAction(ai); }
 		static Action* delay(PlayerbotAI* ai) { return new DelayAction(ai); }
+        static Action* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOEAction(ai); }
     };
 
 };

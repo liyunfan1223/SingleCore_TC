@@ -80,6 +80,10 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
     //     NextAction::array(0, new NextAction("mark of the wild", 12.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "avoid aoe",
+        NextAction::array(0, new NextAction("nothing", 111.0f), NULL)));
+        
+    triggers.push_back(new TriggerNode(
         "mark of the wild on party",
         NextAction::array(0, new NextAction("mark of the wild on party", 11.0f), NULL)));
 

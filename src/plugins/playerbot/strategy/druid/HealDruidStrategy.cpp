@@ -94,6 +94,10 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
             new NextAction("regrowth on party", ACTION_LIGHT_HEAL + 1),
             NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "low mana",
+        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+        
     // triggers.push_back(new TriggerNode(
     //     "almost full health",
     //     NextAction::array(0, new NextAction("healing touch", ACTION_EMERGENCY + 3), NULL)));

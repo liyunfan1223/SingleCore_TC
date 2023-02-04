@@ -11,7 +11,12 @@ TankPaladinStrategy::TankPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrate
 
 NextAction** TankPaladinStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), NULL);
+    return NextAction::array(0,
+        new NextAction("avenger's shield", ACTION_HIGH + 7), 
+        new NextAction("consecration", ACTION_HIGH + 6),
+        new NextAction("hammer of the righteous", ACTION_HIGH + 5),
+        new NextAction("melee", ACTION_NORMAL), 
+        NULL);
 }
 
 void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -34,13 +39,13 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "righteous fury",
         NextAction::array(0, new NextAction("righteous fury", ACTION_HIGH + 8), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "light aoe",
-        NextAction::array(0, new NextAction("hammer of the righteous", ACTION_HIGH + 6), new NextAction("avenger's shield", ACTION_HIGH + 6), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "light aoe",
+    //     NextAction::array(0, new NextAction("hammer of the righteous", ACTION_HIGH + 6), new NextAction("avenger's shield", ACTION_HIGH + 6), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "medium aoe",
-        NextAction::array(0, new NextAction("consecration", ACTION_HIGH + 6), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "medium aoe",
+    //     NextAction::array(0, new NextAction("consecration", ACTION_HIGH + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "lose aggro",
@@ -53,4 +58,5 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "blessing",
         NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 9), NULL)));
+    
 }

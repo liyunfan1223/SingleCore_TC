@@ -36,8 +36,8 @@ Unit* PartyMemberToHeal::Calculate()
     for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
     {
         Player* player = gref->GetSource();
-        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() player name:%s %d %d %lf %d"
-            , player->GetName(), Check(player), player->IsAlive(), player->GetHealthPct(), isRaid);
+        // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() player name:%s %d %d %lf %d"
+        //     , player->GetName(), Check(player), player->IsAlive(), player->GetHealthPct(), isRaid);
         if (!Check(player) || !player->IsAlive())
             continue;
 
@@ -49,8 +49,8 @@ Unit* PartyMemberToHeal::Calculate()
         if (!pet) {
             continue;
         }
-        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() pet name:%s %d %d %lf %d"
-            , pet->GetName(), Check(pet), pet->IsAlive(), pet->GetHealthPct(), isRaid);
+        // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() pet name:%s %d %d %lf %d"
+        //     , pet->GetName(), Check(pet), pet->IsAlive(), pet->GetHealthPct(), isRaid);
         if (!Check(pet) || !pet->IsAlive())
             continue;
 
@@ -61,8 +61,8 @@ Unit* PartyMemberToHeal::Calculate()
                 calc.probe(health, pet);
         }
     }
-    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() target name:%s"
-        , calc.param ? ((Player*)calc.param)->GetName() : "|no target!|");
+    // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() target name:%s"
+    //     , calc.param ? ((Player*)calc.param)->GetName() : "|no target!|");
     return (Unit*)calc.param;
 }
 

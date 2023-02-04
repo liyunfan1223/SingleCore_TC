@@ -103,7 +103,11 @@ CasterDruidStrategy::CasterDruidStrategy(PlayerbotAI* ai) : GenericDruidStrategy
 
 NextAction** CasterDruidStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("starfire", ACTION_NORMAL + 2), new NextAction("wrath", ACTION_NORMAL + 1), NULL);
+    return NextAction::array(0, 
+        new NextAction("starfall", ACTION_HIGH + 1),
+        new NextAction("starfire", ACTION_NORMAL + 2), 
+        new NextAction("wrath", ACTION_NORMAL + 1), 
+        NULL);
 }
 
 void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -130,25 +134,28 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "moonfire",
         NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 4), NULL)));
 
-
-
 	triggers.push_back(new TriggerNode(
 		"nature's grasp",
 		NextAction::array(0, new NextAction("nature's grasp", ACTION_EMERGENCY), NULL)));
 
+    // triggers.push_back(new TriggerNode(
+    //     "entangling roots",
+    //     NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 2), NULL)));
+    
     triggers.push_back(new TriggerNode(
-        "entangling roots",
-        NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 2), NULL)));
+        "low mana",
+        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+        
 }
 
 void CasterDruidAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-	triggers.push_back(new TriggerNode(
-		"high aoe",
-		NextAction::array(0, new NextAction("starfall", ACTION_HIGH + 1), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"medium aoe",
+	// 	NextAction::array(0, new NextAction("starfall", ACTION_HIGH + 1), NULL)));
 	
 	triggers.push_back(new TriggerNode(
-		"medium aoe",
+		"high aoe",
 		NextAction::array(0, new NextAction("hurricane", ACTION_HIGH + 1), NULL)));
 	
 	triggers.push_back(new TriggerNode(

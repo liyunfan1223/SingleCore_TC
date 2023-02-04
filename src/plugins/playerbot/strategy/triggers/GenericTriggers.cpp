@@ -53,7 +53,7 @@ bool BuffTrigger::IsActive()
     Unit* target = GetTarget();
 	return SpellTrigger::IsActive() &&
 		!ai->HasAura(spell, target) &&
-		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.mediumMana);
 }
 
 Value<Unit*>* BuffOnPartyTrigger::GetTargetValue()

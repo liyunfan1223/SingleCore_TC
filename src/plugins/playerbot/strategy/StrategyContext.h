@@ -32,6 +32,7 @@
 #include "generic/TellTargetStrategy.h"
 #include "generic/AttackEnemyPlayersStrategy.h"
 #include "generic/MoveRandomStrategy.h"
+#include "generic/AvoidAOEStrategy.h"
 
 namespace ai
 {
@@ -105,6 +106,7 @@ namespace ai
             creators["runaway"] = &MovementStrategyContext::runaway;
             creators["flee from adds"] = &MovementStrategyContext::flee_from_adds;
             creators["guard"] = &MovementStrategyContext::guard;
+            creators["avoid aoe"] = &MovementStrategyContext::avoid_aoe;
         }
 
     private:
@@ -113,6 +115,7 @@ namespace ai
         static Strategy* stay(PlayerbotAI* ai) { return new StayStrategy(ai); }
         static Strategy* runaway(PlayerbotAI* ai) { return new RunawayStrategy(ai); }
         static Strategy* flee_from_adds(PlayerbotAI* ai) { return new FleeFromAddsStrategy(ai); }
+        static Strategy* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOEStrategy(ai); }
     };
 
     class AssistStrategyContext : public NamedObjectContext<Strategy>

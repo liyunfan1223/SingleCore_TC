@@ -23,7 +23,7 @@ public:
             // return pet->IsAlive() && !ai->HasAura(aura, pet);
         }
         Player* player = dynamic_cast<Player*>(unit);
-        return player->IsAlive() && !ai->HasAura(aura, player) && (ai->IsRanged(player) && player->getClass() != CLASS_HUNTER);
+        return player->IsAlive() && !ai->HasAura(aura, player) && ((ai->IsRanged(player) && player->getClass() != CLASS_HUNTER) || ai->IsHeal(player));
     }
 
 private:

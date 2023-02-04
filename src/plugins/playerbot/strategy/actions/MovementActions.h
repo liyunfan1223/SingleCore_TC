@@ -90,4 +90,11 @@ namespace ai
         virtual bool isUseful();
     };
 
+    class AvoidAOEAction : public MovementAction
+    {
+    public:
+        AvoidAOEAction(PlayerbotAI* ai) : MovementAction(ai, "avoid aoe") {}
+        virtual bool Execute(Event event);
+        virtual bool isUseful();
+    };
 }

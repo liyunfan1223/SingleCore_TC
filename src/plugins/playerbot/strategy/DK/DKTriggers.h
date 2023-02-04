@@ -13,12 +13,12 @@ namespace ai
 		class PlagueStrikeDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
 	{
 	public:
-		PlagueStrikeDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "plague strike") {}
+		PlagueStrikeDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "blood plague") {}
 	};
 		class IcyTouchDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
 	{
 	public:
-		IcyTouchDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "icy touch") {}
+		IcyTouchDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "frost fever") {}
 	};
 
     class DKPresenceTrigger : public BuffTrigger {

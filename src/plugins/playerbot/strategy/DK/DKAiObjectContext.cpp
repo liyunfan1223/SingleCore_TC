@@ -92,7 +92,6 @@ namespace ai
 				creators["death coil"] = &TriggerFactoryInternal::death_coil;
 				creators["icy touch on attacker"] = &TriggerFactoryInternal::icy_touch_on_attacker;
                 creators["improved icy talons"] = &TriggerFactoryInternal::improved_icy_talons;
-                creators["plague strike"] = &TriggerFactoryInternal::plague_strike;
                 creators["horn of winter"] = &TriggerFactoryInternal::horn_of_winter;
                 creators["mind freeze"] = &TriggerFactoryInternal::mind_freeze;
                 creators["mind freeze on enemy healer"] = &TriggerFactoryInternal::mind_freeze_on_enemy_healer;

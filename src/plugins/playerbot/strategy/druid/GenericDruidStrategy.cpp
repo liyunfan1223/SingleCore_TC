@@ -99,10 +99,9 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"party member to resurrect",
 		NextAction::array(0, new NextAction("rebirth", ACTION_EMERGENCY + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "low mana",
-        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "avoid aoe",
+    //     NextAction::array(0, new NextAction("nothing", 111.0f), NULL)));
 }
 
 void DruidCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

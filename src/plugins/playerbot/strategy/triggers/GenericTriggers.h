@@ -240,7 +240,7 @@ namespace ai
     class BuffOnPartyTrigger : public BuffTrigger
     {
     public:
-        BuffOnPartyTrigger(PlayerbotAI* ai, string spell) : BuffTrigger(ai, spell) {}
+        BuffOnPartyTrigger(PlayerbotAI* ai, string spell) : BuffTrigger(ai, spell, 1) {}
     public:
 		virtual Value<Unit*>* GetTargetValue();
     };
@@ -586,6 +586,26 @@ namespace ai
 			return AI_VALUE(list<ObjectGuid>, "nearest non bot players").empty();
 		}
 	};
+
+    class AvoidAOESpellTrigger : public Trigger
+    {
+    public:
+        AvoidAOESpellTrigger(PlayerbotAI* ai) : Trigger(ai, "avoid aoe", 1) {}
+    public:
+        virtual bool IsActive()
+        {
+            list<ObjectGuid> nearest_triggers = AI_VALUE(list<ObjectGuid>, "nearest triggers");
+            for (list<ObjectGuid>::iterator it = nearest_triggers.begin(); it != nearest_triggers.end(); it++) {
+                ObjectGuid guid = *it;
+                Creature* creature = ai->GetCreature(guid);
+                if (creature && creature->GetName() == "Grobbulus Cloud" || creature->GetName() == "Blizzard" ) {
+                    bot->Yell("AOE技能:" + creature->GetName() + "已检测,需要躲避,距离:" + to_string(bot->GetDistance2d(creature)), LANG_UNIVERSAL);
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
 }
 
 #include "RangeTriggers.h"

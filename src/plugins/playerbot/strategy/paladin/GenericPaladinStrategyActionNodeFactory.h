@@ -149,7 +149,8 @@ namespace ai
         {
             return new ActionNode ("hand of reckoning",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("judgement of justice"), NULL),
+                /*A*/ NULL,
+                // /*A*/ NextAction::array(0, new NextAction("judgement of justice"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* judgement_of_wisdom(PlayerbotAI* ai)

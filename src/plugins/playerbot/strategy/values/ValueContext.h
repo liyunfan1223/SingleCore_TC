@@ -59,6 +59,7 @@
 #include "RandomBotUpdateValue.h"
 #include "NearestFriendlyPlayersValue.h"
 #include "NearestNonBotPlayersValue.h"
+#include "NearestTriggersValue.h"
 #include "PartyMemberWithoutAPAuraValue.h"
 #include "PartyMemberWithoutManaAuraValue.h"
 
@@ -155,6 +156,7 @@ namespace ai
             creators["last emote"] = &ValueContext::last_emote;
 			creators["random bot update"] = &ValueContext::random_bot_update_value;
 			creators["nearest non bot players"] = &ValueContext::nearest_non_bot_players;
+            creators["nearest triggers"] = &ValueContext::nearest_triggers;
         }
 
     private:
@@ -243,5 +245,7 @@ namespace ai
         static UntypedValue* last_emote(PlayerbotAI* ai) { return new LastEmoteValue(ai); }
 		static UntypedValue* random_bot_update_value(PlayerbotAI* ai) { return new RandomBotUpdateValue(ai); }
 		static UntypedValue* nearest_non_bot_players(PlayerbotAI* ai) { return new NearestNonBotPlayersValue(ai); }
+        static UntypedValue* nearest_triggers(PlayerbotAI* ai) { return new NearestTriggersValue(ai); }
+        
     };
 };
