@@ -1,0 +1,23 @@
+FROM ubuntu:16.04
+
+RUN apt update -y && apt upgrade -y && \
+    apt install build-essential software-properties-common -y && \
+    add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
+    apt update -y && \
+    apt install p7zip git gcc-6 g++-6 -y
+
+RUN apt install cmake make libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev -y
+
+COPY . .
+
+WORKDIR ./build
+
+RUN CXX=g++-6 CC=gcc-6 cmake .. -DCONF_DIR=/usr/local/bin/Settings -DTOOLS=0 -DWITH_WARNINGS=0
+
+RUN make
+
+RUN make install
+
+RUN cp /usr/local/bin/Settings/worldserver.conf.dist /usr/local/bin/Settings/worldserver.conf && \
+	cp /usr/local/bin/Settings/authserver.conf.dist /usr/local/bin/Settings/authserver.conf && \
+	cp /usr/local/bin/Settings/ahbots.conf.dist /usr/local/bin/Settings/authserver.conf
