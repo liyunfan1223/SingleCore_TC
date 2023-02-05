@@ -488,6 +488,9 @@ bool SpellHistory::HasCooldown(uint32 spellId, uint32 itemId /*= 0*/, bool ignor
 
 uint32 SpellHistory::GetRemainingCooldown(SpellInfo const* spellInfo) const
 {
+    if (!spellInfo) {
+	    return 0;
+    }
     Clock::time_point end;
     auto itr = _spellCooldowns.find(spellInfo->Id);
     if (itr != _spellCooldowns.end())
