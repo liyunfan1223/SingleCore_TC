@@ -4,6 +4,10 @@
 #include "RandomPlayerbotFactory.h"
 #include "../../game/Accounts/AccountMgr.h"
 
+#ifndef _TRINITY_PLAYERBOTS_CONFIG
+# define _TRINITY_PLAYERBOTS_CONFIG  "Settings/aiplayerbot.conf"
+#endif
+
 using namespace std;
 
 PlayerbotAIConfig::PlayerbotAIConfig()
@@ -30,7 +34,7 @@ bool PlayerbotAIConfig::Initialize()
 
     string error;
 	vector<string> args;
-    if (!config.LoadInitial("Settings/bots.conf", args, error))
+    if (!config.LoadInitial(_TRINITY_PLAYERBOTS_CONFIG, args, error))
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "AI Playerbot is Disabled. Unable to open configuration file aiplayerbot.conf");
         return false;
