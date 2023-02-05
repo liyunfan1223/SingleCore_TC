@@ -81,7 +81,7 @@ DataDir = "/usr/local/data"
 #                     Logs directory must exists, or log file creation will be disabled.
 #        Default:     "" - (Log files will be stored in the current path)
 
-LogsDir = "Logs"
+LogsDir = "/usr/local/Logs"
 
 #
 #    LoginDatabaseInfo
@@ -98,9 +98,9 @@ LogsDir = "Logs"
 #                     "127.0.0.1;3306;trinity;trinity;world"      - (WorldDatabaseInfo)
 #                     "127.0.0.1;3306;trinity;trinity;characters" - (CharacterDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;root;root;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;root;root;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;root;root;characters"
+LoginDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;auth"
+WorldDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;world"
+CharacterDatabaseInfo = "127.0.0.1;3306;trinity;trinity;characters"
 
 #
 #    LoginDatabase.WorkerThreads
@@ -162,7 +162,7 @@ BindIP = "0.0.0.0"
 #                      - World socket networking
 #        Default:     2
 
-ThreadPool = 2
+ThreadPool = 4
 
 #
 #    CMakeCommand
@@ -689,7 +689,7 @@ ArenaTeam.CharterCost.5v5 = 2000000
 #        Description: Set the max number of players returned in the /who list and interface.
 #        Default:     49 - (stable)
 
-MaxWhoListReturns = 49
+MaxWhoListReturns = 49 
 
 #
 #    CharacterCreating.Disabled
@@ -3255,28 +3255,28 @@ AuctionHouseBot.Update.Interval = 20
 #       Default:     0 - (Disabled)
 #                    1 - (Enabled)
 
-# AuctionHouseBot.Seller.Enabled = 1
+AuctionHouseBot.Seller.Enabled = 1
 
 #
 #    AuctionHouseBot.Alliance.Items.Amount.Ratio
 #       Description: Enable/Disable (disabled if 0) the part of AHBot that puts items up for auction on Alliance AH
 #       Default:     100 - (Enabled with 100% of items specified in AuctionHouse.Items.Amount.color section)
 
-AuctionHouseBot.Alliance.Items.Amount.Ratio = 100
+AuctionHouseBot.Alliance.Items.Amount.Ratio = 1000
 
 #
 #    AuctionHouseBot.Horde.Items.Amount.Ratio
 #        Enable/Disable (disabled if 0) the part of AHBot that puts items up for auction on Horde AH
 #       Default: 100 (Enabled with 100% of items specified in AuctionHouse.Items.Amount.color section)
 
-AuctionHouseBot.Horde.Items.Amount.Ratio = 100
+AuctionHouseBot.Horde.Items.Amount.Ratio = 1000
 
 #
 #    AuctionHouseBot.Neutral.Items.Amount.Ratio
 #       Description: Enable/Disable (disabled if 0) the part of AHBot that puts items up for auction on Neutral AH
 #       Default:     100 - (Enabled with 100% of items specified in AuctionHouse.Items.Amount.color section)
 
-AuctionHouseBot.Neutral.Items.Amount.Ratio = 100
+AuctionHouseBot.Neutral.Items.Amount.Ratio = 0
 
 #
 #    AuctionHouseBot.MinTime
@@ -3319,7 +3319,7 @@ AuctionHouseBot.Class.Glyph.Allow.Zero = 0
 #       Default:     0 - (Disabled)
 #                    1 - (Enabled)
 
-AuctionHouseBot.Items.Vendor = 0
+AuctionHouseBot.Items.Vendor = 1
 
 #
 #    AuctionHouseBot.Items.Loot
@@ -3368,7 +3368,7 @@ AuctionHouseBot.LockBox.Enabled = 0
 #                    Usually this value is only used once on server start with empty auction table.
 #       Default:     1000
 
-AuctionHouseBot.ItemsPerCycle.Boost = 1000
+AuctionHouseBot.ItemsPerCycle.Boost = 100000
 
 #
 #    AuctionHouseBot.ItemsPerCycle.Normal
@@ -3376,7 +3376,7 @@ AuctionHouseBot.ItemsPerCycle.Boost = 1000
 #                    Usually this value is used always when auction table is already initialised.
 #       Default:     20
 
-AuctionHouseBot.ItemsPerCycle.Normal = 20
+AuctionHouseBot.ItemsPerCycle.Normal = 20000
 
 #
 #    AuctionHouseBot.BuyPrice.Seller
@@ -3384,28 +3384,28 @@ AuctionHouseBot.ItemsPerCycle.Normal = 20
 #       Default:     1 - (use SellPrice)
 #                    0 - (use BuyPrice)
 
-AuctionHouseBot.BuyPrice.Seller = 1
+AuctionHouseBot.BuyPrice.Seller = 0
 
 #
 #    AuctionHouseBot.Alliance.Price.Ratio
 #       Description: Percentage by which the price of items selled on Alliance Auction House is incremented / decreased
 #       Default:     100 - (Not modify)
 
-AuctionHouseBot.Alliance.Price.Ratio = 100
+AuctionHouseBot.Alliance.Price.Ratio = 500
 
 #
 #    AuctionHouseBot.Horde.Price.Ratio
 #       Description: Percentage by which the price of items selled on Horde Auction House is incremented / decreased
 #       Default:     100 - (Not modify)
 
-AuctionHouseBot.Horde.Price.Ratio = 100
+AuctionHouseBot.Horde.Price.Ratio = 500
 
 #
 #    AuctionHouseBot.Neutral.Price.Ratio
 #       Description: Percentage by which the price of items selled on Neutral Auction House is incremented / decreased
 #       Default:     100 - (Not modify)
 
-AuctionHouseBot.Neutral.Price.Ratio = 100
+AuctionHouseBot.Neutral.Price.Ratio = 500
 
 #
 #    AuctionHouseBot.Items.QUALITY.Price.Ratio
@@ -3474,12 +3474,12 @@ AuctionHouseBot.Items.ReqSkill.Max = 0
 #       Default:     0, 2000, 2500, 1500, 1000, 0, 0 (Gray, white, green, blue, purple, orange, yellow)
 
 AuctionHouseBot.Items.Amount.Gray = 0
-AuctionHouseBot.Items.Amount.White = 500
-AuctionHouseBot.Items.Amount.Green = 350
-AuctionHouseBot.Items.Amount.Blue = 250
-AuctionHouseBot.Items.Amount.Purple = 100
-AuctionHouseBot.Items.Amount.Orange = 50
-AuctionHouseBot.Items.Amount.Yellow = 50
+AuctionHouseBot.Items.Amount.White = 6000
+AuctionHouseBot.Items.Amount.Green = 2500
+AuctionHouseBot.Items.Amount.Blue = 1000
+AuctionHouseBot.Items.Amount.Purple = 500
+AuctionHouseBot.Items.Amount.Orange = 0
+AuctionHouseBot.Items.Amount.Yellow = 0
 
 #
 #    AuctionHouseBot.Class.*
@@ -3501,21 +3501,21 @@ AuctionHouseBot.Items.Amount.Yellow = 50
 #                    Misc: 5
 #                    Glyph: 3
 
-AuctionHouseBot.Class.Consumable = 6
-AuctionHouseBot.Class.Container = 4
-AuctionHouseBot.Class.Weapon = 8
-AuctionHouseBot.Class.Gem = 3
-AuctionHouseBot.Class.Armor = 8
-AuctionHouseBot.Class.Reagent = 1
+AuctionHouseBot.Class.Consumable = 2
+AuctionHouseBot.Class.Container = 3
+AuctionHouseBot.Class.Weapon = 4
+AuctionHouseBot.Class.Gem = 2
+AuctionHouseBot.Class.Armor = 4
+AuctionHouseBot.Class.Reagent = 2
 AuctionHouseBot.Class.Projectile = 2
 AuctionHouseBot.Class.TradeGood = 10
 AuctionHouseBot.Class.Generic = 1
-AuctionHouseBot.Class.Recipe = 6
+AuctionHouseBot.Class.Recipe = 2
 AuctionHouseBot.Class.Quiver = 1
 AuctionHouseBot.Class.Quest = 1
 AuctionHouseBot.Class.Key = 1
-AuctionHouseBot.Class.Misc = 5
-AuctionHouseBot.Class.Glyph = 3
+AuctionHouseBot.Class.Misc = 2
+AuctionHouseBot.Class.Glyph = 1
 
 #
 ###################################################################################################
@@ -3615,14 +3615,14 @@ AuctionHouseBot.forceExcludeItems = ""
 #                    Glyph: 0 (100% single stack size)
 #
 
-AuctionHouseBot.Class.RandomStackRatio.Consumable = 20
+AuctionHouseBot.Class.RandomStackRatio.Consumable = 100
 AuctionHouseBot.Class.RandomStackRatio.Container = 0
 AuctionHouseBot.Class.RandomStackRatio.Weapon = 0
-AuctionHouseBot.Class.RandomStackRatio.Gem = 20
+AuctionHouseBot.Class.RandomStackRatio.Gem = 0
 AuctionHouseBot.Class.RandomStackRatio.Armor = 0
 AuctionHouseBot.Class.RandomStackRatio.Reagent = 100
 AuctionHouseBot.Class.RandomStackRatio.Projectile = 100
-AuctionHouseBot.Class.RandomStackRatio.TradeGood = 50
+AuctionHouseBot.Class.RandomStackRatio.TradeGood = 100
 AuctionHouseBot.Class.RandomStackRatio.Generic = 100
 AuctionHouseBot.Class.RandomStackRatio.Recipe = 0
 AuctionHouseBot.Class.RandomStackRatio.Quiver = 0
@@ -3642,7 +3642,7 @@ AuctionHouseBot.Class.RandomStackRatio.Glyph = 0
 #       Default:     0 - (Disabled)
 #                    1 - (Enabled)
 
-# AuctionHouseBot.Buyer.Enabled = 1
+AuctionHouseBot.Buyer.Enabled = 1
 
 #
 #    AuctionHouseBot.Buyer.FACTION.Enabled
@@ -3807,7 +3807,7 @@ Eluna.ScriptPath = "Scripts"
 #conan
 
 Appender.Console=1,3,0,13 7 11 9 3 1
-Appender.Server=2,1,0,Server.log,w
+Appender.Server=2,2,0,server.log,w,536870912
 Appender.GM=2,2,15,gm/gm_%s.log
 Appender.DBErrors=2,2,0,DBErrors.log
 
@@ -3839,8 +3839,8 @@ Logger.mmaps=3,Server
 
 #Logger.achievement=3,Console Server
 #Logger.addon=3,Console Server
-#Logger.ahbot=3,Console Server
-#Logger.auctionHouse=3,Console Server
+#Logger.ahbot=2,Console Server
+#Logger.auctionHouse=2,Console Server
 #Logger.bg.arena=3,Console Server
 #Logger.bg.battlefield=3,Console Server
 #Logger.bg.battleground=3,Console Server
@@ -4093,14 +4093,15 @@ Custom.AutoCompleteQuestDelay = 0
 #        Example: VAS.AutoBalance.XPlayer = 1 will set everything for a 1 player game.
 #        Default:     1
 
-VASAutoBalance.numPlayer=1.0
+# VASAutoBalance.numPlayer=1.0
+VASAutoBalance.numPlayer=0
 
 #
 #     VASAutoBalance.Instances
 #        Set instances to Auto chance XPlayer depending on players in it.
 #        Default:     1 (1 = ON, 0 = OFF)
 
-VASAutoBalance.Instances=1
+VASAutoBalance.Instances=0
 #
 #     VASAutoBalance.DungeonsOnly
 #        Only apply scaling changes to dungeons
@@ -4122,7 +4123,7 @@ VASAutoBalance.DebugLevel=2
 #        Set Auto Notifications to all players in Instance that player count has changed.
 #        Default:     1 (1 = ON, 0 = OFF)
 
-VASAutoBalance.PlayerChangeNotify=1
+VASAutoBalance.PlayerChangeNotify=0
 
 #
 #     VASAutoBalance.MinHPModifier
@@ -4162,7 +4163,7 @@ VASAutoBalance.ForcedID2="25549,24558,25574,24559,25556,25557,25578,24561,25555,
 #        Default:   1 - enable
 #                   0 - disable
 
-NpcBot.Enable = 1
+NpcBot.Enable = 0
 
 #
 #    NpcBot.AllowGM
@@ -4305,6 +4306,8 @@ NpcBot.PvP = 1
 #        Default:    ""
 
 Logger.custom.transmog = 3, Console Server
+Logger.playerbot=2,Console Server
+# Logger.ahbot=3,Console Server
 
 Transmogrification.EnableTransmogInfo = 1
 Transmogrification.TransmogNpcText = 50000
@@ -4545,14 +4548,14 @@ BeastMaster.EnableExoticPet = 1
 #        Description: Time requirement for characters to be able to Chat.
 #        Default:     1
 
-TimeReq.Chat = 1
+TimeReq.Chat = 0
 
 #
 #     LevelReq.Chat
 #        Description: Level requirement for characters to be able to Chat.
 #        Default:     1
 
-LevelReq.Chat = 1
+LevelReq.Chat = 0
 
 #
 ###################################################################################################
@@ -4582,7 +4585,7 @@ PvPRank.HKPerRank = 10,50,100,200,450,750,1300,2000,3500,6000,9500,15000,21000,3
 #        Default:     0 (disabled)
 #                     1 (enabled)
 
-Killstreak.Enable = 1
+Killstreak.Enable = 0
 
 #
 #     Killstreak.Battleground.Only
@@ -4633,21 +4636,21 @@ RandomEnchants.OnLoginMessage="This server is based on Single Player Project - T
 #        Chance at random enchant on looting an item
 #        Default:     1
 
-RandomEnchants.OnLoot = 1
+RandomEnchants.OnLoot = 0
 
 #
 #     RandomEnchants.OnCreate
 #        Chance at random enchant on creating an item via profession
 #        Default:     1
 
-RandomEnchants.OnCreate = 1
+RandomEnchants.OnCreate = 0
 
 #
 #     RandomEnchants.OnQuestReward (Not working yet)
 #        Chance at random enchant on obtaining item from quest reward
 #        Default:     1
 
-RandomEnchants.OnQuestReward = 1
+RandomEnchants.OnQuestReward = 0
 
 #
 ###################################################################################################
@@ -4766,7 +4769,7 @@ Xp.For.Pvp.High.Rate = 1
 #     Default:  TimeIsMoneyFriend.Interval = 3600000 (1 hour) [0 - disabled]
 #               TimeIsMoneyFriend.Money    = 1000 (10 silver)
 
-TimeIsMoneyFriend.Interval = 3600000
+TimeIsMoneyFriend.Interval = 0
 TimeIsMoneyFriend.Money    = 1000
 
 #
@@ -4787,3 +4790,5 @@ Dungeon.Checkpoints.Enable = 1
 #                     1 (enabled)
 
 Congrats.Level = 0
+
+

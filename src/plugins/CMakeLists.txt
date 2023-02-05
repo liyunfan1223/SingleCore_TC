@@ -186,6 +186,31 @@ set_target_properties(plugins
       FOLDER
         "server")
 
+set_target_properties(plugins
+    PROPERTIES
+      COMPILE_DEFINITIONS
+        _TRINITY_PLAYERBOTS_CONFIG="${CONF_DIR}/aiplayerbot.conf")
+
+if( WIN32 )
+  if ( MSVC )
+    add_custom_command(TARGET plugins
+      POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/playerbot/aiplayerbot.conf.dist ${CMAKE_BINARY_DIR}/bin/$(ConfigurationName)/
+    )
+  elseif ( MINGW )
+    add_custom_command(TARGET plugins
+      POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/playeaiplayerbot.conf.dist ${CMAKE_BINARY_DIR}/bin/
+    )
+  endif()
+endif()
+
+if( UNIX )
+  install(FILES playerbot/aiplayerbot.conf.dist DESTINATION ${CONF_DIR})
+elseif( WIN32 )
+  install(FILES playerbot/aiplayerbot.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}")
+endif()
+
 if( BUILD_SHARED_LIBS )
   if( UNIX )
     install(TARGETS plugins

@@ -1,4 +1,5 @@
-##############################################
+
+#############################################
 # SingleCore Ai Playerbot Configuration file #
 ##############################################
 
@@ -9,7 +10,7 @@ ConfVersion=2010102201
 AiPlayerbot.Enabled = 1
 
 # Enable random bot system
-AiPlayerbot.RandomBotAutologin = 1
+AiPlayerbot.RandmBotAutologin = 1
 
 # AI Playerbots can join in Battlegrounds
 AiPlayerbot.RandomBotJoinBG = 1
@@ -37,10 +38,10 @@ AiPlayerbot.RandomBotAccountPrefix = rndbot
 AiPlayerbot.RandomBotAccountCount = 100
 
 # Random bot count
-AiPlayerbot.MinRandomBots = 200
-AiPlayerbot.MaxRandomBots = 200
-AiPlayerbot.RandomBotMinLevel = 1
-AiPlayerbot.RandomBotMaxLevel = 80 
+AiPlayerbot.MinRandomBots = 300
+AiPlayerbot.MaxRandomBots = 300
+AiPlayerbot.RandomBotMinLevel = 10 
+AiPlayerbot.RandomBotMaxLevel = 60
 
 # Custom strategies (check in database)
 AiPlayerbot.CombatStrategies = +custom::say
@@ -118,10 +119,10 @@ AiPlayerbot.RandomClassSpecProbability.10.2 = 33
 AiPlayerbot.CommandPrefix =
 
 # Max AI iterations per tick
-AiPlayerbot.IterationsPerTick = 100
+AiPlayerbot.IterationsPerTick = 10
 
 # Delay between two short-time spells cast
-AiPlayerbot.GlobalCooldown = 500
+AiPlayerbot.GlobalCooldown = 500 
 
 # Max wait time when moving
 AiPlayerbot.MaxWaitForMove = 3000
@@ -130,7 +131,7 @@ AiPlayerbot.MaxWaitForMove = 3000
 AiPlayerbot.ReactDelay = 100
 
 # Distances
-AiPlayerbot.SightDistance = 50.0
+AiPlayerbot.SightDistance = 100.0
 AiPlayerbot.SpellDistance = 25.0
 AiPlayerbot.ShootDistance = 11.0
 AiPlayerbot.ReactDistance = 150.0
@@ -148,7 +149,7 @@ AiPlayerbot.FleeingEnabled = 1
 
 # Health/Mana levels
 AiPlayerbot.CriticalHealth = 20
-AiPlayerbot.LowHealth = 50
+AiPlayerbot.LowHealth = 40
 AiPlayerbot.MediumHealth = 70
 AiPlayerbot.AlmostFullHealth = 85
 AiPlayerbot.LowMana = 15
@@ -165,7 +166,7 @@ AiPlayerbot.RandomBotAutoCreate = 1
 AiPlayerbot.RandomBotGuildCount = 50
 
 # Guild Task system
-AiPlayerbot.EnableGuildTasks = 1
+AiPlayerbot.EnableGuildTasks = 0
 
 # How often tasks are changed
 AiPlayerbot.MinGuildTaskChangeTime = 172800
@@ -207,8 +208,8 @@ AiPlayerbot.MinRandomBotsPerInterval = 50
 AiPlayerbot.MaxRandomBotsPerInterval = 100
 AiPlayerbot.MinRandomBotsPriceChangeInterval = 7200
 AiPlayerbot.MaxRandomBotsPriceChangeInterval = 172800
-AiPlayerbot.MinRandomBotReviveTime = 60
-AiPlayerbot.MaxRandomReviveTime = 300
+AiPlayerbot.MinRandomBotReviveTime = 10
+AiPlayerbot.MaxRandomReviveTime = 20
 
 # Log on all random bots on start
 AiPlayerbot.RandomBotLoginAtStartup = 1
