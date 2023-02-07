@@ -301,7 +301,7 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
     if (!teleport)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
-		RandomTeleportForLevel(player);
+		// RandomTeleportForLevel(player);
         Refresh(player);
         // SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
         ScheduleTeleport(bot);
@@ -317,9 +317,12 @@ void RandomPlayerbotMgr::Revive(Player* player)
 	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
 	SetEventValue(bot, "dead", 0, 0);
 	SetEventValue(bot, "revive", 0, 0);
+	RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
     player->ResurrectPlayer(1.0f);
+    player->SpawnCorpseBones();
+    player->SaveToDB();
+    player->GetPlayerbotAI()->ResetStrategies();
     //RandomTeleportForLevel(player);
-	// RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
 }
 
 void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs)
@@ -451,12 +454,12 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, 
     }
 
     RandomTeleport(bot, locs);
-    Refresh(bot);
+    // Refresh(bot);
 }
 
 void RandomPlayerbotMgr::Randomize(Player* bot)
 {
-    if (bot->getLevel() == 1 || bot->getLevel() == 55)
+    if (bot->GetGuildId())
 	{
         RandomizeFirst(bot);
     }
@@ -512,6 +515,8 @@ void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
 	}
 	PlayerbotFactory factory(bot, level);
 	factory.CleanRandomize();
+    bot->SetLevel(bot->getLevel() - 1);
+    sRandomPlayerbotMgr.IncreaseLevel(bot);
 	RandomTeleportForLevel(bot);
 }
 

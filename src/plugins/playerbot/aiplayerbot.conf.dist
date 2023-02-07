@@ -204,18 +204,18 @@ AiPlayerbot.MinRandomBotInWorldTime = 86400
 AiPlayerbot.MaxRandomBotInWorldTime = 1209600
 AiPlayerbot.MinRandomBotRandomizeTime = 7200
 AiPlayerbot.MaxRandomRandomizeTime = 1209600
-AiPlayerbot.MinRandomBotsPerInterval = 150
-AiPlayerbot.MaxRandomBotsPerInterval = 200
+AiPlayerbot.MinRandomBotsPerInterval = 2000
+AiPlayerbot.MaxRandomBotsPerInterval = 2000
 AiPlayerbot.MinRandomBotsPriceChangeInterval = 7200
 AiPlayerbot.MaxRandomBotsPriceChangeInterval = 172800
-AiPlayerbot.MinRandomBotReviveTime = 60
-AiPlayerbot.MaxRandomReviveTime = 120
+AiPlayerbot.MinRandomBotReviveTime = 1
+AiPlayerbot.MaxRandomReviveTime = 1
 
 # Log on all random bots on start
 AiPlayerbot.RandomBotLoginAtStartup = 1
 
 # How far random bots are teleported after death
-AiPlayerbot.RandomBotTeleportDistance = 133
+AiPlayerbot.RandomBotTeleportDistance = 100
 
 # Debug switches
 AiPlayerbot.SpellDump = 0

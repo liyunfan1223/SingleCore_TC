@@ -98,7 +98,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
     PlayerbotAI* ai = new PlayerbotAI(bot);
     bot->SetPlayerbotAI(ai);
     OnBotLoginInternal(bot);
-
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "add bot guid: %d to playerBots", bot->GetGUID().GetRawValue());
     playerBots[bot->GetGUID()] = bot;
 
     Player* master = ai->GetMaster();

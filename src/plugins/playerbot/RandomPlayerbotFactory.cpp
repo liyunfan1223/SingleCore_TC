@@ -311,6 +311,7 @@ bool RandomPlayerbotFactory::CreateRandomBot(uint8 cls)
     player->setCinematic(2);
     player->SetAtLoginFlag(AT_LOGIN_NONE);
     player->SaveToDB(true);
+    // sWorld->AddCharacterInfo(player->GetGUID(), accountId, name, gender, race, cls, 1);
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random bot created for account %d - name: \"%s\"; race: %u; class: %u",
             accountId, name.c_str(), race, cls);
