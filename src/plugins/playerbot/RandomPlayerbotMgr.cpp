@@ -207,6 +207,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Skipping bot %d as it is in group", bot);
         return false;
     }
+    if (ai->GetAiObjectContext()->GetValue<bool>("random bot update")->Get() == true) {
+        return false;
+    }
     sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Now make random bot update possible for bot %d", bot);
     ai->GetAiObjectContext()->GetValue<bool>("random bot update")->Set(true);
     return true;
@@ -285,14 +288,14 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
         return true;
     }
 
-    uint32 logout = GetEventValue(bot, "logout");
-    if (!logout)
-    {
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Logging out bot %d", bot);
-        LogoutPlayerBot(bot);
-        SetEventValue(bot, "logout", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
-        return true;
-    }
+    // uint32 logout = GetEventValue(bot, "logout");
+    // if (!logout)
+    // {
+    //     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Logging out bot %d", bot);
+    //     LogoutPlayerBot(bot);
+    //     SetEventValue(bot, "logout", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
+    //     return true;
+    // }
 
     uint32 teleport = GetEventValue(bot, "teleport");
     if (!teleport)
