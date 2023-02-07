@@ -459,7 +459,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, 
 
 void RandomPlayerbotMgr::Randomize(Player* bot)
 {
-    if (bot->GetGuildId())
+    if (!bot->GetGuildId())
 	{
         RandomizeFirst(bot);
     }
@@ -515,8 +515,6 @@ void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
 	}
 	PlayerbotFactory factory(bot, level);
 	factory.CleanRandomize();
-    bot->SetLevel(bot->getLevel() - 1);
-    sRandomPlayerbotMgr.IncreaseLevel(bot);
 	RandomTeleportForLevel(bot);
 }
 

@@ -60,14 +60,19 @@ void PlayerbotFactory::Prepare()
     if (!itemQuality)
     {
         if (level <= 10)
-            itemQuality = urand(ITEM_QUALITY_NORMAL, ITEM_QUALITY_UNCOMMON);
+            // itemQuality = urand(ITEM_QUALITY_NORMAL, ITEM_QUALITY_UNCOMMON);
+            itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_UNCOMMON);
         else if (level <= 20)
-            itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_RARE);
+            // itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_RARE);
+            itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_RARE);
         else if (level <= 40)
-            itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_EPIC);
+            // itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_EPIC);
+            itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_RARE);
         else if (level < 60)
-            itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_EPIC);
+            // itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_EPIC);
+            itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_EPIC);
         else
+            // itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_EPIC);
             itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_EPIC);
     }
 
@@ -171,6 +176,8 @@ void PlayerbotFactory::Randomize(bool incremental)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Saving to DB...");
     bot->SetMoney(urand(level * 1000, level * 5 * 1000));
     bot->SaveToDB();
+    bot->SetLevel(bot->getLevel() - 1);
+    sRandomPlayerbotMgr.IncreaseLevel(bot);
 }
 
 void PlayerbotFactory::InitPet()
