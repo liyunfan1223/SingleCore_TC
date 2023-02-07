@@ -139,7 +139,7 @@ void RandomPlayerbotMgr::ScheduleRandomize(uint32 bot, uint32 time)
 
 void RandomPlayerbotMgr::ScheduleTeleport(uint32 bot)
 {
-    SetEventValue(bot, "teleport", 1, 60 + urand(sPlayerbotAIConfig.randomBotUpdateInterval, sPlayerbotAIConfig.randomBotUpdateInterval * 3));
+    SetEventValue(bot, "teleport", 1, urand(60 * 30, 60 * 60));
 }
 
 bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
@@ -238,11 +238,11 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
         return false;
     }
 
-    if (player->GetGuild() && player->GetGuild()->GetLeaderGUID() == player->GetGUID())
-    {
-        for (vector<Player*>::iterator i = players.begin(); i != players.end(); ++i)
-            sGuildTaskMgr.Update(*i, player);
-    }
+    // if (player->GetGuild() && player->GetGuild()->GetLeaderGUID() == player->GetGUID())
+    // {
+    //     for (vector<Player*>::iterator i = players.begin(); i != players.end(); ++i)
+    //         sGuildTaskMgr.Update(*i, player);
+    // }
 
 
 	bool takePlayerLevel = sPlayerbotAIConfig.randomBotBracketPlayer;
@@ -275,30 +275,31 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
 		}
 	}
 
-    // uint32 randomize = GetEventValue(bot, "randomize");
-    // if (!randomize)
-    // {
-    //     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
-    //     Randomize(player);
-    //     uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
-    //     ScheduleRandomize(bot, randomTime);
-    //     return true;
-    // }
+    uint32 randomize = GetEventValue(bot, "randomize");
+    if (!randomize)
+    {
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
+        Randomize(player);
+        uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
+        ScheduleRandomize(bot, randomTime);
+        return true;
+    }
 
-    // uint32 logout = GetEventValue(bot, "logout");
-    // if (!logout)
-    // {
-    //     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Logging out bot %d", bot);
-    //     LogoutPlayerBot(bot);
-    //     SetEventValue(bot, "logout", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
-    //     return true;
-    // }
+    uint32 logout = GetEventValue(bot, "logout");
+    if (!logout)
+    {
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Logging out bot %d", bot);
+        LogoutPlayerBot(bot);
+        SetEventValue(bot, "logout", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
+        return true;
+    }
 
     uint32 teleport = GetEventValue(bot, "teleport");
     if (!teleport)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
 		RandomTeleportForLevel(player);
+        Refresh(player);
         // SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
         ScheduleTeleport(bot);
         return true;
@@ -313,7 +314,9 @@ void RandomPlayerbotMgr::Revive(Player* player)
 	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
 	SetEventValue(bot, "dead", 0, 0);
 	SetEventValue(bot, "revive", 0, 0);
-	RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
+    player->ResurrectPlayer(1.0f);
+    //RandomTeleportForLevel(player);
+	// RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
 }
 
 void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs)
@@ -450,7 +453,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, 
 
 void RandomPlayerbotMgr::Randomize(Player* bot)
 {
-    if (bot->getLevel() == 1)
+    if (bot->getLevel() == 1 || bot->getLevel() == 55)
 	{
         RandomizeFirst(bot);
     }
