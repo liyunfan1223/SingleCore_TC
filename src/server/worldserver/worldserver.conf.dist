@@ -98,9 +98,9 @@ LogsDir = "/usr/local/Logs"
 #                     "127.0.0.1;3306;trinity;trinity;world"      - (WorldDatabaseInfo)
 #                     "127.0.0.1;3306;trinity;trinity;characters" - (CharacterDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;trinity;trinity;characters"
+LoginDatabaseInfo     = "mysql;3306;trinity;trinity;auth"
+WorldDatabaseInfo     = "mysql;3306;trinity;trinity;world"
+CharacterDatabaseInfo = "mysql;3306;trinity;trinity;characters"
 
 #
 #    LoginDatabase.WorkerThreads

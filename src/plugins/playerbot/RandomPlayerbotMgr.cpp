@@ -65,8 +65,8 @@ void RandomPlayerbotMgr::UpdateAIInternal(uint32 elapsed)
         if (botProcessed >= randomBotsPerInterval)
             break;
     }
-
 	ostringstream out; out << "Random bots are now scheduled to be processed in the background. Next re-schedule in " << sPlayerbotAIConfig.randomBotUpdateInterval << " seconds";
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "botProcessed: %d/%d", botProcessed, randomBotsPerInterval);
 	sLog->outMessage("playerbot", LOG_LEVEL_INFO, out.str().c_str());
 	//sWorld->SendWorldText(3, out.str().c_str());
 
@@ -134,7 +134,7 @@ uint32 RandomPlayerbotMgr::AddRandomBots()
 void RandomPlayerbotMgr::ScheduleRandomize(uint32 bot, uint32 time)
 {
     SetEventValue(bot, "randomize", 1, time);
-    SetEventValue(bot, "logout", 1, time + 30 + urand(sPlayerbotAIConfig.randomBotUpdateInterval, sPlayerbotAIConfig.randomBotUpdateInterval * 3));
+    // SetEventValue(bot, "logout", 1, time + 30 + urand(sPlayerbotAIConfig.randomBotUpdateInterval, sPlayerbotAIConfig.randomBotUpdateInterval * 3));
 }
 
 void RandomPlayerbotMgr::ScheduleTeleport(uint32 bot)
@@ -207,24 +207,25 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Skipping bot %d as it is in group", bot);
         return false;
     }
-
+    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Now make random bot update possible for bot %d", bot);
     ai->GetAiObjectContext()->GetValue<bool>("random bot update")->Set(true);
     return true;
 }
 
 bool RandomPlayerbotMgr::ProcessBot(Player* player)
 {
+	uint32 bot = player->GetGUID();
+    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Now process bot %d(%s)", bot, player->GetName());
 	player->GetPlayerbotAI()->GetAiObjectContext()->GetValue<bool>("random bot update")->Set(false);
 
-	uint32 bot = player->GetGUID();
     if (player->isDead())
     {
         if (!GetEventValue(bot, "dead"))
         {
-            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Setting dead flag for bot %d", bot);
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Setting dead flag for bot %d", bot);
             uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotReviveTime, sPlayerbotAIConfig.maxRandomBotReviveTime);
-            SetEventValue(bot, "dead", 1, randomTime);
-            SetEventValue(bot, "revive", 1, randomTime - 60);
+            SetEventValue(bot, "dead", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
+            SetEventValue(bot, "revive", 1, randomTime);
             return false;
         }
 
@@ -274,31 +275,32 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
 		}
 	}
 
-    uint32 randomize = GetEventValue(bot, "randomize");
-    if (!randomize)
-    {
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
-        Randomize(player);
-        uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
-        ScheduleRandomize(bot, randomTime);
-        return true;
-    }
+    // uint32 randomize = GetEventValue(bot, "randomize");
+    // if (!randomize)
+    // {
+    //     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
+    //     Randomize(player);
+    //     uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
+    //     ScheduleRandomize(bot, randomTime);
+    //     return true;
+    // }
 
-    uint32 logout = GetEventValue(bot, "logout");
-    if (!logout)
-    {
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Logging out bot %d", bot);
-        LogoutPlayerBot(bot);
-        SetEventValue(bot, "logout", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
-        return true;
-    }
+    // uint32 logout = GetEventValue(bot, "logout");
+    // if (!logout)
+    // {
+    //     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Logging out bot %d", bot);
+    //     LogoutPlayerBot(bot);
+    //     SetEventValue(bot, "logout", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
+    //     return true;
+    // }
 
     uint32 teleport = GetEventValue(bot, "teleport");
     if (!teleport)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
 		RandomTeleportForLevel(player);
-        SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
+        // SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
+        ScheduleTeleport(bot);
         return true;
     }
 
@@ -308,7 +310,7 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
 void RandomPlayerbotMgr::Revive(Player* player)
 {
 	uint32 bot = player->GetGUID();
-	sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Reviving dead bot %d", bot);
+	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
 	SetEventValue(bot, "dead", 0, 0);
 	SetEventValue(bot, "revive", 0, 0);
 	RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());

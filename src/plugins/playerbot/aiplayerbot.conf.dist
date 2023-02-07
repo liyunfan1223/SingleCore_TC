@@ -197,19 +197,19 @@ AiPlayerbot.RandomBotSpellIds = 54197
 AiPlayerbot.RandomBotTeleLevel = 3
 
 # Intervals
-AiPlayerbot.RandomBotUpdateInterval = 60
+AiPlayerbot.RandomBotUpdateInterval = 30
 AiPlayerbot.RandomBotCountChangeMinInterval = 86400
 AiPlayerbot.RandomBotCountChangeMaxInterval = 259200
 AiPlayerbot.MinRandomBotInWorldTime = 86400
 AiPlayerbot.MaxRandomBotInWorldTime = 1209600
 AiPlayerbot.MinRandomBotRandomizeTime = 7200
 AiPlayerbot.MaxRandomRandomizeTime = 1209600
-AiPlayerbot.MinRandomBotsPerInterval = 50
-AiPlayerbot.MaxRandomBotsPerInterval = 100
+AiPlayerbot.MinRandomBotsPerInterval = 150
+AiPlayerbot.MaxRandomBotsPerInterval = 200
 AiPlayerbot.MinRandomBotsPriceChangeInterval = 7200
 AiPlayerbot.MaxRandomBotsPriceChangeInterval = 172800
-AiPlayerbot.MinRandomBotReviveTime = 10
-AiPlayerbot.MaxRandomReviveTime = 20
+AiPlayerbot.MinRandomBotReviveTime = 60
+AiPlayerbot.MaxRandomReviveTime = 120
 
 # Log on all random bots on start
 AiPlayerbot.RandomBotLoginAtStartup = 1

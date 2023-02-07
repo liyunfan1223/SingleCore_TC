@@ -80,12 +80,12 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 			FleePoint *point = new FleePoint(x, y, z);
             calculateDistanceToPlayers(point);
             calculateDistanceToCreatures(point);
-			sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::calculatePossibleDestinations check isresonable x:%.4f y:%.4f z:%.4f", 
-					x, y, z);
+			// sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::calculatePossibleDestinations check isresonable x:%.4f y:%.4f z:%.4f", 
+					// x, y, z);
 			if (point->isReasonable()) {
 				points.push_back(point);
-				sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::calculatePossibleDestinations push point x:%.4f y:%.4f z:%.4f", 
-					x, y, z);
+				// sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::calculatePossibleDestinations push point x:%.4f y:%.4f z:%.4f", 
+				// 	x, y, z);
 			}
         }
 	}
@@ -148,7 +148,7 @@ bool FleeManager::CalculateDestination(float* rx, float* ry, float* rz)
     FleePoint* point = selectOptimalDestination(points);
     if (!point)
     {
-		sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::CalculateDestination no available destination.");
+		// sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::CalculateDestination no available destination.");
         cleanup(points);
         return false;
     }
@@ -156,8 +156,8 @@ bool FleeManager::CalculateDestination(float* rx, float* ry, float* rz)
 	*rx = point->x;
 	*ry = point->y;
 	*rz = point->z;
-	sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::CalculateDestination find destination x:%.4f y:%.4f z:%.4f.",
-		*rx, *ry, *rz);
+	// sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "FleeManager::CalculateDestination find destination x:%.4f y:%.4f z:%.4f.",
+	// 	*rx, *ry, *rz);
     cleanup(points);
 	return true;
 }

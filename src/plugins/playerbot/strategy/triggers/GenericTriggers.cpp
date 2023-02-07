@@ -160,7 +160,7 @@ bool HasAuraTrigger::IsActive()
 bool HasAuraStackTrigger::IsActive()
 {
 	Aura *aura = ai->GetAura(getName(), GetTarget());
-	sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "HasAuraStackTrigger::IsActive %s %d", getName(), aura ? aura->GetStackAmount() : -1);
+	// sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "HasAuraStackTrigger::IsActive %s %d", getName(), aura ? aura->GetStackAmount() : -1);
 	return ai->HasAura(getName(), GetTarget()) && aura && aura->GetStackAmount() >= stack;
 }
 
