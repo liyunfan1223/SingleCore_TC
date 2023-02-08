@@ -139,7 +139,7 @@ void RandomPlayerbotMgr::ScheduleRandomize(uint32 bot, uint32 time)
 
 void RandomPlayerbotMgr::ScheduleTeleport(uint32 bot)
 {
-    SetEventValue(bot, "teleport", 1, urand(60 * 30, 60 * 60));
+    SetEventValue(bot, "teleport", 1, urand(60 * 60 * 1, 60 * 60 * 5));
 }
 
 bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
@@ -163,6 +163,7 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
         if (!GetEventValue(bot, "online"))
         {
             SetEventValue(bot, "online", 1, sPlayerbotAIConfig.minRandomBotInWorldTime);
+            ScheduleTeleport(bot);
         }
         return true;
     }
@@ -736,7 +737,7 @@ bool RandomPlayerbotMgr::HandlePlayerbotConsoleCommand(ChatHandler* handler, cha
 
             if (cmd == "init")
             {
-		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Detected cmd is init.");
+		        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Detected cmd is init.");
                 sRandomPlayerbotMgr.RandomizeFirst(bot);
             }
             else if (cmd == "teleport")

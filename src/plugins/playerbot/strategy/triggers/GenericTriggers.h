@@ -590,7 +590,7 @@ namespace ai
     class AvoidAOESpellTrigger : public Trigger
     {
     public:
-        AvoidAOESpellTrigger(PlayerbotAI* ai) : Trigger(ai, "avoid aoe", 10) {}
+        AvoidAOESpellTrigger(PlayerbotAI* ai) : Trigger(ai, "avoid aoe", 1) {}
     public:
         virtual bool IsActive()
         {
