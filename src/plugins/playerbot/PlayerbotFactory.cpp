@@ -70,10 +70,12 @@ void PlayerbotFactory::Prepare()
             itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_RARE);
         else if (level < 60)
             // itemQuality = urand(ITEM_QUALITY_UNCOMMON, ITEM_QUALITY_EPIC);
-            itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_EPIC);
-        else
+            itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_RARE);
+        else if (level < 80)
             // itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_EPIC);
-            itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_EPIC);
+            itemQuality = urand(ITEM_QUALITY_RARE, ITEM_QUALITY_RARE);
+        else
+            itemQuality = urand(ITEM_QUALITY_EPIC, ITEM_QUALITY_EPIC);
     }
 
     if (bot->isDead())
