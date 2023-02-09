@@ -647,9 +647,9 @@ void PlayerbotFactory::InitEquipment(bool incremental)
             continue;
 
         uint32 desiredQuality = itemQuality;
-        if (urand(0, 100) < 100 * sPlayerbotAIConfig.randomGearLoweringChance && desiredQuality > ITEM_QUALITY_NORMAL) {
-            desiredQuality--;
-        }
+        // if (urand(0, 100) < 100 * sPlayerbotAIConfig.randomGearLoweringChance && desiredQuality > ITEM_QUALITY_NORMAL) {
+        //     desiredQuality--;
+        // }
 
         do
         {
