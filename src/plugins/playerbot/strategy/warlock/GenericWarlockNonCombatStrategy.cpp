@@ -71,6 +71,10 @@ void GenericWarlockNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
         "no pet",
         NextAction::array(0, new NextAction("summon felhunter", 11.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "has pet",
+        NextAction::array(0, new NextAction("toggle pet spell", 11.0f), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"in battleground without flag",
 		NextAction::array(0, new NextAction("mount", 1.0f), NULL)));

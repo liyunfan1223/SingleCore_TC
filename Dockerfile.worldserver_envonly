@@ -1,0 +1,32 @@
+FROM ubuntu:16.04
+
+RUN apt update -y && apt upgrade -y 
+
+RUN apt install build-essential software-properties-common -y && \
+    add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
+    apt update -y && \
+    apt install p7zip git vim gcc-6 g++-6 -y
+
+RUN apt install cmake make libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev mysql-client -y
+
+# VOLUME . /trinity
+
+# COPY . /trinity
+
+# WORKDIR /trinity/build
+
+# RUN CXX=g++-6 CC=gcc-6 cmake .. -DCONF_DIR=/usr/local/etc -DTOOLS=0 -DWITH_WARNINGS=0 -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+
+# RUN make -j8
+
+# RUN make install
+
+# RUN cp /usr/local/etc/worldserver.conf.dist /usr/local/etc/worldserver.conf && \
+# 	cp /usr/local/etc/authserver.conf.dist /usr/local/etc/authserver.conf && \
+# 	cp /usr/local/etc/aiplayerbot.conf.dist /usr/local/etc/aiplayerbot.conf
+
+# WORKDIR /trinity/static
+
+# RUN 7zr x data.7z -o/usr/local
+
+# WORKDIR /usr/local/bin

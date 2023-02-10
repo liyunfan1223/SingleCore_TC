@@ -117,7 +117,7 @@ uint32 RandomPlayerbotMgr::AddRandomBots()
 				guids.push_back(guid);
 				uint32 bot = guid;
 				// SetEventValue(bot, "add", 1, urand(sPlayerbotAIConfig.minRandomBotInWorldTime, sPlayerbotAIConfig.maxRandomBotInWorldTime));
-                SetEventValue(bot, "add", 1, INT_MAX / 2);
+                SetEventValue(bot, "add", 1, INT_MAX / 8);
 				uint32 randomTime = 30 + urand(sPlayerbotAIConfig.randomBotUpdateInterval, sPlayerbotAIConfig.randomBotUpdateInterval * 3);
 				ScheduleRandomize(bot, randomTime);
 				bots.insert(bot);
@@ -304,7 +304,8 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
 		// RandomTeleportForLevel(player);
-        Refresh(player);
+        PlayerbotFactory factory(player, player->getLevel());
+        factory.Refresh();
         // SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
         ScheduleTeleport(bot);
         return true;

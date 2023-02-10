@@ -108,8 +108,10 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 if (player->getLevel() > 19)
                     engine->addStrategy("dps debuff");
             }
-            else
+            else {
+                engine->ChangeStrategy("-aoe");
                 engine->addStrategy("heal");
+            }
 
             engine->addStrategy("flee");
             break;

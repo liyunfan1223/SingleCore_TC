@@ -16,10 +16,10 @@ services:
     expose:
       - "3306"
   worldserver:
-    build:
-      context: .
-      dockerfile: Dockerfile.worldserver
-    image: ubuntu:tc
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.worldserver
+    image: trinity:env
     container_name: worldserver
     volumes:
       - .:/volume_trinity/

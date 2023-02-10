@@ -112,7 +112,8 @@ void PlayerbotFactory::Randomize(bool incremental)
 		InitQuests();
 	}
     bot->SetLevel(level); // quest rewards boost bot level, so reduce back
-
+    bot->InitStatsForLevel();
+    
     //thesawolf - refill hp/sp since level resets can leave a vacuum
     bot->SetHealth(bot->GetMaxHealth());
     bot->SetPower(POWER_MANA, bot->GetMaxPower(POWER_MANA));
@@ -850,46 +851,41 @@ void PlayerbotFactory::InitSecondEquipmentSet()
 
 void PlayerbotFactory::InitBags()
 {
-    vector<uint32> ids;
+    // vector<uint32> ids;
 
-    ItemTemplateContainer const* itemTemplates = sObjectMgr->GetItemTemplateStore();
-    for (ItemTemplateContainer::const_iterator i = itemTemplates->begin(); i != itemTemplates->end(); ++i)
-    {
-        uint32 itemId = i->first;
-        ItemTemplate const* proto = &i->second;
-        if (!proto || proto->Class != ITEM_CLASS_CONTAINER)
-            continue;
+    // ItemTemplateContainer const* itemTemplates = sObjectMgr->GetItemTemplateStore();
+    // for (ItemTemplateContainer::const_iterator i = itemTemplates->begin(); i != itemTemplates->end(); ++i)
+    // {
+    //     uint32 itemId = i->first;
+    //     ItemTemplate const* proto = &i->second;
+    //     if (!proto || proto->Class != ITEM_CLASS_CONTAINER)
+    //         continue;
 
-        if (!CanEquipItem(proto, ITEM_QUALITY_NORMAL))
-            continue;
+    //     if (!CanEquipItem(proto, ITEM_QUALITY_NORMAL))
+    //         continue;
 
-        ids.push_back(itemId);
-    }
+    //     ids.push_back(itemId);
+    // }
 
-    if (ids.empty())
-    {
-        sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "%s: no bags found", bot->GetName().c_str());
-        return;
-    }
+    // if (ids.empty())
+    // {
+    //     sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "%s: no bags found", bot->GetName().c_str());
+    //     return;
+    // }
 
     for (uint8 slot = INVENTORY_SLOT_BAG_START; slot < INVENTORY_SLOT_BAG_END; ++slot)
     {
-        for (int attempts = 0; attempts < 15; attempts++)
+        uint32 newItemId = 23162;
+
+        uint16 dest;
+        if (!CanEquipUnseenItem(slot, dest, newItemId))
+            continue;
+
+        Item* newItem = bot->EquipNewItem(dest, newItemId, true);
+        if (newItem)
         {
-            uint32 index = urand(0, ids.size() - 1);
-            uint32 newItemId = ids[index];
-
-            uint16 dest;
-            if (!CanEquipUnseenItem(slot, dest, newItemId))
-                continue;
-
-            Item* newItem = bot->EquipNewItem(dest, newItemId, true);
-            if (newItem)
-            {
-                newItem->AddToWorld();
-                newItem->AddToUpdateQueueOf(bot);
-                break;
-            }
+            newItem->AddToWorld();
+            newItem->AddToUpdateQueueOf(bot);
         }
     }
 }
@@ -1198,6 +1194,18 @@ void PlayerbotFactory::InitClassSpells()
         case CLASS_MAGE:
             break;
         case CLASS_WARLOCK:
+            if (level >= 10) {
+                // summon voidwalker
+                bot->LearnSpell(697, false);
+            }
+            if (level >= 20) {
+                // summon succubus
+                bot->LearnSpell(712, false);
+            }
+            if (level >= 30) {
+                // summon felhunter
+                bot->LearnSpell(691, false);
+            }
             break;
         case CLASS_DRUID:
             if (level >= 10) {
@@ -1424,7 +1432,7 @@ void PlayerbotFactory::InitAmmo()
     if (fields)
     {
         uint32 entry = fields[0].GetUInt32();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 15; i++)
         {
             bot->StoreNewItemInBestSlots(entry, 1000);
         }

@@ -372,6 +372,16 @@ namespace ai
 		}
 	};
 
+    class HasPetTrigger : public Trigger
+	{
+	public:
+		HasPetTrigger(PlayerbotAI* ai) : Trigger(ai, "no pet", 15) {}
+
+		virtual bool IsActive() {
+			return AI_VALUE(Unit*, "pet target");
+		}
+	};
+
 	class ItemCountTrigger : public Trigger {
 	public:
 		ItemCountTrigger(PlayerbotAI* ai, string item, int count) : Trigger(ai, item, 5) {

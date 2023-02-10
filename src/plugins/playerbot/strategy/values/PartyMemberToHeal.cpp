@@ -29,7 +29,7 @@ Unit* PartyMemberToHeal::Calculate()
 
     Group* group = bot->GetGroup();
     if (!group)
-        return NULL;
+        return bot;
 
     bool isRaid = bot->GetGroup()->isRaidGroup();
     MinValueCalculator calc(100);

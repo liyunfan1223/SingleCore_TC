@@ -75,6 +75,7 @@ namespace ai
             creators["dead"] = &TriggerContext::Dead;
             creators["party member to resurrect"] = &TriggerContext::PartyMemberDead;
             creators["no pet"] = &TriggerContext::no_pet;
+            creators["has pet"] = &TriggerContext::has_pet;
             creators["has attackers"] = &TriggerContext::has_attackers;
             creators["no possible targets"] = &TriggerContext::no_possible_targets;
 
@@ -165,6 +166,7 @@ namespace ai
         static Trigger* PartyMemberAlmostFullHealth(PlayerbotAI* ai) { return new PartyMemberAlmostFullHealthTrigger(ai); }
         static Trigger* PartyMemberCriticalHealth(PlayerbotAI* ai) { return new PartyMemberCriticalHealthTrigger(ai); }
         static Trigger* no_pet(PlayerbotAI* ai) { return new NoPetTrigger(ai); }
+        static Trigger* has_pet(PlayerbotAI* ai) { return new HasPetTrigger(ai); }
         static Trigger* has_attackers(PlayerbotAI* ai) { return new HasAttackersTrigger(ai); }
 		static Trigger* random_bot_update_trigger(PlayerbotAI* ai) { return new RandomBotUpdateTrigger(ai); }
 		static Trigger* no_non_bot_players_around(PlayerbotAI* ai) { return new NoNonBotPlayersAroundTrigger(ai); }

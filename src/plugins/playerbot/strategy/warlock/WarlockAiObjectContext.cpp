@@ -140,6 +140,7 @@ namespace ai
                 creators["conflagrate"] = &AiObjectContextInternal::conflagrate;
                 creators["unstable affliction"] = &AiObjectContextInternal::unstable_affliction;
                 creators["haunt"] = &AiObjectContextInternal::haunt;
+                creators["toggle pet spell"] = &AiObjectContextInternal::toggle_pet_spell;
             }
 
         private:
@@ -173,6 +174,7 @@ namespace ai
             static Action* life_tap(PlayerbotAI* ai) { return new CastLifeTapAction(ai); }
             static Action* unstable_affliction(PlayerbotAI* ai) { return new CastUnstableAfflictionAction(ai); }
             static Action* haunt(PlayerbotAI* ai) { return new CastHauntAction(ai); }
+            static Action* toggle_pet_spell(PlayerbotAI* ai) { return new TogglePetSpellAutoCastAction(ai); }
         };
     };
 };

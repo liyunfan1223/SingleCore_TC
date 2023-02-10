@@ -38,9 +38,9 @@ AiPlayerbot.RandomBotAccountPrefix = rndbot
 AiPlayerbot.RandomBotAccountCount = 100
 
 # Random bot count
-AiPlayerbot.MinRandomBots = 300
-AiPlayerbot.MaxRandomBots = 300
-AiPlayerbot.RandomBotMinLevel = 10 
+AiPlayerbot.MinRandomBots = 400
+AiPlayerbot.MaxRandomBots = 400
+AiPlayerbot.RandomBotMinLevel = 5
 AiPlayerbot.RandomBotMaxLevel = 60
 
 # Custom strategies (check in database)
@@ -197,7 +197,7 @@ AiPlayerbot.RandomBotSpellIds = 54197
 AiPlayerbot.RandomBotTeleLevel = 3
 
 # Intervals
-AiPlayerbot.RandomBotUpdateInterval = 30
+AiPlayerbot.RandomBotUpdateInterval = 20
 AiPlayerbot.RandomBotCountChangeMinInterval = 86400
 AiPlayerbot.RandomBotCountChangeMaxInterval = 259200
 AiPlayerbot.MinRandomBotInWorldTime = 86400

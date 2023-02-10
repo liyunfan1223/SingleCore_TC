@@ -38,17 +38,17 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("inner fire", 10.0f), NULL)));
 
 
-    triggers.push_back(new TriggerNode(
-        "critical health",
-        NextAction::array(0, new NextAction("power word: shield", 70.0f), new NextAction("greater heal", 70.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "critical health",
+    //     NextAction::array(0, new NextAction("greater heal", 70.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0, new NextAction("power word: shield on party", 60.0f), new NextAction("greater heal on party", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("greater heal on party", 60.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "low health",
-        NextAction::array(0, new NextAction("flash heal", 21.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "low health",
+    //     NextAction::array(0, new NextAction("flash heal", 21.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
