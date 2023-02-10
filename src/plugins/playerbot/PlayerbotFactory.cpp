@@ -179,8 +179,6 @@ void PlayerbotFactory::Randomize(bool incremental)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Saving to DB...");
     bot->SetMoney(urand(level * 1000, level * 5 * 1000));
     bot->SaveToDB();
-    bot->SetLevel(bot->getLevel() - 1);
-    sRandomPlayerbotMgr.IncreaseLevel(bot);
 }
 
 void PlayerbotFactory::InitPet()
