@@ -129,13 +129,13 @@ void PlayerbotFactory::Randomize(bool incremental)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing skills (step 1)...");
     InitSkills();
     InitTradeSkills();
+    InitSpecialSpells();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing talents...");
     InitTalents();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing spells (step 2)...");
     InitAvailableSpells();
-    InitSpecialSpells();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing mounts...");
     InitMounts();

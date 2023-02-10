@@ -1271,7 +1271,7 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         target = bot;
     if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
         sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CanCastSpell() target name: %s, spellid: %d, bot name: %s", 
-        target->GetName(), spellid, bot->GetName());
+            target->GetName(), spellid, bot->GetName());
     if (checkHasSpell && !bot->HasSpell(spellid))
         return false;
 
@@ -1298,6 +1298,9 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
     spell->m_CastItem = aiObjectContext->GetValue<Item*>("item for spell", spellid)->Get();
     spell->m_targets.SetItemTarget(spell->m_CastItem);
     SpellCastResult result = spell->CheckCast(false);
+    if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CanCastSpell() target name: %s, spellid: %d, bot name: %s, result: %d", 
+            target->GetName(), spellid, bot->GetName(), result);
     delete spell;
 	if (oldSel)
 		bot->SetSelection(oldSel->GetGUID());
