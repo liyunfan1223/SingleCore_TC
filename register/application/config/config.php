@@ -47,7 +47,7 @@ patch_location
 game_version
     Your game version
 =====================================================================*/
-$config['realmlist'] = '127.0.0.1';
+$config['realmlist'] = '124.71.152.254';
 $config['patch_location'] = '';
 $config['game_version'] = '3.3.5a (12340)';
 /*===================================================================

@@ -30,16 +30,13 @@ services:
     tty: true
     depends_on:
       - mysql
-    links:
-      - mysql
       
   register:
     image: trinity:reg
-    container_name: registerz
+    container_name: register
     ports:
       - 80:80
     expose:
       - "80"
-    # tty: true
     depends_on:
       - mysql
