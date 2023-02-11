@@ -6,23 +6,21 @@ services:
     container_name: mysql
     volumes:
       - /apps/mysql/datadir:/var/lib/mysql
-      - ./static/mysql/conf/my.cnf:/etc/my.cnf
-      - ./static/mysql/source:/docker-entrypoint-initdb.d
+      - ./conf/mysql/my.cnf:/etc/my.cnf
+      # - ./static/mysql/source:/docker-entrypoint-initdb.d
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
-      - "MYSQL_DATABASE=yourdbname"
+      # - "MYSQL_DATABASE=yourdbname"
     ports:
       - 3306:3306
     expose:
       - "3306"
+
   worldserver:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile.worldserver
     image: trinity:env
     container_name: worldserver
     volumes:
-      - .:/volume_trinity/
+      - .:/trinity/
     ports:
       - 3724:3724
       - 8085:8085
@@ -33,4 +31,15 @@ services:
     depends_on:
       - mysql
     links:
+      - mysql
+      
+  register:
+    image: trinity:reg
+    container_name: registerz
+    ports:
+      - 80:80
+    expose:
+      - "80"
+    # tty: true
+    depends_on:
       - mysql

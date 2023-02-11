@@ -12,9 +12,10 @@ TankPaladinStrategy::TankPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrate
 NextAction** TankPaladinStrategy::getDefaultActions()
 {
     return NextAction::array(0,
-        new NextAction("avenger's shield", ACTION_HIGH + 7), 
-        new NextAction("consecration", ACTION_HIGH + 6),
-        new NextAction("hammer of the righteous", ACTION_HIGH + 5),
+        new NextAction("avenger's shield", ACTION_NORMAL + 4), 
+        new NextAction("judgement of wisdom", ACTION_NORMAL + 3),
+        new NextAction("consecration", ACTION_NORMAL + 2),
+        new NextAction("hammer of the righteous", ACTION_NORMAL + 1),
         new NextAction("melee", ACTION_NORMAL), 
         NULL);
 }

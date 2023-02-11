@@ -118,7 +118,7 @@ uint32 RandomPlayerbotMgr::AddRandomBots()
 				uint32 bot = guid;
 				// SetEventValue(bot, "add", 1, urand(sPlayerbotAIConfig.minRandomBotInWorldTime, sPlayerbotAIConfig.maxRandomBotInWorldTime));
                 SetEventValue(bot, "add", 1, INT_MAX / 8);
-				uint32 randomTime = 30 + urand(sPlayerbotAIConfig.randomBotUpdateInterval, sPlayerbotAIConfig.randomBotUpdateInterval * 3);
+				uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
 				ScheduleRandomize(bot, randomTime);
 				bots.insert(bot);
 				sLog->outMessage("playerbot", LOG_LEVEL_INFO, "New random bot %d added", bot);

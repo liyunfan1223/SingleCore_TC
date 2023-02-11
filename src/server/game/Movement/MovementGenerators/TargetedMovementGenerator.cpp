@@ -30,6 +30,10 @@
 template<class T, typename D>
 void TargetedMovementGeneratorMedium<T, D>::_setTargetLocation(T* owner, bool updateDestination)
 {
+    if (!owner->ToCreature()) {
+        return;
+    }
+    
     if (!i_target.isValid() || !i_target->IsInWorld())
         return;
 

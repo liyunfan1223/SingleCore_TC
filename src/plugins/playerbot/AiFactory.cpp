@@ -96,7 +96,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 	}
 	else {
 		// engine->addStrategies("attack weak", , "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
-        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "cast time", NULL);
+        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "cast time", "duel", "pvp", NULL);
 	}
 
     switch (player->getClass())

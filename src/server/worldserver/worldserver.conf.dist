@@ -81,7 +81,7 @@ DataDir = "/usr/local/data"
 #                     Logs directory must exists, or log file creation will be disabled.
 #        Default:     "" - (Log files will be stored in the current path)
 
-LogsDir = "/usr/local/Logs"
+LogsDir = "/usr/local/logs"
 
 #
 #    LoginDatabaseInfo
