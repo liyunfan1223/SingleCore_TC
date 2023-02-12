@@ -13,9 +13,9 @@ COPY . /trinity
 
 WORKDIR /trinity/build
 
-RUN CXX=g++-6 CC=gcc-6 cmake .. -DCONF_DIR=/usr/local/etc -DTOOLS=0 -DWITH_WARNINGS=0 -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+RUN CXX=g++-6 CC=gcc-6 cmake .. -DCONF_DIR=/usr/local/etc -DTOOLS=0 -DWITH_WARNINGS=0
 
-RUN make -j8
+RUN make -j4
 
 RUN make install
 
@@ -25,10 +25,6 @@ RUN cp /usr/local/etc/worldserver.conf.dist /usr/local/etc/worldserver.conf && \
 
 WORKDIR /trinity/static
 
-RUN 7zr x data.7z -o/usr/local
+RUN 7zr x data.7z -o/usr/local && rm data.7z
 
 WORKDIR /usr/local/bin
-
-EXPOSE 3724
-
-EXPOSE 8085
