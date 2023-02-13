@@ -203,11 +203,17 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     PlayerbotAI* ai = player->GetPlayerbotAI();
     if (!ai)
         return false;
-
-    if (player->GetGroup())
+    
+    Group* group = player->GetGroup();
+    if (group)
     {
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Skipping bot %d as it is in group", bot);
-        return false;
+        if (IsRandomBot(group->GetLeaderGUID())) {
+            player->UninviteFromGroup();
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %d uninvite from group", bot);
+        } else {
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Skipping bot %d as it is in group", bot);
+            return false;
+        }
     }
     if (ai->GetAiObjectContext()->GetValue<bool>("random bot update")->Get() == true) {
         return false;

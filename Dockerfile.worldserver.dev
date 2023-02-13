@@ -13,6 +13,8 @@ COPY ./static/data.7z .
 
 RUN 7zr x data.7z -o/usr/local && rm data.7z
 
+RUN mkdir /usr/local/logs && chmod 777 /usr/local/logs -R
+
 # WORKDIR /trinity/build
 
 # RUN CXX=g++-6 CC=gcc-6 cmake .. -DCONF_DIR=/usr/local/etc -DTOOLS=0 -DWITH_WARNINGS=0 -DCMAKE_EXPORT_COMPILE_COMMANDS=1

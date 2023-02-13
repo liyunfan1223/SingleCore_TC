@@ -31,6 +31,7 @@ namespace ai
             creators["melee"] = &ActionContext::melee;
             creators["reach spell"] = &ActionContext::ReachSpell;
             creators["reach melee"] = &ActionContext::ReachMelee;
+            creators["reach party member to heal"] = &ActionContext::ReachPartyMemberToHeal;
             creators["flee"] = &ActionContext::flee;
             creators["gift of the naaru"] = &ActionContext::gift_of_the_naaru;
             creators["shoot"] = &ActionContext::shoot;
@@ -89,6 +90,7 @@ namespace ai
         static Action* melee(PlayerbotAI* ai) { return new MeleeAction(ai); }
         static Action* ReachSpell(PlayerbotAI* ai) { return new ReachSpellAction(ai); }
         static Action* ReachMelee(PlayerbotAI* ai) { return new ReachMeleeAction(ai); }
+        static Action* ReachPartyMemberToHeal(PlayerbotAI* ai) { return new ReachPartyMemberToHealAction(ai); }
         static Action* flee(PlayerbotAI* ai) { return new FleeAction(ai); }
         static Action* gift_of_the_naaru(PlayerbotAI* ai) { return new CastGiftOfTheNaaruAction(ai); }
         static Action* lifeblood(PlayerbotAI* ai) { return new CastLifeBloodAction(ai); }

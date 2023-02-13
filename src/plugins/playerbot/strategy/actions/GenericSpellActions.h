@@ -194,6 +194,15 @@ namespace ai
 
 		virtual string GetTargetName() { return "party member to heal"; }
 		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+        virtual NextAction** getPrerequisites()
+		{
+			if (spell == "mount")
+				return NULL;
+			if (range > sPlayerbotAIConfig.spellDistance)
+				return NULL;
+			else
+				return NextAction::merge( NextAction::array(0, new NextAction("reach party member to heal"), NULL), Action::getPrerequisites());
+		}
     };
 
 	class ResurrectPartyMemberAction : public CastSpellAction

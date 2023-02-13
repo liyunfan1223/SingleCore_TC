@@ -264,8 +264,14 @@ bool RandomPlayerbotFactory::CreateNotRandomBot(uint32 nid)
 bool RandomPlayerbotFactory::CreateRandomBot(uint8 cls)
 {
     uint8 gender = rand() % 2 ? GENDER_MALE : GENDER_FEMALE;
-
-    uint8 race = availableRaces[cls][urand(0, availableRaces[cls].size() - 1)];
+    uint8 alliance = rand() % 2;
+    uint8 race;
+    for (int attempt = 0; attempt < 15; attempt++) {
+        race = availableRaces[cls][urand(0, availableRaces[cls].size() - 1)];
+        if ((alliance && IsAlliance(race)) || (!alliance && !IsAlliance(race))) {
+            break;
+        }
+    }
     string name = CreateRandomBotName();
     if (name.empty())
         return false;
