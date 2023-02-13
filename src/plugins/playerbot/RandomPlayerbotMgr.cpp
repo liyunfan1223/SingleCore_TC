@@ -208,8 +208,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (group)
     {
         if (IsRandomBot(group->GetLeaderGUID())) {
-            player->UninviteFromGroup();
-            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %d uninvite from group", bot);
+            // player->UninviteFromGroup();
+            player->RemoveFromGroup();
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %d remove from group since leader is random bot.", bot);
         } else {
             sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Skipping bot %d as it is in group", bot);
             return false;

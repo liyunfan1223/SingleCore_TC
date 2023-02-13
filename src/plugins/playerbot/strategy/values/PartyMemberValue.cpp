@@ -33,8 +33,14 @@ Unit* PartyMemberValue::FindPartyMember(FindPlayerPredicate &predicate)
     Player* master = GetMaster();
 	// list<ObjectGuid> nearestPlayers = AI_VALUE(list<ObjectGuid>, "nearest friendly players");
     Group* group = bot->GetGroup();
-    if (!group)
-        return bot;
+    if (!group) {
+        list<Player*> list;
+        list.push_back(bot);
+        Unit* target = FindPartyMember(&list, predicate);
+        if (target)
+            return target;
+        return NULL;
+    }
     // bool isRaid = bot->GetGroup()->isRaidGroup();
     list<Player*> healers, tanks, others, masters;
 	if (master) masters.push_back(master);
