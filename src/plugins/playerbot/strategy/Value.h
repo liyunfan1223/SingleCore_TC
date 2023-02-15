@@ -123,6 +123,19 @@ namespace ai
         }
     };
 
+    class AuraCalculatedValue : public CalculatedValue<Aura*>
+    {
+    public:
+        AuraCalculatedValue(PlayerbotAI* ai, string name = "value", int checkInterval = 1) :
+            CalculatedValue<Aura*>(ai, name, checkInterval) {}
+
+        virtual string Format()
+        {
+            Aura* aura = Calculate();
+            return aura ? aura->GetSpellInfo()->SpellName[0] : "<none>";
+        }
+    };
+
     class ObjectGuidListCalculatedValue : public CalculatedValue<list<ObjectGuid> >
     {
     public:

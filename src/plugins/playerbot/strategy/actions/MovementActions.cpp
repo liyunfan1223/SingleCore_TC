@@ -280,6 +280,30 @@ bool MovementAction::Flee(Unit *target)
     return MoveTo(target->GetMapId(), rx, ry, rz);
 }
 
+bool MovementAction::Flee(WorldObject *target)
+{
+    Player* master = GetMaster();
+    if (!target)
+        target = master;
+
+    if (!target)
+        return false;
+
+    if (!sPlayerbotAIConfig.fleeingEnabled)
+        return false;
+
+    if (!IsMovingAllowed())
+        return false;
+
+    FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, bot->GetAngle(target) + M_PI / 2 );
+
+    float rx, ry, rz;
+    if (!manager.CalculateDestination(&rx, &ry, &rz))
+        return false;
+
+    return MoveTo(target->GetMapId(), rx, ry, rz);
+}
+
 bool FleeAction::Execute(Event event)
 {
     return Flee(AI_VALUE(Unit*, "current target"));
@@ -413,28 +437,33 @@ bool SetFacingTargetAction::isUseful()
 
 bool AvoidAOEAction::Execute(Event event)
 {
-    list<ObjectGuid> nearest_triggers = AI_VALUE(list<ObjectGuid>, "nearest triggers");
-    for (list<ObjectGuid>::iterator it = nearest_triggers.begin(); it != nearest_triggers.end(); it++) {
-        ObjectGuid guid = *it;
-        Creature* creature = ai->GetCreature(guid);
-        if (creature->GetName() == "Grobbulus Cloud" || creature->GetName() == "Blizzard" ) {
-            // bot->Yell("AOE技能:" + creature->GetName() + "已检测,需要躲避,距离:" + to_string(bot->GetDistance2d(creature)), LANG_UNIVERSAL);
-            return Flee(creature);
-        }
-    }
-    return false;
+    // list<ObjectGuid> nearest_triggers = AI_VALUE(list<ObjectGuid>, "nearest triggers");
+    // for (list<ObjectGuid>::iterator it = nearest_triggers.begin(); it != nearest_triggers.end(); it++) {
+    //     ObjectGuid guid = *it;
+    //     Creature* creature = ai->GetCreature(guid);
+    //     if (creature->GetName() == "Grobbulus Cloud" || creature->GetName() == "Blizzard" ) {
+    //         // bot->Yell("AOE技能:" + creature->GetName() + "已检测,需要躲避,距离:" + to_string(bot->GetDistance2d(creature)), LANG_UNIVERSAL);
+    //         return Flee(creature);
+    //     }
+    // }
+    Aura* target = AI_VALUE(Aura*, "aoe aura to avoid");
+    DynamicObject* dyn_obj = target->GetDynobjOwner();
+    bot->Yell("正在躲避AOE技能:" + string(target->GetSpellInfo()->SpellName[0]), LANG_UNIVERSAL);
+    return Flee(dyn_obj);
 }
 
 bool AvoidAOEAction::isUseful()
 {
-    list<ObjectGuid> nearest_triggers = AI_VALUE(list<ObjectGuid>, "nearest triggers");
-    for (list<ObjectGuid>::iterator it = nearest_triggers.begin(); it != nearest_triggers.end(); it++) {
-        ObjectGuid guid = *it;
-        Creature* creature = ai->GetCreature(guid);
-        if (creature->GetName() == "Grobbulus Cloud" || creature->GetName() == "Blizzard" ) {
-            // bot->Yell("AOE技能:" + creature->GetName() + "已检测,需要躲避,距离:" + to_string(bot->GetDistance2d(creature)), LANG_UNIVERSAL);
-            return true;
-        }
-    }
-    return false;
+    Aura* target = AI_VALUE(Aura*, "aoe aura to avoid");
+    return target;
+    // list<ObjectGuid> nearest_triggers = AI_VALUE(list<ObjectGuid>, "nearest triggers");
+    // for (list<ObjectGuid>::iterator it = nearest_triggers.begin(); it != nearest_triggers.end(); it++) {
+    //     ObjectGuid guid = *it;
+    //     Creature* creature = ai->GetCreature(guid);
+    //     if (creature->GetName() == "Grobbulus Cloud" || creature->GetName() == "Blizzard" ) {
+    //         // bot->Yell("AOE技能:" + creature->GetName() + "已检测,需要躲避,距离:" + to_string(bot->GetDistance2d(creature)), LANG_UNIVERSAL);
+    //         return true;
+    //     }
+    // }
+    // return false;
 }

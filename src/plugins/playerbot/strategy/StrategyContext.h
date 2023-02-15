@@ -33,6 +33,7 @@
 #include "generic/AttackEnemyPlayersStrategy.h"
 #include "generic/MoveRandomStrategy.h"
 #include "generic/AvoidAOEStrategy.h"
+#include "generic/RaidStrategy.h"
 
 namespace ai
 {
@@ -66,6 +67,7 @@ namespace ai
 			creators["warsong"] = &StrategyContext::warsong;
 			creators["custom"] = &StrategyContext::custom;
 			creators["reveal"] = &StrategyContext::reveal;
+            creators["avoid aoe"] = &StrategyContext::avoid_aoe;
         }
 
     private:
@@ -94,6 +96,7 @@ namespace ai
 		static Strategy* warsong(PlayerbotAI* ai) { return new WarsongStrategy(ai); }
 		static Strategy* custom(PlayerbotAI* ai) { return new CustomStrategy(ai); }
 		static Strategy* reveal(PlayerbotAI* ai) { return new RevealStrategy(ai); }
+        static Strategy* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOEStrategy(ai); }
     };
 
     class MovementStrategyContext : public NamedObjectContext<Strategy>
@@ -106,7 +109,7 @@ namespace ai
             creators["runaway"] = &MovementStrategyContext::runaway;
             creators["flee from adds"] = &MovementStrategyContext::flee_from_adds;
             creators["guard"] = &MovementStrategyContext::guard;
-            creators["avoid aoe"] = &MovementStrategyContext::avoid_aoe;
+            
         }
 
     private:
@@ -115,7 +118,7 @@ namespace ai
         static Strategy* stay(PlayerbotAI* ai) { return new StayStrategy(ai); }
         static Strategy* runaway(PlayerbotAI* ai) { return new RunawayStrategy(ai); }
         static Strategy* flee_from_adds(PlayerbotAI* ai) { return new FleeFromAddsStrategy(ai); }
-        static Strategy* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOEStrategy(ai); }
+        
     };
 
     class AssistStrategyContext : public NamedObjectContext<Strategy>
@@ -154,5 +157,16 @@ namespace ai
     private:
         static Strategy* quest(PlayerbotAI* ai) { return new DefaultQuestStrategy(ai); }
         static Strategy* accept_all_quests(PlayerbotAI* ai) { return new AcceptAllQuestsStrategy(ai); }
+    };
+
+    class RaidStrategyContext : public NamedObjectContext<Strategy>
+    {
+    public:
+        RaidStrategyContext() : NamedObjectContext<Strategy>(false, true)
+        {
+            creators["naxx"] = &RaidStrategyContext::naxx;
+        }
+    private:
+        static Strategy* naxx(PlayerbotAI* ai) { return new RaidNaxxStrategy(ai); }
     };
 };

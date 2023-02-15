@@ -64,6 +64,7 @@ namespace ai
             creators["reputation"] = &ChatActionContext::reputation;
             creators["log"] = &ChatActionContext::log;
             creators["los"] = &ChatActionContext::los;
+            creators["aura"] = &ChatActionContext::aura;
             creators["drop"] = &ChatActionContext::drop;
             creators["query quest"] = &ChatActionContext::query_quest;
             creators["query item usage"] = &ChatActionContext::query_item_usage;
@@ -177,6 +178,7 @@ namespace ai
         static Action* reputation(PlayerbotAI* ai) { return new TellReputationAction(ai); }
         static Action* log(PlayerbotAI* ai) { return new LogLevelAction(ai); }
         static Action* los(PlayerbotAI* ai) { return new TellLosAction(ai); }
+        static Action* aura(PlayerbotAI* ai) { return new TellAuraAction(ai); }
         static Action* ll(PlayerbotAI* ai) { return new LootStrategyAction(ai); }
         static Action* add_all_loot(PlayerbotAI* ai) { return new AddAllLootAction(ai); }
         static Action* reset_ai(PlayerbotAI* ai) { return new ResetAiAction(ai); }

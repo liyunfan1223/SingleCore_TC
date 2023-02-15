@@ -67,5 +67,10 @@ void ArcaneMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
 	triggers.push_back(new TriggerNode(
 		"high aoe",
-		NextAction::array(0, new NextAction("arcane explosion", 40.0f), NULL)));
+		NextAction::array(0, new NextAction("arcane explosion", 39.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "high aoe",
+        NextAction::array(0, new NextAction("blizzard", 40.0f), NULL)));
+
 }

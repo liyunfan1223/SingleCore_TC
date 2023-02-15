@@ -14,4 +14,9 @@ namespace ai
         void ListGameObjects(string title, list<ObjectGuid> gos);
     };
 
+    class TellAuraAction : public Action {
+    public:
+        TellAuraAction(PlayerbotAI* ai) : Action(ai, "aura") {}
+        virtual bool Execute(Event event);
+    };
 }

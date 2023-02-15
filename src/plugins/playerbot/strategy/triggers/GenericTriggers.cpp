@@ -293,3 +293,10 @@ Value<Unit*>* InterruptEnemyHealerTrigger::GetTargetValue()
 {
     return context->GetValue<Unit*>("enemy healer target", spell);
 }
+
+bool AvoidAOESpellTrigger::IsActive()
+{
+	Aura* target = AI_VALUE(Aura*, "aoe aura to avoid");
+	// bot->Yell("AURA AOE 检测触发:" + string(target->GetSpellInfo()->SpellName[0]), LANG_UNIVERSAL);
+	return target;
+}

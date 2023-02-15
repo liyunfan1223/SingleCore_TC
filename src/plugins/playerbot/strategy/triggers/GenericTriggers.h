@@ -602,26 +602,7 @@ namespace ai
     public:
         AvoidAOESpellTrigger(PlayerbotAI* ai) : Trigger(ai, "avoid aoe", 1) {}
     public:
-        virtual bool IsActive()
-        {
-            list<ObjectGuid> nearest_triggers = AI_VALUE(list<ObjectGuid>, "nearest triggers");
-            for (list<ObjectGuid>::iterator it = nearest_triggers.begin(); it != nearest_triggers.end(); it++) {
-                ObjectGuid guid = *it;
-                Creature* creature = ai->GetCreature(guid);
-                if (!creature) {
-                    continue;
-                }
-                std::string name = creature->GetName();
-                if (name.length() == 0) {
-                    continue;
-                }
-                if (name == "Grobbulus Cloud" || name == "Blizzard") {
-                    bot->Yell("AOE技能:" + name + "已检测,需要躲避,距离:" + to_string(bot->GetDistance2d(creature)), LANG_UNIVERSAL);
-                    return true;
-                }
-            }
-            return false;
-        }
+        virtual bool IsActive();
     };
 }
 

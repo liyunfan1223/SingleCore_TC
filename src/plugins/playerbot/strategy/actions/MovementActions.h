@@ -26,6 +26,7 @@ namespace ai
         bool IsMovingAllowed(uint32 mapId, float x, float y, float z);
         bool IsMovingAllowed();
         bool Flee(Unit *target);
+        bool Flee(WorldObject *target);
 
     protected:
         Player* bot;

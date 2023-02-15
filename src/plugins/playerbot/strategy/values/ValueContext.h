@@ -62,6 +62,7 @@
 #include "NearestTriggersValue.h"
 #include "PartyMemberWithoutAPAuraValue.h"
 #include "PartyMemberWithoutManaAuraValue.h"
+#include "AoeAuraToAvoidValue.h"
 
 namespace ai
 {
@@ -157,6 +158,7 @@ namespace ai
 			creators["random bot update"] = &ValueContext::random_bot_update_value;
 			creators["nearest non bot players"] = &ValueContext::nearest_non_bot_players;
             creators["nearest triggers"] = &ValueContext::nearest_triggers;
+            creators["aoe aura to avoid"] = &ValueContext::aoe_aura_to_avoid;
         }
 
     private:
@@ -246,6 +248,6 @@ namespace ai
 		static UntypedValue* random_bot_update_value(PlayerbotAI* ai) { return new RandomBotUpdateValue(ai); }
 		static UntypedValue* nearest_non_bot_players(PlayerbotAI* ai) { return new NearestNonBotPlayersValue(ai); }
         static UntypedValue* nearest_triggers(PlayerbotAI* ai) { return new NearestTriggersValue(ai); }
-        
+        static UntypedValue* aoe_aura_to_avoid(PlayerbotAI* ai) { return new AoeAuraToAvoidValue(ai); }
     };
 };
