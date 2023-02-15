@@ -1,0 +1,14 @@
+DELETE FROM `creature` WHERE `guid` = '15122156';
+DELETE FROM `creature` WHERE `guid` = '15122157';
+DELETE FROM `creature` WHERE `guid` = '15122174';
+DELETE FROM `creature` WHERE `guid` = '15122159';
+DELETE FROM `creature` WHERE `guid` = '15122175';
+DELETE FROM `creature` WHERE `guid` = '15122176';
+DELETE FROM `creature` WHERE `guid` = '15122177';
+DELETE FROM `creature` WHERE `guid` = '15122178';
+DELETE FROM `creature` WHERE `guid` = '15122184';
+DELETE FROM `creature` WHERE `guid` = '15122187';
+DELETE FROM `creature` WHERE `guid` = '15122190';
+DELETE FROM `creature` WHERE `guid` = '15122191';
+DELETE FROM `creature` WHERE `guid` = '15121977';
+DELETE FROM `creature` WHERE `guid` = '15121978';
