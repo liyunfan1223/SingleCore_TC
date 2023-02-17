@@ -55,10 +55,13 @@ private:
 };
 
 
-	NextAction** UnholyDKStrategy::getDefaultActions()
-	{
-    return NextAction::array(0, new NextAction("scourge strike" , ACTION_NORMAL + 3), NULL);
-	}
+NextAction** UnholyDKStrategy::getDefaultActions()
+{
+    return NextAction::array(0, 
+		new NextAction("scourge strike" , ACTION_NORMAL + 3), 
+		new NextAction("melee", ACTION_NORMAL), 
+		NULL);
+}
 
 void UnholyDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
