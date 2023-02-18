@@ -990,18 +990,33 @@ bool PlayerbotAI::IsRanged(Player* player)
 
 bool PlayerbotAI::IsTank(Player* player)
 {
+    int tab = AiFactory::GetPlayerSpecTab(player);
     PlayerbotAI* botAi = player->GetPlayerbotAI();
     if (botAi)
         return botAi->ContainsStrategy(STRATEGY_TYPE_TANK);
-
+        
     switch (player->getClass())
     {
     case CLASS_DEATH_KNIGHT:
+        if (tab == 0) {
+            return true;
+        }
+        break;
     case CLASS_PALADIN:
+        if (tab == 1) {
+            return true;
+        }
+        break;
     case CLASS_WARRIOR:
-        return true;
+        if (tab == 2) {
+            return true;
+        }
+        break;
     case CLASS_DRUID:
-        return HasAnyAuraOf(player, "bear form", "dire bear form", "thick hide", NULL);
+        if (tab == 1 && HasAnyAuraOf(player, "bear form", "dire bear form", "thick hide", NULL)) {
+            return true;
+        }
+        break;
     }
     return false;
 }
