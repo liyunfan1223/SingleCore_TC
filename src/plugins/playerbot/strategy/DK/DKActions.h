@@ -78,12 +78,16 @@ namespace ai
 	BEGIN_DEBUFF_ACTION(CastHowlingBlastAction, "howling blast")
 	END_SPELL_ACTION()
 
-	//debuff it
-	BEGIN_DEBUFF_ACTION(CastIcyTouchAction, "icy touch")
-	END_SPELL_ACTION()
+	// //debuff it
+	// BEGIN_DEBUFF_ACTION(CastIcyTouchAction, "icy touch")
+	// END_SPELL_ACTION()
+	class CastIcyTouchAction : public CastSpellAction
+	{
+	public:
+		CastIcyTouchAction(PlayerbotAI* ai) : CastSpellAction(ai, "icy touch") {}
+	};
 
-
-		class CastIcyTouchOnAttackerAction : public CastDebuffSpellOnAttackerAction
+	class CastIcyTouchOnAttackerAction : public CastDebuffSpellOnAttackerAction
 	{
 	public:
 		CastIcyTouchOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "icy touch") {}
@@ -181,7 +185,7 @@ namespace ai
 
 	class CastDeathCoilAction : public CastSpellAction {
 	public:
-		CastDeathCoilAction(PlayerbotAI* ai) : CastSpellAction(ai, "death coill") {}
+		CastDeathCoilAction(PlayerbotAI* ai) : CastSpellAction(ai, "death coil") {}
 	};
 
 	class CastBloodBoilAction : public CastBuffSpellAction {

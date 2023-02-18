@@ -29,7 +29,7 @@ public:
 		//creators["death rune_mastery"] = &death_rune_mastery;
 		//creators["hysteria"] = &hysteria;
 		//creators["dancing weapon"] = &dancing_weapon;
-		//creators["dark command"] = &dark_command;
+		creators["dark command"] = &dark_command;
     }
 private:
 	static ActionNode* rune_strike(PlayerbotAI* ai)
@@ -43,13 +43,22 @@ private:
     {
         return new ActionNode ("heart strike",
             /*P*/ NextAction::array(0, new NextAction("frost presence"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("death strike"), NULL),
+			/*A*/ NULL,
+            // /*A*/ NextAction::array(0, new NextAction("death strike"), NULL),
             /*C*/ NULL);
 	}
 	static ActionNode* death_strike(PlayerbotAI* ai)
 	{
 		return new ActionNode("death strike",
 			/*P*/ NextAction::array(0, new NextAction("frost presence"), NULL),
+			/*A*/ NULL,
+			/*C*/ NULL);
+	}
+	static ActionNode* dark_command(PlayerbotAI* ai)
+	{
+		return new ActionNode("dark command",
+			/*P*/ NextAction::array(0, new NextAction("frost presence"), NULL),
+			// /*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
 			/*A*/ NULL,
 			/*C*/ NULL);
 	}
@@ -64,9 +73,12 @@ BloodDKStrategy::BloodDKStrategy(PlayerbotAI* ai) : GenericDKStrategy(ai)
 NextAction** BloodDKStrategy::getDefaultActions()
 {
 	return NextAction::array(0,
-		new NextAction("heart strike", ACTION_NORMAL + 5),
-		new NextAction("death strike", ACTION_NORMAL + 4),
-		new NextAction("rune strike", ACTION_NORMAL + 3), 
+		new NextAction("rune strike", ACTION_NORMAL + 7), 
+		new NextAction("heart strike", ACTION_NORMAL + 6),
+		new NextAction("icy touch", ACTION_NORMAL + 5),
+		new NextAction("death coil", ACTION_NORMAL + 4),
+		new NextAction("plague strike", ACTION_NORMAL + 3),
+		new NextAction("blood strike", ACTION_NORMAL + 2),
 		new NextAction("melee", ACTION_NORMAL), 
 		NULL);
 }
@@ -96,8 +108,8 @@ void BloodDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 			new NextAction("vampiric blood", ACTION_HIGH + 3),
 			new NextAction("death strike", ACTION_HIGH + 4), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"pestilence",
-		NextAction::array(0, new NextAction("pestilence", ACTION_HIGH + 9), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"pestilence",
+	// 	NextAction::array(0, new NextAction("pestilence", ACTION_HIGH + 9), NULL)));
 
 }

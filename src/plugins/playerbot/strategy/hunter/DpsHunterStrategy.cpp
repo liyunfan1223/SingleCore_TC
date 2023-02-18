@@ -54,7 +54,7 @@ private:
     {
         return new ActionNode ("explosive shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("aimed shot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("arcane shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* concussive_shot(PlayerbotAI* ai)
@@ -82,7 +82,6 @@ NextAction** DpsHunterStrategy::getDefaultActions()
         new NextAction("explosive shot", 14.0f),
         new NextAction("aimed shot", 13.0f), 
         new NextAction("steady shot", 12.0f),
-        new NextAction("arcane shot", 11.0f),
         new NextAction("auto shot", 10.0f), 
         NULL);
 }

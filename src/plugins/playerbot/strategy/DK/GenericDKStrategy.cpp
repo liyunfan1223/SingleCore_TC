@@ -54,7 +54,7 @@ private:
 	{
 		return new ActionNode("death coil",
 			/*P*/ NULL,
-			/*A*/ NextAction::array(0, new NextAction("death strike"), NULL),
+			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 	static ActionNode* death_grip(PlayerbotAI* ai)
@@ -82,7 +82,7 @@ private:
 	{
 		return new ActionNode("heart strike",
 			/*P*/ NULL,
-			/*A*/ NextAction::array(0, new NextAction("blood strike"), NULL),
+			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 	static ActionNode* pestilence(PlayerbotAI* ai)
@@ -151,9 +151,9 @@ void GenericDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0,
 			new NextAction("anti magic shell", ACTION_NORMAL + 3), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"death coil",
-		NextAction::array(0, new NextAction("death coil", ACTION_NORMAL + 3), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"death coil",
+	// 	NextAction::array(0, new NextAction("death coil", ACTION_NORMAL + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"critical aoe heal",
@@ -179,7 +179,6 @@ void GenericDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "mind freeze on enemy healer",
         NextAction::array(0, new NextAction("mind freeze on enemy healer", ACTION_HIGH + 1), NULL)));
 
-	
 	triggers.push_back(new TriggerNode(
 		"enemy out of melee",
 		NextAction::array(0, 
@@ -199,12 +198,12 @@ void GenericDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 			new NextAction("death strike", ACTION_NORMAL + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"icy touch on attacker",
-		NextAction::array(0, new NextAction("icy touch", ACTION_HIGH + 1), NULL)));
-
-	triggers.push_back(new TriggerNode(
 		"icy touch",
 		NextAction::array(0, new NextAction("icy touch", ACTION_HIGH + 1), NULL)));
+
+ 	triggers.push_back(new TriggerNode(
+		"icy touch on attacker",
+		NextAction::array(0, new NextAction("icy touch on attacker", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"plague strike",
@@ -212,7 +211,7 @@ void GenericDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"plague strike on attacker",
-		NextAction::array(0, new NextAction("plague strike", ACTION_HIGH + 1), NULL)));
+		NextAction::array(0, new NextAction("plague strike on attacker", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"high aoe",

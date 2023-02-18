@@ -62,9 +62,6 @@ bool CastSpellAction::isUseful()
 
 bool CastAuraSpellAction::isUseful()
 {
-	// if (spell == "tree of life") {
-	// 	return CastSpellAction::isUseful();
-	// }
 	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget());
 }
 

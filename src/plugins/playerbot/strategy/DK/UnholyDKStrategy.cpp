@@ -58,7 +58,9 @@ private:
 NextAction** UnholyDKStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
-		new NextAction("scourge strike" , ACTION_NORMAL + 3), 
+		new NextAction("scourge strike" , ACTION_NORMAL + 6), 
+		new NextAction("blood strike" , ACTION_NORMAL + 5), 
+		// new NextAction("plague strike" , ACTION_NORMAL + 5), 
 		new NextAction("melee", ACTION_NORMAL), 
 		NULL);
 }

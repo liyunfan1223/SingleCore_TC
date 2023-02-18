@@ -994,7 +994,7 @@ bool PlayerbotAI::IsTank(Player* player)
     PlayerbotAI* botAi = player->GetPlayerbotAI();
     if (botAi)
         return botAi->ContainsStrategy(STRATEGY_TYPE_TANK);
-        
+
     switch (player->getClass())
     {
     case CLASS_DEATH_KNIGHT:
@@ -1297,10 +1297,10 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
     if (!spellInfo)
         return false;
     bool positiveSpell = spellInfo->IsPositive();
-    if (positiveSpell && bot->IsHostileTo(target))
-        return false;
-    if (!positiveSpell && bot->IsFriendlyTo(target))
-        return false;
+    // if (positiveSpell && bot->IsHostileTo(target))
+    //     return false;
+    // if (!positiveSpell && bot->IsFriendlyTo(target))
+    //     return false;
     if (target->IsImmunedToSpell(spellInfo))
         return false;
     if (bot != target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance)
