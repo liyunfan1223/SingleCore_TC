@@ -9,7 +9,7 @@ void PaladinBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "seal",
-        NextAction::array(0, new NextAction("seal of wisdom", 90.0f), NULL)));
+        NextAction::array(0, new NextAction("seal of wisdom", 89.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "blessing on party",
@@ -20,15 +20,23 @@ void PaladinBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("blessing of wisdom on party", 11.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "blessing",
-        NextAction::array(0, new NextAction("blessing of wisdom", ACTION_HIGH + 8), NULL)));
+		"concentration aura",
+		NextAction::array(0, new NextAction("concentration aura", 90.0f), NULL)));
 }
 
 void PaladinBuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "seal",
-        NextAction::array(0, new NextAction("seal of light", 90.0f), NULL)));
+        NextAction::array(0, new NextAction("seal of command", 89.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"devotion aura",
+		NextAction::array(0, new NextAction("devotion aura", 90.0f), NULL)));
+
+    // triggers.push_back(new TriggerNode(
+    //     "retribution aura",
+    //     NextAction::array(0, new NextAction("retribution aura", 90.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "blessing on party",
@@ -36,7 +44,7 @@ void PaladinBuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "blessing",
-        NextAction::array(0, new NextAction("blessing of kings", ACTION_HIGH + 8), NULL)));
+        NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 8), NULL)));
 }
 
 void PaladinBuffSpeedStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -98,11 +106,15 @@ void PaladinBuffThreatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "seal",
-        NextAction::array(0, new NextAction("seal of light", 89.0f), NULL)));
+        NextAction::array(0, new NextAction("seal of command", 89.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "retribution aura",
-        NextAction::array(0, new NextAction("retribution aura", 90.0f), NULL)));
+		"devotion aura",
+		NextAction::array(0, new NextAction("devotion aura", 90.0f), NULL)));
+
+    // triggers.push_back(new TriggerNode(
+    //     "retribution aura",
+    //     NextAction::array(0, new NextAction("retribution aura", 90.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "blessing on party",

@@ -64,7 +64,7 @@ void GenericPaladinNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
 		NextAction::array(0, new NextAction("mount", 1.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "low mana",
+        "medium mana",
 		NextAction::array(0, new NextAction("divine plea", ACTION_HIGH), NULL)));
 
 }

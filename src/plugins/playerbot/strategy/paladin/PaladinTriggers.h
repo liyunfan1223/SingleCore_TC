@@ -71,6 +71,12 @@ namespace ai
         DevotionAuraTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "devotion aura") {}
     };
 
+    class ConcentrationAuraTrigger : public BuffTrigger
+    {
+    public:
+        ConcentrationAuraTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "concentration aura") {}
+    };
+
     class CleanseCureDiseaseTrigger : public NeedCureTrigger
     {
     public:

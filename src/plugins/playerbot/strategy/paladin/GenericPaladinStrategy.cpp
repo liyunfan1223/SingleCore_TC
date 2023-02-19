@@ -15,14 +15,6 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     MeleeCombatStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "low health",
-        NextAction::array(0, new NextAction("divine protection", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member low health",
-        NextAction::array(0, new NextAction("holy light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
-
 	triggers.push_back(new TriggerNode(
 		"hammer of justice interrupt",
 		NextAction::array(0, new NextAction("hammer of justice", ACTION_INTERRUPT), NULL)));

@@ -109,6 +109,7 @@ namespace ai
                 creators["crusader aura"] = &TriggerFactoryInternal::crusader_aura;
                 creators["retribution aura"] = &TriggerFactoryInternal::retribution_aura;
                 creators["devotion aura"] = &TriggerFactoryInternal::devotion_aura;
+                creators["concentration aura"] = &TriggerFactoryInternal::concentration_aura;
                 creators["shadow resistance aura"] = &TriggerFactoryInternal::shadow_resistance_aura;
                 creators["frost resistance aura"] = &TriggerFactoryInternal::frost_resistance_aura;
                 creators["fire resistance aura"] = &TriggerFactoryInternal::fire_resistance_aura;
@@ -138,6 +139,7 @@ namespace ai
             static Trigger* crusader_aura(PlayerbotAI* ai) { return new CrusaderAuraTrigger(ai); }
             static Trigger* retribution_aura(PlayerbotAI* ai) { return new RetributionAuraTrigger(ai); }
             static Trigger* devotion_aura(PlayerbotAI* ai) { return new DevotionAuraTrigger(ai); }
+            static Trigger* concentration_aura(PlayerbotAI* ai) { return new ConcentrationAuraTrigger(ai); }
             static Trigger* shadow_resistance_aura(PlayerbotAI* ai) { return new ShadowResistanceAuraTrigger(ai); }
             static Trigger* frost_resistance_aura(PlayerbotAI* ai) { return new FrostResistanceAuraTrigger(ai); }
             static Trigger* fire_resistance_aura(PlayerbotAI* ai) { return new FireResistanceAuraTrigger(ai); }
@@ -216,12 +218,14 @@ namespace ai
                 creators["holy shield"] = &AiObjectContextInternal::holy_shield;
                 creators["hammer of the righteous"] = &AiObjectContextInternal::hammer_of_the_righteous;
                 creators["retribution aura"] = &AiObjectContextInternal::retribution_aura;
+                creators["concentration aura"] = &AiObjectContextInternal::concentration_aura;
                 creators["shadow resistance aura"] = &AiObjectContextInternal::shadow_resistance_aura;
                 creators["frost resistance aura"] = &AiObjectContextInternal::frost_resistance_aura;
                 creators["fire resistance aura"] = &AiObjectContextInternal::fire_resistance_aura;
                 creators["righteous fury"] = &AiObjectContextInternal::righteous_fury;
                 creators["hammer of justice on enemy healer"] = &AiObjectContextInternal::hammer_of_justice_on_enemy_healer;
                 creators["divine plea"] = &AiObjectContextInternal::divine_plea;
+                creators["shield of righteousness"] = &AiObjectContextInternal::shield_of_righteousness;
             }
 
         private:
@@ -277,11 +281,13 @@ namespace ai
             static Action* holy_shield(PlayerbotAI* ai) { return new CastHolyShieldAction(ai); }
             static Action* hammer_of_the_righteous(PlayerbotAI* ai) { return new CastHammerOfTheRighteousAction(ai); }
             static Action* retribution_aura(PlayerbotAI* ai) { return new CastRetributionAuraAction(ai); }
+            static Action* concentration_aura(PlayerbotAI* ai) { return new CastConcentrationAuraAction(ai); }
             static Action* shadow_resistance_aura(PlayerbotAI* ai) { return new CastShadowResistanceAuraAction(ai); }
             static Action* frost_resistance_aura(PlayerbotAI* ai) { return new CastFrostResistanceAuraAction(ai); }
             static Action* fire_resistance_aura(PlayerbotAI* ai) { return new CastFireResistanceAuraAction(ai); }
             static Action* hammer_of_justice_on_enemy_healer(PlayerbotAI* ai) { return new CastHammerOfJusticeOnEnemyHealerAction(ai); }
             static Action* divine_plea(PlayerbotAI* ai) { return new CastDivinePleaAction(ai); }
+            static Action* shield_of_righteousness(PlayerbotAI* ai) { return new ShieldOfRighteousnessAction(ai); }
         };
     };
 };

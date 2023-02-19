@@ -31,6 +31,7 @@ namespace ai
             creators["blessing of kings on party"] = &blessing_of_kings_on_party;
             creators["blessing of wisdom on party"] = &blessing_of_wisdom_on_party;
             creators["blessing of sanctuary"] = &blessing_of_sanctuary;
+            creators["seal of command"] = &seal_of_command;
         }
     private:
         static ActionNode* blessing_of_sanctuary(PlayerbotAI* ai)
@@ -201,6 +202,13 @@ namespace ai
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
                 /*C*/ NULL);
+        }
+        static ActionNode* seal_of_command(PlayerbotAI* ai)
+        {
+            return new ActionNode ("seal of command",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
+            /*C*/ NULL);
         }
     };
 

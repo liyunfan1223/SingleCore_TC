@@ -258,6 +258,12 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
 	    CastConsecrationAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "consecration") {}
     };
 
+	class ShieldOfRighteousnessAction : public CastMeleeSpellAction
+	{
+	public:
+		ShieldOfRighteousnessAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "shield of righteousness") {}
+	};
+
     class CastHolyWrathAction : public CastMeleeSpellAction
     {
     public:

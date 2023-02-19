@@ -11,7 +11,10 @@ HealPaladinStrategy::HealPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrate
 
 NextAction** HealPaladinStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), NULL);
+    return NextAction::array(0, 
+        new NextAction("judgement of light", ACTION_NORMAL + 1),
+        new NextAction("melee", ACTION_NORMAL), 
+        NULL);
 }
 
 void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -33,4 +36,12 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "blessing",
         NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0, new NextAction("divine protection", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0, new NextAction("holy light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 }
