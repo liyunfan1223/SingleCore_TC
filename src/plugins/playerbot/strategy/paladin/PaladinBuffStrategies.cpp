@@ -42,9 +42,13 @@ void PaladinBuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "blessing on party",
         NextAction::array(0, new NextAction("blessing of kings on party", 11.0f), NULL)));
 
+    // triggers.push_back(new TriggerNode(
+    //     "blessing",
+    //     NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 8), NULL)));
+
     triggers.push_back(new TriggerNode(
-        "blessing",
-        NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 8), NULL)));
+        "righteous fury",
+        NextAction::array(0, new NextAction("righteous fury", ACTION_HIGH + 8), NULL)));
 }
 
 void PaladinBuffSpeedStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -68,9 +72,9 @@ void PaladinBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "blessing on party",
         NextAction::array(0, new NextAction("blessing of might on party", 11.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "blessing",
-        NextAction::array(0, new NextAction("blessing of might", ACTION_HIGH + 8), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "blessing",
+    //     NextAction::array(0, new NextAction("blessing of might", ACTION_HIGH + 8), NULL)));
 }
 
 void PaladinShadowResistanceStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -120,7 +124,7 @@ void PaladinBuffThreatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "blessing on party",
         NextAction::array(0, new NextAction("blessing of kings on party", 11.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "blessing",
-        NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 8), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "blessing",
+    //     NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 8), NULL)));
 }

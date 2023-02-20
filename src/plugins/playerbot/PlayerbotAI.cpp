@@ -1481,6 +1481,8 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     if (pSpellInfo->IsChanneled())
     {
         int32 duration = pSpellInfo->GetDuration();
+        // mod spell duration (for haste and aura)
+        bot->ApplySpellMod(pSpellInfo->Id, SPELLMOD_DURATION, duration);
         bot->ModSpellDurationTime(pSpellInfo, duration, spell);
         sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::WaitForSpellCast %.4f %d %s", castTime, duration, pSpellInfo->SpellName[0]);
         if (duration > 0)

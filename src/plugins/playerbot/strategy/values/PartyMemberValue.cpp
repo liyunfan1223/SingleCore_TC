@@ -47,7 +47,10 @@ Unit* PartyMemberValue::FindPartyMember(FindPlayerPredicate &predicate)
     for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
     {
         Player* player = gref->GetSource();
-        if (!player || player == bot) continue;
+        // if (!player || player == bot) continue;
+        if (!player) {
+            continue;
+        }
         if (ai->IsHeal(player))
             healers.push_back(player);
         else if (ai->IsTank(player))
