@@ -26,6 +26,7 @@ namespace ai
     {
     public:
         ExposeArmorTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "expose armor") {}
+        virtual bool IsActive();
     };
 
     class KickInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger

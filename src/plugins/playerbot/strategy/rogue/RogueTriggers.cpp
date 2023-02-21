@@ -19,3 +19,6 @@ bool OffHandWeaponNoEnchantTrigger::IsActive() {
     return true;
 }
 
+bool ExposeArmorTrigger::IsActive() {
+    return DebuffTrigger::IsActive() && AI_VALUE2(uint8, "combo", "current target") <= 2;
+}

@@ -84,7 +84,7 @@ namespace ai
         public:
             TriggerFactoryInternal()
             {
-				creators["grace of air totem"] = &TriggerFactoryInternal::grace_of_air_totem;
+				creators["wrath of air totem"] = &TriggerFactoryInternal::grace_of_air_totem;
                 creators["windfury totem"] = &TriggerFactoryInternal::windfury_totem;
                 creators["mana spring totem"] = &TriggerFactoryInternal::mana_spring_totem;
                 creators["flametongue totem"] = &TriggerFactoryInternal::flametongue_totem;
@@ -174,7 +174,7 @@ namespace ai
                 creators["searing totem"] = &AiObjectContextInternal::searing_totem;
                 creators["magma totem"] = &AiObjectContextInternal::magma_totem;
                 creators["windfury totem"] = &AiObjectContextInternal::windfury_totem;
-				creators["grace of air totem"] = &AiObjectContextInternal::grace_of_air_totem;
+				creators["wrath of air totem"] = &AiObjectContextInternal::grace_of_air_totem;
                 creators["mana spring totem"] = &AiObjectContextInternal::mana_spring_totem;
                 creators["mana tide totem"] = &AiObjectContextInternal::mana_tide_totem;
                 creators["healing stream totem"] = &AiObjectContextInternal::healing_stream_totem;

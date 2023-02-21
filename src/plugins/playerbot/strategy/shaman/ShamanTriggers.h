@@ -32,7 +32,7 @@ namespace ai
 	class GraceOfAirTotemTrigger : public TotemTrigger
 	{
 	public:
-		GraceOfAirTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "grace of air totem") {}
+		GraceOfAirTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "wrath of air totem") {}
 	};
 
     class ManaSpringTotemTrigger : public TotemTrigger {

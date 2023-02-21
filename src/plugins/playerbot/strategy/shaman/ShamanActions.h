@@ -157,7 +157,7 @@ namespace ai
 	class CastGraceOfAirTotemAction : public CastTotemAction
 	{
 	public:
-		CastGraceOfAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "grace of air totem") {}
+		CastGraceOfAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "wrath of air totem") {}
 	};
 
     class CastSearingTotemAction : public CastTotemAction

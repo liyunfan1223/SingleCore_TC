@@ -52,11 +52,15 @@ void AssassinationRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "slice and dice",
-        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 2), NULL)));
+        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available 3",
-        NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 1), NULL)));
+        NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 4), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "expose armor",
+        NextAction::array(0, new NextAction("expose armor", ACTION_HIGH + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium threat",
