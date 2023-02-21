@@ -22,10 +22,20 @@ GenericRogueNonCombatStrategy::GenericRogueNonCombatStrategy(PlayerbotAI* ai) : 
 {
 	actionNodeFactories.Add(new GenericRogueNonCombatStrategyActionNodeFactory());
 }
-/*
+
 void GenericRogueNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     NonCombatStrategy::InitTriggers(triggers);
-        
+	
+	triggers.push_back(new TriggerNode(
+		"in battleground without flag",
+		NextAction::array(0, new NextAction("stealth", 20.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"main hand weapon no enchant",
+		NextAction::array(0, new NextAction("use instant poison", 20.0f), NULL)));
+	
+	triggers.push_back(new TriggerNode(
+		"off hand weapon no enchant",
+		NextAction::array(0, new NextAction("use deadly poison", 19.0f), NULL)));
 }
-*/

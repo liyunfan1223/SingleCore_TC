@@ -40,4 +40,18 @@ namespace ai
 		StealthTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "stealth") {}
 		virtual bool IsActive() { return !ai->HasAura("stealth", bot); }
 	};*/
+
+    class MainHandWeaponNoEnchantTrigger : public BuffTrigger
+    {
+    public:
+        MainHandWeaponNoEnchantTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "main hand") {}
+        virtual bool IsActive();
+    };
+
+    class OffHandWeaponNoEnchantTrigger : public BuffTrigger
+    {
+    public:
+        OffHandWeaponNoEnchantTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "off hand") {}
+        virtual bool IsActive();
+    };
 }

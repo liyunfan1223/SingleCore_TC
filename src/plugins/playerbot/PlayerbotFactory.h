@@ -42,6 +42,7 @@ public:
     void InitMounts();
     void InitPotions();
     void InitFood();
+    void InitPoison();
     bool CanEquipArmor(ItemTemplate const* proto);
     bool CanEquipWeapon(ItemTemplate const* proto);
     void EnchantItem(Item* item);

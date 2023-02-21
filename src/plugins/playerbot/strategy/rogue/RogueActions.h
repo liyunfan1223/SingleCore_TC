@@ -4,6 +4,7 @@
 #include "RogueComboActions.h"
 #include "RogueOpeningActions.h"
 #include "RogueFinishingActions.h"
+#include "UseItemAction.h"
 
 namespace ai
 {
@@ -85,4 +86,18 @@ namespace ai
     public:
         CastKickOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "kick") {}
     };
+
+	class UseDeadlyPoisonAction : public UseItemAction
+	{
+	public:
+		UseDeadlyPoisonAction(PlayerbotAI* ai) : UseItemAction(ai, "Deadly Poison") {}
+		virtual bool Execute(Event event);
+	};
+
+	class UseInstantPoisonAction : public UseItemAction
+	{
+	public:
+		UseInstantPoisonAction(PlayerbotAI* ai) : UseItemAction(ai, "Instant Poison") {}
+		virtual bool Execute(Event event);
+	};
 }

@@ -91,8 +91,7 @@ private:
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("remove lesser curse on party"), NULL),
             /*C*/ NULL);
-    
-     }
+    }
     static ActionNode* blast_wave(PlayerbotAI* ai)
      {
         return new ActionNode ("blast wave",

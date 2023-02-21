@@ -51,7 +51,8 @@ namespace ai
                 creators["slice and dice"] = &TriggerFactoryInternal::slice_and_dice;
                 creators["expose armor"] = &TriggerFactoryInternal::expose_armor;
                 creators["kick on enemy healer"] = &TriggerFactoryInternal::kick_on_enemy_healer;
-
+                creators["main hand weapon no enchant"] = &TriggerFactoryInternal::main_hand_weapon_no_enchant;
+                creators["off hand weapon no enchant"] = &TriggerFactoryInternal::off_hand_weapon_no_enchant;
             }
 
         private:
@@ -60,6 +61,8 @@ namespace ai
             static Trigger* slice_and_dice(PlayerbotAI* ai) { return new SliceAndDiceTrigger(ai); }
             static Trigger* expose_armor(PlayerbotAI* ai) { return new ExposeArmorTrigger(ai); }
             static Trigger* kick_on_enemy_healer(PlayerbotAI* ai) { return new KickInterruptEnemyHealerSpellTrigger(ai); }
+            static Trigger* main_hand_weapon_no_enchant(PlayerbotAI* ai) { return new MainHandWeaponNoEnchantTrigger(ai); }
+            static Trigger* off_hand_weapon_no_enchant(PlayerbotAI* ai) { return new OffHandWeaponNoEnchantTrigger(ai); }
         };
     };
 };
@@ -91,6 +94,8 @@ namespace ai
                 creators["expose armor"] = &AiObjectContextInternal::expose_armor;
                 creators["kick on enemy healer"] = &AiObjectContextInternal::kick_on_enemy_healer;
 				creators["stealth"] = &AiObjectContextInternal::stealth;
+                creators["use instant poison"] = &AiObjectContextInternal::use_instant_poison;
+                creators["use deadly poison"] = &AiObjectContextInternal::use_deadly_poison;
             }
 
         private:
@@ -109,6 +114,8 @@ namespace ai
             static Action* expose_armor(PlayerbotAI* ai) { return new CastExposeArmorAction(ai); }
             static Action* kick_on_enemy_healer(PlayerbotAI* ai) { return new CastKickOnEnemyHealerAction(ai); }
 			static Action* stealth(PlayerbotAI* ai) { return new CastStealthAction(ai); }
+            static Action* use_instant_poison(PlayerbotAI* ai) { return new UseInstantPoisonAction(ai); }
+            static Action* use_deadly_poison(PlayerbotAI* ai) { return new UseDeadlyPoisonAction(ai); }
         };
     };
 };

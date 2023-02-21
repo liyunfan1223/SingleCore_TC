@@ -69,6 +69,7 @@ namespace ai
 			creators["enemy is close"] = &TriggerContext::enemy_is_close;
 
             creators["combo points available"] = &TriggerContext::ComboPointsAvailable;
+            creators["combo points available 3"] = &TriggerContext::ComboPointsAvailable3;
 
             creators["medium threat"] = &TriggerContext::MediumThreat;
 
@@ -157,7 +158,8 @@ namespace ai
 		static Trigger* enemy_too_close_for_shoot(PlayerbotAI* ai) { return new EnemyTooCloseForShootTrigger(ai); }
         static Trigger* enemy_too_close_for_melee(PlayerbotAI* ai) { return new EnemyTooCloseForMeleeTrigger(ai); }
 		static Trigger* enemy_is_close(PlayerbotAI* ai) { return new EnemyIsCloseTrigger(ai); }
-        static Trigger* ComboPointsAvailable(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai); }
+        static Trigger* ComboPointsAvailable(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai, 5); }
+        static Trigger* ComboPointsAvailable3(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai, 3); }
         static Trigger* MediumThreat(PlayerbotAI* ai) { return new MediumThreatTrigger(ai); }
         static Trigger* Dead(PlayerbotAI* ai) { return new DeadTrigger(ai); }
         static Trigger* PartyMemberDead(PlayerbotAI* ai) { return new PartyMemberDeadTrigger(ai); }
