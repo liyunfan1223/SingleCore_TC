@@ -27,9 +27,9 @@ namespace ai
 		}
 	};
 
-	class CastDarkCommandAction : public CastBuffSpellAction {
+	class CastDarkCommandAction : public CastSpellAction {
 	public:
-		CastDarkCommandAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "dark command") {}
+		CastDarkCommandAction(PlayerbotAI* ai) : CastSpellAction(ai, "dark command") {}
 		// virtual NextAction** getPrerequisites() {
 		// 	return NextAction::merge(NextAction::array(0, new NextAction("blood presence"), NULL), CastSpellAction::getPrerequisites());
 		// }

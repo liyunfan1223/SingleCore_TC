@@ -25,7 +25,7 @@ private:
     {
         return new ActionNode ("envenom",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("rupture"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("eviscerate"), NULL),
             /*C*/ NULL);
     }
 };
