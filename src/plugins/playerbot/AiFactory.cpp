@@ -104,9 +104,9 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
         case CLASS_PRIEST:
             if (tab == 2)
             {
-                engine->addStrategies("dps", "threat", NULL);
-                if (player->getLevel() > 19)
-                    engine->addStrategy("dps debuff");
+                engine->addStrategies("dps", "threat", "dps debuff", NULL);
+                // if (player->getLevel() > 19)
+                //     engine->addStrategy();
             }
             else {
                 engine->ChangeStrategy("-aoe");
@@ -150,11 +150,11 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
         case CLASS_PALADIN:
             if (tab == 0)
-                engine->addStrategies("heal", "flee", NULL);
+                engine->addStrategies("heal", "cure", "flee", NULL);
             else if (tab == 1)
-                engine->addStrategies("tank", "tank aoe", NULL);
+                engine->addStrategies("tank", "tank aoe", "cure", NULL);
             else
-                engine->addStrategies("dps", "bdps", "threat", NULL);
+                engine->addStrategies("dps", "bdps", "threat", "cure", NULL);
             break;
         case CLASS_DRUID:
             if (tab == 0)
@@ -169,9 +169,9 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("bear", "tank aoe", "flee", NULL);
             break;
         case CLASS_HUNTER:
-            engine->addStrategies("dps", "bdps", "threat", NULL);
-            if (player->getLevel() > 19)
-                engine->addStrategy("dps debuff");
+            engine->addStrategies("dps", "bdps", "threat", "dps debuff", NULL);
+            // if (player->getLevel() > 19)
+            //     engine->addStrategy();
 			engine->addStrategy("flee");
 			break;
         case CLASS_ROGUE:
@@ -183,8 +183,8 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             else
                 engine->addStrategies("dps", "threat", NULL);
 
-            if (player->getLevel() > 19)
-                engine->addStrategy("dps debuff");
+            // if (player->getLevel() > 19)
+            engine->addStrategy("dps debuff");
 
             engine->addStrategy("flee");
             break;

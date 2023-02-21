@@ -116,6 +116,10 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     GenericDruidStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "party member cure poison",
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 7), NULL)));
+        
+    triggers.push_back(new TriggerNode(
         "enemy out of spell",
         NextAction::array(0, new NextAction("reach spell", ACTION_MOVE), NULL)));
 

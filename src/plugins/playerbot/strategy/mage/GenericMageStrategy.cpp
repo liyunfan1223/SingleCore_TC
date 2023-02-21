@@ -2,6 +2,7 @@
 #include "../../playerbot.h"
 #include "MageMultipliers.h"
 #include "GenericMageStrategy.h"
+#include "Strategy.h"
 
 using namespace ai;
 
@@ -163,12 +164,12 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 void MageCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-	triggers.push_back(new TriggerNode(
-		"remove curse",
-		NextAction::array(0, new NextAction("remove curse", 41.0f), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"remove curse",
+	// 	NextAction::array(0, new NextAction("remove curse", 41.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"remove curse on party",
-		NextAction::array(0, new NextAction("remove curse on party", 40.0f), NULL)));
+		NextAction::array(0, new NextAction("remove curse on party", ACTION_EMERGENCY), NULL)));
 
 }
