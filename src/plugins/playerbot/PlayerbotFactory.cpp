@@ -160,7 +160,7 @@ void PlayerbotFactory::Randomize(bool incremental)
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing poison...");
     InitPoison();
-    
+
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing potions...");
     InitPotions();
 
@@ -1589,6 +1589,9 @@ void PlayerbotFactory::InitFood()
 
 void PlayerbotFactory::InitPoison()
 {
+    if (bot->getClass() != CLASS_ROGUE) {
+        return;
+    }
     vector<int> instant_poison_ids = {43231, 43230, 21927, 8928, 8927, 8926, 6950, 6949, 6947};
     vector<int> deadly_poison_ids = {43233, 43232, 22054, 22053, 20844, 8985, 8984, 2893, 2892};
     for (int& itemId: instant_poison_ids) {

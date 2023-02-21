@@ -7,6 +7,7 @@
 #include "GenericRogueNonCombatStrategy.h"
 #include "../generic/PullStrategy.h"
 #include "../NamedObjectContext.h"
+#include "AssassinationRogueStrategy.h"
 
 using namespace ai;
 
@@ -23,12 +24,14 @@ namespace ai
             StrategyFactoryInternal()
             {
                 creators["dps"] = &rogue::StrategyFactoryInternal::dps;
+                creators["melee"] = &rogue::StrategyFactoryInternal::melee;
                 creators["nc"] = &rogue::StrategyFactoryInternal::nc;
                 creators["pull"] = &rogue::StrategyFactoryInternal::pull;
             }
 
         private:
             static Strategy* dps(PlayerbotAI* ai) { return new DpsRogueStrategy(ai); }
+            static Strategy* melee(PlayerbotAI* ai) { return new AssassinationRogueStrategy(ai); }
             static Strategy* nc(PlayerbotAI* ai) { return new GenericRogueNonCombatStrategy(ai); }
             static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "shoot"); }
         };
@@ -96,6 +99,8 @@ namespace ai
 				creators["stealth"] = &AiObjectContextInternal::stealth;
                 creators["use instant poison"] = &AiObjectContextInternal::use_instant_poison;
                 creators["use deadly poison"] = &AiObjectContextInternal::use_deadly_poison;
+                creators["envenom"] = &AiObjectContextInternal::envenom;
+                creators["fan of knives"] = &AiObjectContextInternal::fan_of_knives;
             }
 
         private:
@@ -116,6 +121,8 @@ namespace ai
 			static Action* stealth(PlayerbotAI* ai) { return new CastStealthAction(ai); }
             static Action* use_instant_poison(PlayerbotAI* ai) { return new UseInstantPoisonAction(ai); }
             static Action* use_deadly_poison(PlayerbotAI* ai) { return new UseDeadlyPoisonAction(ai); }
+            static Action* envenom(PlayerbotAI* ai) { return new EnvenomAction(ai); }
+            static Action* fan_of_knives(PlayerbotAI* ai) { return new FanOfKnivesAction(ai); }
         };
     };
 };

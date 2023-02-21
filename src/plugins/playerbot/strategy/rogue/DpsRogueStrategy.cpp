@@ -14,7 +14,6 @@ public:
         creators["sinister strike"] = &sinister_strike;
         creators["kick"] = &kick;
         creators["kidney shot"] = &kidney_shot;
-        creators["rupture"] = &rupture;
         creators["backstab"] = &backstab;
 		creators["melee"] = &melee;
     }
@@ -54,20 +53,6 @@ private:
             /*A*/ NULL,
             /*C*/ NULL);
     }
-    static ActionNode* rupture(PlayerbotAI* ai)
-    {
-        return new ActionNode ("rupture",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("slice and dice"), NULL),
-            /*C*/ NULL);
-    }
-	static ActionNode* slice_and_dice(PlayerbotAI* ai)
-	{
-		return new ActionNode("slice and dice",
-			/*P*/ NULL,
-			/*A*/ NextAction::array(0, new NextAction("rupture"), NULL),
-			/*C*/ NULL);
-	}
     static ActionNode* backstab(PlayerbotAI* ai)
     {
         return new ActionNode ("backstab",
@@ -84,7 +69,7 @@ DpsRogueStrategy::DpsRogueStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
 
 NextAction** DpsRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("mutilate", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("sinister strike", ACTION_NORMAL), NULL);
 }
 
 void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -92,9 +77,12 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     MeleeCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "slice and dice",
+        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "combo points available",
-        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 2),
-			new NextAction("rupture", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("rupture", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium threat",

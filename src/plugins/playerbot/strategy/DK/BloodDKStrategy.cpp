@@ -58,8 +58,8 @@ private:
 	{
 		return new ActionNode("dark command",
 			/*P*/ NextAction::array(0, new NextAction("frost presence"), NULL),
-			// /*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
-			/*A*/ NULL,
+			/*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
+			// /*A*/ NULL,
 			/*C*/ NULL);
 	}
 	
@@ -95,10 +95,9 @@ void BloodDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"blood tap",
 		NextAction::array(0, new NextAction("blood tap", ACTION_HIGH + 5), NULL)));
 
-
 	triggers.push_back(new TriggerNode(
 		"lose aggro",
-		NextAction::array(0, new NextAction("dark command", ACTION_HIGH + 3), NULL)));
+		NextAction::array(0, new NextAction("dark command", ACTION_HIGH + 9), NULL)));
 
 
 	triggers.push_back(new TriggerNode(

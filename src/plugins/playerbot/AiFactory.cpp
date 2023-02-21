@@ -175,7 +175,11 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 			engine->addStrategy("flee");
 			break;
         case CLASS_ROGUE:
-            engine->addStrategies("dps", "threat", NULL);
+            if (tab == 0) {
+                engine->addStrategies("melee", "threat", NULL);
+            } else {
+                engine->addStrategies("dps", "threat", NULL);
+            }
             break;
         case CLASS_WARLOCK:
             if (tab == 1)

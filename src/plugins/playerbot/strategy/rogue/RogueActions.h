@@ -100,4 +100,16 @@ namespace ai
 		UseInstantPoisonAction(PlayerbotAI* ai) : UseItemAction(ai, "Instant Poison") {}
 		virtual bool Execute(Event event);
 	};
+
+	class EnvenomAction : public CastMeleeSpellAction
+	{
+	public:
+		EnvenomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "envenom") {}
+	};
+
+	class FanOfKnivesAction : public CastMeleeSpellAction
+	{
+	public:
+		FanOfKnivesAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "fan of knives") {}
+	};
 }
