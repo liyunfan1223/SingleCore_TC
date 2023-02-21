@@ -9,6 +9,7 @@
 #include "../ahbot/AhBot.h"
 #include "../Entities/Pet/Pet.h"
 #include "RandomPlayerbotFactory.h"
+#include "AiFactory.h"
 
 using namespace ai;
 using namespace std;
@@ -164,8 +165,8 @@ void PlayerbotFactory::Randomize(bool incremental)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing potions...");
     InitPotions();
 
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing second equipment set...");
-    InitSecondEquipmentSet();
+    // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing second equipment set...");
+    // InitSecondEquipmentSet();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing inventory...");
     InitInventory();
@@ -646,6 +647,11 @@ void PlayerbotFactory::InitEquipment(bool incremental)
     IterateItems(&visitor, ITERATE_ALL_ITEMS);
 
     map<uint8, vector<uint32> > items;
+    int tab = AiFactory::GetPlayerSpecTab(bot);
+    bool is_shield_tank = (bot->getClass() == CLASS_WARRIOR && tab == 2) || (bot->getClass() == CLASS_PALADIN && tab == 1);
+    if (is_shield_tank) {
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO,  "Shield tank detected. %s", bot->GetName().c_str());
+    }
     for(uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
     {
         if (slot == EQUIPMENT_SLOT_TABARD || slot == EQUIPMENT_SLOT_BODY)
@@ -692,6 +698,16 @@ void PlayerbotFactory::InitEquipment(bool incremental)
                 if (slot == EQUIPMENT_SLOT_OFFHAND && bot->getClass() == CLASS_ROGUE && proto->Class != ITEM_CLASS_WEAPON)
                     continue;
 
+                if (is_shield_tank) {
+                    if (slot == EQUIPMENT_SLOT_MAINHAND && 
+                    (proto->Class != ITEM_CLASS_WEAPON || !(ITEM_SUBCLASS_SINGLE_HAND & (1 << proto->SubClass)))) {
+                        continue;
+                    }
+                    if (slot == EQUIPMENT_SLOT_OFFHAND && 
+                    (proto->Class != ITEM_CLASS_ARMOR || proto->SubClass != ITEM_SUBCLASS_ARMOR_SHIELD)) {
+                        continue;
+                    }
+                }
                 uint16 dest = 0;
                 if (CanEquipUnseenItem(slot, dest, itemId))
                     items[slot].push_back(itemId);
