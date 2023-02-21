@@ -48,6 +48,10 @@ NextAction** DpsWarlockStrategy::getDefaultActions()
 void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericWarlockStrategy::InitTriggers(triggers);
+    
+    triggers.push_back(new TriggerNode(
+		"haunt",
+		NextAction::array(0, new NextAction("haunt", 33.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"shadow trance",
@@ -62,11 +66,11 @@ void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "high aoe",
-        NextAction::array(0, new NextAction("rain of fire", 30.0f), NULL)));
+        NextAction::array(0, new NextAction("rain of fire", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium aoe",
-        NextAction::array(0, new NextAction("seed of corruption", 31.0f), NULL)));
+        NextAction::array(0, new NextAction("seed of corruption", 24.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"light aoe",
@@ -86,7 +90,7 @@ void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "unstable affliction",
-        NextAction::array(0, new NextAction("unstable affliction", 30.0f), NULL)));
+        NextAction::array(0, new NextAction("unstable affliction", 31.0f), NULL)));
 
     // triggers.push_back(new TriggerNode(
     //     "incinirate",

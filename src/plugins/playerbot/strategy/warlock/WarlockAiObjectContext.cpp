@@ -77,7 +77,7 @@ namespace ai
                 creators["fear"] = &TriggerFactoryInternal::fear;
                 creators["immolate"] = &TriggerFactoryInternal::immolate;
                 creators["unstable affliction"] = &TriggerFactoryInternal::unstable_affliction;
-
+                creators["haunt"] = &TriggerFactoryInternal::haunt;
             }
 
         private:
@@ -95,6 +95,7 @@ namespace ai
             static Trigger* fear(PlayerbotAI* ai) { return new FearTrigger(ai); }
             static Trigger* immolate(PlayerbotAI* ai) { return new ImmolateTrigger(ai); }
             static Trigger* unstable_affliction(PlayerbotAI* ai) { return new UnstableAfflictionTrigger(ai); }
+            static Trigger* haunt(PlayerbotAI* ai) { return new HauntTrigger(ai); }
         };
     };
 };

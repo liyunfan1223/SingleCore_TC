@@ -20,6 +20,13 @@ namespace ai
     DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
     DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");
 
+    class HauntTrigger : public DebuffTrigger
+    {
+    public:
+        HauntTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "haunt", 1, 0) {}
+
+    };
+
     class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
     {
     public:

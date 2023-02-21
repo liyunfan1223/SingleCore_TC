@@ -93,7 +93,7 @@ bool AoeTrigger::IsActive()
 
 bool DebuffTrigger::IsActive()
 {
-	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > 25;
+	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > life_bound;
 }
 
 bool SpellTrigger::IsActive()

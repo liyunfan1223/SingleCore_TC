@@ -263,12 +263,15 @@ namespace ai
     class DebuffTrigger : public BuffTrigger
     {
     public:
-        DebuffTrigger(PlayerbotAI* ai, string spell, int checkInterval = 5) : BuffTrigger(ai, spell, checkInterval) {
+        DebuffTrigger(PlayerbotAI* ai, string spell, int checkInterval = 5, int life_bound = 25) : 
+        BuffTrigger(ai, spell, checkInterval), life_bound(life_bound) {
 			checkInterval = 1;
 		}
     public:
 		virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
+    protected:
+        int life_bound;
     };
 
     class DebuffOnAttackerTrigger : public DebuffTrigger
