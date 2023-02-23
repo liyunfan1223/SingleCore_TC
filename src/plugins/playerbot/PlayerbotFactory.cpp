@@ -362,21 +362,21 @@ bool PlayerbotFactory::CanEquipArmor(ItemTemplate const* proto)
     if (bot->HasSkill(SKILL_SHIELD) && proto->SubClass == ITEM_SUBCLASS_ARMOR_SHIELD)
         return true;
 
-    if (bot->HasSkill(SKILL_PLATE_MAIL))
-    {
-        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_PLATE)
-            return false;
-    }
-    else if (bot->HasSkill(SKILL_MAIL))
-    {
-        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_MAIL)
-            return false;
-    }
-    else if (bot->HasSkill(SKILL_LEATHER))
-    {
-        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_LEATHER)
-            return false;
-    }
+    // if (bot->HasSkill(SKILL_PLATE_MAIL))
+    // {
+    //     if (proto->SubClass != ITEM_SUBCLASS_ARMOR_PLATE)
+    //         return false;
+    // }
+    // else if (bot->HasSkill(SKILL_MAIL))
+    // {
+    //     if (proto->SubClass != ITEM_SUBCLASS_ARMOR_MAIL)
+    //         return false;
+    // }
+    // else if (bot->HasSkill(SKILL_LEATHER))
+    // {
+    //     if (proto->SubClass != ITEM_SUBCLASS_ARMOR_LEATHER)
+    //         return false;
+    // }
 
     if (proto->Quality <= ITEM_QUALITY_NORMAL)
         return true;
@@ -2052,8 +2052,23 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
             hit * 2 + crit * 2 + haste * 2 + expertise * 2;
     } else {
         // BEAR DRUID TANK (AND FERAL DRUID...?)
-        score = agility * 2 + strength * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5  + resilience * 5+ armor * 0.2 + stamina + 
+        score = agility * 2 + strength * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5  + resilience * 5 + armor * 0.2 + stamina + 
             hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+    }
+    if (bot->HasSkill(SKILL_PLATE_MAIL))
+    {
+        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_PLATE)
+            score *= 0.8;
+    }
+    else if (bot->HasSkill(SKILL_MAIL))
+    {
+        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_MAIL)
+            score *= 0.8;
+    }
+    else if (bot->HasSkill(SKILL_LEATHER))
+    {
+        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_LEATHER)
+            score *= 0.8;
     }
     bool isSingleHand = proto->Class == ITEM_CLASS_WEAPON && 
         !(ITEM_SUBCLASS_SINGLE_HAND & (1 << proto->SubClass)) && 
