@@ -101,6 +101,7 @@ namespace ai
                 creators["use deadly poison"] = &AiObjectContextInternal::use_deadly_poison;
                 creators["envenom"] = &AiObjectContextInternal::envenom;
                 creators["fan of knives"] = &AiObjectContextInternal::fan_of_knives;
+                creators["sprint"] = &AiObjectContextInternal::sprint;
             }
 
         private:
@@ -123,6 +124,7 @@ namespace ai
             static Action* use_deadly_poison(PlayerbotAI* ai) { return new UseDeadlyPoisonAction(ai); }
             static Action* envenom(PlayerbotAI* ai) { return new EnvenomAction(ai); }
             static Action* fan_of_knives(PlayerbotAI* ai) { return new FanOfKnivesAction(ai); }
+            static Action* sprint(PlayerbotAI* ai) { return new CastSprintAction(ai); }
         };
     };
 };

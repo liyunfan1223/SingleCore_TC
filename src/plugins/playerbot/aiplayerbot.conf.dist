@@ -40,8 +40,8 @@ AiPlayerbot.RandomBotAccountCount = 100
 # Random bot count
 AiPlayerbot.MinRandomBots = 400
 AiPlayerbot.MaxRandomBots = 400
-AiPlayerbot.RandomBotMinLevel = 5
-AiPlayerbot.RandomBotMaxLevel = 60
+AiPlayerbot.RandomBotMinLevel = 10
+AiPlayerbot.RandomBotMaxLevel = 80
 
 # Custom strategies (check in database)
 AiPlayerbot.CombatStrategies = +custom::say

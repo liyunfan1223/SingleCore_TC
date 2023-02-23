@@ -381,17 +381,17 @@ bool PlayerbotFactory::CanEquipArmor(ItemTemplate const* proto)
     if (proto->Quality <= ITEM_QUALITY_NORMAL)
         return true;
 
-    uint8 sp = 0, ap = 0, tank = 0;
-    for (int j = 0; j < MAX_ITEM_PROTO_STATS; ++j)
-    {
-        // for ItemStatValue != 0
-        if(!proto->ItemStat[j].ItemStatValue)
-            continue;
+    // uint8 sp = 0, ap = 0, tank = 0;
+    // for (int j = 0; j < MAX_ITEM_PROTO_STATS; ++j)
+    // {
+    //     // for ItemStatValue != 0
+    //     if(!proto->ItemStat[j].ItemStatValue)
+    //         continue;
 
-        AddItemStats(proto->ItemStat[j].ItemStatType, sp, ap, tank);
-    }
-
-    return CheckItemStats(sp, ap, tank);
+    //     AddItemStats(proto->ItemStat[j].ItemStatType, sp, ap, tank);
+    // }
+    return true;
+    // return CheckItemStats(sp, ap, tank);
 }
 
 bool PlayerbotFactory::CheckItemStats(uint8 sp, uint8 ap, uint8 tank)
@@ -609,29 +609,29 @@ bool PlayerbotFactory::CanEquipItem(ItemTemplate const* proto, uint32 desiredQua
     uint32 level = bot->getLevel();
     uint32 delta = 2;
     if (level < 15)
-        delta = urand(7, 15);
-    else if (proto->Class == ITEM_CLASS_WEAPON || proto->SubClass == ITEM_SUBCLASS_ARMOR_SHIELD)
-        delta = urand(2, 3);
-    else if (!(level % 10) || (level % 10) == 9)
-        delta = 2;
+        delta = 15; // urand(7, 15);
+    // else if (proto->Class == ITEM_CLASS_WEAPON || proto->SubClass == ITEM_SUBCLASS_ARMOR_SHIELD)
+    //     delta = urand(2, 3);
+    // else if (!(level % 10) || (level % 10) == 9)
+    //     delta = 2;
     else if (level < 40)
-        delta = urand(5, 10);
+        delta = 10; //urand(5, 10);
     else if (level < 60)
-        delta = urand(3, 7);
+        delta = 8; // urand(3, 7);
     else if (level < 70)
-        delta = urand(2, 5);
+        delta = 6; // urand(2, 5);
     else if (level < 80)
-        delta = urand(2, 4);
+        delta = 6; // urand(2, 4);
 
     if (desiredQuality > ITEM_QUALITY_NORMAL &&
             (requiredLevel > level || requiredLevel < level - delta))
         return false;
 
-    for (uint32 gap = 60; gap <= 80; gap += 10)
-    {
-        if (level > gap && requiredLevel <= gap)
-            return false;
-    }
+    // for (uint32 gap = 60; gap <= 80; gap += 10)
+    // {
+    //     if (level > gap && requiredLevel <= gap)
+    //         return false;
+    // }
 
     return true;
 }
@@ -649,9 +649,9 @@ void PlayerbotFactory::InitEquipment(bool incremental)
     map<uint8, vector<uint32> > items;
     int tab = AiFactory::GetPlayerSpecTab(bot);
     bool is_shield_tank = (bot->getClass() == CLASS_WARRIOR && tab == 2) || (bot->getClass() == CLASS_PALADIN && tab == 1);
-    if (is_shield_tank) {
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO,  "Shield tank detected. %s", bot->GetName().c_str());
-    }
+    // if (is_shield_tank) {
+    //     sLog->outMessage("playerbot", LOG_LEVEL_INFO,  "Shield tank detected. %s", bot->GetName().c_str());
+    // }
     for(uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
     {
         if (slot == EQUIPMENT_SLOT_TABARD || slot == EQUIPMENT_SLOT_BODY)
@@ -726,36 +726,51 @@ void PlayerbotFactory::InitEquipment(bool incremental)
             sLog->outMessage("playerbot", LOG_LEVEL_DEBUG,  "%s: no items to equip for slot %d", bot->GetName().c_str(), slot);
             continue;
         }
+        Item* oldItem = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, slot);
 
+        if (incremental && !IsDesiredReplacement(oldItem)) {
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG,  "%s: doesn't desire to replace current slot %d", bot->GetName().c_str(), slot);
+            continue;
+        }
+
+        float bestScoreForSlot = 0;
+        uint32 bestItemForSlot = 0;
         for (int attempts = 0; attempts < 15; attempts++)
         {
             uint32 index = urand(0, ids.size() - 1);
             uint32 newItemId = ids[index];
-            Item* oldItem = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, slot);
-
-            if (incremental && !IsDesiredReplacement(oldItem)) {
-                continue;
-            }
-
+            
             uint16 dest;
             if (!CanEquipUnseenItem(slot, dest, newItemId))
                 continue;
-
-            if (oldItem)
-            {
-                bot->RemoveItem(INVENTORY_SLOT_BAG_0, slot, true);
-                oldItem->DestroyForPlayer(bot, false);
+            
+            float cur_score = CalculateItemScore(newItemId);
+            if (cur_score > bestScoreForSlot) {
+                bestScoreForSlot = cur_score;
+                bestItemForSlot = newItemId;
             }
-
-            Item* newItem = bot->EquipNewItem(dest, newItemId, true);
-            if (newItem)
-            {
-                newItem->AddToWorld();
-                newItem->AddToUpdateQueueOf(bot);
-                bot->AutoUnequipOffhandIfNeed();
-                EnchantItem(newItem);
-                break;
-            }
+        }
+        if (bestItemForSlot == 0) {
+            // sLog->outMessage("playerbot", LOG_LEVEL_INFO,  "%s: equip failed for slot %d(bestItemForSlot == 0))", bot->GetName().c_str(), slot);
+            continue;
+        }
+        if (oldItem)
+        {
+            bot->RemoveItem(INVENTORY_SLOT_BAG_0, slot, true);
+            oldItem->DestroyForPlayer(bot, false);
+        }
+        uint16 dest;
+        if (!CanEquipUnseenItem(slot, dest, bestItemForSlot)) {
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG,  "%s: equip failed for slot %d", bot->GetName().c_str(), slot);
+            continue;
+        }
+        Item* newItem = bot->EquipNewItem(dest, bestItemForSlot, true);
+        if (newItem)
+        {
+            newItem->AddToWorld();
+            newItem->AddToUpdateQueueOf(bot);
+            bot->AutoUnequipOffhandIfNeed();
+            EnchantItem(newItem);
         }
     }
 }
@@ -1924,4 +1939,127 @@ void PlayerbotFactory::InitGuild()
     if (guild->GetMemberCount() < 20)
         guild->AddMember(bot->GetGUID(), urand(GR_OFFICER, GR_INITIATE));
 	bot->SaveToDB(); //thesawolf - save save save
+}
+
+float PlayerbotFactory::CalculateItemScore(uint32 item_id)
+{
+    float score = 0;
+    int tab = AiFactory::GetPlayerSpecTab(bot);
+    ItemTemplateContainer const* itemTemplates = sObjectMgr->GetItemTemplateStore();
+    ItemTemplate const* proto = &itemTemplates->at(item_id);
+    uint8 cls = bot->getClass();
+    int agility = 0, strength = 0, intellect = 0, spirit = 0;
+    int stamina = 0, defense = 0, dodge = 0, parry = 0, block = 0, resilience = 0;
+    int hit = 0, crit = 0, haste = 0, expertise = 0, attack_power = 0;
+    int mana_regeneration = 0, spell_power = 0, armor_penetration = 0, spell_penetration = 0;
+    int armor = 0;
+    int itemLevel = proto->ItemLevel;
+    armor += proto->Armor;
+    block += proto->Block;
+    for (int i = 0; i < proto->StatsCount; i++) {
+        const _ItemStat &stat = proto->ItemStat[i];
+        const int32 &value = stat.ItemStatValue;
+        switch (stat.ItemStatType) {
+            case ITEM_MOD_AGILITY:
+                agility += value;
+                break;
+            case ITEM_MOD_STRENGTH:
+                strength += value;
+                break;
+            case ITEM_MOD_INTELLECT:
+                intellect += value;
+                break;
+            case ITEM_MOD_SPIRIT:
+                spirit += value;
+                break;
+            case ITEM_MOD_STAMINA:
+                stamina += value;
+                break;
+            case ITEM_MOD_DEFENSE_SKILL_RATING:
+                defense += value;
+                break;
+            case ITEM_MOD_PARRY_RATING:
+                parry += value;
+                break;
+            case ITEM_MOD_BLOCK_RATING:
+            case ITEM_MOD_BLOCK_VALUE:
+                block += value;
+                break;
+            case ITEM_MOD_RESILIENCE_RATING:
+                resilience += value;
+                break;
+            case ITEM_MOD_HIT_RATING:
+                hit += value;
+                break;
+            case ITEM_MOD_CRIT_RATING:
+                crit += value;
+                break;
+            case ITEM_MOD_HASTE_RATING:
+                haste += value;
+                break;
+            case ITEM_MOD_EXPERTISE_RATING:
+                expertise += value;
+                break;
+            case ITEM_MOD_ATTACK_POWER:
+                attack_power += value;
+                break;
+            case ITEM_MOD_SPELL_POWER:
+                spell_power += value;
+                break;
+            case ITEM_MOD_MANA_REGENERATION:
+                mana_regeneration += value;
+                break;
+            default:
+                break;
+        }
+    }
+    if (cls == CLASS_HUNTER) {
+        // AGILITY only
+        score = agility * 2.5 + attack_power + armor_penetration * 3 + hit * 2 + crit * 2 + haste * 2;
+    } else if (cls == CLASS_WARLOCK || 
+               cls == CLASS_MAGE || 
+               (cls == CLASS_PRIEST && tab == 2) || // shadow
+               (cls == CLASS_SHAMAN && tab == 2) || // element
+               (cls == CLASS_DRUID && tab == 0) // balance
+              ) {
+        // INTELLECT only
+        score = intellect * 2.5 + spell_power + spell_penetration * 3 + hit * 2 + crit * 2 + haste * 2;       
+    } else if ((cls == CLASS_PALADIN && tab == 0) || // holy
+               (cls == CLASS_PRIEST && tab != 2) || // discipline / holy
+               (cls == CLASS_SHAMAN && tab == 2) || // heal
+               (cls == CLASS_DRUID && tab == 2)
+              ) {
+        // INTELLECT, SPIRIT AND MANA
+        score = intellect * 2 + spirit * 1.5 + spell_power + mana_regeneration * 3 + crit * 2 + haste * 2;       
+    } else if (cls == CLASS_ROGUE) {
+        // AGILITY mainly (STRENGTH also)
+        score = agility * 2 + strength + attack_power + armor_penetration * 3 + hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+    } else if  ((cls == CLASS_PALADIN && tab == 2) || // 
+                (cls == CLASS_SHAMAN && tab == 1) || // enhancement
+                (cls == CLASS_WARRIOR && tab != 2) || // arm / fury
+                (cls == CLASS_DEATH_KNIGHT && tab != 0) // ice/unholy
+               ) {
+        // STRENGTH mainly (AGILITY also)
+        score = strength * 2 + agility + attack_power + armor_penetration * 3 + hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+    } else if ((cls == CLASS_WARRIOR && tab == 2) || 
+               (cls == CLASS_PALADIN && tab == 2)) {
+        // TANK WITH SHIELD
+        score = strength * 1 + agility * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5 + resilience * 5 + block * 5 + armor * 0.05 + stamina +
+            hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+    } else if (cls == CLASS_DEATH_KNIGHT && tab == 0){
+        // BLOOD DK TANK
+        score = strength * 1 + agility * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5 + resilience * 5 + armor * 0.05 + stamina + 
+            hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+    } else {
+        // BEAR DRUID TANK (AND FERAL DRUID...?)
+        score = agility * 2 + strength * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5  + resilience * 5+ armor * 0.2 + stamina + 
+            hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+    }
+    bool isSingleHand = proto->Class == ITEM_CLASS_WEAPON && 
+        !(ITEM_SUBCLASS_SINGLE_HAND & (1 << proto->SubClass)) && 
+        !(ITEM_SUBCLASS_MASK_WEAPON_RANGED & (1 << proto->SubClass));
+    if (!isSingleHand && !(cls == CLASS_WARRIOR && tab == 1)) {
+        score *= 0.5;
+    }
+    return (0.01 + score) * itemLevel;   
 }

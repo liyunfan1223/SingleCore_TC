@@ -61,6 +61,7 @@ public:
 
 private:
     void Randomize(bool incremental);
+    float CalculateItemScore(uint32 item_id);
 /*
     void Prepare(); 
     void InitSecondEquipmentSet();

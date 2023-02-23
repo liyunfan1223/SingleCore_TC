@@ -50,6 +50,7 @@ bool PanicTrigger::IsActive()
 
 bool BuffTrigger::IsActive()
 {
+	/// TODO: change HasAura to HasAuraFromBot (distinguide positive and negative? )
     Unit* target = GetTarget();
 	return SpellTrigger::IsActive() &&
 		!ai->HasAura(spell, target) &&
@@ -154,6 +155,7 @@ bool InterruptSpellTrigger::IsActive()
 
 bool HasAuraTrigger::IsActive()
 {
+	/// TODO: change HasAura to HasAuraFromBot (distinguide positive and negative? )
 	return ai->HasAura(getName(), GetTarget());
 }
 

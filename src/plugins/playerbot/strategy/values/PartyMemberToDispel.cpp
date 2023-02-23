@@ -14,12 +14,12 @@ public:
 public:
     virtual bool Check(Unit* unit)
     {
-        if (unit->IsPet())
-        {
-            Pet* pet = unit->ToPet();
-            if (pet && pet->getPetType() == SUMMON_PET)
-                return false;
-        }
+        // if (unit->IsPet())
+        // {
+        //     Pet* pet = unit->ToPet();
+        //     if (pet && pet->getPetType() == SUMMON_PET)
+        //         return false;
+        // }
 
         return unit->IsAlive() && ai->HasAuraToDispel(unit, dispelType);
     }

@@ -3,6 +3,7 @@
 #include "PriestMultipliers.h"
 #include "HealPriestStrategy.h"
 #include "GenericPriestStrategyActionNodeFactory.h"
+#include "Strategy.h"
 
 using namespace ai;
 
@@ -42,22 +43,22 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("power word: shield on party", 50.0f), new NextAction("greater heal on party", 50.0f), NULL)));
 
 
-    triggers.push_back(new TriggerNode(
-        "dispel magic",
-        NextAction::array(0, new NextAction("dispel magic", 41.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "dispel magic",
+    //     NextAction::array(0, new NextAction("dispel magic", 41.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "dispel magic on party",
-        NextAction::array(0, new NextAction("dispel magic on party", 40.0f), NULL)));
+        NextAction::array(0, new NextAction("dispel magic on party", ACTION_EMERGENCY), NULL)));
 
 
-    triggers.push_back(new TriggerNode(
-        "cure disease",
-        NextAction::array(0, new NextAction("abolish disease", 31.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "cure disease",
+    //     NextAction::array(0, new NextAction("abolish disease", 31.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member cure disease",
-        NextAction::array(0, new NextAction("abolish disease on party", 30.0f), NULL)));
+        NextAction::array(0, new NextAction("abolish disease on party", ACTION_EMERGENCY), NULL)));
 
 
     triggers.push_back(new TriggerNode(

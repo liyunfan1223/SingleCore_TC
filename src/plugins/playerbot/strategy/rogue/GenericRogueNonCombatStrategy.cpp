@@ -27,9 +27,9 @@ void GenericRogueNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 {
     NonCombatStrategy::InitTriggers(triggers);
 	
-	triggers.push_back(new TriggerNode(
-		"in battleground without flag",
-		NextAction::array(0, new NextAction("stealth", 20.0f), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"in battleground without flag",
+	// 	NextAction::array(0, new NextAction("stealth", 20.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"main hand weapon no enchant",

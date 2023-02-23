@@ -109,7 +109,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 //     engine->addStrategy();
             }
             else {
-                engine->ChangeStrategy("-aoe");
+                engine->ChangeStrategy("-shadow aoe");
                 engine->addStrategy("heal");
             }
 
