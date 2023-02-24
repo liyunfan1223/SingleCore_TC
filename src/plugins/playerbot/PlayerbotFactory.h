@@ -42,7 +42,7 @@ public:
     void InitMounts();
     void InitPotions();
     void InitFood();
-    void InitPoison();
+    void InitClassItems();
     bool CanEquipArmor(ItemTemplate const* proto);
     bool CanEquipWeapon(ItemTemplate const* proto);
     void EnchantItem(Item* item);
@@ -62,6 +62,12 @@ public:
 private:
     void Randomize(bool incremental);
     float CalculateItemScore(uint32 item_id);
+    bool IsShieldTank();
+    bool NotSameArmorType(uint32 item_subclass_armor) {
+        return (bot->HasSkill(SKILL_PLATE_MAIL) && item_subclass_armor != ITEM_SUBCLASS_ARMOR_PLATE) ||
+               (bot->HasSkill(SKILL_MAIL) && item_subclass_armor != ITEM_SUBCLASS_ARMOR_MAIL) ||
+               (bot->HasSkill(SKILL_LEATHER) && item_subclass_armor != ITEM_SUBCLASS_ARMOR_LEATHER);
+    }
 /*
     void Prepare(); 
     void InitSecondEquipmentSet();

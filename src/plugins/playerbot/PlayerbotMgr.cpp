@@ -159,7 +159,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
 
             factory.InitAmmo();
             factory.InitFood();
-            factory.InitPoison();
+            factory.InitClassItems();
             factory.InitPotions();
             // factory.InitInventory();  // lets not lose gear stored by a packmule
             factory.InitGlyphs();

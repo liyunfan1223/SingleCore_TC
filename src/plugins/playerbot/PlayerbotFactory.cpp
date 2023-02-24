@@ -43,7 +43,7 @@ void PlayerbotFactory::Refresh()
     InitEquipment(true);
     InitAmmo();
     InitFood();
-    InitPoison();
+    InitClassItems();
     InitPotions();
     bot->DurabilityRepairAll(false, 1.0f, false);
     uint32 money = urand(level * 1000, level * 5 * 1000);
@@ -160,7 +160,7 @@ void PlayerbotFactory::Randomize(bool incremental)
     InitFood();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing poison...");
-    InitPoison();
+    InitClassItems();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing potions...");
     InitPotions();
@@ -648,10 +648,6 @@ void PlayerbotFactory::InitEquipment(bool incremental)
 
     map<uint8, vector<uint32> > items;
     int tab = AiFactory::GetPlayerSpecTab(bot);
-    bool is_shield_tank = (bot->getClass() == CLASS_WARRIOR && tab == 2) || (bot->getClass() == CLASS_PALADIN && tab == 1);
-    // if (is_shield_tank) {
-    //     sLog->outMessage("playerbot", LOG_LEVEL_INFO,  "Shield tank detected. %s", bot->GetName().c_str());
-    // }
     for(uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
     {
         if (slot == EQUIPMENT_SLOT_TABARD || slot == EQUIPMENT_SLOT_BODY)
@@ -698,21 +694,21 @@ void PlayerbotFactory::InitEquipment(bool incremental)
                 if (slot == EQUIPMENT_SLOT_OFFHAND && bot->getClass() == CLASS_ROGUE && proto->Class != ITEM_CLASS_WEAPON)
                     continue;
 
-                if (is_shield_tank) {
-                    if (slot == EQUIPMENT_SLOT_MAINHAND && 
-                    (proto->Class != ITEM_CLASS_WEAPON || !(ITEM_SUBCLASS_SINGLE_HAND & (1 << proto->SubClass)))) {
-                        continue;
-                    }
-                    if (slot == EQUIPMENT_SLOT_OFFHAND && 
-                    (proto->Class != ITEM_CLASS_ARMOR || proto->SubClass != ITEM_SUBCLASS_ARMOR_SHIELD)) {
-                        continue;
-                    }
-                }
+                // if (IsShieldTank()) {
+                //     if (slot == EQUIPMENT_SLOT_MAINHAND && 
+                //     (proto->Class != ITEM_CLASS_WEAPON || !(ITEM_SUBCLASS_SINGLE_HAND & (1 << proto->SubClass)))) {
+                //         continue;
+                //     }
+                //     if (slot == EQUIPMENT_SLOT_OFFHAND && 
+                //     (proto->Class != ITEM_CLASS_ARMOR || proto->SubClass != ITEM_SUBCLASS_ARMOR_SHIELD)) {
+                //         continue;
+                //     }
+                // }
                 uint16 dest = 0;
                 if (CanEquipUnseenItem(slot, dest, itemId))
                     items[slot].push_back(itemId);
             }
-        } while (items[slot].empty() && desiredQuality-- > ITEM_QUALITY_NORMAL);
+        } while (items[slot].size() < 10 && desiredQuality-- > ITEM_QUALITY_NORMAL);
     }
 
     for(uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
@@ -733,9 +729,9 @@ void PlayerbotFactory::InitEquipment(bool incremental)
             continue;
         }
 
-        float bestScoreForSlot = 0;
+        float bestScoreForSlot = -1;
         uint32 bestItemForSlot = 0;
-        for (int attempts = 0; attempts < 15; attempts++)
+        for (int attempts = 0; attempts < min((int)ids.size(), 25); attempts++)
         {
             uint32 index = urand(0, ids.size() - 1);
             uint32 newItemId = ids[index];
@@ -1618,27 +1614,27 @@ void PlayerbotFactory::InitFood()
    }
 }
 
-void PlayerbotFactory::InitPoison()
+void PlayerbotFactory::InitClassItems()
 {
-    if (bot->getClass() != CLASS_ROGUE) {
-        return;
+    if (bot->getClass() == CLASS_ROGUE) {
+        vector<int> instant_poison_ids = {43231, 43230, 21927, 8928, 8927, 8926, 6950, 6949, 6947};
+        vector<int> deadly_poison_ids = {43233, 43232, 22054, 22053, 20844, 8985, 8984, 2893, 2892};
+        for (int& itemId: deadly_poison_ids) {
+            ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+            if (proto->RequiredLevel > bot->getLevel())
+                continue;
+            bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
+            break;    
+        }
+        for (int& itemId: instant_poison_ids) {
+            ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+            if (proto->RequiredLevel > bot->getLevel())
+                continue;
+            bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
+            break;    
+        }
     }
-    vector<int> instant_poison_ids = {43231, 43230, 21927, 8928, 8927, 8926, 6950, 6949, 6947};
-    vector<int> deadly_poison_ids = {43233, 43232, 22054, 22053, 20844, 8985, 8984, 2893, 2892};
-    for (int& itemId: instant_poison_ids) {
-        ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
-        if (proto->RequiredLevel > bot->getLevel())
-            continue;
-        bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
-        break;    
-    }
-    for (int& itemId: deadly_poison_ids) {
-        ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
-        if (proto->RequiredLevel > bot->getLevel())
-            continue;
-        bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
-        break;    
-    }
+    
 }
 
 void PlayerbotFactory::CancelAuras()
@@ -1954,6 +1950,8 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
     int mana_regeneration = 0, spell_power = 0, armor_penetration = 0, spell_penetration = 0;
     int armor = 0;
     int itemLevel = proto->ItemLevel;
+    int quality = proto->Quality;
+    int dps = (proto->Damage[0].DamageMin + proto->Damage[0].DamageMax) / 2 * proto->Delay / 1000;
     armor += proto->Armor;
     block += proto->Block;
     for (int i = 0; i < proto->StatsCount; i++) {
@@ -2015,66 +2013,77 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
     }
     if (cls == CLASS_HUNTER) {
         // AGILITY only
-        score = agility * 2.5 + attack_power + armor_penetration * 3 + hit * 2 + crit * 2 + haste * 2;
+        score = agility * 2.5 + attack_power + armor_penetration * 2 + dps * 5 + hit * 3 + crit * 2 + haste * 2.5 + intellect;
     } else if (cls == CLASS_WARLOCK || 
                cls == CLASS_MAGE || 
                (cls == CLASS_PRIEST && tab == 2) || // shadow
-               (cls == CLASS_SHAMAN && tab == 2) || // element
+               (cls == CLASS_SHAMAN && tab == 0) || // element
                (cls == CLASS_DRUID && tab == 0) // balance
               ) {
-        // INTELLECT only
-        score = intellect * 2.5 + spell_power + spell_penetration * 3 + hit * 2 + crit * 2 + haste * 2;       
+        // SPELL DPS
+        score = intellect * 0.5 + spirit * 0.5 + spell_power + spell_penetration 
+            + hit * 1.5 + crit * 0.7 + haste * 1;       
     } else if ((cls == CLASS_PALADIN && tab == 0) || // holy
                (cls == CLASS_PRIEST && tab != 2) || // discipline / holy
                (cls == CLASS_SHAMAN && tab == 2) || // heal
                (cls == CLASS_DRUID && tab == 2)
               ) {
-        // INTELLECT, SPIRIT AND MANA
-        score = intellect * 2 + spirit * 1.5 + spell_power + mana_regeneration * 3 + crit * 2 + haste * 2;       
+        // HEALER
+        score = intellect * 0.5 + spirit * 0.5 + spell_power + mana_regeneration * 0.5 + crit * 0.5 + haste * 1;       
     } else if (cls == CLASS_ROGUE) {
         // AGILITY mainly (STRENGTH also)
-        score = agility * 2 + strength + attack_power + armor_penetration * 3 + hit * 2 + crit * 2 + haste * 2 + expertise * 2;
-    } else if  ((cls == CLASS_PALADIN && tab == 2) || // 
-                (cls == CLASS_SHAMAN && tab == 1) || // enhancement
+        score = agility * 2 + strength + attack_power + armor_penetration * 1 + dps * 5 + hit * 2 + crit * 1.5 + haste * 1.5 + expertise * 2.5;
+    } else if  ((cls == CLASS_PALADIN && tab == 2) || // retribution
                 (cls == CLASS_WARRIOR && tab != 2) || // arm / fury
-                (cls == CLASS_DEATH_KNIGHT && tab != 0) // ice/unholy
+                (cls == CLASS_DEATH_KNIGHT && tab != 0) // ice / unholy
                ) {
         // STRENGTH mainly (AGILITY also)
-        score = strength * 2 + agility + attack_power + armor_penetration * 3 + hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+        score = strength * 2 + agility + attack_power + armor_penetration + dps * 5 + hit * 1.5 + crit * 1.5 + haste * 1.5 + expertise * 2;
+    } else if ((cls == CLASS_SHAMAN && tab == 1)) { // enhancement
+        // STRENGTH mainly (AGILITY, INTELLECT also)
+        score = strength * 1 + agility * 1.5 + intellect * 1.5 + attack_power + spell_power * 1.5 + armor_penetration * 0.5 + dps * 5
+            + hit * 2 + crit * 1.5 + haste * 1.5 + expertise * 2;
     } else if ((cls == CLASS_WARRIOR && tab == 2) || 
-               (cls == CLASS_PALADIN && tab == 2)) {
+               (cls == CLASS_PALADIN && tab == 1)) {
         // TANK WITH SHIELD
-        score = strength * 1 + agility * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5 + resilience * 5 + block * 5 + armor * 0.05 + stamina +
-            hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+        score = strength * 1 + agility * 2 + attack_power * 0.2
+            + defense * 2.5 + parry * 2 + dodge * 2 + resilience * 2 + block * 2 + armor * 0.2 + stamina * 3
+            + hit * 1 + crit * 0.2 + haste * 0.5 + expertise * 3;
     } else if (cls == CLASS_DEATH_KNIGHT && tab == 0){
         // BLOOD DK TANK
-        score = strength * 1 + agility * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5 + resilience * 5 + armor * 0.05 + stamina + 
-            hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+        score = strength * 1 + agility * 2 + attack_power * 0.2
+            + defense * 3.5 + parry * 2 + dodge * 2 + resilience * 2 + armor * 0.2 + stamina * 2.5 
+            + hit * 2 + crit * 0.5 + haste * 0.5 + expertise * 3.5;
     } else {
         // BEAR DRUID TANK (AND FERAL DRUID...?)
-        score = agility * 2 + strength * 0.5 + attack_power * 0.5 + defense * 5 + parry * 5 + dodge * 5  + resilience * 5 + armor * 0.2 + stamina + 
-            hit * 2 + crit * 2 + haste * 2 + expertise * 2;
+        score = agility * 3 + strength * 2 + attack_power * 1 + armor_penetration * 1.5 + dps * 5
+            + defense * 0.5 + dodge * 0.5 + armor * 0.5 + stamina * 3
+            + hit * 2 + crit * 2 + haste * 1.5 + expertise * 8;
     }
-    if (bot->HasSkill(SKILL_PLATE_MAIL))
+    if (NotSameArmorType(proto->SubClass))
     {
-        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_PLATE)
-            score *= 0.8;
+        score *= 0.8;
     }
-    else if (bot->HasSkill(SKILL_MAIL))
-    {
-        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_MAIL)
-            score *= 0.8;
-    }
-    else if (bot->HasSkill(SKILL_LEATHER))
-    {
-        if (proto->SubClass != ITEM_SUBCLASS_ARMOR_LEATHER)
-            score *= 0.8;
-    }
-    bool isSingleHand = proto->Class == ITEM_CLASS_WEAPON && 
+    bool isDoubleHand = proto->Class == ITEM_CLASS_WEAPON && 
         !(ITEM_SUBCLASS_SINGLE_HAND & (1 << proto->SubClass)) && 
         !(ITEM_SUBCLASS_MASK_WEAPON_RANGED & (1 << proto->SubClass));
-    if (!isSingleHand && !(cls == CLASS_WARRIOR && tab == 1)) {
+    // shield tank
+    if (isDoubleHand && IsShieldTank()) {
         score *= 0.5;
     }
-    return (0.01 + score) * itemLevel;   
+    // double hand penalty (except fury (talent), bear, retribution (cannot double-hand))
+    if (isDoubleHand && 
+        !(cls == CLASS_WARRIOR && tab == 1) && 
+        !(cls == CLASS_DRUID && tab == 1) &&
+        !(cls == CLASS_PALADIN && tab == 2)) {
+        score *= 0.5;
+    }
+    return (0.01 + score) * itemLevel * (quality + 1);   
+    // return score;
+}
+
+bool PlayerbotFactory::IsShieldTank() {
+    int tab = AiFactory::GetPlayerSpecTab(bot);
+    return (bot->getClass() == CLASS_WARRIOR && tab == 2) || (bot->getClass() == CLASS_PALADIN && tab == 1); 
+
 }
