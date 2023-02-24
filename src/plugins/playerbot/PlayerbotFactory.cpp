@@ -1187,68 +1187,77 @@ void PlayerbotFactory::InitClassSpells()
     switch (bot->getClass())
     {
         case CLASS_WARRIOR:
+            bot->LearnSpell(78, false);
+            bot->LearnSpell(2457, false);
             if (level >= 10) {
-                // Defensive Stance
-                bot->LearnSpell(71, false);
-                // Taunt
-                bot->LearnSpell(355, false);
-                // Sunder Armor
-                bot->LearnSpell(7386, false);
+                bot->LearnSpell(71, false); // Defensive Stance
+                bot->LearnSpell(355, false); // Taunt
+                bot->LearnSpell(7386, false); // Sunder Armor
             }
             if (level >= 30) {
-                // Berserker Stance
-                bot->LearnSpell(2458, false);
+                bot->LearnSpell(2458, false); // Berserker Stance
             }
             break;
         case CLASS_PALADIN:
+            bot->LearnSpell(21084, false);
+            bot->LearnSpell(635, false);
             if (level >= 12) {
-                // Redemption
-                bot->LearnSpell(7328, false);
+                bot->LearnSpell(7328, false); // Redemption
             }
             break;
         case CLASS_ROGUE:
+            bot->LearnSpell(1752, false);
+            bot->LearnSpell(2098, false);
             break;
         case CLASS_DEATH_KNIGHT:
+            bot->LearnSpell(45477, false);
+            bot->LearnSpell(47541, false);
+            bot->LearnSpell(45462, false);
+            bot->LearnSpell(45902, false);
             break;
         case CLASS_HUNTER:
+            bot->LearnSpell(2973, false);
+            bot->LearnSpell(75, false);
             if (level >= 10) {
-                // call pet
-                bot->LearnSpell(883, false);
-                // tame pet
-                bot->LearnSpell(1515, false);
-                // feed pet
-                bot->LearnSpell(6991, false);
-                // revive pet
-                bot->LearnSpell(982, false);
+                bot->LearnSpell(883, false); // call pet
+                bot->LearnSpell(1515, false); // tame pet
+                bot->LearnSpell(6991, false); // feed pet
+                bot->LearnSpell(982, false); // revive pet
             }
             break;
         case CLASS_PRIEST:
+            bot->LearnSpell(585, false);
+            bot->LearnSpell(2050, false);
             break;
         case CLASS_MAGE:
+            bot->LearnSpell(133, false);
+            bot->LearnSpell(168, false);
             break;
         case CLASS_WARLOCK:
+            bot->LearnSpell(687, false);
+            bot->LearnSpell(686, false);
             if (level >= 10) {
-                // summon voidwalker
-                bot->LearnSpell(697, false);
+                bot->LearnSpell(697, false); // summon voidwalker
             }
             if (level >= 20) {
-                // summon succubus
-                bot->LearnSpell(712, false);
+                bot->LearnSpell(712, false); // summon succubus
             }
             if (level >= 30) {
-                // summon felhunter
-                bot->LearnSpell(691, false);
+                bot->LearnSpell(691, false); // summon felhunter
             }
             break;
         case CLASS_DRUID:
+            bot->LearnSpell(5176, false);
+            bot->LearnSpell(5185, false);
             if (level >= 10) {
-                // bear form
-                bot->LearnSpell(5487, false);
-                // Growl
-                bot->LearnSpell(6795, false);
+                bot->LearnSpell(5487, false); // bear form
+                bot->LearnSpell(6795, false); // Growl
+                bot->LearnSpell(6807, false); // Maul
             }
             break;
         case CLASS_SHAMAN:
+            bot->LearnSpell(403, false);
+            bot->LearnSpell(8017, false);
             break;
         default:
             break;
