@@ -1190,6 +1190,10 @@ void PlayerbotFactory::InitClassSpells()
             if (level >= 10) {
                 // Defensive Stance
                 bot->LearnSpell(71, false);
+                // Taunt
+                bot->LearnSpell(355, false);
+                // Sunder Armor
+                bot->LearnSpell(7386, false);
             }
             if (level >= 30) {
                 // Berserker Stance
@@ -1240,6 +1244,8 @@ void PlayerbotFactory::InitClassSpells()
             if (level >= 10) {
                 // bear form
                 bot->LearnSpell(5487, false);
+                // Growl
+                bot->LearnSpell(6795, false);
             }
             break;
         case CLASS_SHAMAN:
