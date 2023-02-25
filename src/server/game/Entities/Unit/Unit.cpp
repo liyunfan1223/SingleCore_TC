@@ -4398,12 +4398,15 @@ void Unit::RemoveAllAuras()
     while (!m_appliedAuras.empty() || !m_ownedAuras.empty())
     {
         AuraApplicationMap::iterator aurAppIter;
-        for (aurAppIter = m_appliedAuras.begin(); aurAppIter != m_appliedAuras.end();)
+        for (aurAppIter = m_appliedAuras.begin(); aurAppIter != m_appliedAuras.end();) {
+            // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d %d", aurAppIter->second);
             _UnapplyAura(aurAppIter, AURA_REMOVE_BY_DEFAULT);
+        }
 
         AuraMap::iterator aurIter;
         for (aurIter = m_ownedAuras.begin(); aurIter != m_ownedAuras.end();)
             RemoveOwnedAura(aurIter);
+        // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d %d", m_appliedAuras.size(), m_ownedAuras.size());
     }
 }
 
