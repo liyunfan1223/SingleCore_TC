@@ -251,12 +251,23 @@ namespace ai
     BEGIN_TRIGGER(NoTargetTrigger, Trigger)
     END_TRIGGER()
 
-    BEGIN_TRIGGER(InvalidTargetTrigger, Trigger)
-    END_TRIGGER()
+    // BEGIN_TRIGGER(InvalidTargetTrigger, Trigger)
+    // END_TRIGGER()
 
-    BEGIN_TRIGGER(NoValidTargetTrigger, Trigger)
-    END_TRIGGER()
+    class InvalidTargetTrigger : public Trigger {
+    public:
+        InvalidTargetTrigger(PlayerbotAI* ai) : Trigger(ai, "invalid target") {}
+        virtual bool IsActive();
+    };
+
+    // BEGIN_TRIGGER(NoValidTargetTrigger, Trigger)
+    // END_TRIGGER()
     
+    class NoValidTargetTrigger : public Trigger {
+    public:
+        NoValidTargetTrigger(PlayerbotAI* ai) : Trigger(ai, "no valid target") {}
+        virtual bool IsActive();
+    };
 
     class TargetInSightTrigger : public Trigger {
     public:

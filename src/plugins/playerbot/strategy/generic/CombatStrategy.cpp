@@ -11,6 +11,6 @@ void CombatStrategy::InitTriggers(list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("drop target", 59), NULL)));
     
     triggers.push_back(new TriggerNode(
-        "no invalid target",
+        "no valid target",
         NextAction::array(0, new NextAction("leave combat", 50), NULL)));
 }
