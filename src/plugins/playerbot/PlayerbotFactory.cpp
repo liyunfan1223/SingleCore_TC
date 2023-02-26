@@ -2073,7 +2073,7 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
         // BEAR DRUID TANK (AND FERAL DRUID...?)
         score = agility * 3 + strength * 2 + attack_power * 1 + armor_penetration * 1.5 + dps * 5
             + defense * 0.5 + dodge * 0.5 + armor * 0.5 + stamina * 3
-            + hit * 2 + crit * 2 + haste * 1.5 + expertise * 8;
+            + hit * 2 + crit * 2 + haste * 1.5 + expertise * 4;
     }
     if (NotSameArmorType(proto->SubClass))
     {

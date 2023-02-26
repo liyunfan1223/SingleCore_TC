@@ -14,6 +14,11 @@ bool PartyMemberDeadTrigger::IsActive()
 	return GetTarget();
 }
 
+bool CombatPartyMemberDeadTrigger::IsActive()
+{
+	return GetTarget();
+}
+
 bool DeadTrigger::IsActive()
 {
     return AI_VALUE2(bool, "dead", GetTargetName());

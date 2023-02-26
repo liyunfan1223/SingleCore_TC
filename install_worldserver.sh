@@ -24,7 +24,3 @@ cd ..
 mkdir /usr/local/logs && chmod 777 /usr/local/logs -R
 
 cd /usr/local/bin
-
-./authserver &
-
-./worldserver

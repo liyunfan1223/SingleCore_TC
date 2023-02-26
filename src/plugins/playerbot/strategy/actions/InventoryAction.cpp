@@ -224,6 +224,12 @@ list<Item*> InventoryAction::parseItems(string text)
         FindFoodVisitor visitor(bot, 59);
         IterateItems(&visitor, ITERATE_ITEMS_IN_BAGS);
         found.insert(visitor.GetResult().begin(), visitor.GetResult().end());
+
+        if (found.empty()) {
+            FindFoodVisitor visitor(bot, 11);
+            IterateItems(&visitor, ITERATE_ITEMS_IN_BAGS);
+            found.insert(visitor.GetResult().begin(), visitor.GetResult().end());
+        }
     }
 
     if (text == "mana potion")

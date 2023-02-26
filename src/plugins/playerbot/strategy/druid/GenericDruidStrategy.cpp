@@ -97,7 +97,7 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     CombatStrategy::InitTriggers(triggers);
 
 	triggers.push_back(new TriggerNode(
-		"party member to resurrect",
+		"combat party member to resurrect",
 		NextAction::array(0, new NextAction("rebirth", ACTION_EMERGENCY + 1), NULL)));
 }
 

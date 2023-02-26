@@ -75,6 +75,7 @@ namespace ai
 
             creators["dead"] = &TriggerContext::Dead;
             creators["party member to resurrect"] = &TriggerContext::PartyMemberDead;
+            creators["combat party member to resurrect"] = &TriggerContext::CombatPartyMemberDead;
             creators["no pet"] = &TriggerContext::no_pet;
             creators["has pet"] = &TriggerContext::has_pet;
             creators["has attackers"] = &TriggerContext::has_attackers;
@@ -163,6 +164,7 @@ namespace ai
         static Trigger* MediumThreat(PlayerbotAI* ai) { return new MediumThreatTrigger(ai); }
         static Trigger* Dead(PlayerbotAI* ai) { return new DeadTrigger(ai); }
         static Trigger* PartyMemberDead(PlayerbotAI* ai) { return new PartyMemberDeadTrigger(ai); }
+        static Trigger* CombatPartyMemberDead(PlayerbotAI* ai) { return new CombatPartyMemberDeadTrigger(ai); }
         static Trigger* PartyMemberLowHealth(PlayerbotAI* ai) { return new PartyMemberLowHealthTrigger(ai); }
         static Trigger* PartyMemberMediumHealth(PlayerbotAI* ai) { return new PartyMemberMediumHealthTrigger(ai); }
         static Trigger* PartyMemberAlmostFullHealth(PlayerbotAI* ai) { return new PartyMemberAlmostFullHealthTrigger(ai); }

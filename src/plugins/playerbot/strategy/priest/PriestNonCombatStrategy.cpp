@@ -64,7 +64,7 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"party member to resurrect",
-		NextAction::array(0, new NextAction("resurrection", 30.0f), NULL)));
+		NextAction::array(0, new NextAction("resurrection", ACTION_EMERGENCY), NULL)));
 
 
     triggers.push_back(new TriggerNode(
