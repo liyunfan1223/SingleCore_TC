@@ -539,7 +539,10 @@ bool PlayerbotFactory::CanEquipWeapon(ItemTemplate const* proto)
 		if (proto->SubClass != ITEM_SUBCLASS_WEAPON_MACE2 &&
 			proto->SubClass != ITEM_SUBCLASS_WEAPON_POLEARM &&
 			proto->SubClass != ITEM_SUBCLASS_WEAPON_SWORD2 &&
-			proto->SubClass != ITEM_SUBCLASS_WEAPON_AXE2)
+			proto->SubClass != ITEM_SUBCLASS_WEAPON_AXE2 &&
+			proto->SubClass != ITEM_SUBCLASS_WEAPON_AXE &&
+            proto->SubClass != ITEM_SUBCLASS_WEAPON_MACE &&
+            proto->SubClass != ITEM_SUBCLASS_WEAPON_SWORD)
 			return false;
 		break;
     case CLASS_SHAMAN:
