@@ -160,6 +160,8 @@ namespace ai
                 creators["vampiric touch"] = &AiObjectContextInternal::vampiric_touch;
                 creators["vampiric embrace"] = &AiObjectContextInternal::vampiric_embrace;
                 creators["dispersion"] = &AiObjectContextInternal::dispersion;
+                creators["penance on party"] = &AiObjectContextInternal::penance_on_party;
+                creators["prayer of mending on party"] = &AiObjectContextInternal::prayer_of_mending_on_party;
             }
 
         private:
@@ -204,6 +206,8 @@ namespace ai
             static Action* abolish_disease_on_party(PlayerbotAI* ai) { return new CastAbolishDiseaseOnPartyAction(ai); }
             static Action* fade(PlayerbotAI* ai) { return new CastFadeAction(ai); }
             static Action* inner_fire(PlayerbotAI* ai) { return new CastInnerFireAction(ai); }
+            static Action* penance_on_party(PlayerbotAI* ai) { return new CastPenanceOnPartyAction(ai); }
+            static Action* prayer_of_mending_on_party(PlayerbotAI* ai) { return new CastPrayerOfMendingOnPartyAction(ai); }
         };
     };
 };

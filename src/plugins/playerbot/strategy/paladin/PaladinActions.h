@@ -204,6 +204,14 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
         virtual string getName() { return "holy light on party"; }
     };
 
+	class CastHolyShockOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastHolyShockOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "holy shock") {}
+
+        virtual string getName() { return "holy shock on party"; }
+    };
+
     class CastFlashOfLightAction : public CastHealingSpellAction
     {
     public:

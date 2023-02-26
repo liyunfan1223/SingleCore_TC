@@ -69,6 +69,7 @@ namespace ai
             creators["set facing"] = &ActionContext::set_facing;
             creators["attack duel opponent"] = &ActionContext::attack_duel_opponent;
             creators["drop target"] = &ActionContext::drop_target;
+            creators["leave combat"] = &ActionContext::leave_combat;
             creators["check mail"] = &ActionContext::check_mail;
             creators["say"] = &ActionContext::say;
 			creators["mount"] = &ActionContext::mount;
@@ -81,6 +82,7 @@ namespace ai
     private:
         static Action* check_mail(PlayerbotAI* ai) { return new CheckMailAction(ai); }
         static Action* drop_target(PlayerbotAI* ai) { return new DropTargetAction(ai); }
+        static Action* leave_combat(PlayerbotAI* ai) { return new LeaveCombatAction(ai); }
         static Action* attack_duel_opponent(PlayerbotAI* ai) { return new AttackDuelOpponentAction(ai); }
         static Action* guard(PlayerbotAI* ai) { return new GuardAction(ai); }
         static Action* open_loot(PlayerbotAI* ai) { return new OpenLootAction(ai); }

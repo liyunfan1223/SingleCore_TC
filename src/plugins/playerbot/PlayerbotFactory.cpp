@@ -1257,7 +1257,7 @@ void PlayerbotFactory::InitClassSpells()
             break;
         case CLASS_SHAMAN:
             bot->LearnSpell(403, false);
-            bot->LearnSpell(8017, false);
+            bot->LearnSpell(331, false);
             break;
         default:
             break;
@@ -2073,7 +2073,7 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
         // BEAR DRUID TANK (AND FERAL DRUID...?)
         score = agility * 1.5 + strength * 1 + attack_power * 0.5 + armor_penetration * 0.5 + dps * 2
             + defense * 0.25 + dodge * 0.25 + armor * 0.25 + stamina * 1.5
-            + hit * 1 + crit * 1 + haste * 0.5 + expertise * 2;
+            + hit * 1 + crit * 1 + haste * 0.5 + expertise * 3;
     }
     if (NotSameArmorType(proto->SubClass))
     {
@@ -2093,6 +2093,14 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
         !(cls == CLASS_PALADIN && tab == 2)) {
         score *= 0.5;
     }
+    // enhancement, rogue, ice/unholy dk
+    if (isDoubleHand && 
+        ((cls == CLASS_SHAMAN && tab == 1) ||
+         (cls == CLASS_ROGUE) ||
+         (cls == CLASS_DEATH_KNIGHT && tab != 0))
+       ) {
+        score *= 0.5;
+    }
     return (0.01 + score) * itemLevel * (quality + 1);   
     // return score;
 }
@@ -2100,5 +2108,4 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
 bool PlayerbotFactory::IsShieldTank() {
     int tab = AiFactory::GetPlayerSpecTab(bot);
     return (bot->getClass() == CLASS_WARRIOR && tab == 2) || (bot->getClass() == CLASS_PALADIN && tab == 1); 
-
 }

@@ -15,18 +15,18 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     NonCombatStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "power word: fortitude",
-        NextAction::array(0, new NextAction("power word: fortitude", 12.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "power word: fortitude",
+    //     NextAction::array(0, new NextAction("power word: fortitude", 12.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "power word: fortitude on party",
         NextAction::array(0, new NextAction("power word: fortitude on party", 11.0f), NULL)));
 
 
-    triggers.push_back(new TriggerNode(
-        "divine spirit",
-        NextAction::array(0, new NextAction("divine spirit", 14.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "divine spirit",
+    //     NextAction::array(0, new NextAction("divine spirit", 14.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "divine spirit on party",
@@ -37,26 +37,35 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "inner fire",
         NextAction::array(0, new NextAction("inner fire", 10.0f), NULL)));
 
-
-    // triggers.push_back(new TriggerNode(
-    //     "critical health",
-    //     NextAction::array(0, new NextAction("greater heal", 70.0f), NULL)));
-
     triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0, new NextAction("greater heal on party", 60.0f), NULL)));
-
-    // triggers.push_back(new TriggerNode(
-    //     "low health",
-    //     NextAction::array(0, new NextAction("flash heal", 21.0f), NULL)));
+		NextAction::array(0,
+            new NextAction("renew on party", ACTION_CRITICAL_HEAL + 3),
+            new NextAction("penance on party", ACTION_CRITICAL_HEAL + 2), 
+            new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1),
+            NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("flash heal on party", 20.0f), NULL)));
+		NextAction::array(0,
+            new NextAction("renew on party", ACTION_MEDIUM_HEAL + 3),
+            new NextAction("penance on party", ACTION_MEDIUM_HEAL + 2), 
+            new NextAction("greater heal on party", ACTION_MEDIUM_HEAL + 1),
+            NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "party member medium health",
-        NextAction::array(0, new NextAction("flash heal on party", 19.0f), NULL)));
+		NextAction::array(0,
+            new NextAction("renew on party", ACTION_LIGHT_HEAL + 9),
+            new NextAction("penance on party", ACTION_LIGHT_HEAL + 8),
+            NULL)));
+    
+    triggers.push_back(new TriggerNode(
+        "party member almost full health",
+		NextAction::array(0, 
+            new NextAction("renew on party", ACTION_LIGHT_HEAL + 3),
+            new NextAction("penance on party", ACTION_LIGHT_HEAL + 2), 
+            NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium aoe heal",
@@ -65,7 +74,6 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"party member to resurrect",
 		NextAction::array(0, new NextAction("resurrection", ACTION_EMERGENCY), NULL)));
-
 
     triggers.push_back(new TriggerNode(
         "dispel magic",

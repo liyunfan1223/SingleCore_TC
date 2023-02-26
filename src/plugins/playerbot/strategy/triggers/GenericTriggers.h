@@ -254,6 +254,10 @@ namespace ai
     BEGIN_TRIGGER(InvalidTargetTrigger, Trigger)
     END_TRIGGER()
 
+    BEGIN_TRIGGER(NoValidTargetTrigger, Trigger)
+    END_TRIGGER()
+    
+
     class TargetInSightTrigger : public Trigger {
     public:
         TargetInSightTrigger(PlayerbotAI* ai) : Trigger(ai, "target in sight") {}

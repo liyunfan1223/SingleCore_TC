@@ -97,6 +97,7 @@ namespace ai
             creators["low aoe heal"] = &TriggerContext::low_aoe_heal;
             creators["medium aoe heal"] = &TriggerContext::medium_aoe_heal;
             creators["invalid target"] = &TriggerContext::invalid_target;
+            creators["no valid target"] = &TriggerContext::no_valid_target;
             creators["lfg proposal active"] = &TriggerContext::lfg_proposal_active;
 			creators["random bot update"] = &TriggerContext::random_bot_update_trigger;
 			creators["no non bot players around"] = &TriggerContext::no_non_bot_players_around;
@@ -106,6 +107,7 @@ namespace ai
     private:
         static Trigger* lfg_proposal_active(PlayerbotAI* ai) { return new LfgProposalActiveTrigger(ai); }
         static Trigger* invalid_target(PlayerbotAI* ai) { return new InvalidTargetTrigger(ai); }
+        static Trigger* no_valid_target(PlayerbotAI* ai) { return new NoValidTargetTrigger(ai); }
         static Trigger* critical_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "critical aoe heal", "critical", 2); }
         static Trigger* low_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "low aoe heal", "low", 2); }
         static Trigger* medium_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "medium aoe heal", "medium", 2); }

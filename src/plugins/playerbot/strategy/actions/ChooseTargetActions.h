@@ -72,10 +72,24 @@ namespace ai
         {
             context->GetValue<Unit*>("current target")->Set(NULL);
             bot->SetSelection(ObjectGuid());
+            // ai->ChangeEngine(BOT_STATE_NON_COMBAT);
+            ai->InterruptSpell();
+			return false;
+        }
+    };
+    
+    class LeaveCombatAction : public Action
+    {
+    public:
+        LeaveCombatAction(PlayerbotAI* ai) : Action(ai, "leave combat") {}
+
+        virtual bool Execute(Event event)
+        {
+            context->GetValue<Unit*>("current target")->Set(NULL);
+            bot->SetSelection(ObjectGuid());
             ai->ChangeEngine(BOT_STATE_NON_COMBAT);
             ai->InterruptSpell();
 			return false;
         }
     };
-
 }

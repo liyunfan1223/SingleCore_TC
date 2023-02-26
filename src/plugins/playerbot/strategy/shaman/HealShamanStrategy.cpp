@@ -57,21 +57,31 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "shaman weapon",
         NextAction::array(0, new NextAction("earthliving weapon", 22.0f), NULL)));
         
-	triggers.push_back(new TriggerNode(
-        "party member medium health",
-		NextAction::array(0, new NextAction("lesser healing wave on party", 25.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "party member critical health",
+		NextAction::array(0, new NextAction("riptide on party", 24.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+		NextAction::array(0, new NextAction("riptide on party", 18.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
-        "party member low health",
-		NextAction::array(0, new NextAction("riptide on party", 25.0f), NULL)));
+        "party member medium health",
+		NextAction::array(0, new NextAction("riptide on party", 15.0f), NULL)));
+    
+    triggers.push_back(new TriggerNode(
+        "party member almost full health",
+		NextAction::array(0, 
+            new NextAction("riptide on party", 12.0f),
+            NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium aoe heal",
-		NextAction::array(0, new NextAction("chain heal", 27.0f), NULL)));
+		NextAction::array(0, new NextAction("riptide on party", 23.0f), new NextAction("chain heal", 22.0f), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"medium health",
-		NextAction::array(0, new NextAction("lesser healing wave", 26.0f), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"medium health",
+	// 	NextAction::array(0, new NextAction("lesser healing wave", 26.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",

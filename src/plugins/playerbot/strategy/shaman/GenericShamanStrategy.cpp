@@ -75,7 +75,7 @@ private:
     {
         return new ActionNode ("riptide",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("healing wave"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("lesser healing wave"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* chain_heal_on_party(PlayerbotAI* ai)
@@ -89,7 +89,7 @@ private:
     {
         return new ActionNode ("riptide on party",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("healing wave on party"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
             /*C*/ NULL);
     }
 };
@@ -116,9 +116,9 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("purge", 10.0f), NULL)));
 
 
-	triggers.push_back(new TriggerNode(
-		"low health",
-		NextAction::array(0, new NextAction("riptide", 26.0f), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"low health",
+	// 	NextAction::array(0, new NextAction("riptide", 26.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"heroism",

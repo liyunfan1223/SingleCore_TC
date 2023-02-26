@@ -77,6 +77,11 @@ bool InvalidTargetTrigger::IsActive()
     return AI_VALUE2(bool, "invalid target", "current target");
 }
 
+bool NoValidTargetTrigger::IsActive()
+{
+	return AI_VALUE(uint8, "attacker count") == 0;
+}
+
 bool NoTargetTrigger::IsActive()
 {
 	return !AI_VALUE(Unit*, "current target");

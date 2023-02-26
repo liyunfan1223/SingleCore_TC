@@ -211,6 +211,7 @@ namespace ai
                 creators["flash of light on party"] = &AiObjectContextInternal::flash_of_light_on_party;
                 creators["holy light"] = &AiObjectContextInternal::holy_light;
                 creators["holy light on party"] = &AiObjectContextInternal::holy_light_on_party;
+                creators["holy shock on party"] = &AiObjectContextInternal::holy_shock_on_party;
                 creators["lay on hands"] = &AiObjectContextInternal::lay_on_hands;
                 creators["lay on hands on party"] = &AiObjectContextInternal::lay_on_hands_on_party;
                 creators["judgement of justice"] = &AiObjectContextInternal::judgement_of_justice;
@@ -274,6 +275,7 @@ namespace ai
             static Action* flash_of_light_on_party(PlayerbotAI* ai) { return new CastFlashOfLightOnPartyAction(ai); }
             static Action* holy_light(PlayerbotAI* ai) { return new CastHolyLightAction(ai); }
             static Action* holy_light_on_party(PlayerbotAI* ai) { return new CastHolyLightOnPartyAction(ai); }
+            static Action* holy_shock_on_party(PlayerbotAI* ai) { return new CastHolyShockOnPartyAction(ai); }
             static Action* lay_on_hands(PlayerbotAI* ai) { return new CastLayOnHandsAction(ai); }
             static Action* lay_on_hands_on_party(PlayerbotAI* ai) { return new CastLayOnHandsOnPartyAction(ai); }
             static Action* judgement_of_justice(PlayerbotAI* ai) { return new CastJudgementOfJusticeAction(ai); }

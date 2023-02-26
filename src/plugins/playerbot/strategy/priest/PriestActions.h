@@ -56,6 +56,22 @@ namespace ai
         virtual string getName() { return "heal on party"; }
     };
 
+    class CastPenanceOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastPenanceOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "penance") {}
+
+        virtual string getName() { return "heal on party"; }
+    };
+
+    class CastPrayerOfMendingOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastPrayerOfMendingOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "prayer of mending") {}
+
+        virtual string getName() { return "heal on party"; }
+    };
+
     class CastRenewAction : public CastHealingSpellAction {
     public:
         CastRenewAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "renew") {}
