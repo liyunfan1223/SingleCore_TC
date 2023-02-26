@@ -971,6 +971,7 @@ void PlayerbotAI::ResetStrategies()
 
 bool PlayerbotAI::IsRanged(Player* player)
 {
+    int tab = AiFactory::GetPlayerSpecTab(player);
     PlayerbotAI* botAi = player->GetPlayerbotAI();
     if (botAi)
         return botAi->ContainsStrategy(STRATEGY_TYPE_RANGED);
@@ -978,12 +979,19 @@ bool PlayerbotAI::IsRanged(Player* player)
     switch (player->getClass())
     {
     case CLASS_DEATH_KNIGHT:
-    case CLASS_PALADIN:
     case CLASS_WARRIOR:
     case CLASS_ROGUE:
         return false;
     case CLASS_DRUID:
         return !HasAnyAuraOf(player, "cat form", "bear form", "dire bear form", NULL);
+    case CLASS_PALADIN:
+        if (tab != 0) {
+            return false;
+        }
+    case CLASS_SHAMAN:
+        if (tab == 1) {
+            return false;
+        }
     }
     return true;
 }
@@ -997,26 +1005,26 @@ bool PlayerbotAI::IsTank(Player* player)
 
     switch (player->getClass())
     {
-    case CLASS_DEATH_KNIGHT:
-        if (tab == 0) {
-            return true;
-        }
-        break;
-    case CLASS_PALADIN:
-        if (tab == 1) {
-            return true;
-        }
-        break;
-    case CLASS_WARRIOR:
-        if (tab == 2) {
-            return true;
-        }
-        break;
-    case CLASS_DRUID:
-        if (tab == 1 && HasAnyAuraOf(player, "bear form", "dire bear form", "thick hide", NULL)) {
-            return true;
-        }
-        break;
+        case CLASS_DEATH_KNIGHT:
+            if (tab == 0) {
+                return true;
+            }
+            break;
+        case CLASS_PALADIN:
+            if (tab == 1) {
+                return true;
+            }
+            break;
+        case CLASS_WARRIOR:
+            if (tab == 2) {
+                return true;
+            }
+            break;
+        case CLASS_DRUID:
+            if (tab == 1 && HasAnyAuraOf(player, "bear form", "dire bear form", "thick hide", NULL)) {
+                return true;
+            }
+            break;
     }
     return false;
 }

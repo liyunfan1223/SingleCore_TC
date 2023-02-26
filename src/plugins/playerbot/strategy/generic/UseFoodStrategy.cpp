@@ -16,7 +16,7 @@ void UseFoodStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "low mana",
         NextAction::array(0, new NextAction("drink", 2.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "medium mana",
-        NextAction::array(0, new NextAction("drink", 2.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "medium mana",
+    //     NextAction::array(0, new NextAction("drink", 2.0f), NULL)));
 }

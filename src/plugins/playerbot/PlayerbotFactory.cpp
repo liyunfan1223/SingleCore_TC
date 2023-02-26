@@ -708,7 +708,7 @@ void PlayerbotFactory::InitEquipment(bool incremental)
                 if (CanEquipUnseenItem(slot, dest, itemId))
                     items[slot].push_back(itemId);
             }
-        } while (items[slot].size() < 10 && desiredQuality-- > ITEM_QUALITY_NORMAL);
+        } while (items[slot].size() < 25 && desiredQuality-- > ITEM_QUALITY_NORMAL);
     }
 
     for(uint8 slot = 0; slot < EQUIPMENT_SLOT_END; ++slot)
@@ -2071,9 +2071,9 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
             + hit * 2 + crit * 0.5 + haste * 0.5 + expertise * 3.5;
     } else {
         // BEAR DRUID TANK (AND FERAL DRUID...?)
-        score = agility * 3 + strength * 2 + attack_power * 1 + armor_penetration * 1.5 + dps * 5
-            + defense * 0.5 + dodge * 0.5 + armor * 0.5 + stamina * 3
-            + hit * 2 + crit * 2 + haste * 1.5 + expertise * 4;
+        score = agility * 1.5 + strength * 1 + attack_power * 0.5 + armor_penetration * 0.5 + dps * 2
+            + defense * 0.25 + dodge * 0.25 + armor * 0.25 + stamina * 1.5
+            + hit * 1 + crit * 1 + haste * 0.5 + expertise * 2;
     }
     if (NotSameArmorType(proto->SubClass))
     {
