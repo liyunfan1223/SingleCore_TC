@@ -12,19 +12,19 @@ namespace ai
         virtual bool IsActive();
     };
 
-    class LivingBombTrigger : public DebuffTrigger {
+    class LivingBombTrigger : public DebuffFromBotTrigger {
     public:
-        LivingBombTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "living bomb") {}
+        LivingBombTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "living bomb") {}
 	};
 
-    class FireballTrigger : public DebuffTrigger {
+    class FireballTrigger : public DebuffFromBotTrigger {
     public:
-        FireballTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "fireball") {}
+        FireballTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "fireball") {}
 	};
 
-    class PyroblastTrigger : public DebuffTrigger {
+    class PyroblastTrigger : public DebuffFromBotTrigger {
     public:
-        PyroblastTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "pyroblast") {}
+        PyroblastTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "pyroblast") {}
     };
 
     class HotStreakTrigger : public HasAuraTrigger {

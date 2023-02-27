@@ -223,7 +223,7 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
 
 		bot->AddUnitState(UNIT_STAND_STATE_SIT);
         ai->InterruptSpell();
-        ai->SetNextCheckDelay(30000);
+        ai->SetNextCheckDelay(20000);
     }
 
     ai->TellMasterNoFacing(out.str());

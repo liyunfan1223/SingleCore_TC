@@ -57,10 +57,10 @@ namespace ai
     BEGIN_TRIGGER(HuntersPetLowHealthTrigger, Trigger)
     END_TRIGGER()
 
-    class BlackArrowTrigger : public DebuffTrigger
+    class BlackArrowTrigger : public DebuffFromBotTrigger
     {
     public:
-        BlackArrowTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "black arrow") {}
+        BlackArrowTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "black arrow") {}
     };
 
     class HuntersMarkTrigger : public DebuffTrigger
@@ -87,10 +87,10 @@ namespace ai
         TrueshotAuraTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "trueshot aura") {}
     };
 
-    class SerpentStingOnAttackerTrigger : public DebuffOnAttackerTrigger
+    class SerpentStingOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
     {
     public:
-        SerpentStingOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "serpent sting") {}
+        SerpentStingOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "serpent sting") {}
     };
     
     class TargetRemoveEnrageTrigger : public TargetAuraDispelTrigger

@@ -27,6 +27,14 @@
         clazz(PlayerbotAI* ai) : DebuffTrigger(ai, spell) {} \
     };
 
+#define DEBUFF_FROM_BOT_TRIGGER(clazz, spell, action) \
+    class clazz : public DebuffFromBotTrigger \
+    { \
+    public: \
+        clazz(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, spell) {} \
+    };
+
+
 namespace ai
 {
 	class StatAvailable : public Trigger
@@ -289,6 +297,27 @@ namespace ai
         int life_bound;
     };
 
+    class HasAuraFromBotTrigger : public Trigger {
+	public:
+		HasAuraFromBotTrigger(PlayerbotAI* ai, string spell, int checkInterval = 5) : Trigger(ai, spell, checkInterval) {}
+
+		virtual string GetTargetName() { return "self target"; }
+		virtual bool IsActive();
+
+	};
+    
+    class DebuffFromBotTrigger : public Trigger
+    {
+    public:
+        DebuffFromBotTrigger(PlayerbotAI* ai, string spell, int checkInterval = 5, int life_bound = 25) : 
+        Trigger(ai, spell, checkInterval), life_bound(life_bound) {}
+    public:
+		virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    protected:
+        int life_bound;
+    };
+
     class DebuffOnAttackerTrigger : public DebuffTrigger
     {
     public:
@@ -296,6 +325,17 @@ namespace ai
     public:
         virtual Value<Unit*>* GetTargetValue();
         virtual string getName() { return spell + " on attacker"; }
+    };
+
+    class DebuffFromBotOnAttackerTrigger : public DebuffFromBotTrigger
+    {
+    public:
+        DebuffFromBotOnAttackerTrigger(PlayerbotAI* ai, string spell) : DebuffFromBotTrigger(ai, spell) {}
+    public:
+        virtual Value<Unit*>* GetTargetValue();
+        virtual string getName() { return spell + " on attacker"; }
+    protected:
+        string spell;
     };
 
 	class BoostTrigger : public BuffTrigger
@@ -423,6 +463,7 @@ namespace ai
 		virtual bool IsActive();
 
 	};
+
 
     class HasAuraStackTrigger : public Trigger {
 	public:

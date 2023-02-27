@@ -86,6 +86,15 @@ namespace ai
 	};
 
     //---------------------------------------------------------------------------------------------------------------------
+	class CastAuraFromBotSpellAction : public CastSpellAction
+	{
+	public:
+		CastAuraFromBotSpellAction(PlayerbotAI* ai, string spell) : CastSpellAction(ai, spell) {}
+
+		virtual bool isUseful();
+	};
+
+    //---------------------------------------------------------------------------------------------------------------------
     class CastMeleeSpellAction : public CastSpellAction
     {
     public:
@@ -95,10 +104,10 @@ namespace ai
     };
 
     //---------------------------------------------------------------------------------------------------------------------
-    class CastDebuffSpellAction : public CastAuraSpellAction
+    class CastDebuffSpellAction : public CastAuraFromBotSpellAction
     {
     public:
-        CastDebuffSpellAction(PlayerbotAI* ai, string spell) : CastAuraSpellAction(ai, spell) {}
+        CastDebuffSpellAction(PlayerbotAI* ai, string spell) : CastAuraFromBotSpellAction(ai, spell) {}
     };
 
     class CastDebuffSpellOnAttackerAction : public CastAuraSpellAction
@@ -107,7 +116,7 @@ namespace ai
         CastDebuffSpellOnAttackerAction(PlayerbotAI* ai, string spell) : CastAuraSpellAction(ai, spell) {}
         Value<Unit*>* GetTargetValue()
         {
-            return context->GetValue<Unit*>("attacker without aura", spell);
+            return context->GetValue<Unit*>("attacker without aura from bot", spell);
         }
         virtual string getName() { return spell + " on attacker"; }
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_AOE; }

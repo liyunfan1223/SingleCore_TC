@@ -50,11 +50,10 @@ bool PanicTrigger::IsActive()
 
 bool BuffTrigger::IsActive()
 {
-	/// TODO: change HasAura to HasAuraFromBot (distinguide positive and negative? )
     Unit* target = GetTarget();
 	return SpellTrigger::IsActive() &&
 		!ai->HasAura(spell, target) &&
-		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.mediumMana);
+		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
 }
 
 Value<Unit*>* BuffOnPartyTrigger::GetTargetValue()
@@ -65,6 +64,11 @@ Value<Unit*>* BuffOnPartyTrigger::GetTargetValue()
 Value<Unit*>* DebuffOnAttackerTrigger::GetTargetValue()
 {
 	return context->GetValue<Unit*>("attacker without aura", spell);
+}
+
+Value<Unit*>* DebuffFromBotOnAttackerTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("attacker without aura from bot", spell);
 }
 
 bool NoAttackersTrigger::IsActive()
@@ -102,6 +106,10 @@ bool DebuffTrigger::IsActive()
 	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > life_bound;
 }
 
+bool DebuffFromBotTrigger::IsActive()
+{
+	return !ai->HasAuraFromBot(getName(), GetTarget()) && AI_VALUE2(uint8, "health", "current target") > life_bound;
+}
 bool SpellTrigger::IsActive()
 {
 	return GetTarget();
@@ -160,8 +168,13 @@ bool InterruptSpellTrigger::IsActive()
 
 bool HasAuraTrigger::IsActive()
 {
-	/// TODO: change HasAura to HasAuraFromBot (distinguide positive and negative? )
 	return ai->HasAura(getName(), GetTarget());
+}
+
+bool HasAuraFromBotTrigger::IsActive()
+{
+	/// TODO: change HasAura to HasAuraFromBot (distinguide positive and negative? )
+	return ai->HasAuraFromBot(getName(), GetTarget());
 }
 
 bool HasAuraStackTrigger::IsActive()

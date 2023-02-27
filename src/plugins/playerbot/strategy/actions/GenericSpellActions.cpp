@@ -65,6 +65,11 @@ bool CastAuraSpellAction::isUseful()
 	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget());
 }
 
+bool CastAuraFromBotSpellAction::isUseful()
+{
+	return CastSpellAction::isUseful() && !ai->HasAuraFromBot(spell, GetTarget());
+}
+
 bool CastEnchantItemAction::isPossible()
 {
     if (!CastSpellAction::isPossible())

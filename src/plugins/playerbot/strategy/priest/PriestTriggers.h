@@ -12,15 +12,15 @@ namespace ai
     BUFF_TRIGGER(InnerFireTrigger, "inner fire", "inner fire")
     BUFF_TRIGGER(VampiricEmbraceTrigger, "vampiric embrace", "vampiric embrace")
 
-    class PowerWordPainOnAttackerTrigger : public DebuffOnAttackerTrigger
+    class PowerWordPainOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
     {
     public:
-        PowerWordPainOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "shadow word: pain") {}
+        PowerWordPainOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "shadow word: pain") {}
     };
 
-    DEBUFF_TRIGGER(PowerWordPainTrigger, "shadow word: pain", "shadow word: pain")
-    DEBUFF_TRIGGER(DevouringPlagueTrigger, "devouring plague", "devouring plague")
-    DEBUFF_TRIGGER(VampiricTouchTrigger, "vampiric touch", "vampiric touch")
+    DEBUFF_FROM_BOT_TRIGGER(PowerWordPainTrigger, "shadow word: pain", "shadow word: pain")
+    DEBUFF_FROM_BOT_TRIGGER(DevouringPlagueTrigger, "devouring plague", "devouring plague")
+    DEBUFF_FROM_BOT_TRIGGER(VampiricTouchTrigger, "vampiric touch", "vampiric touch")
 
     class DispelMagicTrigger : public NeedCureTrigger
     {

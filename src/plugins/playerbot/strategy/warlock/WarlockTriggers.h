@@ -17,20 +17,20 @@ namespace ai
         virtual bool IsActive();
     };
 
-    DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
-    DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");
+    DEBUFF_FROM_BOT_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
+    DEBUFF_FROM_BOT_TRIGGER(CorruptionTrigger, "corruption", "corruption");
 
-    class HauntTrigger : public DebuffTrigger
+    class HauntTrigger : public DebuffFromBotTrigger
     {
     public:
-        HauntTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "haunt", 1, 0) {}
+        HauntTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "haunt", 1, 0) {}
 
     };
 
-    class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
+    class CorruptionOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
     {
     public:
-        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
+        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "corruption") {}
     };
 
     // DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
@@ -44,23 +44,23 @@ namespace ai
         {
             Unit* target = GetTarget();
             return SpellTrigger::IsActive() &&
-                !ai->HasAura("immolate", target) && !ai->HasAura("unstable affliction", target) &&
+                !ai->HasAuraFromBot("immolate", target) && !ai->HasAuraFromBot("unstable affliction", target) &&
                 (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
         }
     };
 
-    class UnstableAfflictionTrigger : public SpellTrigger
+    class UnstableAfflictionTrigger : public DebuffFromBotTrigger // SpellTrigger
     {
     public:
-        UnstableAfflictionTrigger(PlayerbotAI* ai) : SpellTrigger(ai, "unstable affliction") {}
-        virtual string GetTargetName() { return "current target"; }
-        virtual bool IsActive()
-        {
-            Unit* target = GetTarget();
-            return SpellTrigger::IsActive() &&
-                !ai->HasAura("unstable affliction", target) &&
-                (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
-        }
+        UnstableAfflictionTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "unstable affliction") {}
+        // virtual string GetTargetName() { return "current target"; }
+        // virtual bool IsActive()
+        // {
+        //     Unit* target = GetTarget();
+        //     return SpellTrigger::IsActive() &&
+        //         !ai->HasAura("unstable affliction", target) &&
+        //         (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+        // }
     };
     class ShadowTranceTrigger : public HasAuraTrigger
     {

@@ -17,25 +17,25 @@ namespace ai {
     class ThornsTrigger : public BuffTrigger
     {
     public:
-        ThornsTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "thorns") {}
+        ThornsTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "thorns", 1) {}
     };
 
-    class RakeTrigger : public DebuffTrigger
+    class RakeTrigger : public DebuffFromBotTrigger
     {
     public:
-        RakeTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rake") {}
+        RakeTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "rake") {}
     };
 
-    class InsectSwarmTrigger : public DebuffTrigger
+    class InsectSwarmTrigger : public DebuffFromBotTrigger
     {
     public:
-        InsectSwarmTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "insect swarm") {}
+        InsectSwarmTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "insect swarm") {}
     };
 
-    class MoonfireTrigger : public DebuffTrigger
+    class MoonfireTrigger : public DebuffFromBotTrigger
     {
     public:
-        MoonfireTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "moonfire") {}
+        MoonfireTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "moonfire") {}
     };
 
     class FaerieFireTrigger : public DebuffTrigger

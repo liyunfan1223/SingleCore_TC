@@ -16,10 +16,10 @@ namespace ai
         SliceAndDiceTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "slice and dice") {}
     };
 
-    class RuptureTrigger : public DebuffTrigger
+    class RuptureTrigger : public DebuffFromBotTrigger
     {
     public:
-        RuptureTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rupture") {}
+        RuptureTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "rupture") {}
     };
 
     class ExposeArmorTrigger : public DebuffTrigger

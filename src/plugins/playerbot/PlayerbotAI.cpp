@@ -1214,6 +1214,37 @@ bool PlayerbotAI::HasAura(string name, Unit* unit)
     return false;
 }
 
+bool PlayerbotAI::HasAuraFromBot(string name, Unit* unit)
+{
+    if (!unit)
+        return false;
+
+    wstring wnamepart;
+    if (!Utf8toWStr(name, wnamepart))
+        return 0;
+
+    wstrToLower(wnamepart);
+
+    Unit::AuraApplicationMap& map = unit->GetAppliedAuras();
+    for (Unit::AuraApplicationMap::iterator i = map.begin(); i != map.end(); ++i)
+    {
+        Aura const* aura  = i->second->GetBase();
+        if (!aura)
+            continue;
+        const string auraName = aura->GetSpellInfo()->SpellName[0];
+        if (auraName.empty() || auraName.length() != wnamepart.length() || !Utf8FitTo(auraName, wnamepart))
+            continue;
+        if (aura->GetCaster() != bot) {
+            continue;
+        }
+
+        if (IsRealAura(bot, aura, unit))
+            return true;
+    }
+
+    return false;
+}
+
 Aura* PlayerbotAI::GetAura(string name, Unit* unit)
 {
     if (!unit)
@@ -1301,6 +1332,11 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
     if (bot->GetSpellHistory()->HasCooldown(spellid))
         return false;
 
+    if (bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL) != NULL) {
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CanCastSpell() target name: %s, spellid: %d, bot name: %s, failed because has current channeled spell", 
+            target->GetName(), spellid, bot->GetName());
+        return false;
+    }
     SpellInfo const *spellInfo = sSpellMgr->GetSpellInfo(spellid );
     if (!spellInfo)
         return false;
@@ -1486,16 +1522,19 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     const SpellInfo* const pSpellInfo = spell->GetSpellInfo();
 
     float castTime = spell->GetCastTime();
-    if (pSpellInfo->IsChanneled())
-    {
-        int32 duration = pSpellInfo->GetDuration();
-        // mod spell duration (for haste and aura)
-        bot->ApplySpellMod(pSpellInfo->Id, SPELLMOD_DURATION, duration);
-        bot->ModSpellDurationTime(pSpellInfo, duration, spell);
-        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::WaitForSpellCast %.4f %d %s", castTime, duration, pSpellInfo->SpellName[0]);
-        if (duration > 0)
-            castTime += duration;
-    }
+    // if (pSpellInfo->IsChanneled())
+    // {
+    //     int32 duration = pSpellInfo->GetDuration();
+    //     // mod spell duration (for haste and aura)
+    //     bot->ApplySpellMod(pSpellInfo->Id, SPELLMOD_DURATION, duration);
+    //     bot->ModSpellDurationTime(pSpellInfo, duration, spell);
+    //     sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::WaitForSpellCast %.4f %d %s", castTime, duration, pSpellInfo->SpellName[0]);
+    //     if (duration > 2000) {
+    //         duration = 2000;
+    //     }
+    //     if (duration > 0)
+    //         castTime += duration;
+    // }
 
     castTime = ceil(castTime);
 

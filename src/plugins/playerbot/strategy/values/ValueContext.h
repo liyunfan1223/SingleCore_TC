@@ -82,6 +82,7 @@ namespace ai
             creators["party member without mana aura"] = &ValueContext::party_member_without_mana_aura;
             creators["party member without ap aura"] = &ValueContext::party_member_without_ap_aura;
             creators["attacker without aura"] = &ValueContext::attacker_without_aura;
+            creators["attacker without aura from bot"] = &ValueContext::attacker_without_aura_from_bot;
             creators["party member to heal"] = &ValueContext::party_member_to_heal;
             creators["party member to resurrect"] = &ValueContext::party_member_to_resurrect;
             creators["current target"] = &ValueContext::current_target;
@@ -218,6 +219,7 @@ namespace ai
         static UntypedValue* party_member_without_mana_aura(PlayerbotAI* ai) { return new PartyMemberWithoutManaAuraValue(ai); }
         static UntypedValue* party_member_without_ap_aura(PlayerbotAI* ai) { return new PartyMemberWithoutAPAuraValue(ai); }
         static UntypedValue* attacker_without_aura(PlayerbotAI* ai) { return new AttackerWithoutAuraTargetValue(ai); }
+        static UntypedValue* attacker_without_aura_from_bot(PlayerbotAI* ai) { return new AttackerWithoutAuraFromBotTargetValue(ai); }
         static UntypedValue* party_member_to_heal(PlayerbotAI* ai) { return new PartyMemberToHeal(ai); }
         static UntypedValue* party_member_to_resurrect(PlayerbotAI* ai) { return new PartyMemberToResurrect(ai); }
         static UntypedValue* party_member_to_dispel(PlayerbotAI* ai) { return new PartyMemberToDispel(ai); }

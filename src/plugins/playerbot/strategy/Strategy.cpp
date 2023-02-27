@@ -86,7 +86,8 @@ private:
     {
         return new ActionNode ("mana potion",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("drink"), NULL),
+            /*P*/ NULL,
+            // /*A*/ NextAction::array(0, new NextAction("drink"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* healing_potion(PlayerbotAI* ai)

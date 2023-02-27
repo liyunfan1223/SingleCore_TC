@@ -5,14 +5,14 @@ namespace ai
 {
     BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
 
-    DEBUFF_TRIGGER(RendDebuffTrigger, "rend", "rend")
-    DEBUFF_TRIGGER(DisarmDebuffTrigger, "disarm", "disarm")
+    DEBUFF_FROM_BOT_TRIGGER(RendDebuffTrigger, "rend", "rend")
+    DEBUFF_FROM_BOT_TRIGGER(DisarmDebuffTrigger, "disarm", "disarm")
     DEBUFF_TRIGGER(SunderArmorDebuffTrigger, "sunder armor", "sunder armor")
 
-    class RendDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
+    class RendDebuffOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
     {
     public:
-        RendDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "rend") {}
+        RendDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "rend") {}
     };
 
 	class RevengeAvailableTrigger : public SpellCanBeCastTrigger
