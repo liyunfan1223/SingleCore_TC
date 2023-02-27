@@ -16,15 +16,16 @@ bool TogglePetSpellAutoCastAction::Execute(Event event) {
             continue;
 
         uint32 spellId = itr->first;
-        // imp's spell
-        if (spellId == 4511) {
-            continue;
-        }
         const SpellInfo* spellInfo = sSpellMgr->GetSpellInfo(spellId);
         if (spellInfo->IsPassive())
             continue;
 
-        pet->ToggleAutocast(spellInfo, true);
+        // imp's spell
+        if (spellId == 4511) {
+            pet->ToggleAutocast(spellInfo, false);
+        } else {
+            pet->ToggleAutocast(spellInfo, true);
+        }
     }
     return true; 
 }
