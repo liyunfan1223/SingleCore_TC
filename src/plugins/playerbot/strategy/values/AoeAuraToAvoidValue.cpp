@@ -1,4 +1,3 @@
-#pragma once
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
 #include "AoeAuraToAvoidValue.h"
