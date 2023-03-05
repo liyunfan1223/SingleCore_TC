@@ -50,6 +50,7 @@ void PlayerbotFactory::Refresh()
     InitFood();
     InitClassItems();
     InitPotions();
+    InitTalents(true);
     bot->DurabilityRepairAll(false, 1.0f, false);
     uint32 money = urand(level * 1000, level * 5 * 1000);
     if (bot->GetMoney() < money)
@@ -1334,20 +1335,23 @@ void PlayerbotFactory::InitTalents(uint32 specNo)
     }
 
     uint32 freePoints = bot->GetFreeTalentPoints();
+    // uint32 spendPoints = bot->getLevel() < 10 ? 0 : bot->getLevel() - 9 - freePoints;
     for (map<uint32, vector<TalentEntry const*> >::iterator i = spells.begin(); i != spells.end(); ++i)
     {
-        vector<TalentEntry const*> &spells = i->second;
-        if (spells.empty())
+        vector<TalentEntry const*> &spells_row = i->second;
+        if (spells_row.empty())
         {
             sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "%s: No spells for talent row %d", bot->GetName().c_str(), i->first);
             continue;
         }
-
+        // if (spells_row[0]->Row < spendPoints / 5) {
+        //     continue;
+        // }
         int attemptCount = 0;
-        while (!spells.empty() && (int)freePoints - (int)bot->GetFreeTalentPoints() < 5 && attemptCount++ < 3 && bot->GetFreeTalentPoints())
+        while (!spells_row.empty() && (int)freePoints - (int)bot->GetFreeTalentPoints() < 5 && attemptCount++ < 3 && bot->GetFreeTalentPoints())
         {
-            int index = urand(0, spells.size() - 1);
-            TalentEntry const *talentInfo = spells[index];
+            int index = urand(0, spells_row.size() - 1);
+            TalentEntry const *talentInfo = spells_row[index];
             int maxRank = 0;
             for (int rank = 0; rank < min((uint32)MAX_TALENT_RANK, bot->GetFreeTalentPoints()); ++rank)
             {
@@ -1359,7 +1363,7 @@ void PlayerbotFactory::InitTalents(uint32 specNo)
             }
 
             bot->LearnTalent(talentInfo->TalentID, maxRank);
-			spells.erase(spells.begin() + index);
+			spells_row.erase(spells_row.begin() + index);
         }
 
         freePoints = bot->GetFreeTalentPoints();
@@ -1419,7 +1423,7 @@ void PlayerbotFactory::InitTalentsByTemplate(uint32 specNo)
         assert(talentID != -1);
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "bot %s learn talent %d. %u %u %u %u %u", 
             bot->GetName().c_str(), talentID, tab, row, col, lvl, bot->GetFreeTalentPoints());
-        bot->LearnTalent(talentID, min(lvl - 1, bot->GetFreeTalentPoints()));
+        bot->LearnTalent(talentID, min(lvl, bot->GetFreeTalentPoints()) - 1);
         if (bot->GetFreeTalentPoints() == 0) {
             break;
         }
