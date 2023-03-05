@@ -33,8 +33,9 @@ public:
     void InitAvailableSpells();
     void InitClassSpells();
     void InitSpecialSpells();
-    void InitTalents();
+    void InitTalents(bool increment=false);
     void InitTalents(uint32 specNo);
+    void InitTalentsByTemplate(uint32 specNo);
     void InitQuests();
     void InitPet();
     void ClearInventory();
@@ -112,4 +113,5 @@ public: //private:
     uint32 level;
     uint32 itemQuality;
     static uint32 tradeSkills[];
+    static std::vector<std::vector<uint32>> default_talents[12][3];
 };

@@ -10,6 +10,27 @@
 
 using namespace std;
 
+static vector<string> split(const string &str, const string &pattern)
+{
+    vector<string> res;
+    if(str == "")
+        return res;
+    //在字符串末尾也加入分隔符，方便截取最后一段
+    string strs = str + pattern;
+    size_t pos = strs.find(pattern);
+
+    while(pos != strs.npos)
+    {
+        string temp = strs.substr(0, pos);
+        res.push_back(temp);
+        //去掉已分割的字符串,在剩下的字符串中进行分割
+        strs = strs.substr(pos+1, strs.size());
+        pos = strs.find(pattern);
+    }
+
+    return res;
+}
+
 PlayerbotAIConfig::PlayerbotAIConfig()
 {
 }
@@ -136,6 +157,15 @@ bool PlayerbotAIConfig::Initialize()
         {
             ostringstream os; os << "AiPlayerbot.RandomClassSpecProbability." << cls << "." << spec;
             specProbability[cls][spec] = config.GetIntDefault(os.str().c_str(), 33);
+            
+            os.str("");
+            os.clear();
+            os << "AiPlayerbot.DefaultTalentsOrder." << cls << "." << spec;
+            std::string temp_talents_order = config.GetStringDefault(os.str().c_str(), "");
+            defaultTalentsOrder[cls][spec] = ParseTempTalentsOrder(temp_talents_order);
+            if (defaultTalentsOrder[cls][spec].size() > 0) {
+                sLog->outMessage("playerbot", LOG_LEVEL_INFO, "default talents order for cls %d spec %d loaded.", cls, spec);
+            }
         }
     }
 
@@ -244,4 +274,17 @@ void PlayerbotAIConfig::SetValue(string name, string value)
 
     else if (name == "IterationsPerTick")
         out >> iterationsPerTick;
+}
+
+std::vector<std::vector<uint32>> PlayerbotAIConfig::ParseTempTalentsOrder(std::string temp_talents_order) {
+    std::vector<std::vector<uint32>> res;
+    vector<string> pieces = split(temp_talents_order, ",");
+    for (string piece : pieces) {
+        uint32 tab, row, col, lvl;
+        if (sscanf(piece.c_str(), "%u-%u-%u-%u", &tab, &row, &col, &lvl) == -1) {
+            break;
+        }
+        res.push_back({tab, row, col, lvl});
+    }
+    return res;
 }

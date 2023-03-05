@@ -62,6 +62,8 @@ public:
     uint32 randomBotMinLevel, randomBotMaxLevel;
     float randomChangeMultiplier;
     uint32 specProbability[MAX_CLASSES][3];
+    // [(tab, row, col, level)]
+    std::vector<std::vector<uint32>> defaultTalentsOrder[MAX_CLASSES][3];
     std::string commandPrefix;
     std::string randomBotAccountPrefix;
     uint32 randomBotAccountCount;
@@ -85,6 +87,7 @@ public:
     void SetValue(std::string name, std::string value);
 
 private:
+    std::vector<std::vector<uint32>> ParseTempTalentsOrder(std::string temp_talents_order);
     ConfigMgr config;
 };
 

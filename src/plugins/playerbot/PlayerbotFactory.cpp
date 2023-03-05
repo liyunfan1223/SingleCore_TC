@@ -32,6 +32,11 @@ uint32 PlayerbotFactory::tradeSkills[] =
     SKILL_FISHING
 };
 
+// uint32 PlayerbotFactory::default_talents = {
+//     {}, {}, {},
+
+// };
+
 void PlayerbotFactory::Randomize()
 {
     Randomize(true);
@@ -301,18 +306,25 @@ void PlayerbotFactory::InitSpells()
         InitAvailableSpells();
 }
 
-void PlayerbotFactory::InitTalents()
+void PlayerbotFactory::InitTalents(bool increment/*false*/)
 {
-    uint32 point = urand(0, 100);
+    uint32 specNo;
     uint8 cls = bot->getClass();
-    uint32 p1 = sPlayerbotAIConfig.specProbability[cls][0];
-    uint32 p2 = p1 + sPlayerbotAIConfig.specProbability[cls][1];
-
-    uint32 specNo = (point < p1 ? 0 : (point < p2 ? 1 : 2));
-    InitTalents(specNo);
-
-    if (bot->GetFreeTalentPoints())
-        InitTalents(2 - specNo);
+    if (increment) {
+        specNo = AiFactory::GetPlayerSpecTab(bot);
+    } else {
+        uint32 point = urand(0, 100);
+        uint32 p1 = sPlayerbotAIConfig.specProbability[cls][0];
+        uint32 p2 = p1 + sPlayerbotAIConfig.specProbability[cls][1];
+        specNo = (point < p1 ? 0 : (point < p2 ? 1 : 2));
+    }
+    if (sPlayerbotAIConfig.defaultTalentsOrder[cls][specNo].size() > 0) {
+        InitTalentsByTemplate(specNo);
+    } else {
+        InitTalents(specNo);
+        if (bot->GetFreeTalentPoints())
+            InitTalents((specNo + 1) % 3);
+    }
 }
 
 
@@ -1304,7 +1316,6 @@ void PlayerbotFactory::InitSpecialSpells()
 void PlayerbotFactory::InitTalents(uint32 specNo)
 {
     uint32 classMask = bot->getClassMask();
-
     map<uint32, vector<TalentEntry const*> > spells;
     for (uint32 i = 0; i < sTalentStore.GetNumRows(); ++i)
     {
@@ -1354,6 +1365,65 @@ void PlayerbotFactory::InitTalents(uint32 specNo)
         freePoints = bot->GetFreeTalentPoints();
     }
 
+    for (uint32 i = 0; i < MAX_TALENT_SPECS; ++i)
+    {
+        for (PlayerTalentMap::iterator itr = bot->GetTalentMap(i).begin(); itr != bot->GetTalentMap(i).end(); ++itr)
+        {
+            if (itr->second->state != PLAYERSPELL_REMOVED)
+                itr->second->state = PLAYERSPELL_CHANGED;
+        }
+    }
+}
+
+void PlayerbotFactory::InitTalentsByTemplate(uint32 specNo)
+{
+    if (sPlayerbotAIConfig.defaultTalentsOrder[bot->getClass()][specNo].size() == 0) {
+        return;
+    }
+    uint32 classMask = bot->getClassMask();
+    map<uint32, vector<TalentEntry const*> > spells_row;
+    for (uint32 i = 0; i < sTalentStore.GetNumRows(); ++i)
+    {
+        TalentEntry const *talentInfo = sTalentStore.LookupEntry(i);
+        if(!talentInfo)
+            continue;
+
+        TalentTabEntry const *talentTabInfo = sTalentTabStore.LookupEntry( talentInfo->TalentTab );
+        if(!talentTabInfo)
+            continue;
+
+        if( (classMask & talentTabInfo->ClassMask) == 0 )
+            continue;
+
+        spells_row[talentInfo->Row].push_back(talentInfo);
+    }
+
+    bot->ResetTalents(true);
+    bot->SaveToDB();
+    for (vector<uint32> p : sPlayerbotAIConfig.defaultTalentsOrder[bot->getClass()][specNo]) {
+        uint32 tab = p[0], row = p[1], col = p[2], lvl = p[3];
+        uint32 talentID = -1;
+
+        vector<TalentEntry const*> &spells = spells_row[row];
+        assert(spells.size() > 0);
+        for (TalentEntry const* talentInfo : spells) {
+            if (talentInfo->Col != col) {
+                continue;
+            }
+            TalentTabEntry const *talentTabInfo = sTalentTabStore.LookupEntry( talentInfo->TalentTab );
+            if (talentTabInfo->tabpage != tab) {
+                continue;
+            }
+            talentID = talentInfo->TalentID;
+        }
+        assert(talentID != -1);
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "bot %s learn talent %d. %u %u %u %u %u", 
+            bot->GetName().c_str(), talentID, tab, row, col, lvl, bot->GetFreeTalentPoints());
+        bot->LearnTalent(talentID, min(lvl - 1, bot->GetFreeTalentPoints()));
+        if (bot->GetFreeTalentPoints() == 0) {
+            break;
+        }
+    }
     for (uint32 i = 0; i < MAX_TALENT_SPECS; ++i)
     {
         for (PlayerTalentMap::iterator itr = bot->GetTalentMap(i).begin(); itr != bot->GetTalentMap(i).end(); ++itr)
@@ -1940,18 +2010,21 @@ void PlayerbotFactory::InitGuild()
         sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "No random guilds available");
         return;
     }
+    for (int attempt = 0; attempt < 15; attempt++) {
+        int index = urand(0, guilds.size() - 1);
+        uint32 guildId = guilds[index];
+        Guild* guild = sGuildMgr->GetGuildById(guildId);
+        if (!guild)
+        {
+            sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "Invalid guild %u", guildId);
+            return;
+        }
 
-    int index = urand(0, guilds.size() - 1);
-    uint32 guildId = guilds[index];
-    Guild* guild = sGuildMgr->GetGuildById(guildId);
-    if (!guild)
-    {
-        sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "Invalid guild %u", guildId);
-        return;
+        if (guild->GetMemberCount() < 200) {
+            guild->AddMember(bot->GetGUID(), urand(GR_OFFICER, GR_INITIATE));
+            break;
+        }
     }
-
-    if (guild->GetMemberCount() < 20)
-        guild->AddMember(bot->GetGUID(), urand(GR_OFFICER, GR_INITIATE));
 	bot->SaveToDB(); //thesawolf - save save save
 }
 

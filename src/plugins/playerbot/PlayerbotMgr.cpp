@@ -450,6 +450,7 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
             messages.push_back("|TInterface\\icons\\INV_staff_30.png:25:25:0:-1|t Mage");
             messages.push_back("|TInterface\\icons\\INV_staff_30.png:25:25:0:-1|t Warlock");
             messages.push_back("|TInterface\\icons\\Ability_Druid_Maul.png:25:25:0:-1|t Druid");
+            messages.push_back("DK");
             messages.push_back("(Usage: .bot lookup CLASS)");
             return messages;
         }
@@ -524,6 +525,10 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
         {
             claz = 11;
             icon = "|TInterface\\icons\\Ability_Druid_Maul.png:25:25:0:-1|t ";
+        }
+        else if (charnameStr == "dk" || charnameStr == "DK" || charnameStr == "deathknight" || charnameStr == "DeathKnight")
+        {
+            claz = 6;
         }
         else
         {
