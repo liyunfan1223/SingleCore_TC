@@ -13582,7 +13582,8 @@ void Unit::RemoveFromWorld()
         {
             if (owner->m_Controlled.find(this) != owner->m_Controlled.end())
             {
-                TC_LOG_FATAL("entities.unit", "Unit %u is in controlled list of %u when removed from world", GetEntry(), owner->GetEntry());
+                TC_LOG_FATAL("entities.unit", "Unit %u is in controlled list of %u when removed from world, guid %u, owner guid %u", 
+                    GetEntry(), owner->GetEntry(), (uint32)GetGUID().GetRawValue(), (uint32)owner->GetGUID().GetRawValue());
                 ABORT();
             }
         }

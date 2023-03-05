@@ -40,7 +40,7 @@ void RandomPlayerbotMgr::UpdateAIInternal(uint32 elapsed)
                 urand(sPlayerbotAIConfig.randomBotCountChangeMinInterval, sPlayerbotAIConfig.randomBotCountChangeMaxInterval));
     }
 
-    list<uint32> bots = GetBots();
+    list<uint64> bots = GetBots();
     int botCount = bots.size();
     int allianceNewBots = 0, hordeNewBots = 0;
     int randomBotsPerInterval = (int)urand(sPlayerbotAIConfig.minRandomBotsPerInterval, sPlayerbotAIConfig.maxRandomBotsPerInterval);
@@ -54,9 +54,9 @@ void RandomPlayerbotMgr::UpdateAIInternal(uint32 elapsed)
 		AddRandomBots();
 
     int botProcessed = 0;
-    for (list<uint32>::iterator i = bots.begin(); i != bots.end(); ++i)
+    for (list<uint64>::iterator i = bots.begin(); i != bots.end(); ++i)
     {
-        uint32 bot = *i;
+        uint64 bot = *i;
         if (ProcessBot(bot))
 		{
             botProcessed++;
@@ -143,7 +143,7 @@ void RandomPlayerbotMgr::ScheduleTeleport(uint32 bot)
     SetEventValue(bot, "teleport", 1, urand(60 * 60 * 1, 60 * 60 * 5));
 }
 
-bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
+bool RandomPlayerbotMgr::ProcessBot(uint64 bot)
 {
 	uint32 isValid = GetEventValue(bot, "add");
     if (!isValid)
@@ -622,9 +622,9 @@ bool RandomPlayerbotMgr::IsRandomBot(uint32 bot)
     return GetEventValue(bot, "add");
 }
 
-list<uint32> RandomPlayerbotMgr::GetBots()
+list<uint64> RandomPlayerbotMgr::GetBots()
 {
-    list<uint32> bots;
+    list<uint64> bots;
 
     QueryResult results = CharacterDatabase.Query(
             "select bot from ai_playerbot_random_bots where owner = 0 and event = 'add'");
@@ -634,7 +634,7 @@ list<uint32> RandomPlayerbotMgr::GetBots()
         do
         {
             Field* fields = results->Fetch();
-            uint32 bot = fields[0].GetUInt32();
+            uint64 bot = fields[0].GetUInt64();
             bots.push_back(bot);
         } while (results->NextRow());
     }

@@ -408,7 +408,7 @@ void RandomPlayerbotFactory::CreateRandomBots()
         uint32 accountId = fields[0].GetUInt32();
 
         sPlayerbotAIConfig.randomBotAccounts.push_back(accountId);
-
+        // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Pushback Accounts %d into randomBotAccounts", accountId);
         int count = sAccountMgr->GetCharactersCount(accountId);
         if (count >= 9)
         {
@@ -452,7 +452,7 @@ void RandomPlayerbotFactory::CreateRandomBots()
 		
     }
 
-    sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "%d random bot accounts with %d characters available", sPlayerbotAIConfig.randomBotAccounts.size(), totalRandomBotChars);
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d random bot accounts with %d characters available", sPlayerbotAIConfig.randomBotAccounts.size(), totalRandomBotChars);
 }
 
 

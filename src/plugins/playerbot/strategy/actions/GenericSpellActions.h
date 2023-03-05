@@ -147,10 +147,10 @@ namespace ai
 
     //---------------------------------------------------------------------------------------------------------------------
 
-    class CastHealingSpellAction : public CastAuraSpellAction
+    class CastHealingSpellAction : public CastAuraFromBotSpellAction
     {
     public:
-        CastHealingSpellAction(PlayerbotAI* ai, string spell, uint8 estAmount = 5.0f) : CastAuraSpellAction(ai, spell)
+        CastHealingSpellAction(PlayerbotAI* ai, string spell, uint8 estAmount = 5.0f) : CastAuraFromBotSpellAction(ai, spell)
 		{
             this->estAmount = estAmount;
 			range = sPlayerbotAIConfig.spellDistance;

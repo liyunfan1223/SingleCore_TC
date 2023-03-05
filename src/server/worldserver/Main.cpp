@@ -274,14 +274,14 @@ extern int main(int argc, char** argv)
     sScriptMgr->OnStartup();
 
     WorldUpdateLoop();
-
     // Shutdown starts here
+    // sRandomPlayerbotMgr.LogoutAllBots();
     ShutdownThreadPool(threadPool);
 
     sLog->SetSynchronous();
 
     sScriptMgr->OnShutdown();
-
+    
     sWorld->KickAll();                                       // save and kick all players
     sWorld->UpdateSessions(1);                             // real players unload required UpdateSessions call
 

@@ -46,7 +46,8 @@ void PlayerbotHolder::LogoutAllBots()
         PlayerBotMap::const_iterator itr = GetPlayerBotsBegin();
         if (itr == GetPlayerBotsEnd()) break;
         Player* bot= itr->second;
-        LogoutPlayerBot(bot->GetGUID());
+        sLog->outMessage("playerbots", LOG_LEVEL_INFO, "Logout bot %u", bot->GetGUID().GetRawValue());
+        LogoutPlayerBot(bot->GetGUID().GetRawValue());
     }
 }
 
@@ -56,7 +57,7 @@ void PlayerbotHolder::LogoutPlayerBot(uint64 guid)
     if (bot)
     {
         bot->GetPlayerbotAI()->TellMaster("Goodbye!");
-        //bot->SaveToDB();
+        // bot->SaveToDB();
 
         WorldSession * botWorldSessionPtr = bot->GetSession();
         playerBots.erase(guid);    // deletes bot player ptr inside this WorldSession PlayerBotMap
@@ -102,6 +103,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
     playerBots[bot->GetGUID()] = bot;
 
     Player* master = ai->GetMaster();
+    bot->SaveToDB();
     if (master)
     {
         ObjectGuid masterGuid = master->GetGUID();

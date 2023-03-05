@@ -81,14 +81,13 @@ bool CastEnchantItemAction::isPossible()
 
 bool CastHealingSpellAction::isUseful()
 {
-	return CastAuraSpellAction::isUseful() && AI_VALUE2(uint8, "health", GetTargetName()) < (100 - estAmount);
+	return CastAuraFromBotSpellAction::isUseful() && AI_VALUE2(uint8, "health", GetTargetName()) < (100 - estAmount);
 }
 
 bool CastAoeHealSpellAction::isUseful()
 {
 	return CastSpellAction::isUseful() && AI_VALUE2(uint8, "aoe heal", "medium") > 0;
 }
-
 
 Value<Unit*>* CurePartyMemberAction::GetTargetValue()
 {
