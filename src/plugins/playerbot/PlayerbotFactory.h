@@ -33,7 +33,7 @@ public:
     void InitAvailableSpells();
     void InitClassSpells();
     void InitSpecialSpells();
-    void InitTalents(bool increment=false);
+    void InitTalents(bool increment = false, bool use_template = true);
     void InitTalents(uint32 specNo);
     void InitTalentsByTemplate(uint32 specNo);
     void InitQuests();

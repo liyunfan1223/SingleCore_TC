@@ -34,8 +34,8 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member low health",
 		NextAction::array(0,
-            new NextAction("power word: shield on party", ACTION_MEDIUM_HEAL + 4),
-            new NextAction("penance on party", ACTION_MEDIUM_HEAL + 5), 
+            new NextAction("power word: shield on party", ACTION_MEDIUM_HEAL + 5),
+            new NextAction("penance on party", ACTION_MEDIUM_HEAL + 4), 
             new NextAction("prayer of mending on party", ACTION_MEDIUM_HEAL + 3),
             new NextAction("flash heal on party", ACTION_MEDIUM_HEAL + 2),
             NULL)));
@@ -65,7 +65,7 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     //     "party member almost full health",
     //     NextAction::array(0, new NextAction("renew on party", 10.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("fade", 50.0f), new NextAction("flee", 49.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "enemy too close for spell",
+    //     NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
 }

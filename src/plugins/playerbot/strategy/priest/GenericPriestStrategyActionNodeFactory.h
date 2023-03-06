@@ -75,14 +75,16 @@ namespace ai
         {
             return new ActionNode ("power word: shield",
                 /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
-                /*A*/ NextAction::array(0, new NextAction("renew", 50.0f), NULL),
+                // /*A*/ NextAction::array(0, new NextAction("renew", 50.0f), NULL),
+                /*A*/ NULL,
                 /*C*/ NULL);
         }
         static ActionNode* power_word_shield_on_party(PlayerbotAI* ai)
         {
             return new ActionNode ("power word: shield on party",
                 /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
-                /*A*/ NextAction::array(0, new NextAction("renew on party", 50.0f), NULL),
+                // /*A*/ NextAction::array(0, new NextAction("renew on party", 50.0f), NULL),
+                /*A*/ NULL,
                 /*C*/ NULL);
         }
         static ActionNode* renew(PlayerbotAI* ai)

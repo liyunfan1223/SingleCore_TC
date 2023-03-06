@@ -307,7 +307,7 @@ void PlayerbotFactory::InitSpells()
         InitAvailableSpells();
 }
 
-void PlayerbotFactory::InitTalents(bool increment/*false*/)
+void PlayerbotFactory::InitTalents(bool increment/*false*/, bool use_template/*true*/)
 {
     uint32 specNo;
     uint8 cls = bot->getClass();
@@ -319,7 +319,9 @@ void PlayerbotFactory::InitTalents(bool increment/*false*/)
         uint32 p2 = p1 + sPlayerbotAIConfig.specProbability[cls][1];
         specNo = (point < p1 ? 0 : (point < p2 ? 1 : 2));
     }
-    if (sPlayerbotAIConfig.defaultTalentsOrder[cls][specNo].size() > 0) {
+    bot->ResetTalents(true);
+    // use template if can
+    if (use_template && sPlayerbotAIConfig.defaultTalentsOrder[cls][specNo].size() > 0) {
         InitTalentsByTemplate(specNo);
     } else {
         InitTalents(specNo);
@@ -1402,8 +1404,7 @@ void PlayerbotFactory::InitTalentsByTemplate(uint32 specNo)
         spells_row[talentInfo->Row].push_back(talentInfo);
     }
 
-    bot->ResetTalents(true);
-    bot->SaveToDB();
+    // bot->SaveToDB();
     for (vector<uint32> p : sPlayerbotAIConfig.defaultTalentsOrder[bot->getClass()][specNo]) {
         uint32 tab = p[0], row = p[1], col = p[2], lvl = p[3];
         uint32 talentID = -1;

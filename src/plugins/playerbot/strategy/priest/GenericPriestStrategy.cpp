@@ -61,8 +61,8 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("abolish disease on party", ACTION_EMERGENCY), NULL)));
 
 
-    triggers.push_back(new TriggerNode(
-        "medium threat",
-        NextAction::array(0, new NextAction("psychic scream", 50.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "medium threat",
+    //     NextAction::array(0, new NextAction("psychic scream", 50.0f), NULL)));
 
 }
