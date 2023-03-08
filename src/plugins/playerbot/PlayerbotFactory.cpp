@@ -1276,6 +1276,15 @@ void PlayerbotFactory::InitClassSpells()
         case CLASS_SHAMAN:
             bot->LearnSpell(403, false);
             bot->LearnSpell(331, false);
+            if (level >= 4) {
+                bot->LearnSpell(8071, false); // stoneskin totem
+            }
+            if (level >= 10) {
+                bot->LearnSpell(3599, false); // searing totem
+            }
+            if (level >= 20) {
+                bot->LearnSpell(5394, false); // healing stream totem
+            }
             break;
         default:
             break;
@@ -1709,25 +1718,36 @@ void PlayerbotFactory::InitFood()
 
 void PlayerbotFactory::InitClassItems()
 {
-    if (bot->getClass() == CLASS_ROGUE) {
-        vector<int> instant_poison_ids = {43231, 43230, 21927, 8928, 8927, 8926, 6950, 6949, 6947};
-        vector<int> deadly_poison_ids = {43233, 43232, 22054, 22053, 20844, 8985, 8984, 2893, 2892};
-        for (int& itemId: deadly_poison_ids) {
-            ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
-            if (proto->RequiredLevel > bot->getLevel())
-                continue;
-            bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
-            break;    
+    // int cls = bot->getClass();
+    switch (bot->getClass()) 
+    {
+        case CLASS_ROGUE:
+        {
+            vector<int> instant_poison_ids = {43231, 43230, 21927, 8928, 8927, 8926, 6950, 6949, 6947};
+            vector<int> deadly_poison_ids = {43233, 43232, 22054, 22053, 20844, 8985, 8984, 2893, 2892};
+            for (int& itemId: deadly_poison_ids) {
+                ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+                if (proto->RequiredLevel > bot->getLevel())
+                    continue;
+                bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
+                break;    
+            }
+            for (int& itemId: instant_poison_ids) {
+                ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+                if (proto->RequiredLevel > bot->getLevel())
+                    continue;
+                bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
+                break;    
+            }
         }
-        for (int& itemId: instant_poison_ids) {
-            ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
-            if (proto->RequiredLevel > bot->getLevel())
-                continue;
-            bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
-            break;    
-        }
+            break;
+        case CLASS_SHAMAN:
+            bot->StoreNewItemInBestSlots(46978, 1); // totem
+            break;
+        default:
+            break;
     }
-    
+   
 }
 
 void PlayerbotFactory::CancelAuras()

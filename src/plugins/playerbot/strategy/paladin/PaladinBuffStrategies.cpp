@@ -70,7 +70,15 @@ void PaladinBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "blessing on party",
-        NextAction::array(0, new NextAction("blessing of might on party", 11.0f), NULL)));
+        NextAction::array(0, new NextAction("blessing of might on party", 12.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "blessing on party",
+        NextAction::array(0, new NextAction("blessing of wisdom on party", 11.0f), NULL)));
+
+    // triggers.push_back(new TriggerNode(
+    //     "blessing on party",
+    //     NextAction::array(0, new NextAction("blessing of might on party", 11.0f), NULL)));
 
     // triggers.push_back(new TriggerNode(
     //     "blessing",

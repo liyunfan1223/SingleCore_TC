@@ -27,6 +27,7 @@ namespace ai
             creators["flash heal on party"] = &flash_heal_on_party;
             creators["psychic scream"] = &psychic_scream;
             creators["fade"] = &fade;
+            creators["shadowfiend"] = &shadowfiend;
         }
     private:
         static ActionNode* inner_fire(PlayerbotAI* ai)
@@ -169,6 +170,13 @@ namespace ai
             return new ActionNode ("fade",
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
+                /*C*/ NULL);
+        }
+        static ActionNode* shadowfiend(PlayerbotAI* ai)
+        {
+            return new ActionNode ("shadowfiend",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("hymn of hope"), NULL),
                 /*C*/ NULL);
         }
     };

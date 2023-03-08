@@ -259,4 +259,25 @@ namespace ai
 	    virtual string GetTargetName() { return "self target"; }
 	};
 
+
+    class CastShadowfiendAction : public CastSpellAction
+    {
+    public:
+	    CastShadowfiendAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadowfiend") {}
+	    virtual string GetTargetName() { return "current target"; }
+    };
+
+    class CastHymnOfHopeAction : public CastSpellAction
+    {
+    public:
+	    CastHymnOfHopeAction(PlayerbotAI* ai) : CastSpellAction(ai, "hymn of hope") {}
+	    virtual string GetTargetName() { return "self target"; }
+    };
+
+    class CastDivineHymnAction : public CastSpellAction
+    {
+    public:
+	    CastDivineHymnAction(PlayerbotAI* ai) : CastSpellAction(ai, "divine hymn") {}
+	    virtual string GetTargetName() { return "self target"; }
+    };
 }

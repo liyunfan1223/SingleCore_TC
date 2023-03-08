@@ -59,21 +59,19 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         
     triggers.push_back(new TriggerNode(
         "party member critical health",
-		NextAction::array(0, new NextAction("riptide on party", 24.0f), NULL)));
+		NextAction::array(0, new NextAction("riptide on party", 24.0f), new NextAction("lesser healing wave on party", 23.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-		NextAction::array(0, new NextAction("riptide on party", 18.0f), NULL)));
+		NextAction::array(0, new NextAction("riptide on party", 18.0f), new NextAction("lesser healing wave on party", 17.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
         "party member medium health",
-		NextAction::array(0, new NextAction("riptide on party", 15.0f), NULL)));
+		NextAction::array(0, new NextAction("riptide on party", 15.0f), new NextAction("lesser healing wave on party", 14.0f), NULL)));
     
     triggers.push_back(new TriggerNode(
         "party member almost full health",
-		NextAction::array(0, 
-            new NextAction("riptide on party", 12.0f),
-            NULL)));
+		NextAction::array(0, new NextAction("riptide on party", 12.0f), new NextAction("lesser healing wave on party", 11.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium aoe heal",
@@ -111,7 +109,7 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "party member cleanse spirit disease",
         NextAction::array(0, new NextAction("cleanse spirit disease on party", ACTION_EMERGENCY), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "medium aoe",
-        NextAction::array(0, new NextAction("healing stream totem", ACTION_LIGHT_HEAL), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "medium aoe",
+    //     NextAction::array(0, new NextAction("healing stream totem", ACTION_LIGHT_HEAL), NULL)));
 }

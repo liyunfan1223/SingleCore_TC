@@ -97,6 +97,7 @@ namespace ai
                 creators["expose armor"] = &AiObjectContextInternal::expose_armor;
                 creators["kick on enemy healer"] = &AiObjectContextInternal::kick_on_enemy_healer;
 				creators["stealth"] = &AiObjectContextInternal::stealth;
+                creators["cancel stealth"] = &AiObjectContextInternal::cancel_stealth;
                 creators["use instant poison"] = &AiObjectContextInternal::use_instant_poison;
                 creators["use deadly poison"] = &AiObjectContextInternal::use_deadly_poison;
                 creators["envenom"] = &AiObjectContextInternal::envenom;
@@ -120,6 +121,7 @@ namespace ai
             static Action* expose_armor(PlayerbotAI* ai) { return new CastExposeArmorAction(ai); }
             static Action* kick_on_enemy_healer(PlayerbotAI* ai) { return new CastKickOnEnemyHealerAction(ai); }
 			static Action* stealth(PlayerbotAI* ai) { return new CastStealthAction(ai); }
+            static Action* cancel_stealth(PlayerbotAI* ai) { return new CastCancelStealthAction(ai); }
             static Action* use_instant_poison(PlayerbotAI* ai) { return new UseInstantPoisonAction(ai); }
             static Action* use_deadly_poison(PlayerbotAI* ai) { return new UseDeadlyPoisonAction(ai); }
             static Action* envenom(PlayerbotAI* ai) { return new EnvenomAction(ai); }

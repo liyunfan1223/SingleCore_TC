@@ -4,7 +4,7 @@
 
 namespace ai
 {
-    class TotemsShamanStrategy : public GenericShamanStrategy
+    class TotemsShamanStrategy : public CombatStrategy
     {
     public:
         TotemsShamanStrategy(PlayerbotAI* ai);

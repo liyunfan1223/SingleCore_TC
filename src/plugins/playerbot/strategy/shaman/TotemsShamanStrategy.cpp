@@ -5,13 +5,13 @@
 
 using namespace ai;
 
-TotemsShamanStrategy::TotemsShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(ai)
+TotemsShamanStrategy::TotemsShamanStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
 {
 }
 
 void TotemsShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    GenericShamanStrategy::InitTriggers(triggers);
+    // GenericShamanStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
         "wrath of air totem",
@@ -19,7 +19,7 @@ void TotemsShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "mana spring totem",
-        NextAction::array(0, new NextAction("mana spring totem", 19.0f), NULL)));
+        NextAction::array(0, new NextAction("healing stream totem", 19.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "strength of earth totem",

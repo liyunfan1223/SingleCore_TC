@@ -225,8 +225,10 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
         case CLASS_PALADIN:
             if (tab == 1)
                 nonCombatEngine->addStrategy("bhealth");
-            else
+            else if (tab == 0)
                 nonCombatEngine->addStrategy("bmana");
+            else
+                nonCombatEngine->addStrategy("bdps");
             break;
         case CLASS_HUNTER:
             nonCombatEngine->addStrategy("bdps");
@@ -263,6 +265,16 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
 			else
 				nonCombatEngine->addStrategy("dps assist");
 			break;
+        case CLASS_WARLOCK:
+            if (tab == 0) {
+                nonCombatEngine->addStrategy("bmana");
+            } else if (tab == 1) {
+                nonCombatEngine->addStrategy("bdps");
+            } else if (tab == 2) {
+                nonCombatEngine->addStrategy("bhealth");
+            }
+            nonCombatEngine->addStrategy("dps assist");
+            break;
 		default:
 			nonCombatEngine->addStrategy("dps assist");
 			break;
@@ -277,7 +289,7 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
 // 		nonCombatEngine->addStrategies("nc", "attack weak", "food", "stay", "chat",
 // +			"default", "quest", "loot", "gather", "duel", "emote", "follow", "lfg", "bg", "conserve mana", NULL);
         nonCombatEngine->addStrategies("nc", "attack weak", "food", "stay", "chat",
-+			"default", "quest", "loot", "gather", "duel", "emote", "follow", "lfg", "bg", NULL);
++			"default", "quest", "loot", "gather", "duel", "follow", "lfg", "bg", NULL);
 	}
 
 	if (sRandomPlayerbotMgr.IsRandomBot(player))

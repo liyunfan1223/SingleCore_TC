@@ -43,7 +43,6 @@ namespace ai
         CastRiptideOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "riptide") {}
     };
 
-
     class CastEarthShieldAction : public CastBuffSpellAction {
     public:
         CastEarthShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "earth shield") {}

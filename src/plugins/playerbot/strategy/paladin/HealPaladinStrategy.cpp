@@ -43,7 +43,8 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
         "party member medium health",
 		NextAction::array(0,
-            new NextAction("flash of light on party", ACTION_LIGHT_HEAL + 9),
+            new NextAction("holy light on party", ACTION_LIGHT_HEAL + 9),
+            new NextAction("flash of light on party", ACTION_LIGHT_HEAL + 8),
             // new NextAction("penance on party", ACTION_LIGHT_HEAL + 8), 
             // new NextAction("power word: shield", ACTION_LIGHT_HEAL + 7),
             // new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 6),

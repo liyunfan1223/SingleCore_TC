@@ -49,6 +49,21 @@ namespace ai
             static Strategy* tank(PlayerbotAI* ai) { return new TankWarlockStrategy(ai); }
             static Strategy* dps(PlayerbotAI* ai) { return new DpsWarlockStrategy(ai); }
         };
+
+        class NonCombatBuffStrategyFactoryInternal : public NamedObjectContext<Strategy>
+        {
+        public:
+            NonCombatBuffStrategyFactoryInternal() : NamedObjectContext<Strategy>(false, true)
+            {
+                creators["bdps"] = &warlock::NonCombatBuffStrategyFactoryInternal::felguard;
+                creators["bmana"] = &warlock::NonCombatBuffStrategyFactoryInternal::felhunter;
+                creators["bhealth"] = &warlock::NonCombatBuffStrategyFactoryInternal::imp;
+            }
+        private:
+            static Strategy* imp(PlayerbotAI* ai) { return new SummonImpStrategy(ai); }
+            static Strategy* felhunter(PlayerbotAI* ai) { return new SummonFelhunterStrategy(ai); }
+            static Strategy* felguard(PlayerbotAI* ai) { return new SummonFelguardStrategy(ai); }
+        }; 
     };
 };
 
@@ -186,6 +201,7 @@ WarlockAiObjectContext::WarlockAiObjectContext(PlayerbotAI* ai) : AiObjectContex
 {
     strategyContexts.Add(new ai::warlock::StrategyFactoryInternal());
     strategyContexts.Add(new ai::warlock::CombatStrategyFactoryInternal());
+    strategyContexts.Add(new ai::warlock::NonCombatBuffStrategyFactoryInternal());
     actionContexts.Add(new ai::warlock::AiObjectContextInternal());
     triggerContexts.Add(new ai::warlock::TriggerFactoryInternal());
 }

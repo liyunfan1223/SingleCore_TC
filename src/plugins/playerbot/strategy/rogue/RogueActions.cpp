@@ -37,3 +37,12 @@ bool UseInstantPoisonAction::Execute(Event event) {
     }
     return UseItemAuto(*items.begin());
 }
+
+bool CastCancelStealthAction::isUseful() {
+    return ai->HasAura("stealth", bot);
+}
+
+bool CastCancelStealthAction::Execute(Event event) {
+    ai->RemoveAura("stealth");
+    return true;
+}

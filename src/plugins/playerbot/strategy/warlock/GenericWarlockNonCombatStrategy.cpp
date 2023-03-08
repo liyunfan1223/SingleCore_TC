@@ -36,6 +36,20 @@ private:
             /*A*/ NextAction::array(0, new NextAction("summon imp"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* summon_felguard(PlayerbotAI* ai)
+    {
+        return new ActionNode ("summon felguard",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("summon voidwalker"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* summon_voidwalker(PlayerbotAI* ai)
+    {
+        return new ActionNode ("summon voidwalker",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("summon imp"), NULL),
+            /*C*/ NULL);
+    }
 };
 
 GenericWarlockNonCombatStrategy::GenericWarlockNonCombatStrategy(PlayerbotAI* ai) : NonCombatStrategy(ai)
@@ -67,9 +81,9 @@ void GenericWarlockNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
         "spellstone",
         NextAction::array(0, new NextAction("spellstone", 13.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "no pet",
-        NextAction::array(0, new NextAction("summon felhunter", 11.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "no pet",
+    //     NextAction::array(0, new NextAction("summon felhunter", 11.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "has pet",
@@ -78,5 +92,31 @@ void GenericWarlockNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
 	triggers.push_back(new TriggerNode(
 		"in battleground without flag",
 		NextAction::array(0, new NextAction("mount", 1.0f), NULL)));
+}
 
+SummonImpStrategy::SummonImpStrategy(PlayerbotAI* ai): NonCombatStrategy(ai) {}
+
+void SummonImpStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "no pet",
+        NextAction::array(0, new NextAction("summon imp", 11.0f), NULL)));
+}
+
+SummonFelguardStrategy::SummonFelguardStrategy(PlayerbotAI* ai): NonCombatStrategy(ai) {}
+
+void SummonFelguardStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "no pet",
+        NextAction::array(0, new NextAction("summon felguard", 11.0f), NULL)));
+}
+
+SummonFelhunterStrategy::SummonFelhunterStrategy(PlayerbotAI* ai): NonCombatStrategy(ai) {}
+
+void SummonFelhunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "no pet",
+        NextAction::array(0, new NextAction("summon felhunter", 11.0f), NULL)));
 }
