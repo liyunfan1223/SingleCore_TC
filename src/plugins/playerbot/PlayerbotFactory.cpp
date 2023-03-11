@@ -51,6 +51,8 @@ void PlayerbotFactory::Refresh()
     InitClassItems();
     InitPotions();
     InitTalents(true);
+    InitClassSpells();
+    InitAvailableSpells();
     bot->DurabilityRepairAll(false, 1.0f, false);
     uint32 money = urand(level * 1000, level * 5 * 1000);
     if (bot->GetMoney() < money)
@@ -311,7 +313,7 @@ void PlayerbotFactory::InitTalents(bool increment/*false*/, bool use_template/*t
 {
     uint32 specNo;
     uint8 cls = bot->getClass();
-    if (increment) {
+    if (increment && bot->getLevel() > 10) {
         specNo = AiFactory::GetPlayerSpecTab(bot);
     } else {
         uint32 point = urand(0, 100);
@@ -672,9 +674,6 @@ void PlayerbotFactory::InitEquipment(bool incremental)
             continue;
 
         uint32 desiredQuality = itemQuality;
-        // if (urand(0, 100) < 100 * sPlayerbotAIConfig.randomGearLoweringChance && desiredQuality > ITEM_QUALITY_NORMAL) {
-        //     desiredQuality--;
-        // }
 
         do
         {
@@ -1710,6 +1709,12 @@ void PlayerbotFactory::InitFood()
 
             uint32 itemId = ids[index];
             ItemTemplate const* proto = sObjectMgr->GetItemTemplate(itemId);
+            // beer / wine ... 
+            if (proto->Spells[0].SpellId == 11007 || proto->Spells[0].SpellId == 11008 || proto->Spells[0].SpellId == 11009 ||
+                proto->Spells[0].SpellId == 11629 || proto->Spells[0].SpellId == 50986)  
+            {
+                continue;
+            }
             // bot->StoreNewItemInBestSlots(itemId, urand(1, proto->GetMaxStackSize()));
             bot->StoreNewItemInBestSlots(itemId, proto->GetMaxStackSize());
         }

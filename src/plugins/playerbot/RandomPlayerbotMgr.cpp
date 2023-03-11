@@ -486,10 +486,12 @@ void RandomPlayerbotMgr::IncreaseLevel(Player* bot)
     PlayerbotFactory factory(bot, level);
     if (bot->GetGuildId())
 	{
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Get bot %s guild id %u succeeded, start refreshing...", bot->GetName().c_str(), bot->GetGuildId());
         factory.Refresh();
     }
 	else
 	{
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Get bot %s guild id failed, start randomizing...", bot->GetName().c_str());
         factory.Randomize();
     }
 	RandomTeleportForLevel(bot);
