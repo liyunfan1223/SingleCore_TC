@@ -142,7 +142,7 @@ void PlayerbotAI::UpdateAI(uint32 elapsed)
 	//EOD
 
     if (nextAICheckDelay > sPlayerbotAIConfig.maxWaitForMove && bot->IsInCombat() 
-        && !bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL))
+        && !bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL) && !bot->GetCurrentSpell(CURRENT_GENERIC_SPELL))
     {
         nextAICheckDelay = sPlayerbotAIConfig.maxWaitForMove;
     }
@@ -1540,7 +1540,7 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     // }
 
     int32 ceiled_castTime = ceil(castTime);
-    bot->ModSpellDurationTime(pSpellInfo, ceiled_castTime, spell);
+    // bot->ModSpellDurationTime(pSpellInfo, ceiled_castTime, spell);
     uint32 globalCooldown = CalculateGlobalCooldown(pSpellInfo->Id);
     if (ceiled_castTime < globalCooldown)
         ceiled_castTime = globalCooldown;
