@@ -33,8 +33,8 @@ private:
     {
         return new ActionNode ("magma totem",
             /*P*/ NULL,
-            /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("fire nova totem"), NULL));
+            /*A*/ NULL, // NextAction::array(0, new NextAction("fire nova totem"), NULL),
+            /*C*/ NULL);
     }
 };
 
@@ -45,7 +45,7 @@ MeleeShamanStrategy::MeleeShamanStrategy(PlayerbotAI* ai) : GenericShamanStrateg
 
 NextAction** MeleeShamanStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("stormstrike", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("stormstrike", 11.0f), new NextAction("earth shock", 10.0f), NULL);
 }
 
 void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -58,11 +58,11 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "searing totem",
-        NextAction::array(0, new NextAction("reach melee", 22.0f), new NextAction("searing totem", 22.0f), NULL)));
+        NextAction::array(0, new NextAction("reach melee", 23.0f), new NextAction("searing totem", 22.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "shock",
-        NextAction::array(0, new NextAction("earth shock", 20.0f), NULL)));
+        NextAction::array(0, new NextAction("flame shock", 20.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "not facing target",
@@ -83,11 +83,11 @@ void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "enemy out of melee",
         NextAction::array(0, new NextAction("reach melee", ACTION_NORMAL + 8), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "magma totem",
-        NextAction::array(0, new NextAction("magma totem", 26.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "magma totem",
+    //     NextAction::array(0, new NextAction("magma totem", 26.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "medium aoe",
-        NextAction::array(0, new NextAction("fire nova totem", 25.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "medium aoe",
+    //     NextAction::array(0, new NextAction("fire nova totem", 25.0f), NULL)));
 }
