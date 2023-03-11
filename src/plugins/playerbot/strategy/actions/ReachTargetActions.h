@@ -20,6 +20,9 @@ namespace ai
         }
         virtual bool isUseful()
 		{
+            if (bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL) != NULL) {
+                return false;
+            }
             return AI_VALUE2(float, "distance", target) > (distance + sPlayerbotAIConfig.contactDistance);
         }
         virtual string GetTargetName() { return target; }

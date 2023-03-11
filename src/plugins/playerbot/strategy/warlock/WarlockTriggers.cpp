@@ -17,3 +17,9 @@ bool SpellstoneTrigger::IsActive()
 {
     return BuffTrigger::IsActive() && AI_VALUE2(uint8, "item count", getName()) > 0;
 }
+
+bool ImmolateOnAttackerTrigger::IsActive()
+{
+	return !ai->HasAuraFromBot("immolate", GetTarget()) && !ai->HasAuraFromBot("unstable affliction", GetTarget()) 
+			&& GetTarget() && GetTarget()->GetHealthPct() > life_bound;
+}

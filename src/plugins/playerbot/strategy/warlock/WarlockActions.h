@@ -70,6 +70,18 @@ namespace ai
 	    CastCorruptionOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "corruption") {}
 	};
 
+	class CastImmolateOnAttackerAction : public CastDebuffSpellOnAttackerAction
+	{
+	public:
+	    CastImmolateOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "immolate") {}
+		virtual bool isUseful();
+	};
+
+	class CastUnstableAfflictionOnAttackerAction : public CastDebuffSpellOnAttackerAction
+	{
+	public:
+	    CastUnstableAfflictionOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "unstable affliction") {}
+	};
 
 	class CastSummonVoidwalkerAction : public CastBuffSpellAction
 	{

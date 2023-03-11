@@ -29,3 +29,7 @@ bool TogglePetSpellAutoCastAction::Execute(Event event) {
     }
     return true; 
 }
+
+bool CastImmolateOnAttackerAction::isUseful() {
+	return CastDebuffSpellOnAttackerAction::isUseful() && !ai->HasAuraFromBot("unstable affliction", GetTarget());
+}

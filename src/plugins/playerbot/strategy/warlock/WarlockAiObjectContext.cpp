@@ -91,7 +91,9 @@ namespace ai
                 creators["backlash"] = &TriggerFactoryInternal::backlash;
                 creators["fear"] = &TriggerFactoryInternal::fear;
                 creators["immolate"] = &TriggerFactoryInternal::immolate;
+                creators["immolate on attacker"] = &TriggerFactoryInternal::immolate_on_attacker;
                 creators["unstable affliction"] = &TriggerFactoryInternal::unstable_affliction;
+                creators["unstable affliction on attacker"] = &TriggerFactoryInternal::unstable_affliction_on_attacker;
                 creators["haunt"] = &TriggerFactoryInternal::haunt;
             }
 
@@ -109,7 +111,9 @@ namespace ai
             static Trigger* backlash(PlayerbotAI* ai) { return new BacklashTrigger(ai); }
             static Trigger* fear(PlayerbotAI* ai) { return new FearTrigger(ai); }
             static Trigger* immolate(PlayerbotAI* ai) { return new ImmolateTrigger(ai); }
+            static Trigger* immolate_on_attacker(PlayerbotAI* ai) { return new ImmolateOnAttackerTrigger(ai); }
             static Trigger* unstable_affliction(PlayerbotAI* ai) { return new UnstableAfflictionTrigger(ai); }
+            static Trigger* unstable_affliction_on_attacker(PlayerbotAI* ai) { return new UnstableAfflictionOnAttackerTrigger(ai); }
             static Trigger* haunt(PlayerbotAI* ai) { return new HauntTrigger(ai); }
         };
     };
@@ -138,6 +142,7 @@ namespace ai
                 creators["summon felguard"] = &AiObjectContextInternal::summon_felguard;
                 creators["summon felhunter"] = &AiObjectContextInternal::summon_felhunter;
                 creators["immolate"] = &AiObjectContextInternal::immolate;
+                creators["immolate on attacker"] = &AiObjectContextInternal::immolate_on_attacker;
                 creators["corruption"] = &AiObjectContextInternal::corruption;
                 creators["corruption on attacker"] = &AiObjectContextInternal::corruption_on_attacker;
                 creators["curse of agony"] = &AiObjectContextInternal::curse_of_agony;
@@ -155,6 +160,7 @@ namespace ai
                 creators["incinirate"] = &AiObjectContextInternal::incinirate;
                 creators["conflagrate"] = &AiObjectContextInternal::conflagrate;
                 creators["unstable affliction"] = &AiObjectContextInternal::unstable_affliction;
+                creators["unstable affliction on attacker"] = &AiObjectContextInternal::unstable_affliction;
                 creators["haunt"] = &AiObjectContextInternal::haunt;
                 creators["toggle pet spell"] = &AiObjectContextInternal::toggle_pet_spell;
             }
@@ -165,6 +171,7 @@ namespace ai
             static Action* fear_on_cc(PlayerbotAI* ai) { return new CastFearOnCcAction(ai); }
             static Action* fear(PlayerbotAI* ai) { return new CastFearAction(ai); }
             static Action* immolate(PlayerbotAI* ai) { return new CastImmolateAction(ai); }
+            static Action* immolate_on_attacker(PlayerbotAI* ai) { return new CastImmolateOnAttackerAction(ai); }
             static Action* summon_imp(PlayerbotAI* ai) { return new CastSummonImpAction(ai); }
             static Action* fel_armor(PlayerbotAI* ai) { return new CastFelArmorAction(ai); }
             static Action* demon_armor(PlayerbotAI* ai) { return new CastDemonArmorAction(ai); }
@@ -189,6 +196,7 @@ namespace ai
             static Action* shadowfury(PlayerbotAI* ai) { return new CastShadowfuryAction(ai); }
             static Action* life_tap(PlayerbotAI* ai) { return new CastLifeTapAction(ai); }
             static Action* unstable_affliction(PlayerbotAI* ai) { return new CastUnstableAfflictionAction(ai); }
+            static Action* unstable_affliction_on_attacker(PlayerbotAI* ai) { return new CastUnstableAfflictionOnAttackerAction(ai); }
             static Action* haunt(PlayerbotAI* ai) { return new CastHauntAction(ai); }
             static Action* toggle_pet_spell(PlayerbotAI* ai) { return new TogglePetSpellAutoCastAction(ai); }
         };

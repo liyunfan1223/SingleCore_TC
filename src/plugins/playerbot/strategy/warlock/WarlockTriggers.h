@@ -33,6 +33,18 @@ namespace ai
         CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "corruption") {}
     };
 
+    class ImmolateOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
+    {
+    public:
+        ImmolateOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "immolate") {}
+        virtual bool IsActive();
+    };
+
+    class UnstableAfflictionOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
+    {
+    public:
+        UnstableAfflictionOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "unstable affliction") {}
+    };
     // DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
 
     class ImmolateTrigger : public SpellTrigger
@@ -44,8 +56,7 @@ namespace ai
         {
             Unit* target = GetTarget();
             return SpellTrigger::IsActive() &&
-                !ai->HasAuraFromBot("immolate", target) && !ai->HasAuraFromBot("unstable affliction", target) &&
-                (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+                !ai->HasAuraFromBot("immolate", target) && !ai->HasAuraFromBot("unstable affliction", target);
         }
     };
 
