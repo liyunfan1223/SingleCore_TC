@@ -103,12 +103,12 @@ bool AoeTrigger::IsActive()
 
 bool DebuffTrigger::IsActive()
 {
-	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > life_bound;
+	return BuffTrigger::IsActive() && GetTarget() && GetTarget()->GetHealthPct() > life_bound;
 }
 
 bool DebuffFromBotTrigger::IsActive()
 {
-	return !ai->HasAuraFromBot(getName(), GetTarget()) && AI_VALUE2(uint8, "health", "current target") > life_bound;
+	return !ai->HasAuraFromBot(getName(), GetTarget()) && GetTarget() && GetTarget()->GetHealthPct() > life_bound;
 }
 bool SpellTrigger::IsActive()
 {

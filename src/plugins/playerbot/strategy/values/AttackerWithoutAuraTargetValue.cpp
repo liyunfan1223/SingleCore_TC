@@ -12,9 +12,10 @@ Unit* AttackerWithoutAuraTargetValue::Calculate()
     for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
     {
         Unit* unit = ai->GetUnit(*i);
-        if (!unit || unit == target)
+        // if (!unit || unit == target)
+        //     continue;
+        if (!unit)
             continue;
-
         if (bot->GetDistance(unit) > sPlayerbotAIConfig.spellDistance)
             continue;
         if (!ai->HasAura(qualifier, unit))
@@ -30,9 +31,10 @@ Unit* AttackerWithoutAuraFromBotTargetValue::Calculate()
     for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
     {
         Unit* unit = ai->GetUnit(*i);
-        if (!unit || unit == target)
+        // if (!unit || unit == target)
+        //     continue;
+        if (!unit)
             continue;
-
         if (bot->GetDistance(unit) > sPlayerbotAIConfig.spellDistance)
             continue;
         if (!ai->HasAuraFromBot(qualifier, unit))

@@ -13,6 +13,8 @@ public:
         creators["fel armor"] = &fel_armor;
         creators["demon armor"] = &demon_armor;
         creators["summon felhunter"] = &summon_felhunter;
+        creators["summon felguard"] = &summon_felguard;
+        creators["summon voidwalker"] = &summon_voidwalker;
     }
 private:
     static ActionNode* fel_armor(PlayerbotAI* ai)

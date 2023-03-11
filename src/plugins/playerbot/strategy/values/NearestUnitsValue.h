@@ -15,7 +15,9 @@ namespace ai
         {
             list<Unit*> targets;
             FindUnits(targets);
-
+            targets.sort([&](Unit* u1, Unit* u2) {
+                return u1->GetHealth() > u2->GetHealth(); 
+            });
             list<ObjectGuid> results;
             for(list<Unit *>::iterator i = targets.begin(); i!= targets.end(); ++i)
             {
@@ -23,6 +25,7 @@ namespace ai
                 if(bot->IsWithinLOSInMap(unit) && AcceptUnit(unit))
                     results.push_back(unit->GetGUID());
             }
+            
             return results;
         }
 

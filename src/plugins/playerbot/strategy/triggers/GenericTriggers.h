@@ -286,10 +286,8 @@ namespace ai
     class DebuffTrigger : public BuffTrigger
     {
     public:
-        DebuffTrigger(PlayerbotAI* ai, string spell, int checkInterval = 5, int life_bound = 25) : 
-        BuffTrigger(ai, spell, checkInterval), life_bound(life_bound) {
-			checkInterval = 1;
-		}
+        DebuffTrigger(PlayerbotAI* ai, string spell, int checkInterval = 1, int life_bound = 25) : 
+        BuffTrigger(ai, spell, checkInterval), life_bound(life_bound) {}
     public:
 		virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
@@ -309,7 +307,7 @@ namespace ai
     class DebuffFromBotTrigger : public Trigger
     {
     public:
-        DebuffFromBotTrigger(PlayerbotAI* ai, string spell, int checkInterval = 5, int life_bound = 25) : 
+        DebuffFromBotTrigger(PlayerbotAI* ai, string spell, int checkInterval = 1, int life_bound = 25) : 
         Trigger(ai, spell, checkInterval), life_bound(life_bound) {}
     public:
 		virtual string GetTargetName() { return "current target"; }

@@ -74,11 +74,11 @@ void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"light aoe",
-        NextAction::array(0, new NextAction("shadowfury", 29.0f), NULL)));
+        NextAction::array(0, new NextAction("shadowfury", 19.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "corruption on attacker",
-        NextAction::array(0, new NextAction("corruption on attacker", 28.0f), NULL)));
+        NextAction::array(0, new NextAction("corruption on attacker", 21.0f), NULL)));
 
 }
 
@@ -86,11 +86,11 @@ void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "corruption",
-        NextAction::array(0, new NextAction("corruption", 12.0f), NULL)));
+        NextAction::array(0, new NextAction("corruption", 22.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "unstable affliction",
-        NextAction::array(0, new NextAction("unstable affliction", 31.0f), NULL)));
+        NextAction::array(0, new NextAction("unstable affliction", 21.0f), NULL)));
 
     // triggers.push_back(new TriggerNode(
     //     "incinirate",

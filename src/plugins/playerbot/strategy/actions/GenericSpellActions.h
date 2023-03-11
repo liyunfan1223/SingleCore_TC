@@ -119,7 +119,7 @@ namespace ai
             return context->GetValue<Unit*>("attacker without aura from bot", spell);
         }
         virtual string getName() { return spell + " on attacker"; }
-        virtual ActionThreatType getThreatType() { return ACTION_THREAT_AOE; }
+        virtual ActionThreatType getThreatType() { return ACTION_THREAT_NONE; }
     };
 
 	class CastBuffSpellAction : public CastAuraSpellAction
