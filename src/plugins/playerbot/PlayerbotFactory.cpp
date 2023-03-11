@@ -1749,6 +1749,9 @@ void PlayerbotFactory::InitClassItems()
         case CLASS_SHAMAN:
             bot->StoreNewItemInBestSlots(46978, 1); // totem
             break;
+        case CLASS_WARLOCK:
+            bot->StoreNewItemInBestSlots(6265, 5); // shard
+            break;
         default:
             break;
     }

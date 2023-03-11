@@ -49,6 +49,13 @@ namespace ai
     class FlametongueTotemTrigger : public TotemTrigger {
     public:
         FlametongueTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "flametongue totem") {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "magma totem") &&
+                   !AI_VALUE2(bool, "has totem", "flametongue totem") &&
+                   !AI_VALUE2(bool, "has totem", "searing totem") &&
+                   !AI_VALUE2(bool, "has totem", "fire elemental totem");
+        }
     };
 
     class StrengthOfEarthTotemTrigger : public TotemTrigger {
@@ -59,11 +66,25 @@ namespace ai
     class MagmaTotemTrigger : public TotemTrigger {
     public:
         MagmaTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "magma totem", 3) {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "magma totem") &&
+                   !AI_VALUE2(bool, "has totem", "flametongue totem") &&
+                   !AI_VALUE2(bool, "has totem", "searing totem") &&
+                   !AI_VALUE2(bool, "has totem", "fire elemental totem");
+        }
     };
 
     class SearingTotemTrigger : public TotemTrigger {
     public:
         SearingTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "searing totem", 1) {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "magma totem") &&
+                   !AI_VALUE2(bool, "has totem", "flametongue totem") &&
+                   !AI_VALUE2(bool, "has totem", "searing totem") &&
+                   !AI_VALUE2(bool, "has totem", "fire elemental totem");
+        }
     };
 
     class WindShearInterruptSpellTrigger : public InterruptSpellTrigger
