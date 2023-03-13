@@ -150,7 +150,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
         case CLASS_PALADIN:
             if (tab == 0)
-                engine->addStrategies("heal", "cure", "flee", NULL);
+                engine->addStrategies("heal", "cure", NULL);
             else if (tab == 1)
                 engine->addStrategies("tank", "tank aoe", "cure", NULL);
             else

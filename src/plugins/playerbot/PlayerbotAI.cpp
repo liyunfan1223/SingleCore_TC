@@ -1540,6 +1540,7 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     // }
 
     int32 ceiled_castTime = ceil(castTime);
+    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::WaitForSpellCast ceiled_castTime: %dms", ceiled_castTime);
     // bot->ModSpellDurationTime(pSpellInfo, ceiled_castTime, spell);
     uint32 globalCooldown = CalculateGlobalCooldown(pSpellInfo->Id);
     if (ceiled_castTime < globalCooldown)
