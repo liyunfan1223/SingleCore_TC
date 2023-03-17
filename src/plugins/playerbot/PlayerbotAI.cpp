@@ -1523,10 +1523,6 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     const SpellInfo* const pSpellInfo = spell->GetSpellInfo();
 
     float castTime = spell->GetCastTime();
-    // float saveTime = castTime;
-    // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::WaitForSpellCast castTime: %dms", (int)castTime);
-    bot->ApplySpellMod(pSpellInfo->Id, SPELLMOD_DURATION, castTime);
-    
     // if (pSpellInfo->IsChanneled())
     // {
     //     int32 duration = pSpellInfo->GetDuration();
@@ -1542,8 +1538,6 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     // }
 
     int32 ceiled_castTime = ceil(castTime);
-    // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::WaitForSpellCast ceiled_castTime: %dms", castTime);
-    // bot->ModSpellDurationTime(pSpellInfo, ceiled_castTime, spell);
     uint32 globalCooldown = CalculateGlobalCooldown(pSpellInfo->Id);
     if (ceiled_castTime < globalCooldown)
         ceiled_castTime = globalCooldown;
