@@ -160,7 +160,7 @@ namespace ai
                 creators["incinirate"] = &AiObjectContextInternal::incinirate;
                 creators["conflagrate"] = &AiObjectContextInternal::conflagrate;
                 creators["unstable affliction"] = &AiObjectContextInternal::unstable_affliction;
-                creators["unstable affliction on attacker"] = &AiObjectContextInternal::unstable_affliction;
+                creators["unstable affliction on attacker"] = &AiObjectContextInternal::unstable_affliction_on_attacker;
                 creators["haunt"] = &AiObjectContextInternal::haunt;
                 creators["toggle pet spell"] = &AiObjectContextInternal::toggle_pet_spell;
             }
