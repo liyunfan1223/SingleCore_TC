@@ -20,8 +20,9 @@ bool TogglePetSpellAutoCastAction::Execute(Event event) {
         if (spellInfo->IsPassive())
             continue;
 
-        // imp's spell
-        if (spellId == 4511) {
+        // imp's spell, felhunte's intelligence
+        if (spellId == 4511 || 
+            spellId == 54424 || spellId == 57564 || spellId == 57565 || spellId == 57566 || spellId == 57567) {
             pet->ToggleAutocast(spellInfo, false);
         } else {
             pet->ToggleAutocast(spellInfo, true);

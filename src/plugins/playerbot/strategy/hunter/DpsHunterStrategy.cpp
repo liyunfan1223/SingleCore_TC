@@ -14,7 +14,7 @@ public:
         creators["aimed shot"] = &aimed_shot;
         creators["multi-shot"] = &multi_shot;
         creators["chimera shot"] = &chimera_shot;
-        creators["explosive shot"] = &explosive_shot;
+        // creators["explosive shot"] = &explosive_shot;
         creators["concussive shot"] = &concussive_shot;
         creators["viper sting"] = &viper_sting;
     }
@@ -50,13 +50,13 @@ private:
             NULL,
             /*C*/ NULL);
     }
-    static ActionNode* explosive_shot(PlayerbotAI* ai)
-    {
-        return new ActionNode ("explosive shot",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("arcane shot"), NULL),
-            /*C*/ NULL);
-    }
+    // static ActionNode* explosive_shot(PlayerbotAI* ai)
+    // {
+    //     return new ActionNode ("explosive shot",
+    //         /*P*/ NULL,
+    //         /*A*/ NextAction::array(0, new NextAction("arcane shot"), NULL),
+    //         /*C*/ NULL);
+    // }
     static ActionNode* concussive_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("concussive shot",
@@ -81,7 +81,8 @@ NextAction** DpsHunterStrategy::getDefaultActions()
         new NextAction("chimera shot", 14.0f),
         new NextAction("explosive shot", 14.0f),
         new NextAction("aimed shot", 13.0f), 
-        new NextAction("steady shot", 12.0f),
+        new NextAction("arcane shot", 12.0f),
+        new NextAction("steady shot", 11.0f),
         new NextAction("auto shot", 10.0f), 
         NULL);
 }
@@ -96,7 +97,7 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"enemy too close for spell",
-		NextAction::array(0, new NextAction("wing clip", 50.0f), new NextAction("flee", 49.0f), new NextAction("concussive shot", 48.0f), NULL)));
+		NextAction::array(0, new NextAction("wing clip", 50.0f), new NextAction("concussive shot", 48.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "black arrow",
@@ -135,7 +136,7 @@ void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"serpent sting on attacker",
-		NextAction::array(0, new NextAction("serpent sting on attacker", 49.0f), NULL)));
+		NextAction::array(0, new NextAction("serpent sting on attacker", 19.0f), NULL)));
 }
 
 void DpsHunterDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

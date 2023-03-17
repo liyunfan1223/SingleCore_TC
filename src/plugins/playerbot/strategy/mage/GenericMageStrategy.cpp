@@ -119,9 +119,9 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "remove curse on party",
         NextAction::array(0, new NextAction("remove curse on party", 40.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-		NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "enemy too close for spell",
+	// 	NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"enemy is close",
