@@ -73,7 +73,7 @@ namespace ai
             context->GetValue<Unit*>("current target")->Set(NULL);
             bot->SetSelection(ObjectGuid());
             ai->ChangeEngine(BOT_STATE_NON_COMBAT);
-            ai->InterruptSpell();
+            // ai->InterruptSpell();
 			return false;
         }
     };

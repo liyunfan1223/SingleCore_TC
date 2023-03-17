@@ -27,6 +27,9 @@ bool FollowAction::Execute(Event event)
 
 bool FollowAction::isUseful()
 {
+    if (bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL) != NULL) {
+        return false;
+    }
     Formation* formation = AI_VALUE(Formation*, "formation");
     float distance = 0;
     string target = formation->GetTargetName();
