@@ -58,6 +58,10 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"target critical health",
 		NextAction::array(0, new NextAction("drain soul", 30.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+		NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
+        
     // triggers.push_back(new TriggerNode(
     //     "banish",
     //     NextAction::array(0, new NextAction("banish", 21.0f), NULL)));
