@@ -45,14 +45,14 @@ namespace ai
     class MainHandWeaponNoEnchantTrigger : public BuffTrigger
     {
     public:
-        MainHandWeaponNoEnchantTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "main hand") {}
+        MainHandWeaponNoEnchantTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "main hand", 1) {}
         virtual bool IsActive();
     };
 
     class OffHandWeaponNoEnchantTrigger : public BuffTrigger
     {
     public:
-        OffHandWeaponNoEnchantTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "off hand") {}
+        OffHandWeaponNoEnchantTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "off hand", 1) {}
         virtual bool IsActive();
     };
 }

@@ -330,6 +330,7 @@ void RandomPlayerbotMgr::Revive(Player* player)
 	RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
     player->ResurrectPlayer(1.0f);
     player->SpawnCorpseBones();
+    player->DurabilityRepairAll(false, 1.0f, false);
     player->SaveToDB();
     player->GetPlayerbotAI()->ResetStrategies();
     //RandomTeleportForLevel(player);

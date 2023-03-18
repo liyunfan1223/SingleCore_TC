@@ -77,39 +77,29 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"medium aoe heal",
 		NextAction::array(0, new NextAction("riptide on party", 23.0f), new NextAction("chain heal", 22.0f), NULL)));
 
-	// triggers.push_back(new TriggerNode(
-	// 	"medium health",
-	// 	NextAction::array(0, new NextAction("lesser healing wave", 26.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "low mana",
-        NextAction::array(0, new NextAction("mana tide totem", ACTION_EMERGENCY + 5), NULL)));
-
-    // triggers.push_back(new TriggerNode(
-    //     "cleanse spirit poison",
-    //     NextAction::array(0, new NextAction("cleanse spirit", ACTION_EMERGENCY), NULL)));
-
-    // triggers.push_back(new TriggerNode(
-    //     "cleanse spirit curse",
-    //     NextAction::array(0, new NextAction("cleanse spirit", ACTION_EMERGENCY), NULL)));
-
-    // triggers.push_back(new TriggerNode(
-    //     "cleanse spirit disease",
-    //     NextAction::array(0, new NextAction("cleanse spirit", ACTION_EMERGENCY), NULL)));
-
     triggers.push_back(new TriggerNode(
         "party member cleanse spirit poison",
-        NextAction::array(0, new NextAction("cleanse spirit poison on party", ACTION_EMERGENCY), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member cleanse spirit curse",
-        NextAction::array(0, new NextAction("cleanse spirit curse on party", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, 
+            new NextAction("cleanse spirit poison on party", ACTION_DISPEL + 2), 
+            new NextAction("cleansing totem", ACTION_DISPEL + 2),
+            NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member cleanse spirit disease",
-        NextAction::array(0, new NextAction("cleanse spirit disease on party", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, 
+            new NextAction("cleanse spirit disease on party", ACTION_DISPEL + 2), 
+            new NextAction("cleansing totem", ACTION_DISPEL + 1),
+        NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "medium aoe",
-    //     NextAction::array(0, new NextAction("healing stream totem", ACTION_LIGHT_HEAL), NULL)));
+    triggers.push_back(new TriggerNode(
+        "party member cleanse spirit curse",
+        NextAction::array(0, new NextAction("cleanse spirit curse on party", ACTION_DISPEL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "no fire totem",
+        NextAction::array(0, new NextAction("fire elemental totem", 11.0f), new NextAction("flametongue totem", 10.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "no water totem",
+        NextAction::array(0, new NextAction("healing stream totem", 10.0f), NULL)));
 }

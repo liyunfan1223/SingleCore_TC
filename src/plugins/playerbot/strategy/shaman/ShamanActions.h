@@ -118,7 +118,7 @@ namespace ai
     {
     public:
         CastManaSpringTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "mana spring totem") {}
-        virtual bool isUseful() { return CastTotemAction::isUseful() && !AI_VALUE2(bool, "has totem", "healing stream totem"); }
+        virtual bool isUseful() { return CastTotemAction::isUseful(); }
     };
 
 	class CastManaTideTotemAction : public CastTotemAction
@@ -134,17 +134,11 @@ namespace ai
 		CastHealingStreamTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "healing stream totem") {}
 	};
 
-    class CastCleansingTotemAction : public CastTotemAction
-    {
-    public:
-        CastCleansingTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "cleansing totem") {}
-    };
-
     class CastFlametongueTotemAction : public CastTotemAction
     {
     public:
         CastFlametongueTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "flametongue totem") {}
-		virtual bool isUseful() { return CastTotemAction::isUseful() && !AI_VALUE2(bool, "has totem", "magma totem"); }
+		virtual bool isUseful() { return CastTotemAction::isUseful(); }
     };
 
     class CastWindfuryTotemAction : public CastTotemAction
@@ -164,7 +158,31 @@ namespace ai
     public:
         CastSearingTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "searing totem") {}
         virtual string GetTargetName() { return "self target"; }
-		virtual bool isUseful() { return CastTotemAction::isUseful() && !AI_VALUE2(bool, "has totem", "flametongue totem"); }
+		virtual bool isUseful() { return CastTotemAction::isUseful(); }
+    };
+
+    class CastTotemOfWrathAction : public CastTotemAction
+    {
+    public:
+        CastTotemOfWrathAction(PlayerbotAI* ai) : CastTotemAction(ai, "totem of wrath") {}
+        virtual string GetTargetName() { return "self target"; }
+		virtual bool isUseful() { return CastTotemAction::isUseful(); }
+    };
+
+    class CastFireElementalTotemAction : public CastTotemAction
+    {
+    public:
+        CastFireElementalTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "fire elemental totem") {}
+        virtual string GetTargetName() { return "self target"; }
+		virtual bool isUseful() { return CastTotemAction::isUseful(); }
+    };
+
+    class CastCleansingTotemAction : public CastTotemAction
+    {
+    public:
+        CastCleansingTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "cleansing totem") {}
+        virtual string GetTargetName() { return "self target"; }
+		virtual bool isUseful() { return CastTotemAction::isUseful() && !AI_VALUE2(bool, "has totem", "mana tide totem"); }
     };
 
     class CastMagmaTotemAction : public CastMeleeSpellAction

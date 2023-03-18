@@ -46,6 +46,33 @@ namespace ai
         }
     };
 
+    class NoFireTotemTrigger : public Trigger {
+    public:
+        NoFireTotemTrigger(PlayerbotAI* ai) : Trigger(ai, "no fire totem") {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "magma totem") &&
+                   !AI_VALUE2(bool, "has totem", "flametongue totem") &&
+                   !AI_VALUE2(bool, "has totem", "searing totem") &&
+                   !AI_VALUE2(bool, "has totem", "fire elemental totem") &&
+                   !AI_VALUE2(bool, "has totem", "frost resistance totem") && 
+                   !AI_VALUE2(bool, "has totem", "totem of wrath");
+        }
+    };
+
+    class NoWaterTotemTrigger : public Trigger {
+    public:
+        NoWaterTotemTrigger(PlayerbotAI* ai) : Trigger(ai, "no fire totem") {}
+        virtual bool IsActive()
+        {
+            return !AI_VALUE2(bool, "has totem", "fire resistance totem") &&
+                   !AI_VALUE2(bool, "has totem", "mana tide totem") &&
+                   !AI_VALUE2(bool, "has totem", "cleansing totem") &&
+                   !AI_VALUE2(bool, "has totem", "mana spring totem") &&
+                   !AI_VALUE2(bool, "has totem", "healing stream totem");
+        }
+    };
+
     class FlametongueTotemTrigger : public TotemTrigger {
     public:
         FlametongueTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "flametongue totem") {}
@@ -54,7 +81,8 @@ namespace ai
             return !AI_VALUE2(bool, "has totem", "magma totem") &&
                    !AI_VALUE2(bool, "has totem", "flametongue totem") &&
                    !AI_VALUE2(bool, "has totem", "searing totem") &&
-                   !AI_VALUE2(bool, "has totem", "fire elemental totem");
+                   !AI_VALUE2(bool, "has totem", "fire elemental totem") &&
+                   !AI_VALUE2(bool, "has totem", "frost resistance totem");
         }
     };
 

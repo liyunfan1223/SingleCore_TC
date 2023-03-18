@@ -115,11 +115,6 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "purge",
 		NextAction::array(0, new NextAction("purge", 10.0f), NULL)));
 
-
-	// triggers.push_back(new TriggerNode(
-	// 	"low health",
-	// 	NextAction::array(0, new NextAction("riptide", 26.0f), NULL)));
-
 	triggers.push_back(new TriggerNode(
 		"heroism",
 		NextAction::array(0, new NextAction("heroism", 31.0f), NULL)));
@@ -128,21 +123,19 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"bloodlust",
 		NextAction::array(0, new NextAction("bloodlust", 30.0f), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"cure poison",
-		NextAction::array(0, new NextAction("cure poison", 21.0f), NULL)));
-
-	triggers.push_back(new TriggerNode(
+    triggers.push_back(new TriggerNode(
 		"party member cure poison",
-		NextAction::array(0, new NextAction("cure poison on party", 21.0f), NULL)));
+		NextAction::array(0, new NextAction("cure poison on party", ACTION_DISPEL + 1), 
+            new NextAction("cleansing totem", ACTION_DISPEL), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"cure disease",
-		NextAction::array(0, new NextAction("cure disease", 31.0f), NULL)));
-
-	triggers.push_back(new TriggerNode(
+    triggers.push_back(new TriggerNode(
 		"party member cure disease",
-		NextAction::array(0, new NextAction("cure disease on party", 30.0f), NULL)));
+		NextAction::array(0, new NextAction("cure disease on party", ACTION_DISPEL + 1), 
+            new NextAction("cleansing totem", ACTION_DISPEL), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low mana",
+        NextAction::array(0, new NextAction("mana tide totem", ACTION_EMERGENCY + 5), NULL)));
 }
 
 void ShamanBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -158,14 +151,11 @@ void ShamanBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "water shield",
         NextAction::array(0, new NextAction("water shield", 22.0f), NULL)));
 
-//  triggers.push_back(new TriggerNode(
-//         "Mana Spring Totem",
-//         NextAction::array(0, new NextAction("Mana Spring Totem", 22.0f), NULL)));
 }
 
 void ShamanCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    triggers.push_back(new TriggerNode(
-        "Disease Cleansing Totem",
-        NextAction::array(0, new NextAction("Disease Cleansing Totem", 21.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "Disease Cleansing Totem",
+    //     NextAction::array(0, new NextAction("Disease Cleansing Totem", 21.0f), NULL)));
 }
