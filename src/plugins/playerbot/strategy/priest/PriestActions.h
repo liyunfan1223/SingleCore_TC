@@ -173,6 +173,12 @@ namespace ai
 	    CastPowerWordPainAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "shadow word: pain") {}
 	};
 
+    class CastShadowWordDeathAction : public CastSpellAction
+	{
+    public:
+	    CastShadowWordDeathAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadow word: death") {}
+	};
+
 	class CastPowerWordPainOnAttackerAction : public CastDebuffSpellOnAttackerAction
 	{
     public:

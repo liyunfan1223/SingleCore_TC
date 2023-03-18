@@ -120,6 +120,7 @@ namespace ai
             AiObjectContextInternal()
             {
                 creators["shadow word: pain"] = &AiObjectContextInternal::shadow_word_pain;
+                creators["shadow word: death"] = &AiObjectContextInternal::shadow_word_death;
                 creators["shadow word: pain on attacker"] = &AiObjectContextInternal::shadow_word_pain_on_attacker;
                 creators["devouring plague"] = &AiObjectContextInternal::devouring_plague;
                 creators["mind flay"] = &AiObjectContextInternal::mind_flay;
@@ -175,6 +176,7 @@ namespace ai
             static Action* circle_of_healing(PlayerbotAI* ai) { return new CastCircleOfHealingAction(ai); }
             static Action* resurrection(PlayerbotAI* ai) { return new CastResurrectionAction(ai); }
             static Action* shadow_word_pain(PlayerbotAI* ai) { return new CastPowerWordPainAction(ai); }
+            static Action* shadow_word_death(PlayerbotAI* ai) { return new CastShadowWordDeathAction(ai); }
             static Action* shadow_word_pain_on_attacker(PlayerbotAI* ai) { return new CastPowerWordPainOnAttackerAction(ai); }
             static Action* devouring_plague(PlayerbotAI* ai) { return new CastDevouringPlagueAction(ai); }
             static Action* mind_flay(PlayerbotAI* ai) { return new CastMindFlayAction(ai); }
