@@ -95,6 +95,9 @@ namespace ai
                 creators["unstable affliction"] = &TriggerFactoryInternal::unstable_affliction;
                 creators["unstable affliction on attacker"] = &TriggerFactoryInternal::unstable_affliction_on_attacker;
                 creators["haunt"] = &TriggerFactoryInternal::haunt;
+                creators["decimation"] = &TriggerFactoryInternal::decimation;
+                creators["molten core"] = &TriggerFactoryInternal::molten_core;
+                creators["metamorphosis"] = &TriggerFactoryInternal::metamorphosis;
             }
 
         private:
@@ -115,6 +118,9 @@ namespace ai
             static Trigger* unstable_affliction(PlayerbotAI* ai) { return new UnstableAfflictionTrigger(ai); }
             static Trigger* unstable_affliction_on_attacker(PlayerbotAI* ai) { return new UnstableAfflictionOnAttackerTrigger(ai); }
             static Trigger* haunt(PlayerbotAI* ai) { return new HauntTrigger(ai); }
+            static Trigger* decimation(PlayerbotAI* ai) { return new DecimationTrigger(ai); }
+            static Trigger* molten_core(PlayerbotAI* ai) { return new MoltenCoreTrigger(ai); }
+            static Trigger* metamorphosis(PlayerbotAI* ai) { return new MetamorphosisTrigger(ai); }
         };
     };
 };
@@ -157,17 +163,21 @@ namespace ai
                 creators["life tap"] = &AiObjectContextInternal::life_tap;
                 creators["fear"] = &AiObjectContextInternal::fear;
                 creators["fear on cc"] = &AiObjectContextInternal::fear_on_cc;
-                creators["incinirate"] = &AiObjectContextInternal::incinirate;
+                creators["incinerate"] = &AiObjectContextInternal::incinerate;
+                creators["soul fire"] = &AiObjectContextInternal::soul_fire;
                 creators["conflagrate"] = &AiObjectContextInternal::conflagrate;
                 creators["unstable affliction"] = &AiObjectContextInternal::unstable_affliction;
                 creators["unstable affliction on attacker"] = &AiObjectContextInternal::unstable_affliction_on_attacker;
                 creators["haunt"] = &AiObjectContextInternal::haunt;
+                creators["demonic empowerment"] = &AiObjectContextInternal::demonic_empowerment;
+                creators["metamorphosis"] = &AiObjectContextInternal::metamorphosis;
                 creators["toggle pet spell"] = &AiObjectContextInternal::toggle_pet_spell;
             }
 
         private:
             static Action* conflagrate(PlayerbotAI* ai) { return new CastConflagrateAction(ai); }
-            static Action* incinirate(PlayerbotAI* ai) { return new CastIncinirateAction(ai); }
+            static Action* incinerate(PlayerbotAI* ai) { return new CastIncinerateAction(ai); }
+            static Action* soul_fire(PlayerbotAI* ai) { return new CastSoulFireAction(ai); }
             static Action* fear_on_cc(PlayerbotAI* ai) { return new CastFearOnCcAction(ai); }
             static Action* fear(PlayerbotAI* ai) { return new CastFearAction(ai); }
             static Action* immolate(PlayerbotAI* ai) { return new CastImmolateAction(ai); }
@@ -198,6 +208,8 @@ namespace ai
             static Action* unstable_affliction(PlayerbotAI* ai) { return new CastUnstableAfflictionAction(ai); }
             static Action* unstable_affliction_on_attacker(PlayerbotAI* ai) { return new CastUnstableAfflictionOnAttackerAction(ai); }
             static Action* haunt(PlayerbotAI* ai) { return new CastHauntAction(ai); }
+            static Action* demonic_empowerment(PlayerbotAI* ai) { return new CastDemonicEmpowermentAction(ai); }
+            static Action* metamorphosis(PlayerbotAI* ai) { return new CastMetamorphosisAction(ai); }
             static Action* toggle_pet_spell(PlayerbotAI* ai) { return new TogglePetSpellAutoCastAction(ai); }
         };
     };

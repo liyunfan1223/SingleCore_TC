@@ -20,6 +20,18 @@ namespace ai
     DEBUFF_FROM_BOT_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
     DEBUFF_FROM_BOT_TRIGGER(CorruptionTrigger, "corruption", "corruption");
 
+    class DecimationTrigger : public HasAuraTrigger
+    {
+    public:
+        DecimationTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "decimation", 1) {}
+    };
+
+    class MoltenCoreTrigger : public HasAuraTrigger
+    {
+    public:
+        MoltenCoreTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "molten core", 1) {}
+    };
+    
     class HauntTrigger : public DebuffFromBotTrigger
     {
     public:
@@ -122,5 +134,10 @@ namespace ai
     public:
         FearTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "fear") {}
     };
-
+    
+    class MetamorphosisTrigger : public BoostTrigger
+    {
+    public:
+        MetamorphosisTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "metamorphosis") {}
+    };
 }

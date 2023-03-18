@@ -163,10 +163,16 @@ namespace ai
         CastConflagrateAction(PlayerbotAI* ai) : CastSpellAction(ai, "conflagrate") {}
     };
 
-    class CastIncinirateAction : public CastSpellAction
+    class CastIncinerateAction : public CastSpellAction
     {
     public:
-        CastIncinirateAction(PlayerbotAI* ai) : CastSpellAction(ai, "incinirate") {}
+        CastIncinerateAction(PlayerbotAI* ai) : CastSpellAction(ai, "incinerate") {}
+    };
+
+	class CastSoulFireAction : public CastSpellAction
+    {
+    public:
+        CastSoulFireAction(PlayerbotAI* ai) : CastSpellAction(ai, "soul fire") {}
     };
 
     class CastFearAction : public CastDebuffSpellAction
@@ -208,5 +214,17 @@ namespace ai
 	public:
 		TogglePetSpellAutoCastAction(PlayerbotAI* ai): Action(ai, "toggle pet spell auto cast") {}
 		virtual bool Execute(Event event);
+	};
+
+	class CastDemonicEmpowermentAction : public CastBuffSpellAction
+	{
+	public:
+		CastDemonicEmpowermentAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "demonic empowerment") {}
+	};
+
+	class CastMetamorphosisAction : public CastBuffSpellAction
+	{
+	public:
+		CastMetamorphosisAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "metamorphosis") {}
 	};
 }

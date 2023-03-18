@@ -168,7 +168,7 @@ bool InterruptSpellTrigger::IsActive()
 
 bool HasAuraTrigger::IsActive()
 {
-	return ai->HasAura(getName(), GetTarget());
+	return ai->HasAuraWithDuration(getName(), GetTarget());
 }
 
 bool HasAuraFromBotTrigger::IsActive()

@@ -50,6 +50,7 @@ NextAction** DpsWarlockStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
         new NextAction("haunt", 14.0f), 
+        new NextAction("demonic empowerment", 13.0f),
 		new NextAction("shadow bolt", 10.0f), NULL);
 }
 
@@ -59,15 +60,27 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     
     triggers.push_back(new TriggerNode(
 		"haunt",
-		NextAction::array(0, new NextAction("haunt", 33.0f), NULL)));
+		NextAction::array(0, new NextAction("haunt", 26.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"shadow trance",
-		NextAction::array(0, new NextAction("shadow bolt", 20.0f), NULL)));
+		NextAction::array(0, new NextAction("shadow bolt", 15.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"backlash",
-		NextAction::array(0, new NextAction("shadow bolt", 20.0f), NULL)));
+		NextAction::array(0, new NextAction("shadow bolt", 15.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"molten core",
+		NextAction::array(0, new NextAction("incinerate", 15.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"decimation",
+		NextAction::array(0, new NextAction("soul fire", 16.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"metamorphosis",
+		NextAction::array(0, new NextAction("metamorphosis", 21.0f), NULL)));
 }
 
 void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -107,7 +120,7 @@ void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "curse of agony",
         NextAction::array(0, new NextAction("curse of agony", 11.0f), NULL)));
     // triggers.push_back(new TriggerNode(
-    //     "incinirate",
-    //     NextAction::array(0, new NextAction("incinirate", 20.0f), NULL)));
+    //     "incinerate",
+    //     NextAction::array(0, new NextAction("incinerate", 20.0f), NULL)));
 
 }

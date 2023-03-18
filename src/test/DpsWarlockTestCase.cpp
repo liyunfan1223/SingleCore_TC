@@ -56,7 +56,7 @@ protected:
 		addAura("backlash");
 		tick();
 
-		assertActions(">T:immolate>T:conflagrate>T:corruption>T:curse of agony>T:incinirate>T:drain life>T:shadow bolt>T:drain soul>T:shoot>T:shadow bolt>T:shadow bolt");
+		assertActions(">T:immolate>T:conflagrate>T:corruption>T:curse of agony>T:incinerate>T:drain life>T:shadow bolt>T:drain soul>T:shoot>T:shadow bolt>T:shadow bolt");
 	}
 
     void low_mana()
