@@ -100,6 +100,7 @@ namespace ai
             creators["grind target"] = &ValueContext::grind_target;
             creators["rti target"] = &ValueContext::rti_target;
             creators["duel target"] = &ValueContext::duel_target;
+            creators["boss target"] = &ValueContext::boss_target;
             creators["party member to dispel"] = &ValueContext::party_member_to_dispel;
             creators["health"] = &ValueContext::health;
             creators["rage"] = &ValueContext::rage;
@@ -238,6 +239,7 @@ namespace ai
         static UntypedValue* grind_target(PlayerbotAI* ai) { return new GrindTargetValue(ai); }
         static UntypedValue* rti_target(PlayerbotAI* ai) { return new RtiTargetValue(ai); }
         static UntypedValue* duel_target(PlayerbotAI* ai) { return new DuelTargetValue(ai); }
+        static UntypedValue* boss_target(PlayerbotAI* ai) { return new BossTargetValue(ai); }
         static UntypedValue* has_totem(PlayerbotAI* ai) { return new HasTotemValue(ai); }
         static UntypedValue* threat(PlayerbotAI* ai) { return new ThreatValue(ai); }
         static UntypedValue* combat(PlayerbotAI* ai) { return new IsInCombatValue(ai); }

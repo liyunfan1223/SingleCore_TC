@@ -19,6 +19,7 @@
 #include "RandomBotUpdateAction.h"
 #include "RevealGatheringItemAction.h"
 #include "DelayAction.h"
+#include "RaidNaxxAction.h"
 
 namespace ai
 {
@@ -52,8 +53,6 @@ namespace ai
             creators["add all loot"] = &ActionContext::add_all_loot;
             creators["shoot"] = &ActionContext::shoot;
             creators["follow"] = &ActionContext::follow;
-            // thesawolf - why was there a dupe here?
-            //creators["follow"] = &ActionContext::follow;
             creators["runaway"] = &ActionContext::runaway;
             creators["stay"] = &ActionContext::stay;
             creators["attack anything"] = &ActionContext::attack_anything;
@@ -77,6 +76,8 @@ namespace ai
 			creators["reveal gathering item"] = &ActionContext::reveal_gathering_item;
 			creators["delay"] = &ActionContext::delay;
             creators["avoid aoe"] = &ActionContext::avoid_aoe;
+            creators["try to get boss ai"] = &ActionContext::try_to_get_boss_ai;
+            creators["go behind the boss"] = &ActionContext::go_behind_the_boss;
         }
 
     private:
@@ -127,6 +128,8 @@ namespace ai
 		static Action* reveal_gathering_item(PlayerbotAI* ai) { return new RevealGatheringItemAction(ai); }
 		static Action* delay(PlayerbotAI* ai) { return new DelayAction(ai); }
         static Action* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOEAction(ai); }
+        static Action* try_to_get_boss_ai(PlayerbotAI* ai) { return new TryToGetBossAIAction(ai); }
+        static Action* go_behind_the_boss(PlayerbotAI* ai) { return new GoBehindTheBossAction(ai); }
     };
 
 };

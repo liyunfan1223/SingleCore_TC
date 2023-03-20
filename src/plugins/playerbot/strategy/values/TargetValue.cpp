@@ -1,6 +1,7 @@
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
 #include "TargetValue.h"
+#include "ScriptedCreature.h"
 
 using namespace ai;
 
@@ -51,4 +52,20 @@ void FindTargetStrategy::GetPlayerCount(Unit* creature, int* tankCount, int* dps
 
     tankCountCache[creature] = *tankCount;
     dpsCountCache[creature] = *dpsCount;
+}
+
+
+void FindBossTargetStrategy::CheckAttacker(Unit* attacker, ThreatManager* threatManager)
+{
+    UnitAI* unitAI = attacker->GetAI();
+    BossAI* bossAI = dynamic_cast<BossAI*>(unitAI);
+    if (bossAI) {
+        result = attacker;
+    }
+}
+
+Unit* BossTargetValue::Calculate()
+{
+    FindBossTargetStrategy strategy(ai);
+    return FindTarget(&strategy);
 }

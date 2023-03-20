@@ -3,27 +3,27 @@
 
 namespace ai
 {
-    class CastJudgementOfLightAction : public CastMeleeSpellAction
+    class CastJudgementOfLightAction : public CastSpellAction
     {
     public:
-        CastJudgementOfLightAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "judgement of light") {}
+        CastJudgementOfLightAction(PlayerbotAI* ai) : CastSpellAction(ai, "judgement of light") {}
     };
 
-     class CastJudgementAction : public CastMeleeSpellAction
+     class CastJudgementAction : public CastSpellAction
     {
     public:
-        CastJudgementAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "judgement") {}
+        CastJudgementAction(PlayerbotAI* ai) : CastSpellAction(ai, "judgement") {}
 };
-    class CastJudgementOfWisdomAction : public CastMeleeSpellAction
+    class CastJudgementOfWisdomAction : public CastSpellAction
     {
     public:
-        CastJudgementOfWisdomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "judgement of wisdom") {}
+        CastJudgementOfWisdomAction(PlayerbotAI* ai) : CastSpellAction(ai, "judgement of wisdom") {}
     };
 
-    class CastJudgementOfJusticeAction : public CastMeleeSpellAction
+    class CastJudgementOfJusticeAction : public CastSpellAction
     {
     public:
-        CastJudgementOfJusticeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "judgement of justice") {}
+        CastJudgementOfJusticeAction(PlayerbotAI* ai) : CastSpellAction(ai, "judgement of justice") {}
     };
 
 	class CastRighteousFuryAction : public CastBuffSpellAction

@@ -13,6 +13,13 @@
         clazz(PlayerbotAI* ai) : BuffTrigger(ai, spell) {} \
     };
 
+#define BUFF_TRIGGER_FREQ(clazz, spell, action) \
+    class clazz : public BuffTrigger \
+    { \
+    public: \
+        clazz(PlayerbotAI* ai) : BuffTrigger(ai, spell, 1) {} \
+    };
+
 #define BUFF_ON_PARTY_TRIGGER(clazz, spell, action) \
     class clazz : public BuffOnPartyTrigger \
     { \

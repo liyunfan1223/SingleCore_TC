@@ -5,6 +5,7 @@
 #include "LootTriggers.h"
 #include "../triggers/GenericTriggers.h"
 #include "LfgTriggers.h"
+#include "RaidNaxxTrigger.h"
 
 namespace ai
 {
@@ -102,6 +103,7 @@ namespace ai
 			creators["random bot update"] = &TriggerContext::random_bot_update_trigger;
 			creators["no non bot players around"] = &TriggerContext::no_non_bot_players_around;
             creators["avoid aoe"] = &TriggerContext::avoid_aoe;
+            creators["mutating injection"] = &TriggerContext::mutating_injection;
         }
 
     private:
@@ -177,6 +179,6 @@ namespace ai
 		static Trigger* random_bot_update_trigger(PlayerbotAI* ai) { return new RandomBotUpdateTrigger(ai); }
 		static Trigger* no_non_bot_players_around(PlayerbotAI* ai) { return new NoNonBotPlayersAroundTrigger(ai); }
         static Trigger* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOESpellTrigger(ai); }
-
+        static Trigger* mutating_injection(PlayerbotAI* ai) { return new MutatingInjectionTrigger(ai); }
     };
 };

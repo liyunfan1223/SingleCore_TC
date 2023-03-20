@@ -64,5 +64,13 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     // triggers.push_back(new TriggerNode(
     //     "blessing",
     //     NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "not facing target",
+        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("reach melee", ACTION_NORMAL + 8), NULL)));
     
 }

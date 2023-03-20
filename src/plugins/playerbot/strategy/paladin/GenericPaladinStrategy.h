@@ -6,7 +6,7 @@
 
 namespace ai
 {
-    class GenericPaladinStrategy : public MeleeCombatStrategy
+    class GenericPaladinStrategy : public CombatStrategy
     {
     public:
         GenericPaladinStrategy(PlayerbotAI* ai);

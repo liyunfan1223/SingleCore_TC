@@ -36,6 +36,10 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "low mana",
         NextAction::array(0, new NextAction("shadowfiend", ACTION_HIGH), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+		NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
+        
     // triggers.push_back(new TriggerNode(
     //     "medium threat",
     //     NextAction::array(0, new NextAction("psychic scream", 50.0f), NULL)));

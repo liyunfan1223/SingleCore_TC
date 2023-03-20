@@ -13,7 +13,6 @@ NextAction** HealPaladinStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
         new NextAction("judgement of light", ACTION_NORMAL + 1),
-        new NextAction("melee", ACTION_NORMAL), 
         NULL);
 }
 
@@ -58,6 +57,10 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
             // new NextAction("penance on party", ACTION_LIGHT_HEAL + 2), 
             NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+		NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
+        
     // triggers.push_back(new TriggerNode(
     //     "medium health",
     //     NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 3), NULL)));

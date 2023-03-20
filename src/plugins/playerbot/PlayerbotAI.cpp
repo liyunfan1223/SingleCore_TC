@@ -55,6 +55,11 @@ void PacketHandlingHelper::AddPacket(const WorldPacket& packet)
 }
 
 
+std::vector<std::string> PlayerbotAI::dispel_whitelist = {
+    "mutating injection",
+    "frostbolt",
+};
+
 PlayerbotAI::PlayerbotAI() : PlayerbotAIBase(), bot(NULL), aiObjectContext(NULL),
     currentEngine(NULL), chatHelper(this), chatFilter(this), accountId(0), security(NULL), master(NULL)
 {
@@ -1659,7 +1664,6 @@ bool PlayerbotAI::HasAuraToDispel(Unit* target, uint32 dispelType)
                 continue;
 
             if (canDispel(entry, dispelType)) {
-                // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PlayerbotAI::HasAuraToDispel %s %s", entry->SpellName[0], target->GetName());
                 return true;
             }
         }
@@ -1680,8 +1684,18 @@ bool PlayerbotAI::canDispel(const SpellInfo* entry, uint32 dispelType)
 {
     if (entry->Dispel != dispelType)
         return false;
-    return !entry->SpellName[0] ||
-        (strcmpi((const char*)entry->SpellName[0], "demon skin") &&
+    
+    if (!entry->SpellName[0]) {
+        return true;
+    }
+
+    for (string &str : dispel_whitelist) {
+        if (strcmpi((const char*)entry->SpellName[0], str.c_str()) == 0) {
+            return false;
+        }
+    }
+    
+    return (strcmpi((const char*)entry->SpellName[0], "demon skin") &&
         strcmpi((const char*)entry->SpellName[0], "mage armor") &&
         strcmpi((const char*)entry->SpellName[0], "frost armor") &&
         strcmpi((const char*)entry->SpellName[0], "wavering will") &&

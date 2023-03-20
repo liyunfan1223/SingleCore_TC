@@ -63,6 +63,10 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "no fire totem",
         NextAction::array(0, new NextAction("flametongue totem", 10.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+		NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
 }
 
 void CasterAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
