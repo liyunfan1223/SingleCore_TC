@@ -23,10 +23,13 @@ public:
             minThreat = threat;
             result = creature;
         }
-        Unit* victim = creature->GetVictim();
-        if (victim && victim->ToPlayer() && ai->IsMainTank(victim->ToPlayer())) {
-            return;
-        }
+        // // neglect if victim is main tank
+        // if (threatManager->getCurrentVictim()) {
+        //     Unit* victim = threatManager->getCurrentVictim()->getTarget();
+        //     if (victim && victim->ToPlayer() && ai->IsMainTank(victim->ToPlayer())) {
+        //         return;
+        //     }
+        // }
         if (minThreat >= threat)
         {
             minThreat = threat;

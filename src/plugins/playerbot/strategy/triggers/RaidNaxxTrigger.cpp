@@ -30,6 +30,6 @@ bool GrobbulusCloudTrigger::IsActive()
     if (!ai->IsMainTank(bot)) {
         return false;
     }
-    bot->Yell("has aggro on " + boss->GetName() + " : " + to_string(AI_VALUE2(bool, "has aggro", "boss target")), LANG_UNIVERSAL);
+    // bot->Yell("has aggro on " + boss->GetName() + " : " + to_string(AI_VALUE2(bool, "has aggro", "boss target")), LANG_UNIVERSAL);
     return AI_VALUE2(bool, "has aggro", "boss target");
 }

@@ -16,7 +16,7 @@ namespace ai
     class GoBehindTheBossAction : public MovementAction
     {
     public:
-        GoBehindTheBossAction(PlayerbotAI* ai, float distance = 22.0f, float delta_angle = M_PI / 8) : MovementAction(ai, "go behind the boss") {
+        GoBehindTheBossAction(PlayerbotAI* ai, float distance = 24.0f, float delta_angle = M_PI / 8) : MovementAction(ai, "go behind the boss") {
             this->distance = distance;
             this->delta_angle = delta_angle;
         }

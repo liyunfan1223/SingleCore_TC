@@ -19,9 +19,9 @@ void SayStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "low mana",
         NextAction::array(0, new NextAction("say::low mana", 99.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "tank aoe",
-        NextAction::array(0, new NextAction("say::taunt", 99.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "tank aoe",
+    //     NextAction::array(0, new NextAction("say::taunt", 99.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium aoe",

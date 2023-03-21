@@ -198,12 +198,17 @@ bool TankAoeTrigger::IsActive()
     if (!currentTarget)
         return true;
 
+	if (currentTarget->GetVictim() != AI_VALUE(Unit*, "self target") && currentTarget->GetVictim() != AI_VALUE(Unit*, "main tank")) {
+		return false;
+	}
+	
     Unit* tankTarget = AI_VALUE(Unit*, "tank target");
     if (!tankTarget || currentTarget == tankTarget)
         return false;
 
-	bot->Yell("tank target: " + tankTarget->GetName() + " current target: " + currentTarget->GetName(), LANG_UNIVERSAL);
-    return currentTarget->GetVictim() == AI_VALUE(Unit*, "self target");
+	// bot->Yell("tank target: " + tankTarget->GetName() + " current target: " + currentTarget->GetName(), LANG_UNIVERSAL);
+	
+    return true;
 }
 
 bool IsBehindTargetTrigger::IsActive()
