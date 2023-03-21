@@ -195,6 +195,19 @@ namespace ai
 		string name;
 	};
 
+    class MainTankActionNameSupport {
+	public:
+		MainTankActionNameSupport(string spell)
+		{
+			name = string(spell) + " on main tank";
+		}
+
+		virtual string getName() { return name; }
+
+	private:
+		string name;
+	};
+
     class HealPartyMemberAction : public CastHealingSpellAction, public PartyMemberActionNameSupport
     {
     public:
@@ -256,6 +269,16 @@ namespace ai
     };
 
     //---------------------------------------------------------------------------------------------------------------------
+
+    class BuffOnMainTankAction : public CastBuffSpellAction, public MainTankActionNameSupport
+    {
+    public:
+        BuffOnMainTankAction(PlayerbotAI* ai, string spell) :
+			CastBuffSpellAction(ai, spell), MainTankActionNameSupport(spell) {}
+    public:
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return MainTankActionNameSupport::getName(); }
+    };
 
     class CastShootAction : public CastSpellAction
     {

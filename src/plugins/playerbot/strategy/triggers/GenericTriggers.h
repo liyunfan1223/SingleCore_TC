@@ -260,6 +260,14 @@ namespace ai
 		virtual Value<Unit*>* GetTargetValue();
     };
 
+    class BuffOnMainTankTrigger : public BuffTrigger
+    {
+    public:
+        BuffOnMainTankTrigger(PlayerbotAI* ai, string spell) : BuffTrigger(ai, spell, 1) {}
+    public:
+		virtual Value<Unit*>* GetTargetValue();
+    };
+
     BEGIN_TRIGGER(NoAttackersTrigger, Trigger)
     END_TRIGGER()
 
@@ -490,14 +498,13 @@ namespace ai
         virtual bool IsActive() { return true; }
     };
 
-	class TankAoeTrigger : public NoAttackersTrigger
+	class TankAoeTrigger : public Trigger
 	{
 	public:
-		TankAoeTrigger(PlayerbotAI* ai) : NoAttackersTrigger(ai) {}
+		TankAoeTrigger(PlayerbotAI* ai) : Trigger(ai, "tank aoe") {}
 
 	public:
 		virtual bool IsActive();
-
 	};
 
     class IsBehindTargetTrigger : public Trigger

@@ -78,6 +78,8 @@ namespace ai
             creators["avoid aoe"] = &ActionContext::avoid_aoe;
             creators["try to get boss ai"] = &ActionContext::try_to_get_boss_ai;
             creators["go behind the boss"] = &ActionContext::go_behind_the_boss;
+            creators["rotate grobbulus"] = &ActionContext::rotate_grobbulus;
+            creators["grobbulus move center"] = &ActionContext::grobbulus_move_center;
         }
 
     private:
@@ -130,6 +132,8 @@ namespace ai
         static Action* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOEAction(ai); }
         static Action* try_to_get_boss_ai(PlayerbotAI* ai) { return new TryToGetBossAIAction(ai); }
         static Action* go_behind_the_boss(PlayerbotAI* ai) { return new GoBehindTheBossAction(ai); }
+        static Action* rotate_grobbulus(PlayerbotAI* ai) { return new RotateGrobbulusAction(ai); }
+        static Action* grobbulus_move_center(PlayerbotAI* ai) { return new GrobblulusMoveCenterAction(ai); }
     };
 
 };

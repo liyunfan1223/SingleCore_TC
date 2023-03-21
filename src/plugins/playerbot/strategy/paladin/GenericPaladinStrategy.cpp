@@ -31,9 +31,9 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"party member critical health",
 		NextAction::array(0, new NextAction("lay on hands on party", ACTION_EMERGENCY), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"target critical health",
-		NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH + 1), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"target critical health",
+	// 	NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
         "low mana",

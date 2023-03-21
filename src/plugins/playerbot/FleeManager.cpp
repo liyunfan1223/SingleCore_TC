@@ -107,7 +107,7 @@ bool FleePoint::isReasonable()
 		toAllPlayers.min >= 0 && toAllPlayers.max >= 0 &&
 		toAllPlayers.min <= sPlayerbotAIConfig.spellDistance &&
 		toAllPlayers.max <= sPlayerbotAIConfig.sightDistance;
-		toCreatures.min >= sPlayerbotAIConfig.tooCloseDistance / 2;
+		// toCreatures.min >= sPlayerbotAIConfig.tooCloseDistance / 2;
 		//  &&
 		// toCreatures.max >= sPlayerbotAIConfig.shootDistance;
 }

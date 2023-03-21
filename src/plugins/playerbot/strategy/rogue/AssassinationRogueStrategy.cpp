@@ -82,6 +82,10 @@ void AssassinationRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"medium aoe",
 		NextAction::array(0, new NextAction("fan of knives", ACTION_NORMAL + 5), NULL)));
 
+    triggers.push_back(new TriggerNode(
+		"tricks of the trade on main tank",
+		NextAction::array(0, new NextAction("tricks of the trade on main tank", ACTION_HIGH + 7), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"enemy out of melee",
 		NextAction::array(0, 

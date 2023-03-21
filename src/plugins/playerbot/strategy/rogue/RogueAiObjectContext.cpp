@@ -56,6 +56,7 @@ namespace ai
                 creators["kick on enemy healer"] = &TriggerFactoryInternal::kick_on_enemy_healer;
                 creators["main hand weapon no enchant"] = &TriggerFactoryInternal::main_hand_weapon_no_enchant;
                 creators["off hand weapon no enchant"] = &TriggerFactoryInternal::off_hand_weapon_no_enchant;
+                creators["tricks of the trade on main tank"] = &TriggerFactoryInternal::tricks_of_the_trade_on_main_tank;
             }
 
         private:
@@ -66,6 +67,7 @@ namespace ai
             static Trigger* kick_on_enemy_healer(PlayerbotAI* ai) { return new KickInterruptEnemyHealerSpellTrigger(ai); }
             static Trigger* main_hand_weapon_no_enchant(PlayerbotAI* ai) { return new MainHandWeaponNoEnchantTrigger(ai); }
             static Trigger* off_hand_weapon_no_enchant(PlayerbotAI* ai) { return new OffHandWeaponNoEnchantTrigger(ai); }
+            static Trigger* tricks_of_the_trade_on_main_tank(PlayerbotAI* ai) { return new TricksOfTheTradeOnMainTankTrigger(ai); }
         };
     };
 };
@@ -103,6 +105,7 @@ namespace ai
                 creators["envenom"] = &AiObjectContextInternal::envenom;
                 creators["fan of knives"] = &AiObjectContextInternal::fan_of_knives;
                 creators["sprint"] = &AiObjectContextInternal::sprint;
+                creators["tricks of the trade on main tank"] = &AiObjectContextInternal::tricks_of_the_trade_on_main_tank;
             }
 
         private:
@@ -127,6 +130,7 @@ namespace ai
             static Action* envenom(PlayerbotAI* ai) { return new EnvenomAction(ai); }
             static Action* fan_of_knives(PlayerbotAI* ai) { return new FanOfKnivesAction(ai); }
             static Action* sprint(PlayerbotAI* ai) { return new CastSprintAction(ai); }
+            static Action* tricks_of_the_trade_on_main_tank(PlayerbotAI* ai) { return new CastTricksOfTheTradeOnMainTankAction(ai); }
         };
     };
 };

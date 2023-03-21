@@ -118,6 +118,7 @@ namespace ai
 				creators["party member cure poison"] = &TriggerFactoryInternal::party_member_cure_poison;
 				creators["cure disease"] = &TriggerFactoryInternal::cure_disease;
 				creators["party member cure disease"] = &TriggerFactoryInternal::party_member_cure_disease;
+                creators["earth shield on main tank"] = &TriggerFactoryInternal::earth_shield_on_main_tank;
             }
 
         private:
@@ -155,6 +156,7 @@ namespace ai
 			static Trigger* party_member_cure_poison(PlayerbotAI* ai) { return new PartyMemberCurePoisonTrigger(ai); }
 			static Trigger* cure_disease(PlayerbotAI* ai) { return new CureDiseaseTrigger(ai); }
 			static Trigger* party_member_cure_disease(PlayerbotAI* ai) { return new PartyMemberCureDiseaseTrigger(ai); }
+            static Trigger* earth_shield_on_main_tank(PlayerbotAI* ai) { return new EarthShieldOnMainTankTrigger(ai); }
         };
     };
 };
@@ -226,6 +228,7 @@ namespace ai
 				creators["cure disease on party"] = &AiObjectContextInternal::cure_disease_on_party;
 				creators["cure poison"] = &AiObjectContextInternal::cure_poison;
 				creators["cure poison on party"] = &AiObjectContextInternal::cure_poison_on_party;
+                creators["earth shield on main tank"] = &AiObjectContextInternal::earth_shield_on_main_tank;
             }
 
         private:
@@ -284,6 +287,7 @@ namespace ai
 			static Action* cure_poison_on_party(PlayerbotAI* ai) { return new CastCurePoisonOnPartyAction(ai); }
 			static Action* cure_disease(PlayerbotAI* ai) { return new CastCureDiseaseAction(ai); }
 			static Action* cure_disease_on_party(PlayerbotAI* ai) { return new CastCureDiseaseOnPartyAction(ai); }
+            static Action* earth_shield_on_main_tank(PlayerbotAI* ai) { return new CastEarthShieldOnMainTankAction(ai); }
         };
     };
 };

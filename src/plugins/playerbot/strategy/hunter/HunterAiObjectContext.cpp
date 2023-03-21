@@ -82,6 +82,7 @@ namespace ai
                 creators["trueshot aura"] = &TriggerFactoryInternal::trueshot_aura;
                 creators["serpent sting on attacker"] = &TriggerFactoryInternal::serpent_sting_on_attacker;
                 creators["tranquilizing shot"] = &TriggerFactoryInternal::remove_enrage;
+                creators["misdirection on main tank"] = &TriggerFactoryInternal::misdirection_on_main_tank;
             }
 
         private:
@@ -99,6 +100,7 @@ namespace ai
             static Trigger* aspect_of_the_hawk(PlayerbotAI* ai) { return new HunterAspectOfTheHawkTrigger(ai); }
             static Trigger* aspect_of_the_wild(PlayerbotAI* ai) { return new HunterAspectOfTheWildTrigger(ai); }
             static Trigger* remove_enrage(PlayerbotAI* ai) { return new TargetRemoveEnrageTrigger(ai); }
+            static Trigger* misdirection_on_main_tank(PlayerbotAI* ai) { return new MisdirectionOnMainTankTrigger(ai); }
         };
     };
 };
@@ -151,6 +153,7 @@ namespace ai
                 creators["tranquilizing shot"] = &AiObjectContextInternal::tranquilizing_shot;
                 creators["steady shot"] = &AiObjectContextInternal::steady_shot;
                 creators["kill shot"] = &AiObjectContextInternal::kill_shot;
+                creators["misdirection on main tank"] = &AiObjectContextInternal::misdirection_on_main_tank;
             }
 
         private:
@@ -188,6 +191,7 @@ namespace ai
             static Action* tranquilizing_shot(PlayerbotAI* ai) { return new CastTranquilizingShortAction(ai); }
             static Action* steady_shot(PlayerbotAI* ai) { return new CastSteadyShotAction(ai); }
             static Action* kill_shot(PlayerbotAI* ai) { return new CastKillShotAction(ai); }
+            static Action* misdirection_on_main_tank(PlayerbotAI* ai) { return new CastMisdirectionOnMainTankAction(ai); }
         };
     };
 };

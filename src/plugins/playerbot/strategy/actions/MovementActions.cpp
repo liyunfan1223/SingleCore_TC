@@ -56,7 +56,7 @@ bool MovementAction::MoveNear(WorldObject* target, float distance)
     return false;
 }
 
-bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
+bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z, bool force)
 {
     if (!IsMovingAllowed(mapId, x, y, z))
         return false;
@@ -65,7 +65,7 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
     float distance = bot->GetDistance2d(x, y);
     if (distance > sPlayerbotAIConfig.contactDistance)
     {
-        WaitForReach(distance);
+        WaitForReach(distance, force);
 
         if (bot->IsSitState())
             bot->SetStandState(UNIT_STAND_STATE_STAND);
@@ -167,7 +167,7 @@ bool MovementAction::IsMovingAllowed(uint32 mapId, float x, float y, float z)
     float distance = bot->GetDistance(x, y, z);
     if (!bot->InBattleground() && distance > sPlayerbotAIConfig.reactDistance)
         return false;
-
+    
     return IsMovingAllowed();
 }
 
@@ -241,18 +241,18 @@ bool MovementAction::Follow(WorldObject* target, float distance, float angle)
     return true;
 }
 
-void MovementAction::WaitForReach(float distance)
+void MovementAction::WaitForReach(float distance, bool force)
 {
     float delay = 1000.0f * distance / bot->GetSpeed(MOVE_RUN) + sPlayerbotAIConfig.reactDelay;
+    if (!force) {
+        if (delay > sPlayerbotAIConfig.maxWaitForMove)
+            delay = sPlayerbotAIConfig.maxWaitForMove;
 
-    if (delay > sPlayerbotAIConfig.maxWaitForMove)
-        delay = sPlayerbotAIConfig.maxWaitForMove;
-
-    Unit* target = *ai->GetAiObjectContext()->GetValue<Unit*>("current target");
-    Unit* player = *ai->GetAiObjectContext()->GetValue<Unit*>("enemy player target");
-    if ((player || target) && delay > sPlayerbotAIConfig.globalCoolDown)
-        delay = sPlayerbotAIConfig.globalCoolDown;
-
+        Unit* target = *ai->GetAiObjectContext()->GetValue<Unit*>("current target");
+        Unit* player = *ai->GetAiObjectContext()->GetValue<Unit*>("enemy player target");
+        if ((player || target) && delay > sPlayerbotAIConfig.globalCoolDown)
+            delay = sPlayerbotAIConfig.globalCoolDown;
+    }
     ai->SetNextCheckDelay((uint32)delay);
 }
 
@@ -271,7 +271,7 @@ bool MovementAction::Flee(Unit *target)
     if (!IsMovingAllowed())
         return false;
 
-    FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, bot->GetAngle(target) + M_PI / 2 );
+    FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, bot->GetAngle(target) + M_PI );
 
     float rx, ry, rz;
     if (!manager.CalculateDestination(&rx, &ry, &rz))

@@ -167,6 +167,6 @@ namespace ai
             creators["naxx"] = &RaidStrategyContext::naxx;
         }
     private:
-        static Strategy* naxx(PlayerbotAI* ai) { return new RaidNaxxStrategy(ai); }
+        static Strategy* naxx(PlayerbotAI* ai) { return new RaidNaxxGenericStrategy(ai); }
     };
 };

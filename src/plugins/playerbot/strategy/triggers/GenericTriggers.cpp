@@ -61,6 +61,11 @@ Value<Unit*>* BuffOnPartyTrigger::GetTargetValue()
 	return context->GetValue<Unit*>("party member without aura", spell);
 }
 
+Value<Unit*>* BuffOnMainTankTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("main tank", spell);
+}
+
 Value<Unit*>* DebuffOnAttackerTrigger::GetTargetValue()
 {
 	return context->GetValue<Unit*>("attacker without aura", spell);
@@ -197,6 +202,7 @@ bool TankAoeTrigger::IsActive()
     if (!tankTarget || currentTarget == tankTarget)
         return false;
 
+	bot->Yell("tank target: " + tankTarget->GetName() + " current target: " + currentTarget->GetName(), LANG_UNIVERSAL);
     return currentTarget->GetVictim() == AI_VALUE(Unit*, "self target");
 }
 

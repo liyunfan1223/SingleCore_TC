@@ -174,4 +174,10 @@ namespace ai
         CastTranquilizingShortAction(PlayerbotAI* ai) : CastSpellAction(ai, "tranquilizing shot") {}
         virtual string GetTargetName() { return "current target"; }
     };
+
+    class CastMisdirectionOnMainTankAction : public BuffOnMainTankAction
+	{
+	public:
+		CastMisdirectionOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "misdirection") {}
+	};
 }

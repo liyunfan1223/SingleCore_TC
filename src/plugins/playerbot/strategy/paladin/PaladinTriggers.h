@@ -118,4 +118,16 @@ namespace ai
     public:
         HammerOfJusticeEnemyHealerTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "hammer of justice") {}
     };
+
+    class BeaconOfLightOnMainTankTrigger : public BuffOnMainTankTrigger
+    {
+    public:
+        BeaconOfLightOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "beacon of light") {}
+    };
+
+    class SacredShieldOnMainTankTrigger : public BuffOnMainTankTrigger
+    {
+    public:
+        SacredShieldOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "sacred shield") {}
+    };
 }

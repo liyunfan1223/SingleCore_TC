@@ -24,8 +24,15 @@ bool HasAggroValue::Calculate()
     {
         ThreatManager *threatManager = ref->GetSource();
         Unit *attacker = threatManager->GetOwner();
+        if (attacker != target) {
+            ref = ref->next();
+            continue;
+        }
         Unit *victim = attacker->GetVictim();
-        if ((victim == bot || (victim && victim->ToPlayer() && ai->IsTank(victim->ToPlayer()))) && target == attacker)
+        if (!victim) { 
+            return true;
+        }
+        if ((victim == bot || (victim && victim->ToPlayer() && ai->IsMainTank(victim->ToPlayer()))) && target == attacker)
             return true;
         ref = ref->next();
     }

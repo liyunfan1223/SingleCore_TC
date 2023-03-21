@@ -98,3 +98,9 @@ Value<Unit*>* BuffOnPartyAction::GetTargetValue()
 {
     return context->GetValue<Unit*>("party member without aura", spell);
 }
+
+Value<Unit*>* BuffOnMainTankAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("main tank", spell);
+}
+

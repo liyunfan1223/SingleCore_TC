@@ -10,7 +10,7 @@ namespace ai
         virtual bool IsActive()
 		{
 			Unit* target = AI_VALUE(Unit*, "current target");
-            return target && target->GetVictim() != bot && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance;
+            return target && target->GetVictim() != bot && target->GetObjectSize() <= 10.0f && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance;
         }
     };
 
@@ -20,7 +20,7 @@ namespace ai
 		virtual bool IsActive()
 		{
 			Unit* target = AI_VALUE(Unit*, "current target");
-			return target && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.shootDistance;
+			return target && target->GetVictim() != bot && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.shootDistance;
 		}
 	};
 

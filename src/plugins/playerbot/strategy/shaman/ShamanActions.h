@@ -350,4 +350,10 @@ namespace ai
 		CastCureDiseaseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure disease", DISPEL_DISEASE) {}
 		virtual string getName() { return "cure disease on party"; }
 	};
+
+    class CastEarthShieldOnMainTankAction : public BuffOnMainTankAction
+	{
+	public:
+		CastEarthShieldOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "earth shield") {}
+	};
 }

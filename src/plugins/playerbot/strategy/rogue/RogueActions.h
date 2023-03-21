@@ -119,4 +119,10 @@ namespace ai
 	public:
 		FanOfKnivesAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "fan of knives") {}
 	};
+
+	class CastTricksOfTheTradeOnMainTankAction : public BuffOnMainTankAction
+	{
+	public:
+		CastTricksOfTheTradeOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "tricks of the trade") {}
+	};
 }

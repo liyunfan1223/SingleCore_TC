@@ -98,4 +98,11 @@ namespace ai
     public:
         TargetRemoveEnrageTrigger(PlayerbotAI* ai) : TargetAuraDispelTrigger(ai, "tranquilizing shot", DISPEL_ENRAGE) {}
     };
+
+    class MisdirectionOnMainTankTrigger : public BuffOnMainTankTrigger
+    {
+    public:
+        MisdirectionOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "misdirectiont") {}
+    };
+
 }

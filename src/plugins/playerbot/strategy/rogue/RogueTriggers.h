@@ -55,4 +55,10 @@ namespace ai
         OffHandWeaponNoEnchantTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "off hand", 1) {}
         virtual bool IsActive();
     };
+
+    class TricksOfTheTradeOnMainTankTrigger : public BuffOnMainTankTrigger
+    {
+    public:
+        TricksOfTheTradeOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "tricks of the trade") {}
+    };
 }

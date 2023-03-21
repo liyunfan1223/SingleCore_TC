@@ -104,6 +104,8 @@ namespace ai
 			creators["no non bot players around"] = &TriggerContext::no_non_bot_players_around;
             creators["avoid aoe"] = &TriggerContext::avoid_aoe;
             creators["mutating injection"] = &TriggerContext::mutating_injection;
+            creators["mutating injection removed"] = &TriggerContext::mutating_injection_removed;
+            creators["grobbulus cloud"] = &TriggerContext::grobblus_cloud;
         }
 
     private:
@@ -180,5 +182,7 @@ namespace ai
 		static Trigger* no_non_bot_players_around(PlayerbotAI* ai) { return new NoNonBotPlayersAroundTrigger(ai); }
         static Trigger* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOESpellTrigger(ai); }
         static Trigger* mutating_injection(PlayerbotAI* ai) { return new MutatingInjectionTrigger(ai); }
+        static Trigger* mutating_injection_removed(PlayerbotAI* ai) { return new MutatingInjectionRemovedTrigger(ai); }
+        static Trigger* grobblus_cloud(PlayerbotAI* ai) { return new GrobbulusCloudTrigger(ai); }
     };
 };

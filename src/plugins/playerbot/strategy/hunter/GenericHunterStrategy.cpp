@@ -83,5 +83,9 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
         "aspect of the viper",
         NextAction::array(0, new NextAction("aspect of the viper", 20.0f), NULL)));
+    
+    triggers.push_back(new TriggerNode(
+        "misdirection on main tank",
+        NextAction::array(0, new NextAction("misdirection on main tank", ACTION_HIGH + 7), NULL)));
 
 }

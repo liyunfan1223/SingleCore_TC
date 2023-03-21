@@ -120,29 +120,28 @@ bool PartyMemberValue::IsTargetOfSpellCast(Player* target, SpellEntryPredicate &
         }
     }
     return false;
-	// for (list<ObjectGuid>::iterator i = nearestPlayers.begin(); i != nearestPlayers.end(); ++i)
-    // {
-	// 	Player* player = dynamic_cast<Player*>(ai->GetUnit(*i));
-	// 	if (!player || player == bot)
-    //         continue;
+}
 
-    //     if (player->IsNonMeleeSpellCast(true))
-    //     {
-    //         for (int type = CURRENT_GENERIC_SPELL; type < CURRENT_MAX_SPELL; type++) {
-    //             Spell* spell = player->GetCurrentSpell((CurrentSpellTypes)type);
-    //             if (spell && predicate.Check(spell->m_spellInfo)) {
-    //                 ObjectGuid unitTarget = spell->m_targets.GetUnitTargetGUID();
-    //                 if (bot->GetGroup())
-    //                     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "player %s unitTarget %d, targetGuid %d", player->GetName().c_str(), unitTarget.GetRawValue(), targetGuid.GetRawValue());
-    //                 if (unitTarget && unitTarget == targetGuid)
-    //                     return true;
-    //                 ObjectGuid corpseTarget = spell->m_targets.GetCorpseTargetGUID();
-    //                 if (bot->GetGroup())
-    //                     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "player %s corpseTarget %d, corpseGuid %d", player->GetName().c_str(), corpseTarget.GetRawValue(), corpseGuid.GetRawValue());
-    //                 if (corpseTarget && corpseTarget == corpseGuid)
-    //                     return true;
-    //             }
-    //         }
-    //     }
-    // }
+class FindMainTankPlayer : public FindPlayerPredicate
+{
+public:
+    FindMainTankPlayer(PlayerbotAI* ai) : ai(ai) {}
+
+    virtual bool Check(Unit* unit)
+    {
+        Player* player = unit->ToPlayer();
+        if (!player) {
+            return false;
+        }
+        return ai->IsMainTank(player);
+    }
+
+private:
+    PlayerbotAI* ai;
+};
+
+Unit* PartyMemberMainTankValue::Calculate()
+{
+    FindMainTankPlayer findMainTankPlayer(ai);
+    return FindPartyMember(findMainTankPlayer);
 }

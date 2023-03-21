@@ -395,4 +395,16 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
     public:
         CastHammerOfJusticeOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "hammer of justice") {}
     };
+
+	class CastBeaconOfLightOnMainTankAction : public BuffOnMainTankAction
+	{
+	public:
+		CastBeaconOfLightOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "beacon of light") {}
+	};
+
+	class CastSacredShieldOnMainTankAction : public BuffOnMainTankAction
+	{
+	public:
+		CastSacredShieldOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "sacred shield") {}
+	};
 }

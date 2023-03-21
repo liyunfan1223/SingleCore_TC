@@ -2,11 +2,13 @@
 
 namespace ai
 {
-    class RaidNaxxStrategy : public Strategy
+    class RaidNaxxGenericStrategy : public Strategy
     {
     public:
-        RaidNaxxStrategy(PlayerbotAI* ai) : Strategy(ai) {}
+        RaidNaxxGenericStrategy(PlayerbotAI* ai) : Strategy(ai) {}
         virtual string getName() { return "naxx"; }
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
     };
+
+    
 }

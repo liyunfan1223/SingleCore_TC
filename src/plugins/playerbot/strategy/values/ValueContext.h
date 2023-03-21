@@ -161,6 +161,8 @@ namespace ai
 			creators["nearest non bot players"] = &ValueContext::nearest_non_bot_players;
             creators["nearest triggers"] = &ValueContext::nearest_triggers;
             creators["aoe aura to avoid"] = &ValueContext::aoe_aura_to_avoid;
+
+            creators["main tank"] = &ValueContext::main_tank;
         }
 
     private:
@@ -253,5 +255,6 @@ namespace ai
 		static UntypedValue* nearest_non_bot_players(PlayerbotAI* ai) { return new NearestNonBotPlayersValue(ai); }
         static UntypedValue* nearest_triggers(PlayerbotAI* ai) { return new NearestTriggersValue(ai); }
         static UntypedValue* aoe_aura_to_avoid(PlayerbotAI* ai) { return new AoeAuraToAvoidValue(ai); }
+        static UntypedValue* main_tank(PlayerbotAI* ai) { return new PartyMemberMainTankValue(ai); }
     };
 };

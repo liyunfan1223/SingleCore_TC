@@ -123,6 +123,7 @@ public:
     void ResetStrategies();
     void ReInitCurrentEngine();
     void Reset();
+    bool IsMainTank(Player* player);
     bool IsTank(Player* player);
     bool IsHeal(Player* player);
     bool IsRanged(Player* player);

@@ -143,7 +143,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             if (tab == 0)
                 engine->addStrategies("caster", "caster aoe", "bmana", "threat", NULL);
             else if (tab == 2)
-                engine->addStrategies("heal", "bmana", "flee", NULL);
+                engine->addStrategies("heal", "bmana", NULL);
             else
                 engine->addStrategies("dps", "melee aoe", "bdps", "threat", NULL);
             engine->addStrategies("totems", NULL);
@@ -164,7 +164,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                     engine->addStrategy("caster debuff");
             }
             else if (tab == 2)
-                engine->addStrategies("heal", "flee", NULL);
+                engine->addStrategies("heal", NULL);
             else
                 engine->addStrategies("bear", "tank aoe", NULL);
             break;

@@ -28,4 +28,11 @@ namespace ai
         Unit* FindPartyMember(list<Player*>* party, FindPlayerPredicate &predicate);
         bool Check(Unit* player);
 	};
+
+    class PartyMemberMainTankValue : public PartyMemberValue
+    {
+    public:
+        PartyMemberMainTankValue(PlayerbotAI* ai) : PartyMemberValue(ai) {}
+        virtual Unit* Calculate();
+    };
 }

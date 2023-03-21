@@ -19,16 +19,17 @@ public:
     {
         Player* bot = ai->GetBot();
         float threat = threatManager->getThreat(bot);
-        int tankCount, dpsCount;
-        GetPlayerCount(creature, &tankCount, &dpsCount);
-
-        if (!result ||
-            (minThreat >= threat &&
-            (minTankCount >= tankCount || maxDpsCount <= dpsCount)))
+        if (!result) {
+            minThreat = threat;
+            result = creature;
+        }
+        Unit* victim = creature->GetVictim();
+        if (victim && victim->ToPlayer() && ai->IsMainTank(victim->ToPlayer())) {
+            return;
+        }
+        if (minThreat >= threat)
         {
             minThreat = threat;
-            minTankCount = tankCount;
-            maxDpsCount = dpsCount;
             result = creature;
         }
     }

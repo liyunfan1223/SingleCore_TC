@@ -124,6 +124,8 @@ namespace ai
                 creators["righteous fury"] = &TriggerFactoryInternal::righteous_fury;
                 creators["holy shield"] = &TriggerFactoryInternal::holy_shield;
                 creators["hammer of justice on enemy healer"] = &TriggerFactoryInternal::hammer_of_justice_on_enemy_target;
+                creators["beacon of light on main tank"] = &TriggerFactoryInternal::beacon_of_light_on_main_tank;
+                creators["sacred shield on main tank"] = &TriggerFactoryInternal::sacred_shield_on_main_tank;
             }
 
         private:
@@ -152,6 +154,8 @@ namespace ai
             static Trigger* CleanseCureMagic(PlayerbotAI* ai) { return new CleanseCureMagicTrigger(ai); }
             static Trigger* CleanseCurePartyMemberMagic(PlayerbotAI* ai) { return new CleanseCurePartyMemberMagicTrigger(ai); }
             static Trigger* hammer_of_justice_on_enemy_target(PlayerbotAI* ai) { return new HammerOfJusticeEnemyHealerTrigger(ai); }
+            static Trigger* beacon_of_light_on_main_tank(PlayerbotAI* ai) { return new BeaconOfLightOnMainTankTrigger(ai); }
+            static Trigger* sacred_shield_on_main_tank(PlayerbotAI* ai) { return new SacredShieldOnMainTankTrigger(ai); }
         };
     };
 };
@@ -227,6 +231,8 @@ namespace ai
                 creators["hammer of justice on enemy healer"] = &AiObjectContextInternal::hammer_of_justice_on_enemy_healer;
                 creators["divine plea"] = &AiObjectContextInternal::divine_plea;
                 creators["shield of righteousness"] = &AiObjectContextInternal::shield_of_righteousness;
+                creators["beacon of light on main tank"] = &AiObjectContextInternal::beacon_of_light_on_main_tank;
+                creators["sacred shield on main tank"] = &AiObjectContextInternal::sacred_shield_on_main_tank;
             }
 
         private:
@@ -290,6 +296,8 @@ namespace ai
             static Action* hammer_of_justice_on_enemy_healer(PlayerbotAI* ai) { return new CastHammerOfJusticeOnEnemyHealerAction(ai); }
             static Action* divine_plea(PlayerbotAI* ai) { return new CastDivinePleaAction(ai); }
             static Action* shield_of_righteousness(PlayerbotAI* ai) { return new ShieldOfRighteousnessAction(ai); }
+            static Action* beacon_of_light_on_main_tank(PlayerbotAI* ai) { return new CastBeaconOfLightOnMainTankAction(ai); }
+            static Action* sacred_shield_on_main_tank(PlayerbotAI* ai) { return new CastSacredShieldOnMainTankAction(ai); }
         };
     };
 };

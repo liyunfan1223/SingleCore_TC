@@ -1002,6 +1002,29 @@ bool PlayerbotAI::IsRanged(Player* player)
     return true;
 }
 
+bool PlayerbotAI::IsMainTank(Player* player) {
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return false;
+    }
+    uint64 mainTank = 0;
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    for (Group::member_citerator itr = slots.begin(); itr != slots.end(); ++itr) {
+        if (itr->flags & MEMBER_FLAG_MAINTANK)
+            mainTank = itr->guid.GetRawValue();
+    }
+    if (mainTank != 0) {
+        return player->GetGUID() == mainTank;
+    }
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (IsTank(member)) {
+            return player == member;
+        }
+    }
+    return false;
+}
+
 bool PlayerbotAI::IsTank(Player* player)
 {
     int tab = AiFactory::GetPlayerSpecTab(player);

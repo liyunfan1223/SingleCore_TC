@@ -6,41 +6,29 @@
 using namespace ai;
 
 bool TryToGetBossAIAction::Execute(Event event) {
-    list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
-    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
-    {
-        Unit* unit = ai->GetUnit(*i);
-        if (!unit) {
-            continue;
-        }
-        Creature *creature = unit->ToCreature();
-        if (!creature) {
-            continue;
-        }
-        UnitAI* u_ai = unit->GetAI();
-        bool enabled = unit->IsAIEnabled;
-        CreatureAI* c_ai = creature->AI();
-        if (!c_ai) {
-            continue;
-        }
-        BossAI* b_ai = dynamic_cast<BossAI*>(c_ai);
-        if (!b_ai) {
-            continue;
-        }
-        EventMap *e_m = b_ai->GetEvents();
-        if (!e_m) {
-            continue;
-        }
-        uint8 phase_mask = e_m->GetPhaseMask();
-        uint32 bossID = b_ai->GetBossID();
-        bool isDungeonBoss = creature->IsDungeonBoss();
-        // bot->Yell("boss ai detected.", LANG_UNIVERSAL);
-        bot->Yell("boss ai detected. phase mask: " + to_string(phase_mask) + " ai enabled: " + to_string(enabled) +
-                  " boss id: " + to_string(bossID) + " name: " + unit->GetName() + " entry: " + to_string(unit->GetEntry()) +
-                  " guid: " + to_string(unit->GetGUID().GetRawValue()) + " isDungeonBoss: " + to_string(isDungeonBoss), LANG_UNIVERSAL); 
-        return true;
+    Unit* boss = AI_VALUE(Unit*, "boss target");
+    if (!boss) {
+        return false;
     }
-    return false;
+    Creature* creature = boss->ToCreature();
+    BossAI* b_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    if (!b_ai) {
+        return false;
+    }
+    bool enabled = boss->IsAIEnabled;
+    EventMap *eventMap = b_ai->GetEvents();
+    uint8 phase_mask = eventMap->GetPhaseMask();
+    uint32 bossID = b_ai->GetBossID();
+    bool isDungeonBoss = creature->IsDungeonBoss();
+    // bot->Yell("boss ai detected.", LANG_UNIVERSAL);
+    uint32 next_event_time_1 = eventMap->GetNextEventTime(1);
+    uint32 next_event_time_2 = eventMap->GetNextEventTime(2);
+    bot->Yell("boss ai detected. phase mask: " + to_string(phase_mask) + " ai enabled: " + to_string(enabled) +
+                " boss id: " + to_string(bossID) + " name: " + boss->GetName() + " entry: " + to_string(boss->GetEntry()) +
+                " guid: " + to_string(boss->GetGUID().GetRawValue()) + " isDungeonBoss: " + to_string(isDungeonBoss) +
+                " event1: " + to_string(next_event_time_1) + " event2: " + to_string(next_event_time_2) , LANG_UNIVERSAL); 
+    return true;
+    
 }
 
 bool GoBehindTheBossAction::Execute(Event event)
@@ -50,12 +38,56 @@ bool GoBehindTheBossAction::Execute(Event event)
         return false;
     }
     // Position* pos = boss->GetPosition();
-    float orientation = boss->GetOrientation();
+    float orientation = boss->GetOrientation() + M_PI + delta_angle;
     float x = boss->GetPositionX();
     float y = boss->GetPositionY();
     float z = boss->GetPositionZ();
-    float rx = x - cos(orientation) * distance;
-    float ry = y - sin(orientation) * distance;
-    bot->Yell("Boss Name: " + boss->GetName() + " Move to " + to_string(rx) + ", " + to_string(ry) + ", " + to_string(z), LANG_UNIVERSAL);
+    float rx = x + cos(orientation) * distance;
+    float ry = y + sin(orientation) * distance;
     return MoveTo(bot->GetMapId(), rx, ry, z);
+}
+
+bool MoveToPointForceAction::Execute(Event event)
+{
+    return MoveTo(bot->GetMapId(), x, y, bot->GetPositionZ(), true);
+}
+
+bool RotateAroundTheCenterPointAction::Execute(Event event)
+{
+    // uint32 nearest = FindNearestWaypoint();
+    // uint32 next_point = (nearest + 1) % intervals;
+    uint32 next_point = GetCurrWaypoint();
+    // bot->Yell("Now Execute Rotate, call_counters: " + to_string(call_counters) + " next point: " + to_string(next_point), LANG_UNIVERSAL);
+    if (MoveTo(bot->GetMapId(), waypoints[next_point].first, waypoints[next_point].second, bot->GetPositionZ())) {
+        call_counters += 1;
+        return true;
+    }
+    return false;
+}
+
+uint32 RotateAroundTheCenterPointAction::FindNearestWaypoint()
+{
+    float minDistance = 0;
+    int ret = -1;
+    for (int i = 0; i < intervals; i++) {
+        float w_x = waypoints[i].first, w_y = waypoints[i].second;
+        float dis = bot->GetDistance2d(w_x, w_y);
+        if (ret == -1 || dis < minDistance) {
+            ret = i;
+            minDistance = dis;
+        }
+    }
+    return ret;
+}
+
+uint32 RotateGrobbulusAction::GetCurrWaypoint()
+{
+    Unit* boss = AI_VALUE(Unit*, "boss target");
+    if (!boss) {
+        return false;
+    }
+    BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
+    const uint32 event_time = eventMap->GetNextEventTime(2);
+    return (event_time / 15000) % intervals;
 }
