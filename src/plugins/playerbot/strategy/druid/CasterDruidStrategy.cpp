@@ -117,7 +117,7 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",
-        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 7), NULL)));
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_DISPEL + 7), NULL)));
         
     triggers.push_back(new TriggerNode(
         "enemy out of spell",
@@ -153,7 +153,7 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     
     triggers.push_back(new TriggerNode(
         "low mana",
-        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+        NextAction::array(0, new NextAction("innervate", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",

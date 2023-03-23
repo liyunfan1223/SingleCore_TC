@@ -19,7 +19,7 @@ public:
             /*P*/ NULL,
             /*A*/ NULL,
             // /*C*/ NULL);
-            /*C*/ NextAction::array(0, new NextAction("healing touch on party", ACTION_EMERGENCY + 8), NULL));
+            /*C*/ NextAction::array(0, new NextAction("healing touch on party"), NULL));
     }
     static ActionNode* nourish_on_party(PlayerbotAI* ai)
     {
@@ -47,7 +47,7 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         
     triggers.push_back(new TriggerNode(
         "party member cure poison",
-        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 7), NULL)));
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_DISPEL + 7), NULL)));
 
     // CRITICAL
     triggers.push_back(new TriggerNode(
@@ -96,7 +96,7 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low mana",
-        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+        NextAction::array(0, new NextAction("innervate", ACTION_HIGH + 5), NULL)));
     
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",

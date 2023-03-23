@@ -89,15 +89,15 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 
     triggers.push_back(new TriggerNode(
         "party member cure poison",
-        NextAction::array(0, new NextAction("abolish poison on party", ACTION_EMERGENCY + 7), NULL)));
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_DISPEL + 7), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"party member to resurrect",
-		NextAction::array(0, new NextAction("revive", ACTION_EMERGENCY), NULL)));
+		NextAction::array(0, new NextAction("revive", ACTION_DISPEL), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
-        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+        NextAction::array(0, new NextAction("innervate", ACTION_DISPEL + 5), NULL)));
     
     triggers.push_back(new TriggerNode(
         "party member critical health",

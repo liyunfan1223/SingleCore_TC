@@ -85,7 +85,7 @@ void FeralDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "critical health",
-        NextAction::array(0, new NextAction("survival instincts", ACTION_EMERGENCY + 1), NULL)));
+        NextAction::array(0, new NextAction("survival instincts", ACTION_HIGH + 1), NULL)));
 
 
 }
