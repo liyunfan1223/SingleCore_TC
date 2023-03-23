@@ -59,7 +59,8 @@ void AttackersValue::AddAttackersOf(Unit* unit, set<Unit*>& targets)
     {
         ThreatManager *threatManager = ref->GetSource();
         Unit *attacker = threatManager->GetOwner();
-        Unit *victim = attacker->GetVictim();
+        // Unit *victim = attacker->GetVictim();
+        Unit *victim = threatManager->getCurrentVictim()->getTarget();
         if (victim == unit)
             targets.insert(attacker);
         ref = ref->next();
