@@ -326,15 +326,14 @@ public:
 
                 me->DespawnOrUnsummon();
                 me->SetRespawnTime(initial ? 5 : 30);
-
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_STUNNED);
-                events.SetPhase(PHASE_RESETTING);
+                me->setActive(false);
+                // events.SetPhase(PHASE_RESETTING);
                 if (Creature* feugen = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_FEUGEN)))
                     feugen->AI()->DoAction(ACTION_BEGIN_RESET_ENCOUNTER);
                 if (Creature* stalagg = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_STALAGG)))
                     stalagg->AI()->DoAction(ACTION_BEGIN_RESET_ENCOUNTER);
 
-                me->setActive(false);
             }
 
             void ResetEncounter()
