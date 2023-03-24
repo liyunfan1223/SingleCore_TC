@@ -522,7 +522,7 @@ public:
             {
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
-                me->DespawnOrUnsummon();
+                me->DespawnOrUnsummon(0, Seconds(10));
                 me->setActive(false);
             }
 
@@ -791,7 +791,7 @@ public:
             {
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
-                me->DespawnOrUnsummon();
+                me->DespawnOrUnsummon(0, Seconds(10));
                 me->setActive(false);
             }
 
