@@ -213,9 +213,15 @@ public:
 
             void JustRespawned() override
             {
-                if (events.IsInPhase(PHASE_RESETTING))
-                    ResetEncounter();
+                // if (events.IsInPhase(PHASE_RESETTING))
+                ResetEncounter();
             }
+
+            // void JustAppeared() override
+            // {
+            //     // if (instance->GetBossState(BOSS_THADDIUS) != DONE)
+            //     ResetEncounter();
+            // }
 
             void JustDied(Unit* /*killer*/) override
             {
@@ -522,8 +528,8 @@ public:
             {
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
-                me->DespawnOrUnsummon(0, Seconds(10));
-                me->setActive(false);
+                me->DespawnOrUnsummon(0, Hours(24 * 7));
+                // me->setActive(false);
             }
 
             void ResetEncounter()
@@ -791,8 +797,8 @@ public:
             {
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
-                me->DespawnOrUnsummon(0, Seconds(10));
-                me->setActive(false);
+                me->DespawnOrUnsummon(0, Hours(24 * 7));
+                // me->setActive(false);
             }
 
             void ResetEncounter()
