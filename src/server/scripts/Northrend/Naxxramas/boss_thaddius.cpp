@@ -324,8 +324,8 @@ public:
                 instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_POSITIVE_CHARGE_APPLY);
                 instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_NEGATIVE_CHARGE_APPLY);
 
-                me->DespawnOrUnsummon();
-                me->SetRespawnTime(initial ? 5 : 30);
+                me->DespawnOrUnsummon(0, 30 * IN_MILLISECONDS);
+                // me->SetRespawnTime(initial ? 5 : 30);
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_STUNNED);
                 me->setActive(false);
                 // events.SetPhase(PHASE_RESETTING);
