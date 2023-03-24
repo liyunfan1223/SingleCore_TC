@@ -180,7 +180,7 @@ public:
                     SetCombatMovement(false);
 
                     // initialize everything properly, and ensure that the coils are loaded by the time we initialize
-                    BeginResetEncounter(true);
+                    // BeginResetEncounter(true);
                 }
             }
 
