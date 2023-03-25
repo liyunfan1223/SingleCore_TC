@@ -102,7 +102,7 @@ namespace ai
     class MisdirectionOnMainTankTrigger : public BuffOnMainTankTrigger
     {
     public:
-        MisdirectionOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "misdirectiont") {}
+        MisdirectionOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "misdirection") {}
     };
 
 }
