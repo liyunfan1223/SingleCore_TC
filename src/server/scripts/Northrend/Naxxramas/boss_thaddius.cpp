@@ -214,7 +214,7 @@ public:
             void JustRespawned() override
             {
                 // if (events.IsInPhase(PHASE_RESETTING))
-                TC_LOG_ERROR("misc", "Thaddius just respawned.");
+                // TC_LOG_ERROR("misc", "Thaddius just respawned.");
                 ResetEncounter();
             }
 
@@ -331,7 +331,7 @@ public:
                 // me->SetRespawnTime(initial ? 5 : 30);
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_STUNNED);
                 // events.SetPhase(PHASE_RESETTING);
-                TC_LOG_ERROR("misc", "BeginResetEncounter for Thaddius.");
+                // TC_LOG_ERROR("misc", "BeginResetEncounter for Thaddius.");
                 if (Creature* feugen = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_FEUGEN)))
                     feugen->AI()->DoAction(ACTION_BEGIN_RESET_ENCOUNTER);
                 if (Creature* stalagg = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_STALAGG)))
@@ -346,7 +346,7 @@ public:
                 _Reset();
                 events.SetPhase(PHASE_NOT_ENGAGED);
                 me->SetReactState(REACT_PASSIVE);
-                TC_LOG_ERROR("misc", "ResetEncounter for Thaddius.");
+                // TC_LOG_ERROR("misc", "ResetEncounter for Thaddius.");
                 // if (Creature* feugen = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_FEUGEN)))
                 //     feugen->AI()->DoAction(ACTION_RESET_ENCOUNTER);
                 // if (Creature* stalagg = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_STALAGG)))
@@ -530,14 +530,14 @@ public:
             {
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
-                TC_LOG_ERROR("misc", "BeginResetEncounter for Stalagg.");
+                // TC_LOG_ERROR("misc", "BeginResetEncounter for Stalagg.");
                 me->setActive(false);
                 me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
             }
 
             void ResetEncounter()
             {
-                TC_LOG_ERROR("misc", "ResetEncounter for Stalagg.");
+                // TC_LOG_ERROR("misc", "ResetEncounter for Stalagg.");
                 me->Respawn(true);
                 Initialize();
             }
@@ -765,7 +765,7 @@ public:
         public:
             npc_feugenAI(Creature* creature) : ScriptedAI(creature), _myCoil(ObjectGuid::Empty), _myCoilGO(ObjectGuid::Empty), isOverloading(false), refreshBeam(false), isFeignDeath(false)
             {
-                TC_LOG_ERROR("misc", "Constructor for Feugen.");
+                // TC_LOG_ERROR("misc", "Constructor for Feugen.");
                 Initialize();
                 instance = creature->GetInstanceScript();
                 SetBoundary(instance->GetBossBoundary(BOSS_THADDIUS));
@@ -773,7 +773,7 @@ public:
 
             void Initialize()
             {
-                TC_LOG_ERROR("misc", "Initialize for Feugen.");
+                // TC_LOG_ERROR("misc", "Initialize for Feugen.");
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_ACTIVE);
 
@@ -803,14 +803,14 @@ public:
             {
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
-                TC_LOG_ERROR("misc", "BeginResetEncounter for Feugen.");
+                // TC_LOG_ERROR("misc", "BeginResetEncounter for Feugen.");
                 me->setActive(false);
                 me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
             }
 
             void ResetEncounter()
             {
-                TC_LOG_ERROR("misc", "ResetEncounter for Feugen.");
+                // TC_LOG_ERROR("misc", "ResetEncounter for Feugen.");
                 // me->Respawn(true);
                 Initialize();
             }
