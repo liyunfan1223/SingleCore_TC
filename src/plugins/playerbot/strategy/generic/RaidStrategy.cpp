@@ -4,6 +4,7 @@
 #include "MovementActions.h"
 #include "ScriptedCreature.h"
 #include "RaidNaxxAction.h"
+#include "GenericSpellActions.h"
 
 using namespace ai;
 
@@ -21,7 +22,7 @@ float HeiganDanceMultiplier::GetValue(Action* action)
 	if (curr_phase != 2 && (int32)curr_dance - curr_timer >= 3000) {
 		return 1.0f;
 	}
-	if (dynamic_cast<HeiganDanceAction*>(action)) {
+	if (dynamic_cast<HeiganDanceAction*>(action) || dynamic_cast<CurePartyMemberAction*>(action)) {
 		return 1.0f;
 	}
 	return 0.0f;

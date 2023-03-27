@@ -87,13 +87,9 @@ namespace ai
             this->prev_phase = -1;
             this->prev_erupt = -1;
             this->prev_timer = -1;
-            // waypoints.push_back(std::make_pair(2786.97, -3672.16)); 1
             waypoints.push_back(std::make_pair(2784.58f, -3665.50f));
-            // waypoints.push_back(std::make_pair(2770.37, -3681.49));
-            waypoints.push_back(std::make_pair(2767.96f, -3677.36f));
-            // waypoints.push_back(std::make_pair(2761.75, -3694.22));
+            waypoints.push_back(std::make_pair(2769.59f, -3674.88f));
             waypoints.push_back(std::make_pair(2759.60f, -3690.45f));
-            // waypoints.push_back(std::make_pair(2757.76, -3708.11));
             waypoints.push_back(std::make_pair(2755.99f, -3703.96f));
         }
     protected:
@@ -116,7 +112,6 @@ namespace ai
     {
     public:
         HeiganDanceRangedAction(PlayerbotAI* ai) : HeiganDanceAction(ai) {
-            // platform = std::make_pair(2788.45f, -3701.27f);
             platform = std::make_pair(2794.26f, -3706.67f);
         }
         virtual bool Execute(Event event);
