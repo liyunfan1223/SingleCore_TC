@@ -1878,7 +1878,7 @@ void GameObject::CastSpell(Unit* target, uint32 spellId, TriggerCastFlags trigge
         return;
     // TC_LOG_ERROR("misc", "cast spell for id: %u, target: %s(%u)", spellId, target->GetName().c_str(), target->GetGUID().GetRawValue());
     // explosive trap
-    if (spellId == 13812 || spellId == 14314 || spellId == 14315 || spellId == 27026 || spellId == 49064 || spellId == 49066) {
+    if (spellId == 13812 || spellId == 14314 || spellId == 14315 || spellId == 27026 || spellId == 49064 || spellId == 49065) {
         target = NULL;
     }
     if (Unit* owner = GetOwner())
