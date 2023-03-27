@@ -325,19 +325,17 @@ public:
                 instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_POSITIVE_CHARGE_APPLY);
                 instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_NEGATIVE_CHARGE_APPLY);
 
+                me->setActive(false);
                 me->DespawnOrUnsummon(0, Seconds(30));
                 // me->SetRespawnDelay(10);
                 // me->SetRespawnTime(initial ? 5 : 30);
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_STUNNED);
-                me->setActive(false);
                 // events.SetPhase(PHASE_RESETTING);
                 TC_LOG_ERROR("misc", "BeginResetEncounter for Thaddius.");
                 if (Creature* feugen = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_FEUGEN)))
                     feugen->AI()->DoAction(ACTION_BEGIN_RESET_ENCOUNTER);
                 if (Creature* stalagg = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_STALAGG)))
                     stalagg->AI()->DoAction(ACTION_BEGIN_RESET_ENCOUNTER);
-                // instance->instance->RemoveRespawnTime(SPAWN_TYPE_CREATURE, 130958, true); // Stalagg
-                // instance->instance->RemoveRespawnTime(SPAWN_TYPE_CREATURE, 130959, true); // Feugen
             }
 
             void ResetEncounter()
@@ -533,8 +531,8 @@ public:
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
                 TC_LOG_ERROR("misc", "BeginResetEncounter for Stalagg.");
-                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
                 me->setActive(false);
+                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
             }
 
             void ResetEncounter()
@@ -806,8 +804,8 @@ public:
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
                 TC_LOG_ERROR("misc", "BeginResetEncounter for Feugen.");
-                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
                 me->setActive(false);
+                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
             }
 
             void ResetEncounter()
