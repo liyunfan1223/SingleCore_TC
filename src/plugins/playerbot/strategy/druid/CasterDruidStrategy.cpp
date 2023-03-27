@@ -105,7 +105,7 @@ CasterDruidStrategy::CasterDruidStrategy(PlayerbotAI* ai) : GenericDruidStrategy
 NextAction** CasterDruidStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
-        new NextAction("starfall", ACTION_HIGH + 1),
+        new NextAction("starfall", ACTION_NORMAL + 3),
         new NextAction("starfire", ACTION_NORMAL + 2), 
         new NextAction("wrath", ACTION_NORMAL + 1), 
         NULL);
@@ -125,11 +125,11 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"insect swarm",
-		NextAction::array(0, new NextAction("insect swarm", ACTION_NORMAL + 5), NULL)));
+		NextAction::array(0, new NextAction("insect swarm", ACTION_NORMAL + 4), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"moonfire",
-		NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 4), NULL)));
+		NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "eclipse (solar)",
@@ -139,18 +139,10 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "eclipse (lunar)",
         NextAction::array(0, new NextAction("starfire", ACTION_NORMAL + 6), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "moonfire",
-    //     NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 4), NULL)));
-
 	triggers.push_back(new TriggerNode(
 		"nature's grasp",
-		NextAction::array(0, new NextAction("nature's grasp", ACTION_EMERGENCY), NULL)));
+		NextAction::array(0, new NextAction("nature's grasp", ACTION_HIGH), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "entangling roots",
-    //     NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 2), NULL)));
-    
     triggers.push_back(new TriggerNode(
         "low mana",
         NextAction::array(0, new NextAction("innervate", ACTION_HIGH + 5), NULL)));
@@ -170,6 +162,14 @@ void CasterDruidAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"high aoe",
 		NextAction::array(0, new NextAction("hurricane", ACTION_HIGH + 1), NULL)));
 	
+    triggers.push_back(new TriggerNode(
+		"light aoe",
+        NextAction::array(0, 
+            new NextAction("moonfire on attacker", ACTION_NORMAL + 3),
+		    new NextAction("insect swarm on attacker", ACTION_NORMAL + 2), 
+            NULL)));
+	
+
 	triggers.push_back(new TriggerNode(
 		"low health",
 		NextAction::array(0, new NextAction("barkskin", ACTION_HIGH + 1), NULL)));
@@ -180,5 +180,5 @@ void CasterDruidDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "faerie fire",
-        NextAction::array(0, new NextAction("faerie fire", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("faerie fire", ACTION_NORMAL + 1), NULL)));
 }

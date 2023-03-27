@@ -207,7 +207,7 @@ m_originalEntry(0), m_homePosition(), m_transportHomePosition(), m_creatureInfo(
     m_CombatDistance = 0;//MELEE_RANGE;
 
     ResetLootMode(); // restore default loot mode
-    m_TriggerJustRespawned = false;
+    m_TriggerJustRespawned = true;
     m_isTempWorldObject = false;
 	
 	//bot

@@ -153,7 +153,9 @@ namespace ai
                 creators["wrath"] = &AiObjectContextInternal::wrath;
                 creators["starfall"] = &AiObjectContextInternal::starfall;
                 creators["insect swarm"] = &AiObjectContextInternal::insect_swarm;
+                creators["insect swarm on attacker"] = &AiObjectContextInternal::insect_swarm_on_attacker;
                 creators["moonfire"] = &AiObjectContextInternal::moonfire;
+                creators["moonfire on attacker"] = &AiObjectContextInternal::moonfire_on_attacker;
                 creators["starfire"] = &AiObjectContextInternal::starfire;
                 creators["nature's grasp"] = &AiObjectContextInternal::natures_grasp;
                 creators["claw"] = &AiObjectContextInternal::claw;
@@ -224,7 +226,9 @@ namespace ai
             static Action* wrath(PlayerbotAI* ai) { return new CastWrathAction(ai); }
             static Action* starfall(PlayerbotAI* ai) { return new CastStarfallAction(ai); }
             static Action* insect_swarm(PlayerbotAI* ai) { return new CastInsectSwarmAction(ai); }
+            static Action* insect_swarm_on_attacker(PlayerbotAI* ai) { return new CastInsectSwarmOnAttackerAction(ai); }
             static Action* moonfire(PlayerbotAI* ai) { return new CastMoonfireAction(ai); }
+            static Action* moonfire_on_attacker(PlayerbotAI* ai) { return new CastMoonfireOnAttackerAction(ai); }
             static Action* starfire(PlayerbotAI* ai) { return new CastStarfireAction(ai); }
             static Action* natures_grasp(PlayerbotAI* ai) { return new CastNaturesGraspAction(ai); }
             static Action* claw(PlayerbotAI* ai) { return new CastClawAction(ai); }

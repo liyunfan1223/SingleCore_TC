@@ -1126,6 +1126,7 @@ uint32 WorldObject::GetAreaId() const
 
 void WorldObject::GetZoneAndAreaId(uint32& zoneid, uint32& areaid) const
 {
+    // TC_LOG_ERROR("misc", "GetZoneAndAreaId WO: %s", GetName().c_str());
     GetBaseMap()->GetZoneAndAreaId(zoneid, areaid, m_positionX, m_positionY, m_positionZ);
 }
 

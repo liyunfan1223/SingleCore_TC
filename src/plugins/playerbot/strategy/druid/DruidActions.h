@@ -140,10 +140,22 @@ namespace ai
 		CastMoonfireAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "moonfire") {}
 	};
 
+	class CastMoonfireOnAttackerAction : public CastDebuffSpellOnAttackerAction
+	{
+	public:
+		CastMoonfireOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "moonfire") {}
+	};
+
 	class CastInsectSwarmAction : public CastDebuffSpellAction
 	{
 	public:
 		CastInsectSwarmAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "insect swarm") {}
+	};
+
+	class CastInsectSwarmOnAttackerAction : public CastDebuffSpellOnAttackerAction
+	{
+	public:
+		CastInsectSwarmOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "insect swarm") {}
 	};
 
 	class CastStarfireAction : public CastSpellAction
