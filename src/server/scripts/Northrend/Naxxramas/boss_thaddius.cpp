@@ -531,8 +531,8 @@ public:
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
                 // TC_LOG_ERROR("misc", "BeginResetEncounter for Stalagg.");
-                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
                 me->setActive(false);
+                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
             }
 
             void ResetEncounter()
@@ -804,8 +804,8 @@ public:
                 if (GameObject* coil = myCoilGO())
                     coil->SetGoState(GO_STATE_READY);
                 // TC_LOG_ERROR("misc", "BeginResetEncounter for Feugen.");
-                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
                 me->setActive(false);
+                me->DespawnOrUnsummon(0, Hours(24 * 7)); // will be force respawned by thaddius
             }
 
             void ResetEncounter()
