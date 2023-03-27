@@ -13,6 +13,7 @@ NextAction** HealPaladinStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
         new NextAction("judgement of light", ACTION_NORMAL + 1),
+        new NextAction("melee", ACTION_NORMAL),
         NULL);
 }
 
@@ -65,9 +66,9 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "sacred shield on main tank",
 		NextAction::array(0, new NextAction("sacred shield on main tank", ACTION_CRITICAL_HEAL + 6), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-		NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "enemy too close for spell",
+	// 	NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
         
     // triggers.push_back(new TriggerNode(
     //     "medium health",

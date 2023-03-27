@@ -105,9 +105,9 @@ CasterDruidStrategy::CasterDruidStrategy(PlayerbotAI* ai) : GenericDruidStrategy
 NextAction** CasterDruidStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
-        new NextAction("starfall", ACTION_NORMAL + 3),
-        new NextAction("starfire", ACTION_NORMAL + 2), 
+        new NextAction("starfall", ACTION_NORMAL + 2),
         new NextAction("wrath", ACTION_NORMAL + 1), 
+        new NextAction("starfire", ACTION_NORMAL), 
         NULL);
 }
 
@@ -123,13 +123,13 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "enemy out of spell",
         NextAction::array(0, new NextAction("reach spell", ACTION_MOVE), NULL)));
 
-    triggers.push_back(new TriggerNode(
-		"insect swarm",
-		NextAction::array(0, new NextAction("insect swarm", ACTION_NORMAL + 4), NULL)));
-
 	triggers.push_back(new TriggerNode(
 		"moonfire",
 		NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"insect swarm",
+		NextAction::array(0, new NextAction("insect swarm", ACTION_NORMAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "eclipse (solar)",
@@ -164,9 +164,10 @@ void CasterDruidAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	
     triggers.push_back(new TriggerNode(
 		"light aoe",
-        NextAction::array(0, 
-            new NextAction("moonfire on attacker", ACTION_NORMAL + 3),
-		    new NextAction("insect swarm on attacker", ACTION_NORMAL + 2), 
+        NextAction::array(0,
+            new NextAction("starfall", ACTION_NORMAL + 4),
+		    new NextAction("insect swarm on attacker", ACTION_NORMAL + 3), 
+            new NextAction("moonfire on attacker", ACTION_NORMAL + 2),
             NULL)));
 	
 
