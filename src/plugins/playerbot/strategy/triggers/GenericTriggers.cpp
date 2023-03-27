@@ -103,7 +103,23 @@ bool MyAttackerCountTrigger::IsActive()
 
 bool AoeTrigger::IsActive()
 {
-    return AI_VALUE(uint8, "attacker count") >= amount && AI_VALUE(uint8, "attacker count") >= amount;
+	Unit* current_target = AI_VALUE(Unit*, "current target");
+	if (!current_target) {
+		return false;
+	}
+	list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+	int attackers_count = 0;
+    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)
+    {
+        Unit* unit = ai->GetUnit(*i);
+        if (!unit || !unit->IsAlive())
+            continue;
+
+        if (unit->GetDistance2d(current_target) <= range) {
+			attackers_count++;
+		}
+    }
+    return attackers_count >= amount;
 }
 
 bool DebuffTrigger::IsActive()
