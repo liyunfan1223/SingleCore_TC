@@ -52,4 +52,13 @@ namespace ai
     public:
         Unit* Calculate();
     };
+
+    class FindTargetValue : public UnitCalculatedValue, public Qualified
+	{
+	public:
+        FindTargetValue(PlayerbotAI* ai) : UnitCalculatedValue(ai) {}
+
+    public:
+        Unit* Calculate();
+    };
 }

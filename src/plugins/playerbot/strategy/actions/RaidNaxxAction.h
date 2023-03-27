@@ -79,4 +79,48 @@ namespace ai
     public:
         GrobblulusMoveCenterAction(PlayerbotAI* ai) : MoveToPointForceAction(ai, 3281.23f, -3310.38f) {}
     };
+
+    class HeiganDanceAction : public MovementAction
+    {
+    public:
+        HeiganDanceAction(PlayerbotAI* ai) : MovementAction(ai, "heigan dance") {
+            this->prev_phase = -1;
+            this->prev_erupt = -1;
+            this->prev_timer = -1;
+            // waypoints.push_back(std::make_pair(2786.97, -3672.16)); 1
+            waypoints.push_back(std::make_pair(2784.58f, -3665.50f));
+            // waypoints.push_back(std::make_pair(2770.37, -3681.49));
+            waypoints.push_back(std::make_pair(2767.96f, -3677.36f));
+            // waypoints.push_back(std::make_pair(2761.75, -3694.22));
+            waypoints.push_back(std::make_pair(2759.60f, -3690.45f));
+            // waypoints.push_back(std::make_pair(2757.76, -3708.11));
+            waypoints.push_back(std::make_pair(2755.99f, -3703.96f));
+        }
+    protected:
+        bool CalculateSafe();
+        void ResetSafe() { curr_safe = 0; curr_dir = 1; }
+        void NextSafe() { curr_safe += curr_dir; if (curr_safe == 3 || curr_safe == 0) { curr_dir = -curr_dir; } }
+        uint32 prev_phase, prev_erupt, prev_timer;
+        uint32 curr_safe, curr_dir;
+        std::vector<std::pair<float, float>> waypoints;
+    };
+
+    class HeiganDanceMeleeAction : public HeiganDanceAction
+    {
+    public:
+        HeiganDanceMeleeAction(PlayerbotAI* ai) : HeiganDanceAction(ai) {}
+        virtual bool Execute(Event event);
+    };
+
+    class HeiganDanceRangedAction : public HeiganDanceAction
+    {
+    public:
+        HeiganDanceRangedAction(PlayerbotAI* ai) : HeiganDanceAction(ai) {
+            // platform = std::make_pair(2788.45f, -3701.27f);
+            platform = std::make_pair(2794.26f, -3706.67f);
+        }
+        virtual bool Execute(Event event);
+    protected:
+        std::pair<float, float> platform;
+    };
 }

@@ -988,16 +988,22 @@ bool PlayerbotAI::IsRanged(Player* player)
     case CLASS_WARRIOR:
     case CLASS_ROGUE:
         return false;
+        break;
     case CLASS_DRUID:
-        return !HasAnyAuraOf(player, "cat form", "bear form", "dire bear form", NULL);
+        if (tab == 1) {
+            return false;
+        }
+        break;
     case CLASS_PALADIN:
         if (tab != 0) {
             return false;
         }
+        break;
     case CLASS_SHAMAN:
         if (tab == 1) {
             return false;
         }
+        break;
     }
     return true;
 }

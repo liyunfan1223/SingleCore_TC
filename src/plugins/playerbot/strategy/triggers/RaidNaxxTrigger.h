@@ -58,4 +58,18 @@ namespace ai
         GrobbulusCloudTrigger(PlayerbotAI* ai): BossEventTrigger(ai, 15931, 2, "grobbulus cloud event") {}
         virtual bool IsActive();
     };
+
+    class HeiganMeleeTrigger : public Trigger
+    {
+    public:
+        HeiganMeleeTrigger(PlayerbotAI* ai): Trigger(ai, "heigan melee") {}
+        virtual bool IsActive();
+    };
+
+    class HeiganRangedTrigger : public Trigger
+    {
+    public:
+        HeiganRangedTrigger(PlayerbotAI* ai): Trigger(ai, "heigan ranged") {}
+        virtual bool IsActive();
+    };
 }

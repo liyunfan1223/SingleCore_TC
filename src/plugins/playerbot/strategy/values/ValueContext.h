@@ -163,6 +163,7 @@ namespace ai
             creators["aoe aura to avoid"] = &ValueContext::aoe_aura_to_avoid;
 
             creators["main tank"] = &ValueContext::main_tank;
+            creators["find target"] = &ValueContext::find_target;
         }
 
     private:
@@ -256,5 +257,6 @@ namespace ai
         static UntypedValue* nearest_triggers(PlayerbotAI* ai) { return new NearestTriggersValue(ai); }
         static UntypedValue* aoe_aura_to_avoid(PlayerbotAI* ai) { return new AoeAuraToAvoidValue(ai); }
         static UntypedValue* main_tank(PlayerbotAI* ai) { return new PartyMemberMainTankValue(ai); }
+        static UntypedValue* find_target(PlayerbotAI* ai) { return new FindTargetValue(ai); }
     };
 };

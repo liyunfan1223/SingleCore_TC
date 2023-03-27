@@ -63,8 +63,10 @@ namespace ai
 		{
 			if (spell == "mount")
 				return NULL;
-			if (range > sPlayerbotAIConfig.spellDistance)
+			if (range > sPlayerbotAIConfig.spellDistance + 5.0f)
 				return NULL;
+            else if (range > sPlayerbotAIConfig.spellDistance)
+                return NextAction::merge( NextAction::array(0, new NextAction("reach heal"), NULL), Action::getPrerequisites());
 			else if (range > ATTACK_DISTANCE)
 				return NextAction::merge( NextAction::array(0, new NextAction("reach spell"), NULL), Action::getPrerequisites());
 			else

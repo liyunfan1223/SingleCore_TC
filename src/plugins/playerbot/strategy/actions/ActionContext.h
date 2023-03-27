@@ -31,6 +31,7 @@ namespace ai
             creators["attack"] = &ActionContext::melee;
             creators["melee"] = &ActionContext::melee;
             creators["reach spell"] = &ActionContext::ReachSpell;
+            creators["reach heal"] = &ActionContext::ReachHeal;
             creators["reach melee"] = &ActionContext::ReachMelee;
             creators["reach party member to heal"] = &ActionContext::ReachPartyMemberToHeal;
             creators["flee"] = &ActionContext::flee;
@@ -80,6 +81,8 @@ namespace ai
             creators["go behind the boss"] = &ActionContext::go_behind_the_boss;
             creators["rotate grobbulus"] = &ActionContext::rotate_grobbulus;
             creators["grobbulus move center"] = &ActionContext::grobbulus_move_center;
+            creators["heigan dance melee"] = &ActionContext::heigan_dance_melee;
+            creators["heigan dance ranged"] = &ActionContext::heigan_dance_ranged;
         }
 
     private:
@@ -94,6 +97,7 @@ namespace ai
         static Action* shoot(PlayerbotAI* ai) { return new CastShootAction(ai); }
         static Action* melee(PlayerbotAI* ai) { return new MeleeAction(ai); }
         static Action* ReachSpell(PlayerbotAI* ai) { return new ReachSpellAction(ai); }
+        static Action* ReachHeal(PlayerbotAI* ai) { return new ReachHealAction(ai); }
         static Action* ReachMelee(PlayerbotAI* ai) { return new ReachMeleeAction(ai); }
         static Action* ReachPartyMemberToHeal(PlayerbotAI* ai) { return new ReachPartyMemberToHealAction(ai); }
         static Action* flee(PlayerbotAI* ai) { return new FleeAction(ai); }
@@ -134,6 +138,8 @@ namespace ai
         static Action* go_behind_the_boss(PlayerbotAI* ai) { return new GoBehindTheBossAction(ai); }
         static Action* rotate_grobbulus(PlayerbotAI* ai) { return new RotateGrobbulusAction(ai); }
         static Action* grobbulus_move_center(PlayerbotAI* ai) { return new GrobblulusMoveCenterAction(ai); }
+        static Action* heigan_dance_melee(PlayerbotAI* ai) { return new HeiganDanceMeleeAction(ai); }
+        static Action* heigan_dance_ranged(PlayerbotAI* ai) { return new HeiganDanceRangedAction(ai); }
     };
 
 };

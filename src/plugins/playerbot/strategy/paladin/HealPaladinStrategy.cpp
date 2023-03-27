@@ -13,7 +13,7 @@ NextAction** HealPaladinStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
         new NextAction("judgement of light", ACTION_NORMAL + 1),
-        new NextAction("melee", ACTION_NORMAL),
+        // new NextAction("melee", ACTION_NORMAL),
         NULL);
 }
 

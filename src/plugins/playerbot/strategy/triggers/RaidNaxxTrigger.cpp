@@ -33,3 +33,21 @@ bool GrobbulusCloudTrigger::IsActive()
     // bot->Yell("has aggro on " + boss->GetName() + " : " + to_string(AI_VALUE2(bool, "has aggro", "boss target")), LANG_UNIVERSAL);
     return AI_VALUE2(bool, "has aggro", "boss target");
 }
+
+bool HeiganMeleeTrigger::IsActive()
+{
+    Unit* heigan = AI_VALUE2(Unit*, "find target", "heigan the unclean");
+    if (!heigan) {
+        return false;
+    }
+    return !ai->IsRanged(bot);
+}
+
+bool HeiganRangedTrigger::IsActive()
+{
+    Unit* heigan = AI_VALUE2(Unit*, "find target", "heigan the unclean");
+    if (!heigan) {
+        return false;
+    }
+    return ai->IsRanged(bot);
+}

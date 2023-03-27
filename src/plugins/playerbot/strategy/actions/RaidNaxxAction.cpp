@@ -23,10 +23,16 @@ bool TryToGetBossAIAction::Execute(Event event) {
     // bot->Yell("boss ai detected.", LANG_UNIVERSAL);
     uint32 next_event_time_1 = eventMap->GetNextEventTime(1);
     uint32 next_event_time_2 = eventMap->GetNextEventTime(2);
+    uint32 next_event_time_3 = eventMap->GetNextEventTime(3);
+    uint32 next_event_time_4 = eventMap->GetNextEventTime(4);
+    uint32 next_event_time_5 = eventMap->GetNextEventTime(5);
+    uint32 curr_timer = eventMap->GetTimer();
     bot->Yell("boss ai detected. phase mask: " + to_string(phase_mask) + " ai enabled: " + to_string(enabled) +
                 " boss id: " + to_string(bossID) + " name: " + boss->GetName() + " entry: " + to_string(boss->GetEntry()) +
                 " guid: " + to_string(boss->GetGUID().GetRawValue()) + " isDungeonBoss: " + to_string(isDungeonBoss) +
-                " event1: " + to_string(next_event_time_1) + " event2: " + to_string(next_event_time_2) , LANG_UNIVERSAL); 
+                " event1: " + to_string(next_event_time_1) + " event2: " + to_string(next_event_time_2) +
+                " event3: " + to_string(next_event_time_3) + " event4: " + to_string(next_event_time_4) +
+                " event5: " + to_string(next_event_time_5) + " timer: " + to_string(curr_timer), LANG_UNIVERSAL); 
     return true;
     
 }
@@ -90,4 +96,50 @@ uint32 RotateGrobbulusAction::GetCurrWaypoint()
     EventMap* eventMap = boss_ai->GetEvents();
     const uint32 event_time = eventMap->GetNextEventTime(2);
     return (event_time / 15000) % intervals;
+}
+
+bool HeiganDanceAction::CalculateSafe() {
+    Unit* boss = AI_VALUE2(Unit*, "find target", "heigan the unclean");
+    if (!boss) {
+        return false;
+    }
+    BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
+    uint32 curr_phase = eventMap->GetPhaseMask();
+    uint32 curr_erupt = eventMap->GetNextEventTime(3);
+    uint32 curr_dance = eventMap->GetNextEventTime(4);
+    uint32 curr_dance_end = eventMap->GetNextEventTime(5);
+    uint32 curr_timer = eventMap->GetTimer();
+    if ((curr_phase != 2 && curr_dance - curr_timer >= 80000) || (curr_phase == 2 && curr_dance_end - curr_timer >= 36000)) {
+        ResetSafe();
+    } else if (curr_erupt != prev_erupt) {
+        NextSafe();
+    }
+    prev_phase = curr_phase;
+    prev_erupt = curr_erupt;
+}
+
+// bool HeiganDanceAction::MoveToCurrSafeSection() {
+//     bot->Yell("Let\'s go " + to_string(curr_safe), LANG_UNIVERSAL);
+//     return MoveTo(waypoints[curr_safe].first, waypoints[curr_safe].second);
+// }
+
+bool HeiganDanceMeleeAction::Execute(Event event) {
+    CalculateSafe();
+    if (ai->IsMainTank(bot) && !AI_VALUE2(bool, "has aggro", "boss target")) {
+        return false;
+    }
+    // bot->Yell("Let\'s go " + to_string(curr_safe), LANG_UNIVERSAL);
+    return MoveTo(bot->GetMapId(), waypoints[curr_safe].first, waypoints[curr_safe].second, bot->GetPositionZ());
+}
+
+bool HeiganDanceRangedAction::Execute(Event event) {
+    CalculateSafe();
+    if (prev_phase != 2) {
+        // bot->Yell("Let\'s go platform", LANG_UNIVERSAL);
+        return MoveTo(bot->GetMapId(), platform.first, platform.second, bot->GetPositionZ());
+    }
+    ai->InterruptSpell();
+    // bot->Yell("Let\'s go " + to_string(curr_safe) + " " + to_string(prev_phase), LANG_UNIVERSAL);
+    return MoveTo(bot->GetMapId(), waypoints[curr_safe].first, waypoints[curr_safe].second, bot->GetPositionZ());
 }

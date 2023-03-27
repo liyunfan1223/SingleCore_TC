@@ -105,7 +105,9 @@ namespace ai
             creators["avoid aoe"] = &TriggerContext::avoid_aoe;
             creators["mutating injection"] = &TriggerContext::mutating_injection;
             creators["mutating injection removed"] = &TriggerContext::mutating_injection_removed;
-            creators["grobbulus cloud"] = &TriggerContext::grobblus_cloud;
+            creators["grobbulus cloud"] = &TriggerContext::grobbulus_cloud;
+            creators["heigan melee"] = &TriggerContext::heigan_melee;
+            creators["heigan ranged"] = &TriggerContext::heigan_ranged;
         }
 
     private:
@@ -183,6 +185,8 @@ namespace ai
         static Trigger* avoid_aoe(PlayerbotAI* ai) { return new AvoidAOESpellTrigger(ai); }
         static Trigger* mutating_injection(PlayerbotAI* ai) { return new MutatingInjectionTrigger(ai); }
         static Trigger* mutating_injection_removed(PlayerbotAI* ai) { return new MutatingInjectionRemovedTrigger(ai); }
-        static Trigger* grobblus_cloud(PlayerbotAI* ai) { return new GrobbulusCloudTrigger(ai); }
+        static Trigger* grobbulus_cloud(PlayerbotAI* ai) { return new GrobbulusCloudTrigger(ai); }
+        static Trigger* heigan_melee(PlayerbotAI* ai) { return new HeiganMeleeTrigger(ai); }
+        static Trigger* heigan_ranged(PlayerbotAI* ai) { return new HeiganRangedTrigger(ai); }
     };
 };
