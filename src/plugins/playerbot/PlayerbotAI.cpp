@@ -1688,7 +1688,8 @@ bool PlayerbotAI::HasAuraToDispel(Unit* target, uint32 dispelType)
             bool isPositiveSpell = entry->IsPositive();
             if (isPositiveSpell && bot->IsFriendlyTo(target))
                 continue;
-
+            if (entry->GetDuration() <= 0)
+                continue;
             if (!isPositiveSpell && bot->IsHostileTo(target))
                 continue;
 
@@ -1724,13 +1725,14 @@ bool PlayerbotAI::canDispel(const SpellInfo* entry, uint32 dispelType)
         }
     }
     
-    return (strcmpi((const char*)entry->SpellName[0], "demon skin") &&
+    return strcmpi((const char*)entry->SpellName[0], "demon skin") &&
         strcmpi((const char*)entry->SpellName[0], "mage armor") &&
         strcmpi((const char*)entry->SpellName[0], "frost armor") &&
         strcmpi((const char*)entry->SpellName[0], "wavering will") &&
-        strcmpi((const char*)entry->SpellName[0], "chilled") &&
-        strcmpi((const char*)entry->SpellName[0], "frost fever") &&
-        strcmpi((const char*)entry->SpellName[0], "blood plague"));
+        strcmpi((const char*)entry->SpellName[0], "chilled");
+        // &&
+        // strcmpi((const char*)entry->SpellName[0], "frost fever") &&
+        // strcmpi((const char*)entry->SpellName[0], "blood plague"));
 }
 
 bool IsAlliance(uint8 race)
