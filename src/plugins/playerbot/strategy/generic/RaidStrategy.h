@@ -11,6 +11,24 @@ namespace ai
         virtual float GetValue(Action* action);
     };
 
+    class LoathebGenericMultiplier : public Multiplier
+    {
+    public:
+        LoathebGenericMultiplier(PlayerbotAI* ai) : Multiplier(ai, "loatheb generic") {}
+
+    public:
+        virtual float GetValue(Action* action);
+    };
+
+    class ThaddiusGenericMultiplier : public Multiplier
+    {
+    public:
+        ThaddiusGenericMultiplier(PlayerbotAI* ai) : Multiplier(ai, "thaddius generic") {}
+
+    public:
+        virtual float GetValue(Action* action);
+    };
+
     class RaidNaxxGenericStrategy : public Strategy
     {
     public:

@@ -963,12 +963,12 @@ public:
                 if (!UpdateVictim())
                     return;
 
-                if (magneticPullTimer <= uiDiff)
-                {
-                    DoCast(me, SPELL_MAGNETIC_PULL);
-                    magneticPullTimer = 20 * IN_MILLISECONDS;
-                }
-                else magneticPullTimer -= uiDiff;
+                // if (magneticPullTimer <= uiDiff)
+                // {
+                //     DoCast(me, SPELL_MAGNETIC_PULL);
+                //     magneticPullTimer = 20 * IN_MILLISECONDS;
+                // }
+                // else magneticPullTimer -= uiDiff;
 
                 if (staticFieldTimer <= uiDiff)
                 {

@@ -175,6 +175,7 @@ public:
     static bool IsOpposing(uint8 race1, uint8 race2);
     PlayerbotSecurity* GetSecurity() { return &security; }
     static std::vector<std::string> dispel_whitelist;
+    BotState GetCurrentState() const { return currentState; }
 protected:
 	Player* bot;
 	Player* master;

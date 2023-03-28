@@ -63,7 +63,7 @@ namespace ai
 		{
 			if (spell == "mount")
 				return NULL;
-			if (range > sPlayerbotAIConfig.spellDistance + 5.0f)
+			if (range > sPlayerbotAIConfig.spellDistance + 7.5f)
 				return NULL;
             else if (range > sPlayerbotAIConfig.spellDistance)
                 return NextAction::merge( NextAction::array(0, new NextAction("reach heal"), NULL), Action::getPrerequisites());

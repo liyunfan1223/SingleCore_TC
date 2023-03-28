@@ -70,7 +70,7 @@ namespace ai
     class ReachPartyMemberToHealAction : public ReachTargetAction
     {
     public:
-        ReachPartyMemberToHealAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.spellDistance + 5.0f) 
+        ReachPartyMemberToHealAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.spellDistance + 7.5f) 
         : ReachTargetAction(ai, "reach party member to heal", distance, "party member to heal") {}
     };
 }

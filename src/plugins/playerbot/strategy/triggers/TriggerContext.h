@@ -108,6 +108,11 @@ namespace ai
             creators["grobbulus cloud"] = &TriggerContext::grobbulus_cloud;
             creators["heigan melee"] = &TriggerContext::heigan_melee;
             creators["heigan ranged"] = &TriggerContext::heigan_ranged;
+
+            creators["thaddius phase pet"] = &TriggerContext::thaddius_phase_pet;
+            creators["thaddius phase pet lose aggro"] = &TriggerContext::thaddius_phase_pet_lose_aggro;
+            creators["thaddius phase transition"] = &TriggerContext::thaddius_phase_transition;
+            creators["thaddius phase thaddius"] = &TriggerContext::thaddius_phase_thaddius;
         }
 
     private:
@@ -188,5 +193,9 @@ namespace ai
         static Trigger* grobbulus_cloud(PlayerbotAI* ai) { return new GrobbulusCloudTrigger(ai); }
         static Trigger* heigan_melee(PlayerbotAI* ai) { return new HeiganMeleeTrigger(ai); }
         static Trigger* heigan_ranged(PlayerbotAI* ai) { return new HeiganRangedTrigger(ai); }
+        static Trigger* thaddius_phase_pet(PlayerbotAI* ai) { return new ThaddiusPhasePetTrigger(ai); }
+        static Trigger* thaddius_phase_pet_lose_aggro(PlayerbotAI* ai) { return new ThaddiusPhasePetLoseAggroTrigger(ai); }
+        static Trigger* thaddius_phase_transition(PlayerbotAI* ai) { return new ThaddiusPhaseTransitionTrigger(ai); }
+        static Trigger* thaddius_phase_thaddius(PlayerbotAI* ai) { return new ThaddiusPhaseThaddiusTrigger(ai); }
     };
 };

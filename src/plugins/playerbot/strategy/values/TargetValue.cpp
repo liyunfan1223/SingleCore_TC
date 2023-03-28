@@ -75,19 +75,23 @@ Unit* FindTargetValue::Calculate()
     if (qualifier == "") {
         return nullptr;
     }
-    HostileReference *ref = bot->getHostileRefManager().getFirst();
-	while (ref)
-	{
-		ThreatManager *threatManager = ref->GetSource();
-		Unit *unit = threatManager->GetOwner();
-        assert(unit);
-        wstring wnamepart;
-        Utf8toWStr(unit->GetName(), wnamepart);
-        wstrToLower(wnamepart);
-        if (!qualifier.empty() && qualifier.length() == wnamepart.length() && Utf8FitTo(qualifier, wnamepart)) {
-            return unit;
+    
+    for (GroupReference *gref = bot->GetGroup()->GetFirstMember(); gref; gref = gref->next()) {
+        Player* member = gref->GetSource();
+        HostileReference *ref = member->getHostileRefManager().getFirst();
+        while (ref)
+        {
+            ThreatManager *threatManager = ref->GetSource();
+            Unit *unit = threatManager->GetOwner();
+            assert(unit);
+            wstring wnamepart;
+            Utf8toWStr(unit->GetName(), wnamepart);
+            wstrToLower(wnamepart);
+            if (!qualifier.empty() && qualifier.length() == wnamepart.length() && Utf8FitTo(qualifier, wnamepart)) {
+                return unit;
+            }
+            ref = ref->next();
         }
-        ref = ref->next();
-	}
+    }
     return nullptr;
 }

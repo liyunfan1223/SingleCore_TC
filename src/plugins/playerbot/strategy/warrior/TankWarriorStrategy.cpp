@@ -17,6 +17,7 @@ public:
         creators["devastate"] = &devastate;
         creators["shockwave"] = &shockwave;
         creators["taunt"] = &taunt;
+        creators["taunt spell"] = &taunt;
     }
 private:
     static ActionNode* melee(PlayerbotAI* ai)

@@ -52,6 +52,19 @@ namespace ai
         uint32 boss_entry, event_id, last_event_time;
     };
 
+    class BossPhaseTrigger : public Trigger
+    {
+    public:
+        BossPhaseTrigger(PlayerbotAI* ai, string boss_name, uint32 phase_mask, string name = "boss event"): Trigger(ai, name, 1) {
+            this->boss_name = boss_name;
+            this->phase_mask = phase_mask;
+        }
+        virtual bool IsActive();
+    protected:
+        string boss_name;
+        uint32 phase_mask;
+    };
+
     class GrobbulusCloudTrigger : public BossEventTrigger
     {
     public:
@@ -71,5 +84,33 @@ namespace ai
     public:
         HeiganRangedTrigger(PlayerbotAI* ai): Trigger(ai, "heigan ranged") {}
         virtual bool IsActive();
+    };
+
+    class ThaddiusPhasePetTrigger : public BossPhaseTrigger
+    {
+    public:
+        ThaddiusPhasePetTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "thaddius", 1 << (2 - 1), "thaddius phase pet") {}
+    };
+
+    class ThaddiusPhasePetLoseAggroTrigger : public ThaddiusPhasePetTrigger
+    {
+    public:
+        ThaddiusPhasePetLoseAggroTrigger(PlayerbotAI* ai) : ThaddiusPhasePetTrigger(ai) {}
+        virtual bool IsActive() {
+            Unit* target = AI_VALUE(Unit*, "current target");
+            return ThaddiusPhasePetTrigger::IsActive() && ai->IsTank(bot) && target && target->GetVictim() != bot;
+        }
+    };
+
+    class ThaddiusPhaseTransitionTrigger : public BossPhaseTrigger
+    {
+    public:
+        ThaddiusPhaseTransitionTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "thaddius", 1 << (3 - 1), "thaddius phase transition") {}
+    };
+
+    class ThaddiusPhaseThaddiusTrigger : public BossPhaseTrigger
+    {
+    public:
+        ThaddiusPhaseThaddiusTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "thaddius", 1 << (4 - 1), "thaddius phase thaddius") {}
     };
 }

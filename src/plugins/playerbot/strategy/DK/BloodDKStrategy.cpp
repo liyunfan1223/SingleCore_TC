@@ -30,6 +30,7 @@ public:
 		//creators["hysteria"] = &hysteria;
 		//creators["dancing weapon"] = &dancing_weapon;
 		creators["dark command"] = &dark_command;
+		creators["taunt spell"] = &dark_command;
     }
 private:
 	static ActionNode* rune_strike(PlayerbotAI* ai)

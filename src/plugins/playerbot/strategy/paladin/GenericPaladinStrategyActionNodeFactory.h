@@ -32,6 +32,7 @@ namespace ai
             creators["blessing of wisdom on party"] = &blessing_of_wisdom_on_party;
             creators["blessing of sanctuary"] = &blessing_of_sanctuary;
             creators["seal of command"] = &seal_of_command;
+            creators["taunt spell"] = &hand_of_reckoning;
         }
     private:
         static ActionNode* blessing_of_sanctuary(PlayerbotAI* ai)

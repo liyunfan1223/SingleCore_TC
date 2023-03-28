@@ -21,6 +21,19 @@ bool BossEventTrigger::IsActive()
     return false;
 }
 
+bool BossPhaseTrigger::IsActive()
+{
+    Unit* boss = AI_VALUE2(Unit*, "find target", boss_name);
+    if (!boss) {
+        return false;
+    }
+    BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
+    uint8 phase_mask = eventMap->GetPhaseMask();
+    // bot->Yell("phase mask detected: " + to_string(phase_mask) + " compare with " + to_string(this->phase_mask), LANG_UNIVERSAL);
+    return phase_mask == this->phase_mask;
+}
+
 bool GrobbulusCloudTrigger::IsActive()
 {
     Unit* boss = AI_VALUE(Unit*, "boss target");
