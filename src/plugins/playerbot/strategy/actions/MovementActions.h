@@ -27,6 +27,7 @@ namespace ai
         bool IsMovingAllowed();
         bool Flee(Unit *target);
         bool Flee(WorldObject *target);
+        bool MoveInside(uint32 mapId, float x, float y, float z, float distance = sPlayerbotAIConfig.followDistance);
 
     protected:
         Player* bot;

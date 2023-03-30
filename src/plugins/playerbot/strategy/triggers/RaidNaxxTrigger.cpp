@@ -5,6 +5,11 @@
 
 using namespace ai;
 
+bool MutatingInjectionRemovedTrigger::IsActive()
+{
+    return HasNotAuraTrigger::IsActive() && ai->GetCurrentState() == BOT_STATE_COMBAT && ai->IsRanged(bot);
+}
+
 bool BossEventTrigger::IsActive()
 {
     Unit* boss = AI_VALUE(Unit*, "boss target");

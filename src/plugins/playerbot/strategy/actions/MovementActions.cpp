@@ -16,6 +16,14 @@ bool MovementAction::MoveNear(uint32 mapId, float x, float y, float z, float dis
     return MoveTo(mapId, x + cos(angle) * distance, y + sin(angle) * distance, z);
 }
 
+bool MovementAction::MoveInside(uint32 mapId, float x, float y, float z, float distance)
+{
+    if (bot->GetDistance2d(x, y) <= distance) {
+        return false;
+    }
+    return MoveNear(mapId, x, y, z, distance);
+}
+
 bool MovementAction::ChaseTo(WorldObject* obj)
 {
 	if (bot->IsSitState())

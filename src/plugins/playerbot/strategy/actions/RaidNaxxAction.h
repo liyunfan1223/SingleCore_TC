@@ -38,6 +38,19 @@ namespace ai
         float x, y;
     };
 
+    class MoveInsideAction : public MovementAction
+    {
+    public:
+        MoveInsideAction(PlayerbotAI* ai, float x, float y, float distance = 5.0f) : MovementAction(ai, "move inside") {
+            this->x = x;
+            this->y = y;
+            this->distance = distance;
+        }
+        virtual bool Execute(Event event);
+    protected:
+        float x, y, distance;
+    };
+
     class RotateAroundTheCenterPointAction : public MovementAction
     {
     public:
@@ -75,10 +88,10 @@ namespace ai
     protected:
     };
 
-    class GrobblulusMoveCenterAction : public MoveToPointForceAction
+    class GrobblulusMoveCenterAction : public MoveInsideAction
     {
     public:
-        GrobblulusMoveCenterAction(PlayerbotAI* ai) : MoveToPointForceAction(ai, 3281.23f, -3310.38f) {}
+        GrobblulusMoveCenterAction(PlayerbotAI* ai) : MoveInsideAction(ai, 3281.23f, -3310.38f, 5.0f) {}
     };
 
     class HeiganDanceAction : public MovementAction

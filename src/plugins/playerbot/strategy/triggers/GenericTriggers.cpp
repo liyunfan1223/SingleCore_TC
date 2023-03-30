@@ -192,6 +192,11 @@ bool HasAuraTrigger::IsActive()
 	return ai->HasAuraWithDuration(getName(), GetTarget());
 }
 
+bool HasNotAuraTrigger::IsActive()
+{
+	return !ai->HasAuraWithDuration(getName(), GetTarget());
+}
+
 bool HasAuraFromBotTrigger::IsActive()
 {
 	/// TODO: change HasAura to HasAuraFromBot (distinguide positive and negative? )

@@ -58,6 +58,11 @@ bool MoveToPointForceAction::Execute(Event event)
     return MoveTo(bot->GetMapId(), x, y, bot->GetPositionZ(), true);
 }
 
+bool MoveInsideAction::Execute(Event event)
+{
+    return MoveInside(bot->GetMapId(), x, y, bot->GetPositionZ(), distance);
+}
+
 bool RotateAroundTheCenterPointAction::Execute(Event event)
 {
     // uint32 nearest = FindNearestWaypoint();

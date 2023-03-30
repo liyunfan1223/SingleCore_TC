@@ -33,10 +33,11 @@ namespace ai
         bool prev_check;
     };
 
-    class MutatingInjectionRemovedTrigger : public AuraRemovedTrigger
+    class MutatingInjectionRemovedTrigger : public HasNotAuraTrigger
     {
     public:
-        MutatingInjectionRemovedTrigger(PlayerbotAI* ai): AuraRemovedTrigger(ai, "mutating injection") {}
+        MutatingInjectionRemovedTrigger(PlayerbotAI* ai): HasNotAuraTrigger(ai, "mutating injection", 1) {}
+        virtual bool IsActive();
     };
 
     class BossEventTrigger : public Trigger

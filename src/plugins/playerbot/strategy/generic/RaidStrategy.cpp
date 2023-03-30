@@ -37,7 +37,9 @@ float LoathebGenericMultiplier::GetValue(Action* action)
 		// bot->Yell("Can\'t find Loatheb...", LANG_UNIVERSAL);
         return 1.0f;
     }
-	if (ai->GetCurrentState() == BOT_STATE_COMBAT && (dynamic_cast<AttackLeastHpTargetAction*>(action) || dynamic_cast<TankAssistAction*>(action))) {
+	if (ai->GetCurrentState() == BOT_STATE_COMBAT && 
+		(dynamic_cast<AttackLeastHpTargetAction*>(action) || 
+		 dynamic_cast<TankAssistAction*>(action))) {
 		return 0.0f;
 	}
 	if (!dynamic_cast<CastHealingSpellAction*>(action)) {
