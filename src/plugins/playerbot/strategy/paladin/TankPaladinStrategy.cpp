@@ -15,7 +15,7 @@ NextAction** TankPaladinStrategy::getDefaultActions()
         new NextAction("shield of righteousness", ACTION_NORMAL + 6),
         new NextAction("hammer of the righteous", ACTION_NORMAL + 5),
         new NextAction("judgement of wisdom", ACTION_NORMAL + 4),
-        new NextAction("avenger's shield", ACTION_NORMAL + 3), 
+        // new NextAction("avenger's shield", ACTION_NORMAL + 3), 
         // new NextAction("consecration", ACTION_NORMAL + 2),
         new NextAction("melee", ACTION_NORMAL), 
         NULL);
@@ -43,7 +43,7 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium aoe",
-        NextAction::array(0, new NextAction("consecration", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("consecration", ACTION_HIGH + 1), new NextAction("avenger's shield", ACTION_HIGH + 3), NULL)));
 
     // triggers.push_back(new TriggerNode(
     //     "light aoe",

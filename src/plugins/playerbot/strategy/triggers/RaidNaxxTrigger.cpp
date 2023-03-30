@@ -7,6 +7,10 @@ using namespace ai;
 
 bool MutatingInjectionRemovedTrigger::IsActive()
 {
+    Unit* boss = AI_VALUE2(Unit*, "find target", "grobbulus");
+    if (!boss) {
+        return false;
+    }
     return HasNotAuraTrigger::IsActive() && ai->GetCurrentState() == BOT_STATE_COMBAT && ai->IsRanged(bot);
 }
 
