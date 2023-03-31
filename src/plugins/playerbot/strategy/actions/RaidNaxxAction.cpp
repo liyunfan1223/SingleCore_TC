@@ -304,28 +304,32 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
         if (!target) {
             return false;
         }
-        if (!charm->isMoving() && charm->GetDistance2d(target) > 0.1f) {
+        // if (!charm->isMoving() && charm->GetDistance2d(target) > 0.1f) {
             // bot->Yell("Need chase.", LANG_UNIVERSAL);
-            MotionMaster &mm = *(charm->GetMotionMaster());
-            mm.Clear();
-            mm.MoveChase(target);
-        }
+            // MotionMaster &mm = *(charm->GetMotionMaster());
+        //     mm.Clear();
+        //     mm.MovePoint(target);
+        // }
+        charm->GetMotionMaster()->MoveChase(target);
         charm->Attack(target, true);
         charm->SetFacingToObject(target);
-        // taunt
-        if (target->GetVictim() != charm && !charm->GetSpellHistory()->HasCooldown(29060)) {
-            charm->CastSpell(target, 29060, true);
-            charm->GetSpellHistory()->AddCooldown(29060, 0, Seconds(20));
-        }
-        // strike
-        if (!charm->GetSpellHistory()->HasCooldown(61696)) {
-            charm->CastSpell(target, 61696, true);
-            charm->GetSpellHistory()->AddCooldown(61696, 0, Seconds(4));
-        }
-        // shield
-        if (target->GetVictim() == charm && !charm->GetSpellHistory()->HasCooldown(29061)) {
-            charm->CastSpell(charm, 29061, true);
-            charm->GetSpellHistory()->AddCooldown(29061, 0, Seconds(30));
+        if (charm->GetDistance(target) < 2.5f) {
+            // taunt
+            if ( ((target->GetVictim() && !ai->HasAura(29061, target->GetVictim())) || !ai->HasAura(29060, target)) && 
+                !charm->GetSpellHistory()->HasCooldown(29060) ) {
+                charm->CastSpell(target, 29060, true);
+                charm->GetSpellHistory()->AddCooldown(29060, 0, Seconds(20));
+            }
+            // strike
+            if (!charm->GetSpellHistory()->HasCooldown(61696)) {
+                charm->CastSpell(target, 61696, true);
+                charm->GetSpellHistory()->AddCooldown(61696, 0, Seconds(4));
+            }
+            // shield
+            if (target->GetVictim() == charm && !charm->GetSpellHistory()->HasCooldown(29061)) {
+                charm->CastSpell(charm, 29061, true);
+                charm->GetSpellHistory()->AddCooldown(29061, 0, Seconds(30));
+            }
         }
     } else {
         // bot->Yell("Let\'s use obedience crystal.", LANG_UNIVERSAL);
@@ -349,7 +353,6 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
             if (!creature)
                 continue;
             creature->HandleSpellClick(bot);
-
             return true;
         }
         return false;
