@@ -36,33 +36,26 @@ Unit* PartyMemberToHeal::Calculate()
     for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
     {
         Player* player = gref->GetSource();
-        // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() player name:%s %d %d %lf %d"
-        //     , player->GetName(), Check(player), player->IsAlive(), player->GetHealthPct(), isRaid);
-        if (!Check(player) || !player->IsAlive())
-            continue;
-
-        uint8 health = player->GetHealthPct();
-        if (isRaid || health < sPlayerbotAIConfig.mediumHealth || !IsTargetOfSpellCast(player, predicate))
-            calc.probe(health, player);
+        if (player && Check(player) && player->IsAlive()) {
+            uint8 health = player->GetHealthPct();
+            if (isRaid || health < sPlayerbotAIConfig.mediumHealth || !IsTargetOfSpellCast(player, predicate))
+                calc.probe(health, player);
+        }
 
         Pet* pet = player->GetPet();
-        if (!pet) {
-            continue;
-        }
-        // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() pet name:%s %d %d %lf %d"
-        //     , pet->GetName(), Check(pet), pet->IsAlive(), pet->GetHealthPct(), isRaid);
-        if (!Check(pet) || !pet->IsAlive())
-            continue;
-
-        if (pet && CanHealPet(pet))
-        {
-            health = ((Unit*)pet)->GetHealthPct();
+        if (pet && Check(pet) && pet->IsAlive()) {
+            uint8 health = ((Unit*)pet)->GetHealthPct();
             if (isRaid || health < sPlayerbotAIConfig.mediumHealth)
                 calc.probe(health, pet);
         }
+
+        Unit* charm = player->GetCharm();
+        if (charm && Check(charm) && charm->IsAlive()) {
+            uint8 health = charm->GetHealthPct();
+            if (isRaid || health < sPlayerbotAIConfig.mediumHealth)
+                calc.probe(health, charm);
+        }
     }
-    // sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "PartyMemberToHeal::Calculate() target name:%s"
-    //     , calc.param ? ((Player*)calc.param)->GetName() : "|no target!|");
     return (Unit*)calc.param;
 }
 

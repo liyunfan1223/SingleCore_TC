@@ -114,4 +114,11 @@ namespace ai
     public:
         ThaddiusPhaseThaddiusTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "thaddius", 1 << (4 - 1), "thaddius phase thaddius") {}
     };
+
+    class RazuviousTankTrigger : public BossPhaseTrigger
+    {
+    public:
+        RazuviousTankTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "instructor razuvious", 0, "razuvious tank") {}
+        virtual bool IsActive();
+    };
 }

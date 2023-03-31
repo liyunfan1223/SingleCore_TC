@@ -113,6 +113,8 @@ namespace ai
             creators["thaddius phase pet lose aggro"] = &TriggerContext::thaddius_phase_pet_lose_aggro;
             creators["thaddius phase transition"] = &TriggerContext::thaddius_phase_transition;
             creators["thaddius phase thaddius"] = &TriggerContext::thaddius_phase_thaddius;
+
+            creators["razuvious tank"] = &TriggerContext::razuvious_tank;
         }
 
     private:
@@ -197,5 +199,6 @@ namespace ai
         static Trigger* thaddius_phase_pet_lose_aggro(PlayerbotAI* ai) { return new ThaddiusPhasePetLoseAggroTrigger(ai); }
         static Trigger* thaddius_phase_transition(PlayerbotAI* ai) { return new ThaddiusPhaseTransitionTrigger(ai); }
         static Trigger* thaddius_phase_thaddius(PlayerbotAI* ai) { return new ThaddiusPhaseThaddiusTrigger(ai); }
+        static Trigger* razuvious_tank(PlayerbotAI* ai) { return new RazuviousTankTrigger(ai); }
     };
 };

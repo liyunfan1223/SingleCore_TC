@@ -294,3 +294,64 @@ bool ThaddiusMovePolarityAction::Execute(Event event) {
     idx = idx * 2 + ai->IsRanged(bot);
     return MoveTo(bot->GetMapId(), position[idx].first, position[idx].second, bot->GetPositionZ());
 }
+
+bool RazuviousUseObedienceCrystalAction::Execute(Event event)
+{
+    
+    if (Unit* charm = bot->GetCharm()) {
+        // bot->Yell("I am charming: " + charm->GetName(), LANG_UNIVERSAL);
+        Unit* target = AI_VALUE2(Unit*, "find target", "instructor razuvious");
+        if (!target) {
+            return false;
+        }
+        if (!charm->isMoving() && charm->GetDistance2d(target) > 0.1f) {
+            // bot->Yell("Need chase.", LANG_UNIVERSAL);
+            MotionMaster &mm = *(charm->GetMotionMaster());
+            mm.Clear();
+            mm.MoveChase(target);
+        }
+        charm->Attack(target, true);
+        charm->SetFacingToObject(target);
+        // taunt
+        if (!ai->HasAura(29060, target) && !charm->GetSpellHistory()->HasCooldown(29060)) {
+            charm->CastSpell(target, 29060, true);
+            charm->GetSpellHistory()->AddCooldown(29060, 0, Seconds(20));
+        }
+        // strike
+        if (!charm->GetSpellHistory()->HasCooldown(61696)) {
+            charm->CastSpell(target, 61696, true);
+            charm->GetSpellHistory()->AddCooldown(61696, 0, Seconds(4));
+        }
+        // shield
+        if (target->GetVictim() == charm && !charm->GetSpellHistory()->HasCooldown(29061)) {
+            charm->CastSpell(charm, 29061, true);
+            charm->GetSpellHistory()->AddCooldown(29061, 0, Seconds(30));
+        }
+    } else {
+        // bot->Yell("Let\'s use obedience crystal.", LANG_UNIVERSAL);
+        list<ObjectGuid> npcs = AI_VALUE(list<ObjectGuid>, "nearest npcs");
+        for (list<ObjectGuid>::iterator i = npcs.begin(); i != npcs.end(); i++)
+        {
+            Creature* unit = ai->GetCreature(*i);
+            if (!unit) {
+                continue;
+            }
+            if (ai->IsMainTank(bot) && unit->GetSpawnId() != 128352) {
+                continue;
+            }
+            if (!ai->IsMainTank(bot) && unit->GetSpawnId() != 128353) {
+                continue;
+            }
+            if (MoveTo(unit)) {
+                return true;
+            }
+            Creature *creature = bot->GetNPCIfCanInteractWith(*i, UNIT_NPC_FLAG_SPELLCLICK);
+            if (!creature)
+                continue;
+            creature->HandleSpellClick(bot);
+
+            return true;
+        }
+        return false;
+    }
+}

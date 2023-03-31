@@ -88,6 +88,8 @@ namespace ai
             creators["thaddius ranged to place"] = &ActionContext::thaddius_ranged_to_place;
             creators["thaddius move to platform"] = &ActionContext::thaddius_move_to_platform;
             creators["thaddius move polarity"] = &ActionContext::thaddius_move_polarity;
+
+            creators["razuvious use obedience crystal"] = &ActionContext::razuvious_use_obedience_crystal;
         }
 
     private:
@@ -150,6 +152,7 @@ namespace ai
         static Action* thaddius_ranged_to_place(PlayerbotAI* ai) { return new ThaddiusRangedToPlaceAction(ai); }
         static Action* thaddius_move_to_platform(PlayerbotAI* ai) { return new ThaddiusMoveToPlatformAction(ai); }
         static Action* thaddius_move_polarity(PlayerbotAI* ai) { return new ThaddiusMovePolarityAction(ai); }
+        static Action* razuvious_use_obedience_crystal(PlayerbotAI* ai) { return new RazuviousUseObedienceCrystalAction(ai); }
     };
 
 };

@@ -36,6 +36,9 @@ bool BossPhaseTrigger::IsActive()
     if (!boss) {
         return false;
     }
+    if (this->phase_mask == 0) {
+        return true;
+    }
     BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
     EventMap* eventMap = boss_ai->GetEvents();
     uint8 phase_mask = eventMap->GetPhaseMask();
@@ -72,4 +75,9 @@ bool HeiganRangedTrigger::IsActive()
         return false;
     }
     return ai->IsRanged(bot);
+}
+
+bool RazuviousTankTrigger::IsActive()
+{
+    return BossPhaseTrigger::IsActive() && ai->IsTank(bot);
 }

@@ -45,6 +45,10 @@ void AttackersValue::AddAttackersOf(Group* group, set<Unit*>& targets)
         Pet* pet = member->GetPet();
         if (pet)
             AddAttackersOf(pet, targets);
+
+        Unit* charm = member->GetCharm();
+        if (charm)
+            AddAttackersOf(charm, targets);
     }
 }
 

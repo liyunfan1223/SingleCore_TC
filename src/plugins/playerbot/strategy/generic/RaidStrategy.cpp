@@ -145,6 +145,12 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"thaddius phase thaddius", 
 		NextAction::array(0, new NextAction("thaddius move polarity", ACTION_RAID + 1), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"razuvious tank", 
+		NextAction::array(0, new NextAction("razuvious use obedience crystal", ACTION_RAID + 1), NULL)));
+		
+		
 }
 
 void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)

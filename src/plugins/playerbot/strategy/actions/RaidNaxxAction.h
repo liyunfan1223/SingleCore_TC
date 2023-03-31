@@ -172,4 +172,11 @@ namespace ai
         virtual bool Execute(Event event);
         virtual bool isUseful();
     };
+
+    class RazuviousUseObedienceCrystalAction : public MovementAction
+    {
+    public:
+        RazuviousUseObedienceCrystalAction(PlayerbotAI* ai) : MovementAction(ai, "razuvious use obedience crystal") {}
+        virtual bool Execute(Event event);
+    };
 }
