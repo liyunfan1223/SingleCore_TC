@@ -313,7 +313,7 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
         charm->Attack(target, true);
         charm->SetFacingToObject(target);
         // taunt
-        if (!ai->HasAura(29060, target) && !charm->GetSpellHistory()->HasCooldown(29060)) {
+        if (target->GetVictim() != charm && !charm->GetSpellHistory()->HasCooldown(29060)) {
             charm->CastSpell(target, 29060, true);
             charm->GetSpellHistory()->AddCooldown(29060, 0, Seconds(20));
         }
