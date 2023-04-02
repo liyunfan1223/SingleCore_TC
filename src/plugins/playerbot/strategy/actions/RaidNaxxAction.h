@@ -98,9 +98,9 @@ namespace ai
     {
     public:
         HeiganDanceAction(PlayerbotAI* ai) : MovementAction(ai, "heigan dance") {
-            this->prev_phase = -1;
-            this->prev_erupt = -1;
-            this->prev_timer = -1;
+            this->prev_phase = 0;
+            this->prev_erupt = 0;
+            this->prev_timer = 0;
             waypoints.push_back(std::make_pair(2784.58f, -3665.50f));
             waypoints.push_back(std::make_pair(2769.59f, -3674.88f));
             waypoints.push_back(std::make_pair(2759.60f, -3690.45f));
@@ -196,6 +196,48 @@ namespace ai
     {
     public:
         HorsemanAttactInOrderAction(PlayerbotAI* ai) : AttackAction(ai, "horseman attact in order") {}
+        virtual bool Execute(Event event);
+    };
+
+    class SapphironGroundMainTankPositionAction : public MovementAction
+    {
+    public:
+        SapphironGroundMainTankPositionAction(PlayerbotAI* ai) : MovementAction(ai, "sapphiron ground main tank position") {}
+        virtual bool Execute(Event event);
+    };
+
+    class SapphironGroundPositionAction : public MovementAction
+    {
+    public:
+        SapphironGroundPositionAction(PlayerbotAI* ai) : MovementAction(ai, "sapphiron ground position") {
+            this->reset = 1;
+            this->last_flight = 0;
+            this->reset_timer = 0;
+        }
+        virtual bool Execute(Event event);
+    protected:
+        bool reset;
+        uint32 last_flight, reset_timer;
+    };
+    
+    class SapphironFlightPositionAction : public MovementAction
+    {
+    public:
+        SapphironFlightPositionAction(PlayerbotAI* ai) : MovementAction(ai, "sapphiron flight position") {
+            this->last_explosion = 0;
+            this->move_ice_bolt = 0;
+        }
+        virtual bool Execute(Event event);
+    protected:
+        uint32 last_explosion;
+        bool move_ice_bolt;
+        bool MoveToNearestIcebolt();
+    };
+
+    class SapphironAvoidChillAction : public MovementAction
+    {
+    public:
+        SapphironAvoidChillAction(PlayerbotAI* ai) : MovementAction(ai, "sapphiron avoid chill") {}
         virtual bool Execute(Event event);
     };
 }

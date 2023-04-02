@@ -118,6 +118,11 @@ namespace ai
 
             creators["horseman attractors"] = &TriggerContext::horseman_attractors;
             creators["horseman except attractors"] = &TriggerContext::horseman_except_attractors;
+
+            creators["sapphiron ground main tank"] = &TriggerContext::sapphiron_ground_main_tank;
+            creators["sapphiron ground except main tank"] = &TriggerContext::sapphiron_ground_except_main_tank;
+            creators["sapphiron flight"] = &TriggerContext::sapphiron_flight;
+            creators["sapphiron ground chill"] = &TriggerContext::sapphiron_ground_chill;
         }
 
     private:
@@ -205,5 +210,10 @@ namespace ai
         static Trigger* razuvious_tank(PlayerbotAI* ai) { return new RazuviousTankTrigger(ai); }
         static Trigger* horseman_attractors(PlayerbotAI* ai) { return new HorsemanAttractorsTrigger(ai); }
         static Trigger* horseman_except_attractors(PlayerbotAI* ai) { return new HorsemanExceptAttractorsTrigger(ai); }
+        static Trigger* sapphiron_ground_main_tank(PlayerbotAI* ai) { return new SapphironGroundMainTankTrigger(ai); }
+        static Trigger* sapphiron_ground_except_main_tank(PlayerbotAI* ai) { return new SapphironGroundExceptMainTankTrigger(ai); }
+        static Trigger* sapphiron_flight(PlayerbotAI* ai) { return new SapphironFlightTrigger(ai); }
+        static Trigger* sapphiron_ground_chill(PlayerbotAI* ai) { return new SapphironGroundChillTrigger(ai); }
+        
     };
 };

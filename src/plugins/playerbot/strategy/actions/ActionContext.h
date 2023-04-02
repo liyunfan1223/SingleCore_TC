@@ -94,6 +94,10 @@ namespace ai
             creators["horseman attract alternatively"] = &ActionContext::horseman_attract_alternatively;
             creators["horseman attack in order"] = &ActionContext::horseman_attack_in_order;
             
+            creators["sapphiron ground main tank position"] = &ActionContext::sapphiron_ground_main_tank_position;
+            creators["sapphiron ground position"] = &ActionContext::sapphiron_ground_position;
+            creators["sapphiron flight position"] = &ActionContext::sapphiron_flight_position;
+            creators["sapphiron avoid chill"] = &ActionContext::sapphiron_avoid_chill;
         }
 
     private:
@@ -159,6 +163,11 @@ namespace ai
         static Action* razuvious_use_obedience_crystal(PlayerbotAI* ai) { return new RazuviousUseObedienceCrystalAction(ai); }
         static Action* horseman_attract_alternatively(PlayerbotAI* ai) { return new HorsemanAttractAlternativelyAction(ai); }
         static Action* horseman_attack_in_order(PlayerbotAI* ai) { return new HorsemanAttactInOrderAction(ai); }
+        static Action* sapphiron_ground_main_tank_position(PlayerbotAI* ai) { return new SapphironGroundMainTankPositionAction(ai); }
+        static Action* sapphiron_ground_position(PlayerbotAI* ai) { return new SapphironGroundPositionAction(ai); }
+        static Action* sapphiron_flight_position(PlayerbotAI* ai) { return new SapphironFlightPositionAction(ai); }
+        static Action* sapphiron_avoid_chill(PlayerbotAI* ai) { return new SapphironAvoidChillAction(ai); }
+        
     };
 
 };

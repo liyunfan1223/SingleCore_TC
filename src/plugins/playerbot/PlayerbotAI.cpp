@@ -1033,6 +1033,24 @@ bool PlayerbotAI::IsRangedDpsAssistantOfIndex(Player* player, int index)
     return false;
 }
 
+uint32 PlayerbotAI::GetGroupSlotIndex(Player* player)
+{
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return 0;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (player == member) {
+            return counter;
+        }
+        counter++;
+    }
+    return 0;
+}
+
 bool PlayerbotAI::IsMainTank(Player* player) {
     Group* group = bot->GetGroup();
     if (!group) {
@@ -1671,11 +1689,11 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
     if (!bot->isInFront(faceTo, M_PI / 2))
     {
         bot->SetFacingTo(bot->GetAngle(faceTo));
-        delete spell;
-        SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
-        if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
-            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is not in front");
-        return false;
+        // delete spell;
+        // SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
+        // if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+        //     sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is not in front");
+        // return true;
     }
 	if (spell->GetCastTime()>0)
 		bot->GetMotionMaster()->MovementExpired();

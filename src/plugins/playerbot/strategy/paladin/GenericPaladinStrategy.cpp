@@ -36,7 +36,7 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	// 	NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
-        "low mana",
+        "medium mana",
 		NextAction::array(0, new NextAction("divine plea", ACTION_HIGH), NULL)));
 }
 

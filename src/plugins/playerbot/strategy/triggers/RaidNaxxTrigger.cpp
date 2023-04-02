@@ -94,3 +94,23 @@ bool HorsemanExceptAttractorsTrigger::IsActive()
         !AI_VALUE2(Unit*, "find target", "thane korth'azz") &&
         !AI_VALUE2(Unit*, "find target", "baron rivendare");
 }
+
+bool SapphironGroundMainTankTrigger::IsActive()
+{
+    return BossPhaseTrigger::IsActive() && ai->IsMainTank(bot) && AI_VALUE2(bool, "has aggro", "boss target");
+}
+
+bool SapphironGroundExceptMainTankTrigger::IsActive()
+{
+    return BossPhaseTrigger::IsActive() && !ai->IsMainTank(bot);
+}
+
+bool SapphironFlightTrigger::IsActive()
+{
+    return BossPhaseTrigger::IsActive();
+}
+
+bool SapphironGroundChillTrigger::IsActive()
+{
+    return BossPhaseTrigger::IsActive() && !ai->IsMainTank(bot) && ai->HasAura("chill", bot);
+}

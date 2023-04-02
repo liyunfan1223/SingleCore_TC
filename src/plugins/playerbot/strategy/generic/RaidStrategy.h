@@ -29,6 +29,15 @@ namespace ai
         virtual float GetValue(Action* action);
     };
 
+    class SapphironGenericMultiplier : public Multiplier
+    {
+    public:
+        SapphironGenericMultiplier(PlayerbotAI* ai) : Multiplier(ai, "sapphiron generic") {}
+
+    public:
+        virtual float GetValue(Action* action);
+    };
+
     class RaidNaxxGenericStrategy : public Strategy
     {
     public:

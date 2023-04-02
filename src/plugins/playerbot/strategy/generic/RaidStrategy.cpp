@@ -7,6 +7,8 @@
 #include "GenericSpellActions.h"
 #include "ChooseTargetActions.h"
 #include "ReachTargetActions.h"
+#include "UseMeetingStoneAction.h"
+#include "FollowActions.h"
 
 using namespace ai;
 
@@ -97,6 +99,27 @@ float ThaddiusGenericMultiplier::GetValue(Action* action)
 	return 1.0f;
 }
 
+float SapphironGenericMultiplier::GetValue(Action* action)
+{
+	Unit* boss = AI_VALUE2(Unit*, "find target", "sapphiron");
+	if (!boss) {
+        return 1.0f;
+    }
+	if (dynamic_cast<FollowAction*>(action)) {
+		return 0.0f;
+	}
+	BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
+    uint32 curr_phase = eventMap->GetPhaseMask();
+	if (curr_phase == 4 && 
+		(dynamic_cast<MovementAction*>(action) && 
+		 !dynamic_cast<SapphironFlightPositionAction*>(action) && 
+		 !dynamic_cast<SummonAction*>(action))) {
+		return 0.0f;
+	}
+	return 1.0f;
+}
+
 void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
 	// triggers.push_back(new TriggerNode(
@@ -168,11 +191,15 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	
 	triggers.push_back(new TriggerNode(
 		"sapphiron ground except main tank", 
-		NextAction::array(0, new NextAction("sapphiron ground ranged position", ACTION_RAID + 1), NULL)));
+		NextAction::array(0, new NextAction("sapphiron ground position", ACTION_RAID + 1), NULL)));
 	
 	triggers.push_back(new TriggerNode(
 		"sapphiron flight", 
 		NextAction::array(0, new NextAction("sapphiron flight position", ACTION_RAID + 1), NULL)));
+	
+	triggers.push_back(new TriggerNode(
+		"sapphiron ground chill", 
+		NextAction::array(0, new NextAction("sapphiron avoid chill", ACTION_RAID + 1), NULL)));
 }
 
 void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)
@@ -180,4 +207,5 @@ void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multiplier
 	multipliers.push_back(new HeiganDanceMultiplier(ai));
 	multipliers.push_back(new LoathebGenericMultiplier(ai));
 	multipliers.push_back(new ThaddiusGenericMultiplier(ai));
+	multipliers.push_back(new SapphironGenericMultiplier(ai));
 }

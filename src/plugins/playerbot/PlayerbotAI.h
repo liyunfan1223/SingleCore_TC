@@ -191,6 +191,7 @@ public:
     bool IsRanged(Player* player);
     bool IsRangedDps(Player* player);
     bool IsRangedDpsAssistantOfIndex(Player* player, int index);
+    uint32 GetGroupSlotIndex(Player* player);
     Creature* GetCreature(ObjectGuid guid);
     Unit* GetUnit(ObjectGuid guid);
     GameObject* GetGameObject(ObjectGuid guid);

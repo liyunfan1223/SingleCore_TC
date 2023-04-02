@@ -135,4 +135,32 @@ namespace ai
         HorsemanExceptAttractorsTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sir zeliek", 0, "horseman except attractors") {}
         virtual bool IsActive();
     };
+
+    class SapphironGroundMainTankTrigger : public BossPhaseTrigger
+    {
+    public:
+        SapphironGroundMainTankTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sapphiron", (1 << (2 - 1)), "sapphiron ground main tank") {}
+        virtual bool IsActive();
+    };
+
+    class SapphironGroundExceptMainTankTrigger : public BossPhaseTrigger
+    {
+    public:
+        SapphironGroundExceptMainTankTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sapphiron", (1 << (2 - 1)), "sapphiron ground except main tank") {}
+        virtual bool IsActive();
+    };
+
+    class SapphironFlightTrigger : public BossPhaseTrigger
+    {
+    public:
+        SapphironFlightTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sapphiron", (1 << (3 - 1)), "sapphiron flight") {}
+        virtual bool IsActive();
+    };
+
+    class SapphironGroundChillTrigger : public BossPhaseTrigger
+    {
+    public:
+        SapphironGroundChillTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sapphiron", (1 << (2 - 1)), "sapphiron ground chill") {}
+        virtual bool IsActive();
+    };
 }

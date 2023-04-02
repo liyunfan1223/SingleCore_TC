@@ -457,10 +457,17 @@ bool AvoidAOEAction::Execute(Event event)
     //         return Flee(creature);
     //     }
     // }
-    Aura* target = AI_VALUE(Aura*, "aoe aura to avoid");
-    DynamicObject* dyn_obj = target->GetDynobjOwner();
-    bot->Yell("正在躲避AOE技能:" + string(target->GetSpellInfo()->SpellName[0]), LANG_UNIVERSAL);
-    return Flee(dyn_obj);
+    Aura* aura = AI_VALUE(Aura*, "aoe aura to avoid");
+    DynamicObject* dyn_obj = aura->GetDynobjOwner();
+    bot->Yell("正在躲避AOE技能:" + string(aura->GetSpellInfo()->SpellName[0]), LANG_UNIVERSAL);
+    Unit* currentTarget = AI_VALUE(Unit*, "current target");
+    float angle = 0;
+    if (currentTarget) {
+        angle = bot->GetAngle(currentTarget) - M_PI / 2;
+    } else {
+        angle = bot->GetAngle(dyn_obj) - M_PI;
+    }
+    return MoveTo(bot->GetMapId(), bot->GetPositionX() + cos(angle) * 5.0f, bot->GetPositionY() + sin(angle) * 5.0f, bot->GetPositionZ());
 }
 
 bool AvoidAOEAction::isUseful()
