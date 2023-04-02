@@ -358,3 +358,104 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
         return false;
     }
 }
+
+bool HorsemanAttractAlternativelyAction::Execute(Event event)
+{
+    Unit* sir = AI_VALUE2(Unit*, "find target", "sir zeliek");
+    Unit* lady = AI_VALUE2(Unit*, "find target", "lady blaumeux");
+    if (!sir) {
+        return false;
+    }
+    std::vector<std::pair<float, float>> position = {
+        // left (sir zeliek)
+        {2502.03f, -2910.90f},
+        // right (lady blaumeux)
+        {2484.61f, -2947.07f},
+    };
+    float pos_z = 241.27f;
+    BossAI* boss_ai = dynamic_cast<BossAI*>(sir->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
+    const uint32 timer = eventMap->GetTimer();
+    if (lady) {
+        BossAI* lady_ai = dynamic_cast<BossAI*>(lady->GetAI());
+        EventMap* ladyEventMap = lady_ai->GetEvents();
+        const uint32 voidZone = ladyEventMap->GetNextEventTime(5);
+        if (!voidZone) {
+            voidzone_counter = 0;
+        }
+        if (voidZone && last_voidzone != voidZone) {
+            voidzone_counter = (voidzone_counter + 1) % 8;
+        }
+        last_voidzone = voidZone;
+    }
+    int pos_to_go;
+    if (!lady) {
+        pos_to_go = 0;
+    } else {
+        // 24 - 15 - 15 - ...
+        if (timer <= 9000 || ((timer - 9000) / 67500) % 2 == 0) {
+            pos_to_go = 0;
+        } else {
+            pos_to_go = 1;
+        }
+        if (ai->IsRangedDpsAssistantOfIndex(bot, 0)) {
+            pos_to_go = 1 - pos_to_go;
+        }
+    }
+    // bot->Yell("pos to go: " + to_string(pos_to_go), LANG_UNIVERSAL);
+    float pos_x = position[pos_to_go].first, pos_y = position[pos_to_go].second;
+    if (pos_to_go == 1) {
+        float offset_x;
+        float offset_y;
+        if (voidzone_counter < 4) {
+            offset_x = voidzone_counter * (-4.5f);
+            offset_y = voidzone_counter * (4.5f);
+        }
+        if (voidzone_counter >= 4) {
+            offset_x = (7 - voidzone_counter) * (-4.5f);
+            offset_y = (7 - voidzone_counter) * (4.5f);
+            offset_x += 4.5f;
+            offset_y += 4.5f;
+        }
+        pos_x += offset_x;
+        pos_y += offset_y;
+    }
+    if (MoveTo(bot->GetMapId(), pos_x, pos_y, pos_z)) {
+        return true;
+    }
+    Unit* attackTarget;
+    if (pos_to_go == 0) {
+        attackTarget = sir;
+    } else {
+        attackTarget = lady;
+    }
+    if (context->GetValue<Unit*>("current target")->Get() != attackTarget) {
+        return Attack(attackTarget);
+    }
+    return false;
+}
+
+bool HorsemanAttactInOrderAction::Execute(Event event)
+{
+    Unit* lady = AI_VALUE2(Unit*, "find target", "lady blaumeux");
+    if (lady) {
+        if (context->GetValue<Unit*>("current target")->Get() == lady && ai->GetCurrentState() == BOT_STATE_COMBAT) {
+            return false;
+        }
+        if (!bot->IsWithinLOSInMap(lady)) {
+            return MoveNear(lady, 10.0f);
+        }
+        return Attack(lady);
+    }
+    Unit* sir = AI_VALUE2(Unit*, "find target", "sir zeliek");
+    if (sir) {
+        if (context->GetValue<Unit*>("current target")->Get() == sir && ai->GetCurrentState() == BOT_STATE_COMBAT) {
+            return false;
+        }
+        if (!bot->IsWithinLOSInMap(sir)) {
+            return MoveNear(sir, 10.0f);
+        }
+        return Attack(sir);
+    }
+    return false;
+}

@@ -81,3 +81,16 @@ bool RazuviousTankTrigger::IsActive()
 {
     return BossPhaseTrigger::IsActive() && ai->IsTank(bot);
 }
+
+bool HorsemanAttractorsTrigger::IsActive()
+{
+    return BossPhaseTrigger::IsActive() && (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0));
+}
+
+bool HorsemanExceptAttractorsTrigger::IsActive()
+{
+    return BossPhaseTrigger::IsActive() && 
+        !(ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0)) &&
+        !AI_VALUE2(Unit*, "find target", "thane korth'azz") &&
+        !AI_VALUE2(Unit*, "find target", "baron rivendare");
+}

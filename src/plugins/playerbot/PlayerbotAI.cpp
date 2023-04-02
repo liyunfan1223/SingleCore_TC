@@ -977,11 +977,11 @@ void PlayerbotAI::ResetStrategies()
 
 bool PlayerbotAI::IsRanged(Player* player)
 {
-    int tab = AiFactory::GetPlayerSpecTab(player);
     PlayerbotAI* botAi = player->GetPlayerbotAI();
     if (botAi)
         return botAi->ContainsStrategy(STRATEGY_TYPE_RANGED);
 
+    int tab = AiFactory::GetPlayerSpecTab(player);
     switch (player->getClass())
     {
     case CLASS_DEATH_KNIGHT:
@@ -1006,6 +1006,31 @@ bool PlayerbotAI::IsRanged(Player* player)
         break;
     }
     return true;
+}
+
+bool PlayerbotAI::IsRangedDps(Player* player)
+{
+    return IsRanged(player) && IsDps(player);
+}
+
+bool PlayerbotAI::IsRangedDpsAssistantOfIndex(Player* player, int index)
+{
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return false;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (group->IsAssistant(member->GetGUID()) && IsRangedDps(member)) {
+            if (index == counter) {
+                return player == member;
+            }
+            counter++;
+        }
+    }
+    return false;
 }
 
 bool PlayerbotAI::IsMainTank(Player* player) {
@@ -1033,11 +1058,11 @@ bool PlayerbotAI::IsMainTank(Player* player) {
 
 bool PlayerbotAI::IsTank(Player* player)
 {
-    int tab = AiFactory::GetPlayerSpecTab(player);
     PlayerbotAI* botAi = player->GetPlayerbotAI();
     if (botAi)
         return botAi->ContainsStrategy(STRATEGY_TYPE_TANK);
 
+    int tab = AiFactory::GetPlayerSpecTab(player);
     switch (player->getClass())
     {
         case CLASS_DEATH_KNIGHT:
@@ -1070,17 +1095,100 @@ bool PlayerbotAI::IsHeal(Player* player)
     if (botAi)
         return botAi->ContainsStrategy(STRATEGY_TYPE_HEAL);
 
+    int tab = AiFactory::GetPlayerSpecTab(player);
     switch (player->getClass())
     {
     case CLASS_PRIEST:
-        return true;
+        if (tab == PRIEST_TAB_DISIPLINE || tab == PRIEST_TAB_HOLY) {
+            return true;
+        }
+        break;
     case CLASS_DRUID:
-        return HasAnyAuraOf(player, "tree of life", NULL);
+        if (tab == DRUID_TAB_RESTORATION) {
+            return true;
+        }
+        break;
+    case CLASS_SHAMAN:
+        if (tab == SHAMAN_TAB_RESTORATION) {
+            return true;
+        }
+        break;
+    case CLASS_PALADIN:
+        if (tab == PALADIN_TAB_HOLY) {
+            return true;
+        }
+        break;
     }
     return false;
 }
 
+bool PlayerbotAI::IsHealAssistantOfIndex(Player* player, int index)
+{
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return false;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (group->IsAssistant(member->GetGUID()) && IsHeal(member)) {
+            if (index == counter) {
+                return player == member;
+            }
+            counter++;
+        }
+    }
+    return false;
+}
 
+bool PlayerbotAI::IsDps(Player* player)
+{
+    PlayerbotAI* botAi = player->GetPlayerbotAI();
+    if (botAi)
+        return botAi->ContainsStrategy(STRATEGY_TYPE_DPS);
+
+    int tab = AiFactory::GetPlayerSpecTab(player);
+    switch (player->getClass())
+    {
+    case CLASS_MAGE:
+    case CLASS_WARLOCK:
+    case CLASS_HUNTER:
+    case CLASS_ROGUE:
+        return true;
+    case CLASS_PRIEST:
+        if (tab == PRIEST_TAB_SHADOW) {
+            return true;
+        }
+        break;
+    case CLASS_DRUID:
+        if (tab == DRUID_TAB_BALANCE) {
+            return true;
+        }
+        break;
+    case CLASS_SHAMAN:
+        if (tab != SHAMAN_TAB_RESTORATION) {
+            return true;
+        }
+        break;
+    case CLASS_PALADIN:
+        if (tab == PALADIN_TAB_RETRIBUTION) {
+            return true;
+        }
+        break;
+    case CLASS_DEATH_KNIGHT:
+        if (tab != DEATHKNIGT_TAB_BLOOD) {
+            return true;
+        }
+        break;
+    case CLASS_WARRIOR:
+        if (tab != WARRIOR_TAB_PROTECTION) {
+            return true;
+        }
+        break;
+    }
+    return false;
+}
 
 namespace MaNGOS
 {

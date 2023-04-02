@@ -14,5 +14,6 @@ namespace ai
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "dps"; }
         virtual NextAction** getDefaultActions();
+        virtual int GetType() { return MeleeCombatStrategy::GetType() | STRATEGY_TYPE_DPS; }
     };
 }

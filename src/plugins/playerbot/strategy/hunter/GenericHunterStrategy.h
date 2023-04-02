@@ -15,6 +15,7 @@ namespace ai
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "hunter"; }
+        virtual int GetType() { return RangedCombatStrategy::GetType() | STRATEGY_TYPE_DPS; }
     };
 }
 

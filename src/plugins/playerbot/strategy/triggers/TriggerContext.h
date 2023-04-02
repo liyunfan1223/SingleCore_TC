@@ -115,6 +115,9 @@ namespace ai
             creators["thaddius phase thaddius"] = &TriggerContext::thaddius_phase_thaddius;
 
             creators["razuvious tank"] = &TriggerContext::razuvious_tank;
+
+            creators["horseman attractors"] = &TriggerContext::horseman_attractors;
+            creators["horseman except attractors"] = &TriggerContext::horseman_except_attractors;
         }
 
     private:
@@ -200,5 +203,7 @@ namespace ai
         static Trigger* thaddius_phase_transition(PlayerbotAI* ai) { return new ThaddiusPhaseTransitionTrigger(ai); }
         static Trigger* thaddius_phase_thaddius(PlayerbotAI* ai) { return new ThaddiusPhaseThaddiusTrigger(ai); }
         static Trigger* razuvious_tank(PlayerbotAI* ai) { return new RazuviousTankTrigger(ai); }
+        static Trigger* horseman_attractors(PlayerbotAI* ai) { return new HorsemanAttractorsTrigger(ai); }
+        static Trigger* horseman_except_attractors(PlayerbotAI* ai) { return new HorsemanExceptAttractorsTrigger(ai); }
     };
 };

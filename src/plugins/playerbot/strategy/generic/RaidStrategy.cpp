@@ -146,11 +146,33 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"thaddius phase thaddius", 
 		NextAction::array(0, new NextAction("thaddius move polarity", ACTION_RAID + 1), NULL)));
 
+	// Instructor Razuvious
 	triggers.push_back(new TriggerNode(
 		"razuvious tank", 
 		NextAction::array(0, new NextAction("razuvious use obedience crystal", ACTION_RAID + 1), NULL)));
 		
-		
+	// four horseman
+
+	triggers.push_back(new TriggerNode(
+		"horseman attractors", 
+		NextAction::array(0, new NextAction("horseman attract alternatively", ACTION_RAID + 1), NULL)));
+	
+	triggers.push_back(new TriggerNode(
+		"horseman except attractors", 
+		NextAction::array(0, new NextAction("horseman attack in order", ACTION_RAID + 1), NULL)));
+
+	// sapphiron
+	triggers.push_back(new TriggerNode(
+		"sapphiron ground main tank", 
+		NextAction::array(0, new NextAction("sapphiron ground main tank position", ACTION_RAID + 1), NULL)));
+	
+	triggers.push_back(new TriggerNode(
+		"sapphiron ground except main tank", 
+		NextAction::array(0, new NextAction("sapphiron ground ranged position", ACTION_RAID + 1), NULL)));
+	
+	triggers.push_back(new TriggerNode(
+		"sapphiron flight", 
+		NextAction::array(0, new NextAction("sapphiron flight position", ACTION_RAID + 1), NULL)));
 }
 
 void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)

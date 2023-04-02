@@ -90,6 +90,10 @@ namespace ai
             creators["thaddius move polarity"] = &ActionContext::thaddius_move_polarity;
 
             creators["razuvious use obedience crystal"] = &ActionContext::razuvious_use_obedience_crystal;
+
+            creators["horseman attract alternatively"] = &ActionContext::horseman_attract_alternatively;
+            creators["horseman attack in order"] = &ActionContext::horseman_attack_in_order;
+            
         }
 
     private:
@@ -153,6 +157,8 @@ namespace ai
         static Action* thaddius_move_to_platform(PlayerbotAI* ai) { return new ThaddiusMoveToPlatformAction(ai); }
         static Action* thaddius_move_polarity(PlayerbotAI* ai) { return new ThaddiusMovePolarityAction(ai); }
         static Action* razuvious_use_obedience_crystal(PlayerbotAI* ai) { return new RazuviousUseObedienceCrystalAction(ai); }
+        static Action* horseman_attract_alternatively(PlayerbotAI* ai) { return new HorsemanAttractAlternativelyAction(ai); }
+        static Action* horseman_attack_in_order(PlayerbotAI* ai) { return new HorsemanAttactInOrderAction(ai); }
     };
 
 };

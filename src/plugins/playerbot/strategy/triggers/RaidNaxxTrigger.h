@@ -121,4 +121,18 @@ namespace ai
         RazuviousTankTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "instructor razuvious", 0, "razuvious tank") {}
         virtual bool IsActive();
     };
+
+    class HorsemanAttractorsTrigger : public BossPhaseTrigger
+    {
+    public:
+        HorsemanAttractorsTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sir zeliek", 0, "horseman attractors") {}
+        virtual bool IsActive();
+    };
+
+    class HorsemanExceptAttractorsTrigger : public BossPhaseTrigger
+    {
+    public:
+        HorsemanExceptAttractorsTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sir zeliek", 0, "horseman except attractors") {}
+        virtual bool IsActive();
+    };
 }

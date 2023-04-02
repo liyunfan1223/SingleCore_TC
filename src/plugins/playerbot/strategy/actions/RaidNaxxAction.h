@@ -179,4 +179,23 @@ namespace ai
         RazuviousUseObedienceCrystalAction(PlayerbotAI* ai) : MovementAction(ai, "razuvious use obedience crystal") {}
         virtual bool Execute(Event event);
     };
+
+    class HorsemanAttractAlternativelyAction : public AttackAction
+    {
+    public:
+        HorsemanAttractAlternativelyAction(PlayerbotAI* ai) : AttackAction(ai, "horseman attract alternatively") {
+            this->last_voidzone = 0;
+            this->voidzone_counter = 0;
+        }
+        virtual bool Execute(Event event);
+    protected:
+        uint32 last_voidzone, voidzone_counter;
+    };
+
+    class HorsemanAttactInOrderAction : public AttackAction
+    {
+    public:
+        HorsemanAttactInOrderAction(PlayerbotAI* ai) : AttackAction(ai, "horseman attact in order") {}
+        virtual bool Execute(Event event);
+    };
 }
