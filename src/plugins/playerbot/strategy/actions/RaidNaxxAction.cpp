@@ -555,7 +555,9 @@ bool SapphironFlightPositionAction::Execute(Event event)
     // before explosion
     // std::pair<float, float> center = {boss->GetPositionX(), boss->GetPositionY()};
     const uint32 icebolt = eventMap->GetNextEventTime(8);
-    if ((icebolt <= timer && timer - icebolt <= 7000) || (icebolt >= timer && icebolt - timer <= 3000)) {
+
+    uint32 runBeforeIcebolt = ai->IsRanged(bot) ? 3000 : 6000;
+    if ((icebolt <= timer && timer - icebolt <= 7000) || (icebolt >= timer && icebolt - timer <= runBeforeIcebolt)) {
         std::pair<float, float> center = {3517.31f, -5253.74f};
         uint32 index = ai->GetGroupSlotIndex(bot);
         float start_angle = 1.25 * M_PI;

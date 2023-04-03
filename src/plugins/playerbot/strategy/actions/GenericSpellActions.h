@@ -63,10 +63,11 @@ namespace ai
 		{
 			if (spell == "mount")
 				return NULL;
-			if (range > sPlayerbotAIConfig.spellDistance + 7.5f)
-				return NULL;
+			// if (range > sPlayerbotAIConfig.spellDistance + 7.5f)
+			// 	return NULL;
             else if (range > sPlayerbotAIConfig.spellDistance)
-                return NextAction::merge( NextAction::array(0, new NextAction("reach heal"), NULL), Action::getPrerequisites());
+                return NULL;
+                // return NextAction::merge( NextAction::array(0, new NextAction("reach heal"), NULL), Action::getPrerequisites());
 			else if (range > ATTACK_DISTANCE)
 				return NextAction::merge( NextAction::array(0, new NextAction("reach spell"), NULL), Action::getPrerequisites());
 			else
@@ -222,7 +223,7 @@ namespace ai
 		{
 			if (spell == "mount")
 				return NULL;
-			if (range > sPlayerbotAIConfig.spellDistance)
+			if (range > sPlayerbotAIConfig.spellDistance + 10.0f)
 				return NULL;
 			else
 				return NextAction::merge( NextAction::array(0, new NextAction("reach party member to heal"), NULL), Action::getPrerequisites());
@@ -239,6 +240,15 @@ namespace ai
             return CastSpellAction::isUseful() && 
             (!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
         }
+        virtual NextAction** getPrerequisites()
+		{
+			if (spell == "mount")
+				return NULL;
+			if (range > sPlayerbotAIConfig.spellDistance)
+				return NULL;
+			else
+				return NextAction::merge( NextAction::array(0, new NextAction("reach party member to resurrect"), NULL), Action::getPrerequisites());
+		}
 	};
     //---------------------------------------------------------------------------------------------------------------------
 

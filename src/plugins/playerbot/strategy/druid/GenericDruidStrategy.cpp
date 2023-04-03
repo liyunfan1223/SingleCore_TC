@@ -98,7 +98,7 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"combat party member to resurrect",
-		NextAction::array(0, new NextAction("rebirth", ACTION_HIGH + 1), NULL)));
+		NextAction::array(0, new NextAction("rebirth", ACTION_EMERGENCY + 1), NULL)));
 }
 
 void DruidCureStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

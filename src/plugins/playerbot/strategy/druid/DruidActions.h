@@ -76,9 +76,7 @@ namespace ai
 	class CastReviveAction : public ResurrectPartyMemberAction
 	{
 	public:
-		CastReviveAction(PlayerbotAI* ai) : ResurrectPartyMemberAction(ai, "revive") {
-			// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "CastReviveAction");
-		}
+		CastReviveAction(PlayerbotAI* ai) : ResurrectPartyMemberAction(ai, "revive") {}
 
 		virtual NextAction** getPrerequisites() {
 			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), ResurrectPartyMemberAction::getPrerequisites());
@@ -92,6 +90,9 @@ namespace ai
 
 		virtual NextAction** getPrerequisites() {
 			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), ResurrectPartyMemberAction::getPrerequisites());
+		}
+		virtual bool isUseful() {
+			return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.spellDistance;
 		}
 	};
 
