@@ -78,6 +78,9 @@ Unit* FindTargetValue::Calculate()
     
     for (GroupReference *gref = bot->GetGroup()->GetFirstMember(); gref; gref = gref->next()) {
         Player* member = gref->GetSource();
+        if (!member) {
+            continue;
+        }
         HostileReference *ref = member->getHostileRefManager().getFirst();
         while (ref)
         {

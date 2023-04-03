@@ -8,6 +8,9 @@ using namespace ai;
 
 float ThreatMultiplier::GetValue(Action* action)
 {
+    if (AI_VALUE(bool, "neglect threat")) {
+        return 1.0f;
+    }
     if (action == NULL || action->getThreatType() == ACTION_THREAT_NONE)
         return 1.0f;
 

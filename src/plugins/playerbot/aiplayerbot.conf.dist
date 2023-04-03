@@ -35,11 +35,11 @@ AiPlayerbot.ARAC = 0
 
 # Accounts to create for random bots
 AiPlayerbot.RandomBotAccountPrefix = rndbot
-AiPlayerbot.RandomBotAccountCount = 100
+AiPlayerbot.RandomBotAccountCount = 200
 
 # Random bot count
-AiPlayerbot.MinRandomBots = 400
-AiPlayerbot.MaxRandomBots = 400
+AiPlayerbot.MinRandomBots = 500
+AiPlayerbot.MaxRandomBots = 500
 AiPlayerbot.RandomBotMinLevel = 10
 AiPlayerbot.RandomBotMaxLevel = 80
 
@@ -133,7 +133,7 @@ AiPlayerbot.ReactDelay = 100
 
 # Distances
 AiPlayerbot.SightDistance = 100.0
-AiPlayerbot.SpellDistance = 30.0
+AiPlayerbot.SpellDistance = 29.0
 AiPlayerbot.ShootDistance = 5.0
 AiPlayerbot.ReactDistance = 150.0
 AiPlayerbot.GrindDistance = 100.0

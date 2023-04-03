@@ -143,6 +143,7 @@ namespace ai
             creators["rti"] = &ValueContext::rti;
             creators["position"] = &ValueContext::position;
             creators["threat"] = &ValueContext::threat;
+            creators["neglect threat"] = &ValueContext::neglect_threat;
 
             creators["balance"] = &ValueContext::balance;
             creators["attackers"] = &ValueContext::attackers;
@@ -245,6 +246,7 @@ namespace ai
         static UntypedValue* boss_target(PlayerbotAI* ai) { return new BossTargetValue(ai); }
         static UntypedValue* has_totem(PlayerbotAI* ai) { return new HasTotemValue(ai); }
         static UntypedValue* threat(PlayerbotAI* ai) { return new ThreatValue(ai); }
+        static UntypedValue* neglect_threat(PlayerbotAI* ai) { return new NeglectThreatResetValue(ai); }
         static UntypedValue* combat(PlayerbotAI* ai) { return new IsInCombatValue(ai); }
         static UntypedValue* lfg_proposal(PlayerbotAI* ai) { return new LfgProposalValue(ai); }
         static UntypedValue* bag_space(PlayerbotAI* ai) { return new BagSpaceValue(ai); }

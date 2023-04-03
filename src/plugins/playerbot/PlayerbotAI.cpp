@@ -1689,11 +1689,11 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
     if (!bot->isInFront(faceTo, M_PI / 2))
     {
         bot->SetFacingTo(bot->GetAngle(faceTo));
-        // delete spell;
-        // SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
-        // if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
-        //     sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is not in front");
-        // return true;
+        delete spell;
+        SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
+        if (!sPlayerbotAIConfig.logInGroupOnly || bot->GetGroup())
+            sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "CastSpell() failed because is not in front");
+        return true;
     }
 	if (spell->GetCastTime()>0)
 		bot->GetMotionMaster()->MovementExpired();

@@ -310,13 +310,36 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
         //     mm.Clear();
         //     mm.MovePoint(target);
         // }
+        // charm->GetMotionMaster()->MovePoint(target->GetMapId(), *target);
         charm->GetMotionMaster()->MoveChase(target);
         charm->Attack(target, true);
         charm->SetFacingToObject(target);
-        if (charm->GetDistance(target) < 2.5f) {
+        Aura* forceObedience = ai->GetAura("force obedience", charm);
+        if (!forceObedience) {
+            return false;
+        }
+        // charm->Say("Force Obdience Duration: " + to_string(forceObedience->GetDuration()) + 
+        //     " Distance: " + to_string(charm->GetDistance(target)), LANG_UNIVERSAL);
+        if (charm->GetDistance(target) <= 0.51f) {
             // taunt
-            if ( ((target->GetVictim() && !ai->HasAura(29061, target->GetVictim())) || !ai->HasAura(29060, target)) && 
-                !charm->GetSpellHistory()->HasCooldown(29060) ) {
+            bool tauntUseful = true;
+            if (forceObedience->GetDuration() <= 85000) {
+                if (target->GetVictim() && ai->HasAura(29061, target->GetVictim())) {
+                    tauntUseful = false;
+                }
+                if (forceObedience->GetDuration() <= 3000) {
+                    tauntUseful = false;
+                }
+            }
+            if (forceObedience->GetDuration() >= 89500) {
+                tauntUseful = false;
+            }
+            if ( tauntUseful && !charm->GetSpellHistory()->HasCooldown(29060) ) {
+                // shield
+                if (!charm->GetSpellHistory()->HasCooldown(29061)) {
+                    charm->CastSpell(charm, 29061, true);
+                    charm->GetSpellHistory()->AddCooldown(29061, 0, Seconds(30));
+                }
                 charm->CastSpell(target, 29060, true);
                 charm->GetSpellHistory()->AddCooldown(29060, 0, Seconds(20));
             }
@@ -325,11 +348,11 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
                 charm->CastSpell(target, 61696, true);
                 charm->GetSpellHistory()->AddCooldown(61696, 0, Seconds(4));
             }
-            // shield
-            if (target->GetVictim() == charm && !charm->GetSpellHistory()->HasCooldown(29061)) {
-                charm->CastSpell(charm, 29061, true);
-                charm->GetSpellHistory()->AddCooldown(29061, 0, Seconds(30));
-            }
+            // // shield
+            // if (target->GetVictim() == charm && !charm->GetSpellHistory()->HasCooldown(29061)) {
+            //     charm->CastSpell(charm, 29061, true);
+            //     charm->GetSpellHistory()->AddCooldown(29061, 0, Seconds(30));
+            // }
         }
     } else {
         // bot->Yell("Let\'s use obedience crystal.", LANG_UNIVERSAL);
@@ -485,8 +508,8 @@ bool SapphironGroundPositionAction::Execute(Event event)
         std::pair<float, float> center = {3517.31f, -5253.74f};
         // std::pair<float, float> center = {boss->GetPositionX(), boss->GetPositionY()};
         uint32 index = ai->GetGroupSlotIndex(bot);
-        float start_angle = 1.35 * M_PI;
-        float offset_angle = ai->IsRanged(bot) ? -M_PI * 0.06 * index : -M_PI * 0.5;
+        float start_angle = 1.25 * M_PI;
+        float offset_angle = ai->IsRanged(bot) ? -M_PI * 0.06 * index : -M_PI * 0.3;
         float angle = start_angle + offset_angle;
         float distance = 30.0f;
         if (ai->IsRangedDps(bot)) {
@@ -535,8 +558,8 @@ bool SapphironFlightPositionAction::Execute(Event event)
     if ((icebolt <= timer && timer - icebolt <= 7000) || (icebolt >= timer && icebolt - timer <= 3000)) {
         std::pair<float, float> center = {3517.31f, -5253.74f};
         uint32 index = ai->GetGroupSlotIndex(bot);
-        float start_angle = 1.35 * M_PI;
-        float offset_angle = -M_PI * 0.06 * index;
+        float start_angle = 1.25 * M_PI;
+        float offset_angle = -M_PI * 0.04 * index;
         float angle = start_angle + offset_angle;
         float distance = 45.0f;
         if (MoveTo(533, center.first + cos(angle) * distance, center.second + sin(angle) * distance, 137.29f)) {

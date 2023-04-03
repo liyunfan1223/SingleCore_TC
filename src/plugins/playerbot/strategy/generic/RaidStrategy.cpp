@@ -120,6 +120,19 @@ float SapphironGenericMultiplier::GetValue(Action* action)
 	return 1.0f;
 }
 
+float InstructorRazuviousGenericMultiplier::GetValue(Action* action)
+{
+	Unit* boss = AI_VALUE2(Unit*, "find target", "instructor razuvious");
+	if (!boss) {
+        return 1.0f;
+    }
+	context->GetValue<bool>("neglect threat")->Set(true);
+	if (dynamic_cast<FollowAction*>(action)) {
+		return 0.0f;
+	}
+	return 1.0f;
+}
+
 void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
 	// triggers.push_back(new TriggerNode(
@@ -208,4 +221,6 @@ void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multiplier
 	multipliers.push_back(new LoathebGenericMultiplier(ai));
 	multipliers.push_back(new ThaddiusGenericMultiplier(ai));
 	multipliers.push_back(new SapphironGenericMultiplier(ai));
+	multipliers.push_back(new InstructorRazuviousGenericMultiplier(ai));
+	
 }

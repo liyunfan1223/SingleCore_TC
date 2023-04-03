@@ -14,4 +14,16 @@ namespace ai
     protected:
     	uint8 Calculate(Unit* target);
     };
+
+    class NeglectThreatResetValue : public ManualSetValue<bool>
+    {
+    public:
+        NeglectThreatResetValue(PlayerbotAI* ai, bool defaultValue = false, string name = "neglect threat") :
+            ManualSetValue<bool>(ai, defaultValue, name) {}
+        virtual bool Get() {
+            bool ret = value;
+            Reset();
+            return ret; 
+        }
+    };
 }
