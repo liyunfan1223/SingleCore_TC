@@ -124,5 +124,8 @@ namespace ai
 	{
 	public:
 		CastTricksOfTheTradeOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "tricks of the trade") {}
+		virtual bool isUseful() {
+            return BuffOnMainTankAction::isUseful() && AI_VALUE2(float, "distance", GetTargetName()) < 20.0f;
+        }
 	};
 }

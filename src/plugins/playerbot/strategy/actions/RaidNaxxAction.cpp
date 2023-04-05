@@ -594,7 +594,7 @@ bool SapphironFlightPositionAction::MoveToNearestIcebolt()
         Unit* boss = AI_VALUE2(Unit*, "find target", "sapphiron");
         float angle = boss->GetAngle(playerWithIcebolt);
         // bot->Yell("Find icebolt and let\'s move!", LANG_UNIVERSAL);
-        return MoveTo(533, playerWithIcebolt->GetPositionX() + cos(angle) * 4.0f, playerWithIcebolt->GetPositionY() + sin(angle) * 4.0f, 137.29f);
+        return MoveTo(533, playerWithIcebolt->GetPositionX() + cos(angle) * 3.0f, playerWithIcebolt->GetPositionY() + sin(angle) * 3.0f, 137.29f);
     }
     // bot->Yell("No icebolt!", LANG_UNIVERSAL);
     return false;
