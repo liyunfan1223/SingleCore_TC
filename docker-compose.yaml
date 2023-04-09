@@ -7,6 +7,7 @@ services:
     volumes:
       - /apps/mysql/datadir:/var/lib/mysql
       - ./conf/mysql/my.cnf:/etc/my.cnf
+      - /etc/localtime:/etc/localtime
       # - ./static/mysql/source:/docker-entrypoint-initdb.d
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
@@ -15,7 +16,7 @@ services:
       - 3306:3306
     expose:
       - "3306"
-      
+
   worldserver:
     image: trinity:env
     container_name: worldserver
