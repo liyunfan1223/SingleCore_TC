@@ -14,7 +14,7 @@ COPY conf/nginx/default /etc/nginx/sites-available/default
 
 COPY register/. /var/www/html/.
 
-CMD service nginx start && service php7.4-fpm start && tail -F /var/log/nginx/error.log
+CMD service php7.4-fpm start && service nginx start && tail -F /var/log/nginx/error.log
 
 
 

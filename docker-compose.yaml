@@ -15,12 +15,13 @@ services:
       - 3306:3306
     expose:
       - "3306"
-
+      
   worldserver:
     image: trinity:env
     container_name: worldserver
     volumes:
       - .:/trinity/
+      - /etc/localtime:/etc/localtime
     ports:
       - 3724:3724
       - 8085:8085
@@ -30,7 +31,7 @@ services:
     tty: true
     depends_on:
       - mysql
-      
+
   register:
     image: trinity:reg
     container_name: register
@@ -40,3 +41,5 @@ services:
       - "80"
     depends_on:
       - mysql
+    environment:
+      - TZ=Asia/Shanghai
