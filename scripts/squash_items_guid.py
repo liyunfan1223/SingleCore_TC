@@ -32,6 +32,10 @@ cursor.close()
 print("Collected item guids number:", idx)
 cursor = connection.cursor()
 
+cursor.execute("""
+    CREATE INDEX character_inventory_bag ON character_inventory (bag)
+""")
+
 for key in mp.keys():
     value = mp[key]
     if (value % 1000 == 0):
