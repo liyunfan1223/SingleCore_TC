@@ -151,7 +151,7 @@ bool PlayerbotAIConfig::Initialize()
 
     commandServerPort = config.GetIntDefault("AiPlayerbot.CommandServerPort", 0);
 
-    for (uint32 cls = 0; cls < MAX_CLASSES; ++cls)
+    for (uint32 cls = 1; cls < MAX_CLASSES; ++cls)
     {
         for (uint32 spec = 0; spec < 3; ++spec)
         {

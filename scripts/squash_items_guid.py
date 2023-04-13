@@ -33,7 +33,7 @@ print("Collected item guids number:", idx)
 cursor = connection.cursor()
 
 cursor.execute("""
-    CREATE INDEX character_inventory_bag ON character_inventory (bag)
+    CREATE INDEX character_inventory_bag ON character_inventory (bag) IF NOT EXISTS character_inventory_bag
 """)
 
 for key in mp.keys():
@@ -43,10 +43,13 @@ for key in mp.keys():
     cursor.execute(f"update item_soulbound_trade_data set itemGuid={value} where itemGuid={key};")
     cursor.execute(f"update character_inventory set item={value} where item={key};")
     cursor.execute(f"update character_inventory set bag={value} where bag={key};")
-    # res = cursor.rowcount
-    # print(res)
     cursor.execute(f"update item_instance set guid={value} where guid={key};")
 
 print("Item guid squash succeed.")
+
+cursor.execute("""
+    DROP INDEX character_inventory_bag ON character_inventory
+""")
+
 connection.commit()
 connection.close()

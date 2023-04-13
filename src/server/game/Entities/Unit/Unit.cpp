@@ -4395,6 +4395,7 @@ void Unit::RemoveAllAuras()
 {
     // this may be a dead loop if some events on aura remove will continiously apply aura on remove
     // we want to have all auras removed, so use your brain when linking events
+    int tries = 0;
     while (!m_appliedAuras.empty() || !m_ownedAuras.empty())
     {
         AuraApplicationMap::iterator aurAppIter;
@@ -4406,6 +4407,10 @@ void Unit::RemoveAllAuras()
         AuraMap::iterator aurIter;
         for (aurIter = m_ownedAuras.begin(); aurIter != m_ownedAuras.end();)
             RemoveOwnedAura(aurIter);
+        ++tries;
+        if (tries > 10000) {
+            break;
+        }
         // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d %d", m_appliedAuras.size(), m_ownedAuras.size());
     }
 }

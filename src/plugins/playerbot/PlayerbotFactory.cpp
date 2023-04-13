@@ -1430,8 +1430,8 @@ void PlayerbotFactory::InitTalentsByTemplate(uint32 specNo)
             talentID = talentInfo->TalentID;
         }
         assert(talentID != -1);
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "bot %s learn talent %d. %u %u %u %u %u", 
-            bot->GetName().c_str(), talentID, tab, row, col, lvl, bot->GetFreeTalentPoints());
+        // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "bot %s learn talent %d. %u %u %u %u %u", 
+        //     bot->GetName().c_str(), talentID, tab, row, col, lvl, bot->GetFreeTalentPoints());
         bot->LearnTalent(talentID, min(lvl, bot->GetFreeTalentPoints()) - 1);
         if (bot->GetFreeTalentPoints() == 0) {
             break;
