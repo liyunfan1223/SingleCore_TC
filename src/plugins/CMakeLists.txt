@@ -186,10 +186,13 @@ set_target_properties(plugins
       FOLDER
         "server")
 
+
+if( NOT WIN32 )
 set_target_properties(plugins
     PROPERTIES
       COMPILE_DEFINITIONS
         _TRINITY_PLAYERBOTS_CONFIG="${CONF_DIR}/aiplayerbot.conf")
+endif()
 
 if( WIN32 )
   if ( MSVC )

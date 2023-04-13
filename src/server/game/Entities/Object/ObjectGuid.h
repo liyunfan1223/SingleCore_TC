@@ -294,8 +294,10 @@ public:
 
     ObjectGuid::LowType Generate() override
     {
-        if (_nextGuid >= ObjectGuid::GetMaxCounter(high) - 1)
+        if (_nextGuid >= ObjectGuid::GetMaxCounter(high) - 1) {
             HandleCounterOverflow(high);
+            sLog->outMessage("misc", LOG_LEVEL_FATAL, "overflow guid: _nextGuid %u", _nextGuid);
+        }
         return _nextGuid++;
     }
 };
