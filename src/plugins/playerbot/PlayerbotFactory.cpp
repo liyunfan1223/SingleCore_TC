@@ -1702,7 +1702,7 @@ void PlayerbotFactory::InitFood()
     {
         uint32 category = categories[i];
         vector<uint32>& ids = items[category];
-        int tires = 0;
+        int tries = 0;
         for (int j = 0; j < 2; j++) {
             uint32 index = urand(0, ids.size() - 1);
             if (index >= ids.size())

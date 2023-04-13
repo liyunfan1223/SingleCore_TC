@@ -5,7 +5,7 @@ import MySQLdb # import t/he MySQLdb module
 
 # Create the connection object
 connection = MySQLdb.connect(
-    host="127.0.0.1",
+    host="124.223.191.243",
     user="root",
     passwd="root",
     db="characters",
@@ -42,6 +42,7 @@ for key in mp.keys():
     print("!", key, value)
     cursor.execute(f"update item_soulbound_trade_data set itemGuid={value} where itemGuid={key};")
     cursor.execute(f"update character_inventory set item={value} where item={key};")
+    cursor.execute(f"update character_inventory set bag={value} where bag={key};")
     cursor.execute(f"update item_instance set guid={value} where guid={key};")
     # ok += 1
     # if (ok % 2000 == 0):
