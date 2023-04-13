@@ -206,7 +206,7 @@ bool ItemCanGoIntoBag(ItemTemplate const* proto, ItemTemplate const* pBagProto);
 class TC_GAME_API Item : public Object
 {
     public:
-        static Item* CreateItem(uint32 itemEntry, uint32 count, Player const* player = NULL);
+        static Item* CreateItem(uint32 itemEntry, uint32 count, Player const* player = NULL, bool temp = false);
         Item* CloneItem(uint32 count, Player const* player = NULL) const;
 
         Item();

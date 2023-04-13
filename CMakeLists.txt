@@ -24,7 +24,7 @@ if(POLICY CMP0054)
   cmake_policy(SET CMP0054 NEW) # Only interpret if() arguments as variables or keywords when unquoted - prevents intepreting if (SOME_STRING_VARIABLE MATCHES "MSVC") as if (SOME_STRING_VARIABLE MATCHES "1")
 endif()
 
-cmake_policy(SET CMP0074 NEW)
+# cmake_policy(SET CMP0074 NEW)
 
 # add this options before PROJECT keyword
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)

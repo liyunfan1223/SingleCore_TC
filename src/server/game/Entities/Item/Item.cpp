@@ -1020,7 +1020,7 @@ void Item::SendTimeUpdate(Player* owner)
     owner->GetSession()->SendPacket(&data);
 }
 
-Item* Item::CreateItem(uint32 itemEntry, uint32 count, Player const* player)
+Item* Item::CreateItem(uint32 itemEntry, uint32 count, Player const* player, bool temp)
 {
     if (count < 1)
         return NULL;                                        //don't create item at zero count
@@ -1033,8 +1033,9 @@ Item* Item::CreateItem(uint32 itemEntry, uint32 count, Player const* player)
 
         ASSERT(count != 0 && "pProto->Stackable == 0 but checked at loading already");
 
+        uint32 guid = temp ? 0xFFFFFFFF : sObjectMgr->GetGenerator<HighGuid::Item>().Generate();
         Item* item = NewItemOrBag(proto);
-        if (item->Create(sObjectMgr->GetGenerator<HighGuid::Item>().Generate(), itemEntry, player))
+        if (item->Create(guid, itemEntry, player))
         {
             item->SetCount(count);
             return item;

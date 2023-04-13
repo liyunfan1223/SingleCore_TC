@@ -1024,7 +1024,7 @@ void PlayerbotFactory::EnchantItem(Item* item)
 bool PlayerbotFactory::CanEquipUnseenItem(uint8 slot, uint16 &dest, uint32 item)
 {
     dest = 0;
-    Item *pItem = Item::CreateItem(item, 1, bot);
+    Item *pItem = Item::CreateItem(item, 1, bot, true);
     if (pItem)
     {
         InventoryResult result = bot->CanEquipItem(slot, dest, pItem, true, false);
