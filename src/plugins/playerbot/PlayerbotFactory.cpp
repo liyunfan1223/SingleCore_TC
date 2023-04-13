@@ -1562,10 +1562,10 @@ void PlayerbotFactory::InitAmmo()
     if (fields)
     {
         uint32 entry = fields[0].GetUInt32();
-        for (int i = 0; i < 15; i++)
-        {
-            bot->StoreNewItemInBestSlots(entry, 1000);
-        }
+        // for (int i = 0; i < 15; i++)
+        // {
+        bot->StoreNewItemInBestSlots(entry, 10000);
+        // }
         bot->SetAmmo(entry);
     }
 }
@@ -1702,7 +1702,8 @@ void PlayerbotFactory::InitFood()
     {
         uint32 category = categories[i];
         vector<uint32>& ids = items[category];
-        for (int j = 0; j < 5; j++) {
+        int tires = 0;
+        for (int j = 0; j < 2; j++) {
             uint32 index = urand(0, ids.size() - 1);
             if (index >= ids.size())
                 continue;
@@ -1713,6 +1714,11 @@ void PlayerbotFactory::InitFood()
             if (proto->Spells[0].SpellId == 11007 || proto->Spells[0].SpellId == 11008 || proto->Spells[0].SpellId == 11009 ||
                 proto->Spells[0].SpellId == 11629 || proto->Spells[0].SpellId == 50986)  
             {
+                tries++;
+                if (tries > 5) {
+                    continue;
+                }
+                j--;
                 continue;
             }
             // bot->StoreNewItemInBestSlots(itemId, urand(1, proto->GetMaxStackSize()));

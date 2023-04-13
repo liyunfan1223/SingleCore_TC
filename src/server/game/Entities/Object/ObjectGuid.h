@@ -298,7 +298,7 @@ public:
             // if (high == HighGuid::Item) {
             //     _nextGuid = 0;
             // } else {
-                HandleCounterOverflow(high);
+            HandleCounterOverflow(high);
             // }
         }
         return _nextGuid++;
