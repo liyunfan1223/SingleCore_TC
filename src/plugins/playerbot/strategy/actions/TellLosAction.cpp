@@ -123,4 +123,5 @@ bool TellAuraAction::Execute(Event event)
                            " duration: " + to_string(duration));
         }
 	}
+	return true;
 }

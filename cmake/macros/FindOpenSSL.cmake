@@ -24,26 +24,27 @@
 #  License text for the above reference.)
 
 # http://www.slproweb.com/products/Win32OpenSSL.html
-
 set(OPENSSL_EXPECTED_VERSION "1.0")
 set(OPENSSL_MAX_VERSION "1.1")
 
 SET(_OPENSSL_ROOT_HINTS
+  "C:/OpenSSL-Win32/"
+  "C:/OpenSSL-Win64/"
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (32-bit)_is1;Inno Setup: App Path]"
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (64-bit)_is1;Inno Setup: App Path]"
   )
 
 IF(PLATFORM EQUAL 64)
   SET(_OPENSSL_ROOT_PATHS
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (64-bit)_is1;InstallLocation]"
-    "C:/OpenSSL-Win64/"
     "C:/OpenSSL/"
+    "C:/OpenSSL-Win64/"
+    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (64-bit)_is1;InstallLocation]"
   )
 ELSE()
   SET(_OPENSSL_ROOT_PATHS
+    "C:/OpenSSL-Win32/"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (32-bit)_is1;InstallLocation]"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenSSL (32-bit)_is1;InstallLocation]"
-    "C:/OpenSSL/"
   )
 ENDIF()
 
@@ -84,28 +85,28 @@ IF(WIN32 AND NOT CYGWIN)
       NAMES
         libeay32MDd libeay32
       PATHS
-        ${OPENSSL_ROOT_DIR}/lib/VC
+        ${OPENSSL_ROOT_DIR}/lib
     )
 
     FIND_LIBRARY(LIB_EAY_RELEASE
       NAMES
         libeay32MD libeay32
       PATHS
-        ${OPENSSL_ROOT_DIR}/lib/VC
+        ${OPENSSL_ROOT_DIR}/lib
     )
 
     FIND_LIBRARY(SSL_EAY_DEBUG
       NAMES
         ssleay32MDd ssleay32 ssl
       PATHS
-        ${OPENSSL_ROOT_DIR}/lib/VC
+        ${OPENSSL_ROOT_DIR}/lib
     )
 
     FIND_LIBRARY(SSL_EAY_RELEASE
       NAMES
         ssleay32MD ssleay32 ssl
       PATHS
-        ${OPENSSL_ROOT_DIR}/lib/VC
+        ${OPENSSL_ROOT_DIR}/lib
     )
 
     if( CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE )
@@ -151,7 +152,7 @@ IF(WIN32 AND NOT CYGWIN)
         libeay32
       PATHS
         ${OPENSSL_ROOT_DIR}/lib
-        ${OPENSSL_ROOT_DIR}/lib/VC
+        ${OPENSSL_ROOT_DIR}/lib
     )
 
     FIND_LIBRARY(SSL_EAY
@@ -159,7 +160,7 @@ IF(WIN32 AND NOT CYGWIN)
         ssleay32
       PATHS
         ${OPENSSL_ROOT_DIR}/lib
-        ${OPENSSL_ROOT_DIR}/lib/VC
+        ${OPENSSL_ROOT_DIR}/lib
     )
     MARK_AS_ADVANCED(SSL_EAY LIB_EAY)
 
@@ -182,6 +183,7 @@ if (NOT OPENSSL_INCLUDE_DIR)
   )
 endif()
 
+message ( STATUS "Found OpenSSL root: ${OPENSSL_ROOT_DIR}")
 if (OPENSSL_INCLUDE_DIR)
   message( STATUS "Found OpenSSL library: ${OPENSSL_LIBRARIES}")
   message( STATUS "Found OpenSSL headers: ${OPENSSL_INCLUDE_DIR}")
