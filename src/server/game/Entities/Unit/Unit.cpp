@@ -4407,8 +4407,7 @@ void Unit::RemoveAllAuras()
         AuraMap::iterator aurIter;
         for (aurIter = m_ownedAuras.begin(); aurIter != m_ownedAuras.end();)
             RemoveOwnedAura(aurIter);
-        ++tries;
-        if (tries > 10000) {
+        if (++tries > 10000) {
             break;
         }
         // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d %d", m_appliedAuras.size(), m_ownedAuras.size());
@@ -8069,7 +8068,7 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
     if (triggerEntry == NULL)
     {
         // Don't cast unknown spell
-        TC_LOG_ERROR("entities.unit.handleproctriggerspell", "Unit::HandleProcTriggerSpell: Spell %u (effIndex: %u) has unknown TriggerSpell %u. Unhandled custom case?", auraSpellInfo->Id, triggeredByAura->GetEffIndex(), trigger_spell_id);
+        TC_LOG_DEBUG("entities.unit.handleproctriggerspell", "Unit::HandleProcTriggerSpell: Spell %u (effIndex: %u) has unknown TriggerSpell %u. Unhandled custom case?", auraSpellInfo->Id, triggeredByAura->GetEffIndex(), trigger_spell_id);
         return false;
     }
 

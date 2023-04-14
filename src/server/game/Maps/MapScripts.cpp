@@ -703,7 +703,7 @@ void Map::ScriptsProcess()
 
                 if (!uTarget || !uTarget->isType(TYPEMASK_UNIT))
                 {
-                    TC_LOG_ERROR("scripts", "%s no target unit found for spell %u", step.script->GetDebugInfo().c_str(), step.script->CastSpell.SpellID);
+                    TC_LOG_DEBUG("scripts", "%s no target unit found for spell %u", step.script->GetDebugInfo().c_str(), step.script->CastSpell.SpellID);
                     break;
                 }
 

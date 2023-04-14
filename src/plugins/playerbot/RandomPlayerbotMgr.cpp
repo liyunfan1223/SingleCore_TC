@@ -207,7 +207,7 @@ bool RandomPlayerbotMgr::ProcessBot(uint64 bot)
     Group* group = player->GetGroup();
     if (group)
     {
-        if (IsRandomBot(group->GetLeaderGUID())) {
+        if (!group->isLFGGroup() && IsRandomBot(group->GetLeaderGUID())) {
             // player->UninviteFromGroup();
             player->RemoveFromGroup();
             sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %d remove from group since leader is random bot.", bot);
@@ -234,7 +234,7 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
     {
         if (!GetEventValue(bot, "dead"))
         {
-            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Setting dead flag for bot %d", bot);
+            // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Setting dead flag for bot %d", bot);
             uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotReviveTime, sPlayerbotAIConfig.maxRandomBotReviveTime);
             SetEventValue(bot, "dead", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
             SetEventValue(bot, "revive", 1, randomTime);
@@ -324,7 +324,7 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
 void RandomPlayerbotMgr::Revive(Player* player)
 {
 	uint32 bot = player->GetGUID();
-	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
+	// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
 	SetEventValue(bot, "dead", 0, 0);
 	SetEventValue(bot, "revive", 0, 0);
 	RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
@@ -380,8 +380,8 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
             continue;
 
         z = 0.05f + ground;
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %s to %s %f,%f,%f (%u/%u locations)",
-                bot->GetName().c_str(), area->area_name[0], x, y, z, attemtps, locs.size());
+        // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %s to %s %f,%f,%f (%u/%u locations)",
+        //         bot->GetName().c_str(), area->area_name[0], x, y, z, attemtps, locs.size());
 
         bot->GetMotionMaster()->Clear();
         bot->TeleportTo(loc.GetMapId(), x, y, z, 0);
@@ -446,7 +446,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, 
 {
 	if (bot->InBattleground())
 		return;
-	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Preparing location to random teleporting bot %s", bot->GetName().c_str());
+	// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Preparing location to random teleporting bot %s", bot->GetName().c_str());
 
     vector<WorldLocation> locs;
     QueryResult results = WorldDatabase.PQuery("select position_x, position_y, position_z from creature where map = '%u' and abs(position_x - '%f') < '%u' and abs(position_y - '%f') < '%u' limit 50",
