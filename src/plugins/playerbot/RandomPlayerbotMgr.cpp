@@ -470,7 +470,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, 
 
 void RandomPlayerbotMgr::Randomize(Player* bot)
 {
-    if (!bot->GetGuildId())
+    if (!bot->GetGuildId() || bot->getLevel() >= sPlayerbotAIConfig.randomBotMaxLevel)
 	{
         RandomizeFirst(bot);
     }

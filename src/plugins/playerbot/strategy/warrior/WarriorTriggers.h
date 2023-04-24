@@ -3,7 +3,15 @@
 
 namespace ai
 {
-    BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
+    class BattleShoutTrigger : public BuffTrigger
+    {
+    public:
+        BattleShoutTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "battle shout") {}
+        virtual bool IsActive() {
+            return BuffTrigger::IsActive() && !ai->HasAura(spell, "blessing of might");
+        }
+    };
+    // BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
 
     DEBUFF_FROM_BOT_TRIGGER(RendDebuffTrigger, "rend", "rend")
     DEBUFF_FROM_BOT_TRIGGER(DisarmDebuffTrigger, "disarm", "disarm")
@@ -87,4 +95,9 @@ namespace ai
         ShieldBashInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "shield bash") {}
     };
 
+    class SlamTrigger : public HasAuraTrigger
+    {
+    public:
+        SlamTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "slam!") {}
+    };
 }

@@ -34,21 +34,21 @@ private:
 	static ActionNode* death_strike(PlayerbotAI* ai)
 	{
 		return new ActionNode("death strike",
-			/*P*/ NextAction::array(0, new NextAction("unholy pressence"), NULL),
+			/*P*/ NextAction::array(0, new NextAction("blood pressence"), NULL),
 			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 	static ActionNode* corpse_explosion(PlayerbotAI* ai)
 	{
 		return new ActionNode("corpse explosion",
-			/*P*/ NextAction::array(0, new NextAction("unholy pressence"), NULL),
+			/*P*/ NextAction::array(0, new NextAction("blood pressence"), NULL),
 			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 	static ActionNode* scourge_strike(PlayerbotAI* ai)
 	{
 		return new ActionNode("scourge strike",
-			/*P*/ NextAction::array(0, new NextAction("unholy pressence"), NULL),
+			/*P*/ NextAction::array(0, new NextAction("blood pressence"), NULL),
 			/*A*/ NextAction::array(0, new NextAction("death strike"), NULL),
 			/*C*/ NULL);
 	}

@@ -24,12 +24,13 @@ public:
             result = creature;
         }
         // // neglect if victim is main tank
-        // if (threatManager->getCurrentVictim()) {
-        //     Unit* victim = threatManager->getCurrentVictim()->getTarget();
-        //     if (victim && victim->ToPlayer() && ai->IsMainTank(victim->ToPlayer())) {
-        //         return;
-        //     }
-        // }
+        if (threatManager->getCurrentVictim()) {
+            float max_threat = threatManager->getThreat(threatManager->getCurrentVictim()->getTarget());
+            Unit* victim = threatManager->getCurrentVictim()->getTarget();
+            if (victim && victim->ToPlayer() && ai->IsMainTank(victim->ToPlayer())) {
+                return;
+            }
+        }
         if (minThreat >= threat)
         {
             minThreat = threat;

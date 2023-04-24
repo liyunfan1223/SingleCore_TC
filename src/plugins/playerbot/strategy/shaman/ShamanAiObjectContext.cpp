@@ -109,6 +109,7 @@ namespace ai
                 creators["party member cleanse spirit curse"] = &TriggerFactoryInternal::party_member_cleanse_curse;
                 creators["party member cleanse spirit disease"] = &TriggerFactoryInternal::party_member_cleanse_disease;
                 creators["shock"] = &TriggerFactoryInternal::shock;
+                creators["flame shock"] = &TriggerFactoryInternal::flame_shock;
                 creators["frost shock snare"] = &TriggerFactoryInternal::frost_shock_snare;
                 creators["heroism"] = &TriggerFactoryInternal::heroism;
                 creators["bloodlust"] = &TriggerFactoryInternal::bloodlust;
@@ -150,6 +151,7 @@ namespace ai
             static Trigger* water_shield(PlayerbotAI* ai) { return new WaterShieldTrigger(ai); }
             static Trigger* lightning_shield(PlayerbotAI* ai) { return new LightningShieldTrigger(ai); }
             static Trigger* shock(PlayerbotAI* ai) { return new ShockTrigger(ai); }
+            static Trigger* flame_shock(PlayerbotAI* ai) { return new FlameShockTrigger(ai); }
             static Trigger* frost_shock_snare(PlayerbotAI* ai) { return new FrostShockSnareTrigger(ai); }
             static Trigger* wind_shear_on_enemy_healer(PlayerbotAI* ai) { return new WindShearInterruptEnemyHealerSpellTrigger(ai); }
 			static Trigger* cure_poison(PlayerbotAI* ai) { return new CurePoisonTrigger(ai); }

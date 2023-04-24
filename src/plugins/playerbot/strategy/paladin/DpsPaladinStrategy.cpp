@@ -70,8 +70,12 @@ DpsPaladinStrategy::DpsPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrategy
 
 NextAction** DpsPaladinStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("crusader strike", ACTION_NORMAL + 1),
-    new NextAction("melee", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("crusader strike", ACTION_NORMAL + 6),
+        new NextAction("judgement of wisdom", ACTION_NORMAL + 5),
+        new NextAction("divine storm", ACTION_NORMAL + 4),
+        new NextAction("consecration", ACTION_NORMAL + 3),
+        new NextAction("melee", ACTION_NORMAL), 
+        NULL);
 }
 
 void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -82,18 +86,18 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "low health",
         NextAction::array(0, new NextAction("divine shield", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "judgement of wisdom",
-        NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 2), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "judgement of wisdom",
+    //     NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 2), NULL)));
         
-        triggers.push_back(new TriggerNode(
-		"judgement",
-		NextAction::array(0, new NextAction("judgement", ACTION_NORMAL + 2), NULL)));
+        // triggers.push_back(new TriggerNode(
+		// "judgement",
+		// NextAction::array(0, new NextAction("judgement", ACTION_NORMAL + 2), NULL)));
 
 
     triggers.push_back(new TriggerNode(
 		"medium aoe",
-	NextAction::array(0, new NextAction("divine storm", ACTION_HIGH + 1), new NextAction("consecration", ACTION_HIGH + 1), NULL)));
+	    NextAction::array(0, new NextAction("divine storm", ACTION_HIGH + 1), new NextAction("consecration", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"hammer of justice interrupt",

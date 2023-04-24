@@ -130,8 +130,12 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("tank", "tank aoe", NULL);
                 engine->ChangeStrategy("-aoe");
             }
-            else
+            else if (tab == 0) {
                 engine->addStrategies("dps", "threat", NULL);
+            } else {
+                engine->addStrategies("melee", "threat", NULL);
+                engine->ChangeStrategy("-aoe");
+            }
             break;
 		case CLASS_DEATH_KNIGHT:
 			if (tab == 0)
@@ -156,7 +160,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             else if (tab == 1)
                 engine->addStrategies("tank", "tank aoe", "cure", NULL);
             else
-                engine->addStrategies("dps", "bdps", "threat", "cure", NULL);
+                engine->addStrategies("dps", "threat", "cure", NULL);
             break;
         case CLASS_DRUID:
             if (tab == 0)

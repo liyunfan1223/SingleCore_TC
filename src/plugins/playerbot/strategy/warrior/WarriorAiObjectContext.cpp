@@ -8,6 +8,7 @@
 #include "../generic/PullStrategy.h"
 #include "WarriorTriggers.h"
 #include "../NamedObjectContext.h"
+#include "BerserkerWarriorStrategy.h"
 
 using namespace ai;
 
@@ -41,11 +42,13 @@ namespace ai
             {
                 creators["tank"] = &warrior::CombatStrategyFactoryInternal::tank;
                 creators["dps"] = &warrior::CombatStrategyFactoryInternal::dps;
+                creators["melee"] = &warrior::CombatStrategyFactoryInternal::melee;
             }
 
         private:
             static Strategy* tank(PlayerbotAI* ai) { return new TankWarriorStrategy(ai); }
             static Strategy* dps(PlayerbotAI* ai) { return new DpsWarriorStrategy(ai); }
+            static Strategy* melee(PlayerbotAI* ai) { return new BerserkerWarriorStrategy(ai); }
         };
     };
 };
@@ -76,7 +79,7 @@ namespace ai
                 creators["sword and board"] = &TriggerFactoryInternal::SwordAndBoard;
                 creators["shield bash on enemy healer"] = &TriggerFactoryInternal::shield_bash_on_enemy_healer;
 				creators["sweeping strikes"] = &TriggerFactoryInternal::sweeping_strikes;
-
+                creators["slam"] = &TriggerFactoryInternal::slam;
             }
 
         private:
@@ -95,6 +98,7 @@ namespace ai
             static Trigger* SwordAndBoard(PlayerbotAI* ai) { return new SwordAndBoardTrigger(ai); }
             static Trigger* shield_bash_on_enemy_healer(PlayerbotAI* ai) { return new ShieldBashInterruptEnemyHealerSpellTrigger(ai); }
 			static Trigger* sweeping_strikes(PlayerbotAI* ai) { return new SweepingStrikesTrigger(ai); }
+            static Trigger* slam(PlayerbotAI* ai) { return new SlamTrigger(ai); }
         };
     };
 };

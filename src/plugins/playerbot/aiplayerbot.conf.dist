@@ -44,8 +44,8 @@ AiPlayerbot.RandomBotMinLevel = 10
 AiPlayerbot.RandomBotMaxLevel = 80
 
 # Custom strategies (check in database)
-AiPlayerbot.CombatStrategies = +custom::say
-AiPlayerbot.NonCombatStrategies = +custom::say
+AiPlayerbot.CombatStrategies =
+AiPlayerbot.NonCombatStrategies =
 
 # Allow/deny bots from your guild
 AiPlayerbot.AllowGuildBots = 1

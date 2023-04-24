@@ -782,7 +782,7 @@ void PlayerbotFactory::InitEquipment(bool incremental)
         {
             newItem->AddToWorld();
             newItem->AddToUpdateQueueOf(bot);
-            bot->AutoUnequipOffhandIfNeed();
+            // bot->AutoUnequipOffhandIfNeed();
             EnchantItem(newItem);
         }
     }
