@@ -8,7 +8,7 @@ namespace ai
     public:
         BattleShoutTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "battle shout") {}
         virtual bool IsActive() {
-            return BuffTrigger::IsActive() && !ai->HasAura(spell, "blessing of might");
+            return BuffTrigger::IsActive() && !ai->HasAura("blessing of might", bot);
         }
     };
     // BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
