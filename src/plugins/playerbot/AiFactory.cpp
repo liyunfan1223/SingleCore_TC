@@ -126,8 +126,10 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             // engine->addStrategy("flee");
             break;
         case CLASS_WARRIOR:
-            if (tab == 2)
+            if (tab == 2) {
                 engine->addStrategies("tank", "tank aoe", NULL);
+                engine->ChangeStrategy("-aoe");
+            }
             else
                 engine->addStrategies("dps", "threat", NULL);
             break;
