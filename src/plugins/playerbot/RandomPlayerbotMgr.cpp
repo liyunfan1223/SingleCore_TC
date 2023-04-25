@@ -161,10 +161,10 @@ bool RandomPlayerbotMgr::ProcessBot(uint64 bot)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %d logged in", bot);
         AddPlayerBot(bot, 0);
+        ScheduleTeleport(bot);
         if (!GetEventValue(bot, "online"))
         {
             SetEventValue(bot, "online", 1, sPlayerbotAIConfig.minRandomBotInWorldTime);
-            ScheduleTeleport(bot);
         }
         return true;
     }
