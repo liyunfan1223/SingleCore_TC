@@ -1466,6 +1466,39 @@ Aura* PlayerbotAI::GetAura(string name, Unit* unit)
     return nullptr;
 }
 
+Aura* PlayerbotAI::GetAuraWithDuration(string name, Unit* unit, bool from_bot)
+{
+    if (!unit)
+        return nullptr;
+
+    wstring wnamepart;
+    if (!Utf8toWStr(name, wnamepart))
+        return nullptr;
+
+    wstrToLower(wnamepart);
+
+    Unit::AuraApplicationMap& map = unit->GetAppliedAuras();
+    for (Unit::AuraApplicationMap::iterator i = map.begin(); i != map.end(); ++i)
+    {
+        Aura * aura  = i->second->GetBase();
+        if (!aura)
+            continue;
+        if (aura->GetDuration() <= 0) {
+            continue;
+        }
+        if (from_bot && aura->GetCaster() != bot) {
+            continue;
+        }
+        const string auraName = aura->GetSpellInfo()->SpellName[0];
+        if (auraName.empty() || auraName.length() != wnamepart.length() || !Utf8FitTo(auraName, wnamepart))
+            continue;
+
+        if (IsRealAura(bot, aura, unit))
+            return aura;
+    }
+    return nullptr;
+}
+
 bool PlayerbotAI::HasAura(uint32 spellId, const Unit* unit)
 {
     if (!spellId || !unit)

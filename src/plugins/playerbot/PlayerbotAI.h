@@ -215,6 +215,7 @@ public:
     virtual bool HasAuraWithDuration(string spellName, Unit* player);
     virtual bool HasAuraFromBot(string spellName, Unit* player);
     virtual Aura* GetAura(string spellName, Unit* player);
+    virtual Aura* GetAuraWithDuration(string spellName, Unit* player, bool from_bot = false);
     virtual bool HasAnyAuraOf(Unit* player, ...);
 
     virtual bool IsInterruptableSpellCasting(Unit* player, string spell);

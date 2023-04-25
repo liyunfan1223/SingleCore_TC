@@ -20,5 +20,5 @@ bool OffHandWeaponNoEnchantTrigger::IsActive() {
 }
 
 bool ExposeArmorTrigger::IsActive() {
-    return DebuffTrigger::IsActive() && AI_VALUE2(uint8, "combo", "current target") <= 2;
+    return DebuffTrigger::IsActive() && !ai->HasAuraWithDuration("sunder armor", bot) && AI_VALUE2(uint8, "combo", "current target") <= 3;
 }

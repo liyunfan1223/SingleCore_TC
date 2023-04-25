@@ -164,8 +164,17 @@ namespace ai
         virtual NextAction** getPrerequisites();
     END_SPELL_ACTION()
 
-    BEGIN_DEBUFF_ACTION(CastSunderArmorAction, "sunder armor") // 5 times
-    END_SPELL_ACTION()
+    class CastSunderArmorAction : public CastDebuffSpellAction
+    {
+    public:
+        CastSunderArmorAction(PlayerbotAI* ai): CastDebuffSpellAction(ai, "sunder armor") {}
+        virtual bool isUseful() {
+            Aura *aura = ai->GetAura("sunder armor", GetTarget());
+            return !aura || aura->GetStackAmount() < 5 || aura->GetDuration() <= 3000;
+        }
+    };
+    // BEGIN_DEBUFF_ACTION(CastSunderArmorAction, "sunder armor") // 5 times
+    // END_SPELL_ACTION()
 
     class CastDemoralizingShoutAction : public CastDebuffSpellAction {
     public:

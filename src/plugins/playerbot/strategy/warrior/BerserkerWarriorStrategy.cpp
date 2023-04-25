@@ -57,8 +57,9 @@ NextAction** BerserkerWarriorStrategy::getDefaultActions()
 	return NextAction::array(0, 
         new NextAction("bloodthirst", ACTION_NORMAL + 5), 
         new NextAction("whirlwind", ACTION_NORMAL + 4), 
-        new NextAction("execute", ACTION_NORMAL + 3), 
-        new NextAction("overpower", ACTION_NORMAL + 2), 
+        new NextAction("sunder armor", ACTION_NORMAL + 3), 
+        new NextAction("execute", ACTION_NORMAL + 2), 
+        new NextAction("overpower", ACTION_NORMAL + 1), 
         new NextAction("melee", ACTION_NORMAL), 
     NULL);
 }
@@ -96,6 +97,6 @@ void BerserkerWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("cleave", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium rage available",
-        NextAction::array(0, new NextAction("heroic strike", ACTION_HIGH + 2), NULL)));
+        "high rage available",
+        NextAction::array(0, new NextAction("heroic strike", ACTION_HIGH + 1), NULL)));
 }

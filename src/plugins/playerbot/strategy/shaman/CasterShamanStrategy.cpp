@@ -18,7 +18,7 @@ private:
         return new ActionNode ("magma totem",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("fire nova totem"), NULL));
+            /*C*/ NextAction::array(0, new NextAction("fire nova"), NULL));
     }
 };
 
@@ -29,7 +29,10 @@ CasterShamanStrategy::CasterShamanStrategy(PlayerbotAI* ai) : GenericShamanStrat
 
 NextAction** CasterShamanStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("lightning bolt", 10.0f), NULL);
+    return NextAction::array(0, 
+        new NextAction("lava burst", 11.0f),
+        new NextAction("lightning bolt", 10.0f), 
+        NULL);
 }
 
 void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -49,16 +52,20 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("searing totem", 19.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "shock",
-        NextAction::array(0, new NextAction("earth shock", 20.0f), NULL)));
+        "flame shock",
+        NextAction::array(0, new NextAction("flame shock", 20.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "frost shock snare",
-        NextAction::array(0, new NextAction("frost shock", 21.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "shock",
+    //     NextAction::array(0, new NextAction("earth shock", 20.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "medium aoe",
-        NextAction::array(0, new NextAction("fire nova totem", ACTION_NORMAL + 2), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "frost shock snare",
+    //     NextAction::array(0, new NextAction("frost shock", 21.0f), NULL)));
+
+    // triggers.push_back(new TriggerNode(
+    //     "medium aoe",
+    //     NextAction::array(0, new NextAction("fire nova", ACTION_NORMAL + 2), NULL)));
     
     triggers.push_back(new TriggerNode(
         "no fire totem",

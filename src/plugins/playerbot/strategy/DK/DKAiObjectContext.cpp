@@ -100,7 +100,6 @@ namespace ai
 				creators["blood tap"] = &TriggerFactoryInternal::blood_tap;
 				creators["raise dead"] = &TriggerFactoryInternal::raise_dead;
 				creators["chains of ice"] = &TriggerFactoryInternal::chains_of_ice;
-				creators["pestilence"] = &TriggerFactoryInternal::pestilence;
             }
 
         private:
@@ -193,7 +192,6 @@ namespace ai
 				//creators["hysteria"] = &AiObjectContextInternal::hysteria;
 				creators["dancing weapon"] = &AiObjectContextInternal::dancing_weapon;
 				creators["dark command"] = &AiObjectContextInternal::dark_command;
-				creators["pestilence"] = &AiObjectContextInternal::pestilence;
             }
 
         private:

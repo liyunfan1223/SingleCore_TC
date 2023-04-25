@@ -221,9 +221,9 @@ namespace ai
         virtual bool IsActive();
     };
 
-    class FlameShockTrigger : public DebuffTrigger {
+    class FlameShockTrigger : public DebuffFromBotTrigger {
     public:
-        FlameShockTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "flame shock") {}
+        FlameShockTrigger(PlayerbotAI* ai) : DebuffFromBotTrigger(ai, "flame shock") {}
     };
 
     class FrostShockSnareTrigger : public SnareTargetTrigger {
@@ -248,7 +248,7 @@ namespace ai
     public:
         MaelstromWeaponTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "maelstrom weapon") {}
         virtual bool IsActive() {
-            return HasAuraTrigger::IsActive() && ai->GetAura("maelstrom weapon", bot)->GetStackAmount() == 5;
+            return HasAuraTrigger::IsActive() && ai->GetAuraWithDuration("maelstrom weapon", bot)->GetStackAmount() == 5;
         }
     };
 

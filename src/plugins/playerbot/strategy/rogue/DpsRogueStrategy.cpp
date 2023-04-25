@@ -69,12 +69,16 @@ DpsRogueStrategy::DpsRogueStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
 
 NextAction** DpsRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("sinister strike", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("melee", ACTION_NORMAL), NULL);
 }
 
 void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     MeleeCombatStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "high energy available",
+        NextAction::array(0, new NextAction("sinister strike", ACTION_NORMAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "slice and dice",
@@ -112,4 +116,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"enemy out of melee",
 		NextAction::array(0, new NextAction("stealth", ACTION_NORMAL + 9), new NextAction("reach melee", ACTION_NORMAL + 8), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "expose armor",
+        NextAction::array(0, new NextAction("expose armor", ACTION_HIGH + 3), NULL)));
 }

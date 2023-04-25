@@ -26,7 +26,7 @@ uint8 RageValue::Calculate()
     Unit* target = GetTarget();
     if (!target)
         return 0;
-    return (static_cast<float> (target->GetPower(POWER_RAGE)));
+    return (static_cast<float> (target->GetPower(POWER_RAGE)) / 10); // actual rage * 10 = getpower
 }
 
 uint8 EnergyValue::Calculate()

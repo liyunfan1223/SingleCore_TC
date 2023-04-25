@@ -48,8 +48,9 @@ NextAction** MeleeShamanStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
         new NextAction("stormstrike", ACTION_NORMAL + 6), 
-        new NextAction("earth shock", ACTION_NORMAL + 2), 
-        new NextAction("stormstrike", ACTION_NORMAL + 1), 
+        new NextAction("earth shock", ACTION_NORMAL + 5), 
+        new NextAction("fire nova", ACTION_NORMAL + 4), 
+        new NextAction("lava lash", ACTION_NORMAL + 1), 
         new NextAction("melee", ACTION_NORMAL), 
         NULL);
 }
@@ -65,6 +66,10 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "flame shock",
         NextAction::array(0, new NextAction("flame shock", 24.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "maelstrom weapon",
+        NextAction::array(0, new NextAction("lightning bolt", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "not facing target",
@@ -95,5 +100,5 @@ void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     // triggers.push_back(new TriggerNode(
     //     "medium aoe",
-    //     NextAction::array(0, new NextAction("fire nova totem", 25.0f), NULL)));
+    //     NextAction::array(0, new NextAction("fire nova", 25.0f), NULL)));
 }

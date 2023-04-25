@@ -103,8 +103,8 @@ namespace ai
 			if (!SpellTrigger::IsActive()) {
 				return false;
 			}
-			Aura *blood_plague = ai->GetAura("blood plague", GetTarget());
-			Aura *frost_fever = ai->GetAura("frost fever", GetTarget());
+			Aura *blood_plague = ai->GetAuraWithDuration("blood plague", GetTarget(), true);
+			Aura *frost_fever = ai->GetAuraWithDuration("frost fever", GetTarget(), true);
 			if ((blood_plague && blood_plague->GetDuration() <= 3000) ||
 			    (frost_fever && frost_fever->GetDuration() <= 3000)) {
 					return true;
