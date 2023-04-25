@@ -98,7 +98,7 @@ namespace ai
 	END_SPELL_ACTION()
 
 
-		class CastPlagueStrikeOnAttackerAction : public CastDebuffSpellOnAttackerAction
+	class CastPlagueStrikeOnAttackerAction : public CastDebuffSpellOnAttackerAction
 	{
 	public:
 		CastPlagueStrikeOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "plague strike") {}

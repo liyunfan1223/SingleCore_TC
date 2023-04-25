@@ -10,12 +10,13 @@ namespace ai
 	DEBUFF_FROM_BOT_TRIGGER(PlagueStrikeDebuffTrigger, "blood plague", "plague strike")
 	DEBUFF_FROM_BOT_TRIGGER(IcyTouchDebuffTrigger, "frost fever", "icy touch")
 
-		class PlagueStrikeDebuffOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
+	class PlagueStrikeDebuffOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
 	{
 	public:
 		PlagueStrikeDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "blood plague") {}
 	};
-		class IcyTouchDebuffOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
+	
+	class IcyTouchDebuffOnAttackerTrigger : public DebuffFromBotOnAttackerTrigger
 	{
 	public:
 		IcyTouchDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffFromBotOnAttackerTrigger(ai, "frost fever") {}

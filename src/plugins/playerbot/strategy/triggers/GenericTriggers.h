@@ -334,7 +334,9 @@ namespace ai
     class DebuffOnAttackerTrigger : public DebuffTrigger
     {
     public:
-        DebuffOnAttackerTrigger(PlayerbotAI* ai, string spell) : DebuffTrigger(ai, spell) {}
+        DebuffOnAttackerTrigger(PlayerbotAI* ai, string spell) : DebuffTrigger(ai, spell) {
+            this->spell = spell;
+        }
     public:
         virtual Value<Unit*>* GetTargetValue();
         virtual string getName() { return spell + " on attacker"; }
@@ -343,7 +345,9 @@ namespace ai
     class DebuffFromBotOnAttackerTrigger : public DebuffFromBotTrigger
     {
     public:
-        DebuffFromBotOnAttackerTrigger(PlayerbotAI* ai, string spell) : DebuffFromBotTrigger(ai, spell) {}
+        DebuffFromBotOnAttackerTrigger(PlayerbotAI* ai, string spell) : DebuffFromBotTrigger(ai, spell) {
+            this->spell = spell;
+        }
     public:
         virtual Value<Unit*>* GetTargetValue();
         virtual string getName() { return spell + " on attacker"; }
