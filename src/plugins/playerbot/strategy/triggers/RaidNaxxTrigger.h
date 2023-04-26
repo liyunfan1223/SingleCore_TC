@@ -160,7 +160,7 @@ namespace ai
     class SapphironGroundChillTrigger : public BossPhaseTrigger
     {
     public:
-        SapphironGroundChillTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sapphiron", (1 << (2 - 1)), "sapphiron ground chill") {}
+        SapphironGroundChillTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sapphiron", 0, "sapphiron chill") {}
         virtual bool IsActive();
     };
 }

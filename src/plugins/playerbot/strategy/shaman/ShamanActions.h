@@ -362,5 +362,8 @@ namespace ai
 	{
 	public:
 		CastEarthShieldOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "earth shield") {}
+        virtual bool isUseful() {
+			return CastSpellAction::isUseful() && !ai->HasAuraFromBot("earth shield", GetTarget());
+		}
 	};
 }

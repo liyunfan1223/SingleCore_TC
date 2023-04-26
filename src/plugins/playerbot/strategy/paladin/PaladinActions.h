@@ -400,11 +400,17 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
 	{
 	public:
 		CastBeaconOfLightOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "beacon of light") {}
+		virtual bool isUseful() {
+			return CastSpellAction::isUseful() && !ai->HasAuraFromBot("beacon of light", GetTarget());
+		}
 	};
 
 	class CastSacredShieldOnMainTankAction : public BuffOnMainTankAction
 	{
 	public:
 		CastSacredShieldOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "sacred shield") {}
+		virtual bool isUseful() {
+			return CastSpellAction::isUseful() && !ai->HasAuraFromBot("sacred shield", GetTarget());
+		}
 	};
 }

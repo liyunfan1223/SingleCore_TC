@@ -179,5 +179,8 @@ namespace ai
 	{
 	public:
 		CastMisdirectionOnMainTankAction(PlayerbotAI* ai) : BuffOnMainTankAction(ai, "misdirection") {}
+        virtual bool isUseful() {
+			return CastSpellAction::isUseful() && !ai->HasAuraFromBot("misdirection", GetTarget());
+		}
 	};
 }

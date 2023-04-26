@@ -70,7 +70,7 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     // LOW
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("wild growth", ACTION_MEDIUM_HEAL + 9),
+        NextAction::array(0, new NextAction("wild growth on party", ACTION_MEDIUM_HEAL + 9),
             new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 8),
             new NextAction("swiftmend on party", ACTION_MEDIUM_HEAL + 7),
             new NextAction("nourish on party", ACTION_MEDIUM_HEAL + 6),

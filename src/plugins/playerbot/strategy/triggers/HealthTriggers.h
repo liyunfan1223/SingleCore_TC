@@ -143,4 +143,13 @@ namespace ai
         string type;
     };
 
+    class AoeInGroupTrigger : public Trigger {
+    public:
+    	AoeInGroupTrigger(PlayerbotAI* ai, string name, string type, float ratio) :
+    		Trigger(ai, name), type(type), ratio(ratio) {}
+        virtual bool IsActive();
+    protected:
+        float ratio;
+        string type;
+    };
 }

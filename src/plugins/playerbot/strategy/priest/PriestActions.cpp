@@ -15,7 +15,7 @@ NextAction** CastAbolishDiseaseOnPartyAction::getAlternatives()
     return NextAction::merge(NextAction::array(0, new NextAction("cure disease on party"), NULL), CastSpellAction::getAlternatives());
 }
 
-Unit* CastPowerWordShieldOnMediumHealth::GetTarget()
+Unit* CastPowerWordShieldOnAlmostFullHealthBelow::GetTarget()
 {
     Group *group = bot->GetGroup();
     for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
@@ -26,7 +26,7 @@ Unit* CastPowerWordShieldOnMediumHealth::GetTarget()
         if (player->isDead()) {
             continue;
         }
-        if (player->GetHealthPct() > sPlayerbotAIConfig.mediumHealth) {
+        if (player->GetHealthPct() > sPlayerbotAIConfig.almostFullHealth) {
             continue;
         }
         if (player->GetDistance2d(bot) > sPlayerbotAIConfig.spellDistance) {
@@ -40,7 +40,7 @@ Unit* CastPowerWordShieldOnMediumHealth::GetTarget()
     return NULL;
 }
 
-bool CastPowerWordShieldOnMediumHealth::isUseful()
+bool CastPowerWordShieldOnAlmostFullHealthBelow::isUseful()
 {
     Group *group = bot->GetGroup();
     for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
@@ -51,7 +51,7 @@ bool CastPowerWordShieldOnMediumHealth::isUseful()
         if (player->isDead()) {
             continue;
         }
-        if (player->GetHealthPct() > sPlayerbotAIConfig.mediumHealth) {
+        if (player->GetHealthPct() > sPlayerbotAIConfig.almostFullHealth) {
             continue;
         }
         if (player->GetDistance2d(bot) > sPlayerbotAIConfig.spellDistance) {

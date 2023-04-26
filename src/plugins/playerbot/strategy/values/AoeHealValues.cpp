@@ -18,7 +18,8 @@ uint8 AoeHealValue::Calculate()
     	range = sPlayerbotAIConfig.mediumHealth;
     else if (qualifier == "critical")
     	range = sPlayerbotAIConfig.criticalHealth;
-
+	else if (qualifier == "almost full")
+		range = sPlayerbotAIConfig.almostFullHealth;
     uint8 count = 0;
 	Group::MemberSlotList const& groupSlot = group->GetMemberSlots();
 	for (Group::member_citerator itr = groupSlot.begin(); itr != groupSlot.end(); itr++)

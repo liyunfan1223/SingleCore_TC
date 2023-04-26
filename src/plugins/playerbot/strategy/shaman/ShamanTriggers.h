@@ -286,5 +286,9 @@ namespace ai
     {
     public:
         EarthShieldOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "earth shield") {}
+        virtual bool IsActive() {
+            Unit* target = GetTarget();
+            return SpellTrigger::IsActive() && !ai->HasAuraFromBot(spell, target);
+        }
     };
 }

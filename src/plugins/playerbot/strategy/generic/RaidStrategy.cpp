@@ -213,7 +213,7 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("sapphiron flight position", ACTION_RAID + 1), NULL)));
 	
 	triggers.push_back(new TriggerNode(
-		"sapphiron ground chill", 
+		"sapphiron chill", 
 		NextAction::array(0, new NextAction("sapphiron avoid chill", ACTION_RAID + 1), NULL)));
 }
 

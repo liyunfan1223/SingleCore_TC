@@ -97,6 +97,7 @@ namespace ai
             creators["critical aoe heal"] = &TriggerContext::critical_aoe_heal;
             creators["low aoe heal"] = &TriggerContext::low_aoe_heal;
             creators["medium aoe heal"] = &TriggerContext::medium_aoe_heal;
+            creators["group heal occasion"] = &TriggerContext::group_heal_occasion;
             creators["invalid target"] = &TriggerContext::invalid_target;
             creators["no valid target"] = &TriggerContext::no_valid_target;
             creators["lfg proposal active"] = &TriggerContext::lfg_proposal_active;
@@ -122,7 +123,7 @@ namespace ai
             creators["sapphiron ground main tank"] = &TriggerContext::sapphiron_ground_main_tank;
             creators["sapphiron ground except main tank"] = &TriggerContext::sapphiron_ground_except_main_tank;
             creators["sapphiron flight"] = &TriggerContext::sapphiron_flight;
-            creators["sapphiron ground chill"] = &TriggerContext::sapphiron_ground_chill;
+            creators["sapphiron chill"] = &TriggerContext::sapphiron_ground_chill;
         }
 
     private:
@@ -132,6 +133,7 @@ namespace ai
         static Trigger* critical_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "critical aoe heal", "critical", 2); }
         static Trigger* low_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "low aoe heal", "low", 2); }
         static Trigger* medium_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "medium aoe heal", "medium", 2); }
+        static Trigger* group_heal_occasion(PlayerbotAI* ai) { return new AoeInGroupTrigger(ai, "medium aoe heal", "almost full", 0.4); }
         static Trigger* target_changed(PlayerbotAI* ai) { return new TargetChangedTrigger(ai); }
         static Trigger* swimming(PlayerbotAI* ai) { return new IsSwimmingTrigger(ai); }
         static Trigger* no_possible_targets(PlayerbotAI* ai) { return new NoPossibleTargetsTrigger(ai); }
@@ -213,7 +215,6 @@ namespace ai
         static Trigger* sapphiron_ground_main_tank(PlayerbotAI* ai) { return new SapphironGroundMainTankTrigger(ai); }
         static Trigger* sapphiron_ground_except_main_tank(PlayerbotAI* ai) { return new SapphironGroundExceptMainTankTrigger(ai); }
         static Trigger* sapphiron_flight(PlayerbotAI* ai) { return new SapphironFlightTrigger(ai); }
-        static Trigger* sapphiron_ground_chill(PlayerbotAI* ai) { return new SapphironGroundChillTrigger(ai); }
-        
+        static Trigger* sapphiron_ground_chill(PlayerbotAI* ai) { return new SapphironGroundChillTrigger(ai); }        
     };
 };

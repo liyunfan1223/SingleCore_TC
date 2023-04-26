@@ -60,5 +60,9 @@ namespace ai
     {
     public:
         TricksOfTheTradeOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "tricks of the trade") {}
+        virtual bool IsActive() {
+            Unit* target = GetTarget();
+            return SpellTrigger::IsActive() && !ai->HasAuraFromBot(spell, target);
+        }
     };
 }

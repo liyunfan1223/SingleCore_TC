@@ -103,6 +103,10 @@ namespace ai
     {
     public:
         MisdirectionOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "misdirection") {}
+        virtual bool IsActive() {
+            Unit* target = GetTarget();
+            return SpellTrigger::IsActive() && !ai->HasAuraFromBot(spell, target);
+        }
     };
 
 }

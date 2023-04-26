@@ -123,6 +123,10 @@ namespace ai
     {
     public:
         BeaconOfLightOnMainTankTrigger(PlayerbotAI* ai) : BuffOnMainTankTrigger(ai, "beacon of light") {}
+        virtual bool IsActive() {
+            Unit* target = GetTarget();
+            return SpellTrigger::IsActive() && !ai->HasAuraFromBot(spell, target);
+        }
     };
 
     class SacredShieldOnMainTankTrigger : public BuffOnMainTankTrigger
