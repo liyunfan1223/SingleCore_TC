@@ -111,7 +111,9 @@ float SapphironGenericMultiplier::GetValue(Action* action)
 	BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
     EventMap* eventMap = boss_ai->GetEvents();
     uint32 curr_phase = eventMap->GetPhaseMask();
-	if (curr_phase == 4 && 
+	uint32 timer = eventMap->GetTimer();
+	uint32 explosion = eventMap->GetNextEventTime(10);
+	if (curr_phase == 4 && explosion > timer && 
 		(dynamic_cast<MovementAction*>(action) && 
 		 !dynamic_cast<SapphironFlightPositionAction*>(action) && 
 		 !dynamic_cast<SummonAction*>(action))) {

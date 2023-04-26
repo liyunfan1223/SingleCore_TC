@@ -33,20 +33,27 @@ Unit* PartyMemberToHeal::Calculate()
 
     bool isRaid = bot->GetGroup()->isRaidGroup();
     MinValueCalculator calc(100);
+    
     for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
     {
         Player* player = gref->GetSource();
         if (player && Check(player) && player->IsAlive()) {
             uint8 health = player->GetHealthPct();
-            if (isRaid || health < sPlayerbotAIConfig.mediumHealth || !IsTargetOfSpellCast(player, predicate))
-                calc.probe(health, player);
+            if (isRaid || health < sPlayerbotAIConfig.mediumHealth || !IsTargetOfSpellCast(player, predicate)) {
+                if (player->GetDistance2d(bot) > sPlayerbotAIConfig.spellDistance) {
+                    calc.probe(health + 30, player);
+                } else {
+                    calc.probe(health + player->GetDistance2d(bot) / 10, player);
+                }
+
+            }
         }
 
         Pet* pet = player->GetPet();
         if (pet && Check(pet) && pet->IsAlive()) {
             uint8 health = ((Unit*)pet)->GetHealthPct();
             if (isRaid || health < sPlayerbotAIConfig.mediumHealth)
-                calc.probe(health, pet);
+                calc.probe(health + 30, pet);
         }
 
         Unit* charm = player->GetCharm();

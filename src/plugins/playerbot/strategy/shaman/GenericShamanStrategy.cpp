@@ -89,7 +89,8 @@ private:
     {
         return new ActionNode ("riptide on party",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
+            /*A*/ NULL,
+            // /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
             /*C*/ NULL);
     }
 };

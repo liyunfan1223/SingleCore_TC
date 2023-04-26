@@ -14,7 +14,7 @@ namespace ai
             creators["divine spirit"] = &divine_spirit;
             creators["divine spirit on party"] = &divine_spirit_on_party;
             creators["power word: shield"] = &power_word_shield;
-            creators["power word: shield on party"] = &power_word_shield_on_party;
+            // creators["power word: shield on party"] = &power_word_shield_on_party; 
             creators["renew"] = &renew;
             creators["renew on party"] = &renew_on_party;
             creators["greater heal"] = &greater_heal;

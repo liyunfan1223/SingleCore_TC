@@ -124,6 +124,13 @@ namespace ai
         virtual string getName() { return "power word: shield on party"; }
     };
 
+    class CastPowerWordShieldOnMediumHealth : public HealPartyMemberAction {
+    public:
+        CastPowerWordShieldOnMediumHealth(PlayerbotAI* ai) : HealPartyMemberAction(ai, "power word: shield") {}
+        virtual bool isUseful();
+        virtual Unit* GetTarget();
+    };
+
 	class CastPowerWordFortitudeAction : public CastBuffSpellAction {
 	public:
 		CastPowerWordFortitudeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "power word: fortitude") {}

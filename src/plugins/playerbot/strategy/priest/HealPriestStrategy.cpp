@@ -25,8 +25,9 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member critical health",
 		NextAction::array(0,
-            new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 4),
-            new NextAction("penance on party", ACTION_CRITICAL_HEAL + 5), 
+            new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 6),
+            new NextAction("power word: shield on medium health below", ACTION_MEDIUM_HEAL + 5),
+            new NextAction("penance on party", ACTION_CRITICAL_HEAL + 4), 
             new NextAction("flash heal on party", ACTION_CRITICAL_HEAL + 3),
             new NextAction("prayer of mending on party", ACTION_CRITICAL_HEAL + 2),
             NULL)));
@@ -34,19 +35,21 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member low health",
 		NextAction::array(0,
-            new NextAction("power word: shield on party", ACTION_MEDIUM_HEAL + 5),
-            new NextAction("penance on party", ACTION_MEDIUM_HEAL + 4), 
-            new NextAction("prayer of mending on party", ACTION_MEDIUM_HEAL + 3),
-            new NextAction("flash heal on party", ACTION_MEDIUM_HEAL + 2),
+            new NextAction("power word: shield on party", ACTION_MEDIUM_HEAL + 4),
+            new NextAction("power word: shield on medium health below", ACTION_MEDIUM_HEAL + 3),
+            new NextAction("penance on party", ACTION_MEDIUM_HEAL + 2), 
+            new NextAction("prayer of mending on party", ACTION_MEDIUM_HEAL + 1),
+            new NextAction("flash heal on party", ACTION_MEDIUM_HEAL + 0),
             NULL)));
 
 	triggers.push_back(new TriggerNode(
         "party member medium health",
 		NextAction::array(0,
             new NextAction("power word: shield on party", ACTION_LIGHT_HEAL + 9),
-            new NextAction("penance on party", ACTION_LIGHT_HEAL + 8), 
-            new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 7),
-            new NextAction("flash heal on party", ACTION_LIGHT_HEAL + 6),
+            new NextAction("power word: shield on medium health below", ACTION_LIGHT_HEAL + 8),
+            new NextAction("penance on party", ACTION_LIGHT_HEAL + 7), 
+            new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 6),
+            new NextAction("flash heal on party", ACTION_LIGHT_HEAL + 5),
             // new NextAction("renew on party", ACTION_LIGHT_HEAL + 8),
             NULL)));
     

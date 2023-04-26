@@ -486,6 +486,7 @@ bool HorsemanAttactInOrderAction::Execute(Event event)
 bool SapphironGroundMainTankPositionAction::Execute(Event event)
 {
     return MoveTo(533, 3512.07f, -5274.06f, 137.29f);
+    // return MoveTo(533, 3498.58f, -5245.35f, 137.29f);
 }
 
 bool SapphironGroundPositionAction::Execute(Event event)
@@ -498,7 +499,7 @@ bool SapphironGroundPositionAction::Execute(Event event)
     EventMap* eventMap = boss_ai->GetEvents();
     const uint32 flight = eventMap->GetNextEventTime(6);
     const uint32 timer = eventMap->GetTimer();
-    if (timer <= 3000 || (flight && flight != last_flight)) {
+    if (timer <= 2000 || (flight && flight != last_flight)) {
         reset = true;
         reset_timer = timer;
     }
@@ -506,23 +507,26 @@ bool SapphironGroundPositionAction::Execute(Event event)
     if (reset) {
         // bot->Yell("Let\'s go!", LANG_UNIVERSAL);
         std::pair<float, float> center = {3517.31f, -5253.74f};
+        // std::pair<float, float> center = {3498.58f, -5245.35f};
         // std::pair<float, float> center = {boss->GetPositionX(), boss->GetPositionY()};
         uint32 index = ai->GetGroupSlotIndex(bot);
-        float start_angle = 1.25 * M_PI;
-        float offset_angle = ai->IsRanged(bot) ? -M_PI * 0.06 * index : -M_PI * 0.3;
+        // float start_angle = 1.25 * M_PI;
+        // float offset_angle = ai->IsRanged(bot) ? -M_PI * 0.06 * index : -M_PI * 0.3;
+        float start_angle = 0.85 * M_PI;
+        float offset_angle = M_PI * 0.02 * index;
         float angle = start_angle + offset_angle;
         float distance = 30.0f;
         if (ai->IsRangedDps(bot)) {
-            distance = 30.0f;
+            distance = rand_norm() * 5 + 40.0f;
         } else if (ai->IsHeal(bot)) {
-            distance = 20.0f;
+            distance = rand_norm() * 5 + 25.0f;
         } else {
-            distance = 10.0f;
+            distance = rand_norm() * 10;
         }
         if (MoveTo(533, center.first + cos(angle) * distance, center.second + sin(angle) * distance, 137.29f)) {
             return true;
         }
-        if (timer - reset_timer >= 3000) {
+        if (timer - reset_timer >= 2000) {
             reset = false;
         }
     }
@@ -554,20 +558,20 @@ bool SapphironFlightPositionAction::Execute(Event event)
     
     // before explosion
     // std::pair<float, float> center = {boss->GetPositionX(), boss->GetPositionY()};
-    const uint32 icebolt = eventMap->GetNextEventTime(8);
+    // const uint32 icebolt = eventMap->GetNextEventTime(8);
 
-    uint32 runBeforeIcebolt = ai->IsRanged(bot) ? 3000 : 6000;
-    if ((icebolt <= timer && timer - icebolt <= 7000) || (icebolt >= timer && icebolt - timer <= runBeforeIcebolt)) {
-        std::pair<float, float> center = {3517.31f, -5253.74f};
-        uint32 index = ai->GetGroupSlotIndex(bot);
-        float start_angle = 1.25 * M_PI;
-        float offset_angle = -M_PI * 0.04 * index;
-        float angle = start_angle + offset_angle;
-        float distance = 45.0f;
-        if (MoveTo(533, center.first + cos(angle) * distance, center.second + sin(angle) * distance, 137.29f)) {
-            return true;
-        }
-    }
+    // uint32 runBeforeIcebolt = ai->IsRanged(bot) ? 2000 : 6000;
+    // if ((icebolt <= timer && timer - icebolt <= 7000) || (icebolt >= timer && icebolt - timer <= runBeforeIcebolt)) {
+    //     std::pair<float, float> center = {3517.31f, -5253.74f};
+    //     uint32 index = ai->GetGroupSlotIndex(bot);
+    //     float start_angle = 0.9 * M_PI;
+    //     float offset_angle = M_PI * 0.025 * index;
+    //     float angle = start_angle + offset_angle;
+    //     float distance = 45.0f;
+    //     if (MoveTo(533, center.first + cos(angle) * distance, center.second + sin(angle) * distance, 137.29f)) {
+    //         return true;
+    //     }
+    // }
     return false;
 }
 
@@ -608,15 +612,31 @@ bool SapphironAvoidChillAction::Execute(Event event)
     if (!dyn_obj) return false;
     Unit* currentTarget = AI_VALUE(Unit*, "current target");
     float angle = 0;
-    
+    uint32 index = ai->GetGroupSlotIndex(bot);
+    // prevent seg fault
     if (currentTarget) {
-        if (ai->IsRanged(bot) && bot->GetExactDist2d(currentTarget) <= 35.0f) {
-            angle = bot->GetAngle(currentTarget) + M_PI;
+        if (ai->IsRanged(bot)) {
+            if (bot->GetExactDist2d(currentTarget) <= 45.0f) {
+                angle = bot->GetAngle(dyn_obj) - M_PI + (rand_norm() - 0.5) * M_PI / 2;
+            } else {
+            if (index % 2 == 0) {
+                    angle = bot->GetAngle(currentTarget) + M_PI / 2;
+                } else {
+                    angle = bot->GetAngle(currentTarget) - M_PI / 2;    
+                }
+            }
         } else {
-            angle = bot->GetAngle(currentTarget) + M_PI / 2;
+            if (index % 3 == 0) {
+                angle = bot->GetAngle(currentTarget);
+            } else if (index % 3 == 1) {
+                angle = bot->GetAngle(currentTarget) + M_PI / 2;
+            } else {
+                angle = bot->GetAngle(currentTarget) - M_PI / 2;
+            }
         }
     } else {
-        angle = bot->GetAngle(dyn_obj) - M_PI;
+        angle = bot->GetAngle(dyn_obj) - M_PI + (rand_norm() - 0.5) * M_PI / 2;
     }
+    // }
     return MoveTo(bot->GetMapId(), bot->GetPositionX() + cos(angle) * 5.0f, bot->GetPositionY() + sin(angle) * 5.0f, bot->GetPositionZ());
 }
