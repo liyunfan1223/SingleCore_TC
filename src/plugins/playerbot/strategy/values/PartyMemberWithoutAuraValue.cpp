@@ -8,24 +8,30 @@ using namespace ai;
 class PlayerWithoutAuraPredicate : public FindPlayerPredicate, public PlayerbotAIAware
 {
 public:
-    PlayerWithoutAuraPredicate(PlayerbotAI* ai, string aura) :
-        PlayerbotAIAware(ai), FindPlayerPredicate(), aura(aura) {}
+    PlayerWithoutAuraPredicate(PlayerbotAI* ai, string aurastr) :
+        PlayerbotAIAware(ai), FindPlayerPredicate(), aurastr(aurastr) {
+            int pos;
+            while((pos = aurastr.find("::")) != string::npos) {
+                auras.push_back(aurastr.substr(0, pos));
+                aurastr = aurastr.substr(pos + 2);
+            }
+            auras.push_back(aurastr);
+        }
 
 public:
     virtual bool Check(Unit* unit)
     {
-        // if (unit->IsPet())
-        // {
-        //     Pet* pet = unit->ToPet();
-        //     if (pet && pet->getPetType() == SUMMON_PET)
-        //         return false;
-        // }
-
-        return unit->IsAlive() && !ai->HasAura(aura, unit);
+        for (string aura : auras) {
+            if (ai->HasAura(aura, unit)) {
+                return false;
+            }
+        }
+        return unit->IsAlive();
     }
 
 private:
-    string aura;
+    string aurastr;
+    vector<string> auras;
 };
 
 Unit* PartyMemberWithoutAuraValue::Calculate()

@@ -21,7 +21,7 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "power word: fortitude on party",
-        NextAction::array(0, new NextAction("power word: fortitude on party", 11.0f), NULL)));
+        NextAction::array(0, new NextAction("prayer of fortitude on party", 11.0f), NULL)));
 
 
     // triggers.push_back(new TriggerNode(
@@ -30,7 +30,7 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "divine spirit on party",
-        NextAction::array(0, new NextAction("divine spirit on party", 13.0f), NULL)));
+        NextAction::array(0, new NextAction("prayer of spirit on party", 13.0f), NULL)));
 
 
     triggers.push_back(new TriggerNode(

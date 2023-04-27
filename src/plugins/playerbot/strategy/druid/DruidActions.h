@@ -99,11 +99,17 @@ namespace ai
 	class CastMarkOfTheWildAction : public CastBuffSpellAction {
 	public:
 		CastMarkOfTheWildAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mark of the wild") {}
+		
 	};
 
 	class CastMarkOfTheWildOnPartyAction : public BuffOnPartyAction {
 	public:
 		CastMarkOfTheWildOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "mark of the wild") {}
+	};
+
+	class CastGiftOfTheWildOnPartyAction : public BuffOnPartyAction {
+	public:
+		CastGiftOfTheWildOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "gift of the wild") {}
 	};
 
 	class CastSurvivalInstinctsAction : public CastBuffSpellAction {

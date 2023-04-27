@@ -200,6 +200,11 @@ namespace ai
 		CastBattleShoutAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "battle shout") {}
 	};
 
+    class CastCommandingShoutAction : public CastBuffSpellAction {
+    public:
+        CastCommandingShoutAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "commanding shout") {}
+    };
+
 	class CastDefensiveStanceAction : public CastBuffSpellAction {
 	public:
 		CastDefensiveStanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "defensive stance") {}

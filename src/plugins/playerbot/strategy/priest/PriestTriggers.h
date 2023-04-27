@@ -4,10 +4,10 @@
 
 namespace ai
 {
-    BUFF_ON_PARTY_TRIGGER(PowerWordFortitudeOnPartyTrigger, "power word: fortitude", "power word: fortitude on party")
+    BUFF_ON_PARTY_TRIGGER(PowerWordFortitudeOnPartyTrigger, "power word: fortitude::prayer of fortitude", "power word: fortitude on party")
     BUFF_TRIGGER(PowerWordFortitudeTrigger, "power word: fortitude", "power word: fortitude")
 
-    BUFF_ON_PARTY_TRIGGER(DivineSpiritOnPartyTrigger, "divine spirit", "divine spirit on party")
+    BUFF_ON_PARTY_TRIGGER(DivineSpiritOnPartyTrigger, "divine spirit::prayer of spirit", "divine spirit on party")
     BUFF_TRIGGER(DivineSpiritTrigger, "divine spirit", "divine spirit")
     BUFF_TRIGGER(InnerFireTrigger, "inner fire", "inner fire")
     BUFF_TRIGGER(VampiricEmbraceTrigger, "vampiric embrace", "vampiric embrace")

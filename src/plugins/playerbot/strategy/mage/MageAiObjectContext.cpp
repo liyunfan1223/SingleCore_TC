@@ -147,6 +147,7 @@ namespace ai
                 creators["frost nova"] = &AiObjectContextInternal::frost_nova;
                 creators["arcane intellect"] = &AiObjectContextInternal::arcane_intellect;
                 creators["arcane intellect on party"] = &AiObjectContextInternal::arcane_intellect_on_party;
+                creators["arcane brilliance on party"] = &AiObjectContextInternal::arcane_brilliance_on_party;
                 creators["conjure water"] = &AiObjectContextInternal::conjure_water;
                 creators["conjure food"] = &AiObjectContextInternal::conjure_food;
                 creators["molten armor"] = &AiObjectContextInternal::molten_armor;
@@ -189,6 +190,7 @@ namespace ai
             static Action* frost_nova(PlayerbotAI* ai) { return new CastFrostNovaAction(ai); }
             static Action* arcane_intellect(PlayerbotAI* ai) { return new CastArcaneIntellectAction(ai); }
             static Action* arcane_intellect_on_party(PlayerbotAI* ai) { return new CastArcaneIntellectOnPartyAction(ai); }
+            static Action* arcane_brilliance_on_party(PlayerbotAI* ai) { return new CastArcaneBrillianceOnPartyAction(ai); }
             static Action* conjure_water(PlayerbotAI* ai) { return new CastConjureWaterAction(ai); }
             static Action* conjure_food(PlayerbotAI* ai) { return new CastConjureFoodAction(ai); }
             static Action* molten_armor(PlayerbotAI* ai) { return new CastMoltenArmorAction(ai); }

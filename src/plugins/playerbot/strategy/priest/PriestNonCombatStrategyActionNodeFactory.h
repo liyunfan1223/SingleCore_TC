@@ -21,6 +21,8 @@ namespace ai
             creators["flash heal"] = &flash_heal;
             creators["flash heal on party"] = &flash_heal_on_party;
             creators["circle of healing"] = &circle_of_healing;
+            creators["prayer of fortitude on party"] = &prayer_of_fortitude_on_party;
+            creators["prayer of spirit on party"] = &prayer_of_spirit_on_party;
         }
     private:
         static ActionNode* holy_nova(PlayerbotAI* ai)
@@ -119,6 +121,20 @@ namespace ai
             return new ActionNode ("circle of healing",
                 /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
                 /*A*/ NextAction::array(0, new NextAction("flash heal on party"), NULL),
+                /*C*/ NULL);
+        }
+        static ActionNode* prayer_of_fortitude_on_party(PlayerbotAI* ai)
+        {
+            return new ActionNode ("prayer of fortitude on party",
+                /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("power word: fortitude on party"), NULL),
+                /*C*/ NULL);
+        }
+        static ActionNode* prayer_of_spirit_on_party(PlayerbotAI* ai)
+        {
+            return new ActionNode ("prayer of spirit on party",
+                /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("divine spirit on party"), NULL),
                 /*C*/ NULL);
         }
     };

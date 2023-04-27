@@ -132,8 +132,10 @@ namespace ai
                 creators["holy nova"] = &AiObjectContextInternal::holy_nova;
                 creators["power word: fortitude"] = &AiObjectContextInternal::power_word_fortitude;
                 creators["power word: fortitude on party"] = &AiObjectContextInternal::power_word_fortitude_on_party;
+                creators["prayer of fortitude on party"] = &AiObjectContextInternal::prayer_of_fortitude_on_party;
                 creators["divine spirit"] = &AiObjectContextInternal::divine_spirit;
                 creators["divine spirit on party"] = &AiObjectContextInternal::divine_spirit_on_party;
+                creators["prayer of spirit on party"] = &AiObjectContextInternal::prayer_of_spirit_on_party;
                 creators["power word: shield"] = &AiObjectContextInternal::power_word_shield;
                 creators["power word: shield on party"] = &AiObjectContextInternal::power_word_shield_on_party;
                 creators["power word: shield on almost full health below"] = &AiObjectContextInternal::power_word_shield_on_almost_full_health_below;
@@ -189,8 +191,10 @@ namespace ai
             static Action* holy_nova(PlayerbotAI* ai) { return new CastHolyNovaAction(ai); }
             static Action* power_word_fortitude(PlayerbotAI* ai) { return new CastPowerWordFortitudeAction(ai); }
             static Action* power_word_fortitude_on_party(PlayerbotAI* ai) { return new CastPowerWordFortitudeOnPartyAction(ai); }
+            static Action* prayer_of_fortitude_on_party(PlayerbotAI* ai) { return new CastPrayerOfFortitudeOnPartyAction(ai); }
             static Action* divine_spirit(PlayerbotAI* ai) { return new CastDivineSpiritAction(ai); }
             static Action* divine_spirit_on_party(PlayerbotAI* ai) { return new CastDivineSpiritOnPartyAction(ai); }
+            static Action* prayer_of_spirit_on_party(PlayerbotAI* ai) { return new CastPrayerOfSpiritOnPartyAction(ai); }
             static Action* power_word_shield(PlayerbotAI* ai) { return new CastPowerWordShieldAction(ai); }
             static Action* power_word_shield_on_party(PlayerbotAI* ai) { return new CastPowerWordShieldOnPartyAction(ai); }
             static Action* power_word_shield_on_almost_full_health_below(PlayerbotAI* ai) { return new CastPowerWordShieldOnAlmostFullHealthBelow(ai); }

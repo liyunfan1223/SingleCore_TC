@@ -162,8 +162,10 @@ bool RandomPlayerbotMgr::ProcessBot(uint64 bot)
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %d logged in", bot);
         AddPlayerBot(bot, 0);
         ScheduleTeleport(bot);
-        uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
-        ScheduleRandomize(bot, randomTime);
+        if (!GetEventValue(bot, "randomize")) {
+            uint32 randomTime = urand(600, 3600);
+            ScheduleRandomize(bot, randomTime);
+        }
         if (!GetEventValue(bot, "online"))
         {
             SetEventValue(bot, "online", 1, sPlayerbotAIConfig.minRandomBotInWorldTime);

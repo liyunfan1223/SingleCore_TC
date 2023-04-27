@@ -69,6 +69,7 @@ namespace ai
                 creators["victory rush"] = &TriggerFactoryInternal::victory_rush;
                 creators["death wish"] = &TriggerFactoryInternal::death_wish;
                 creators["battle shout"] = &TriggerFactoryInternal::battle_shout;
+                creators["commanding shout"] = &TriggerFactoryInternal::commanding_shout;
                 creators["rend"] = &TriggerFactoryInternal::rend;
                 creators["rend on attacker"] = &TriggerFactoryInternal::rend_on_attacker;
                 creators["bloodrage"] = &TriggerFactoryInternal::bloodrage;
@@ -88,6 +89,7 @@ namespace ai
             static Trigger* victory_rush(PlayerbotAI* ai) { return new VictoryRushTrigger(ai); }
             static Trigger* death_wish(PlayerbotAI* ai) { return new DeathWishTrigger(ai); }
             static Trigger* battle_shout(PlayerbotAI* ai) { return new BattleShoutTrigger(ai); }
+            static Trigger* commanding_shout(PlayerbotAI* ai) { return new CommandingShoutTrigger(ai); }
             static Trigger* rend(PlayerbotAI* ai) { return new RendDebuffTrigger(ai); }
             static Trigger* rend_on_attacker(PlayerbotAI* ai) { return new RendDebuffOnAttackerTrigger(ai); }
             static Trigger* bloodrage(PlayerbotAI* ai) { return new BloodrageDebuffTrigger(ai); }
@@ -144,6 +146,7 @@ namespace ai
                 creators["challenging shout"] = &AiObjectContextInternal::challenging_shout;
                 creators["shield wall"] = &AiObjectContextInternal::shield_wall;
                 creators["battle shout"] = &AiObjectContextInternal::battle_shout;
+                creators["commanding shout"] = &AiObjectContextInternal::commanding_shout;
                 creators["thunder clap"] = &AiObjectContextInternal::thunder_clap;
                 creators["taunt"] = &AiObjectContextInternal::taunt;
                 creators["revenge"] = &AiObjectContextInternal::revenge;
@@ -198,6 +201,7 @@ namespace ai
             static Action* challenging_shout(PlayerbotAI* ai) { return new CastChallengingShoutAction(ai); }
             static Action* shield_wall(PlayerbotAI* ai) { return new CastShieldWallAction(ai); }
             static Action* battle_shout(PlayerbotAI* ai) { return new CastBattleShoutAction(ai); }
+            static Action* commanding_shout(PlayerbotAI* ai) { return new CastCommandingShoutAction(ai); }
             static Action* thunder_clap(PlayerbotAI* ai) { return new CastThunderClapAction(ai); }
             static Action* shield_bash_on_enemy_healer(PlayerbotAI* ai) { return new CastShieldBashOnEnemyHealerAction(ai); }
 			static Action* sweeping_strikes(PlayerbotAI* ai) { return new CastSweepingStrikesAction(ai); }

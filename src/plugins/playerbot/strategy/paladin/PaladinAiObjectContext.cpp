@@ -180,6 +180,7 @@ namespace ai
                 creators["blessing of sanctuary"] = &AiObjectContextInternal::blessing_of_sanctuary;
                 creators["divine storm"] = &AiObjectContextInternal::divine_storm;
                 creators["blessing of kings on party"] = &AiObjectContextInternal::blessing_of_kings_on_party;
+                creators["greater blessing of kings on party"] = &AiObjectContextInternal::greater_blessing_of_kings_on_party;
                 creators["blessing of might on party"] = &AiObjectContextInternal::blessing_of_might_on_party;
                 creators["blessing of wisdom on party"] = &AiObjectContextInternal::blessing_of_wisdom_on_party;
                 creators["redemption"] = &AiObjectContextInternal::redemption;
@@ -246,6 +247,7 @@ namespace ai
             static Action* blessing_of_kings(PlayerbotAI* ai) { return new CastBlessingOfKingsAction(ai); }
             static Action* divine_storm(PlayerbotAI* ai) { return new CastDivineStormAction(ai); }
             static Action* blessing_of_kings_on_party(PlayerbotAI* ai) { return new CastBlessingOfKingsOnPartyAction(ai); }
+            static Action* greater_blessing_of_kings_on_party(PlayerbotAI* ai) { return new CastGreaterBlessingOfKingsOnPartyAction(ai); }
             static Action* blessing_of_might_on_party(PlayerbotAI* ai) { return new CastBlessingOfMightOnPartyAction(ai); }
             static Action* blessing_of_wisdom_on_party(PlayerbotAI* ai) { return new CastBlessingOfWisdomOnPartyAction(ai); }
             static Action* redemption(PlayerbotAI* ai) { return new CastRedemptionAction(ai); }

@@ -10,7 +10,7 @@ list<ObjectGuid> AttackersValue::Calculate()
 {
     set<Unit*> targets;
 
-    AddAttackersOf(bot, targets);
+    // AddAttackersOf(bot, targets);
 
     Group* group = bot->GetGroup();
     if (group)
@@ -34,7 +34,7 @@ void AttackersValue::AddAttackersOf(Group* group, set<Unit*>& targets)
     for (Group::member_citerator itr = groupSlot.begin(); itr != groupSlot.end(); itr++)
     {
         Player *member = sObjectMgr->GetPlayerByLowGUID(itr->guid);
-        if (!member || !member->IsAlive() || member == bot)
+        if (!member || !member->IsAlive())
             continue;
 
         if (member->IsBeingTeleported())

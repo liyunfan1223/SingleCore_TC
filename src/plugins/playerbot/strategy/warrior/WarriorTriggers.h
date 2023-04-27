@@ -11,7 +11,14 @@ namespace ai
             return BuffTrigger::IsActive() && !ai->HasAura("blessing of might", bot);
         }
     };
-    // BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
+
+    BUFF_TRIGGER(CommandingShoutTrigger, "commanding shout", "commanding shout")
+    // class CommandingShoutTrigger : public BuffTrigger
+    // {
+    // public:
+    //     CommandingShoutTrigger(PlayerbotAI*)
+
+    // };
 
     DEBUFF_FROM_BOT_TRIGGER(RendDebuffTrigger, "rend", "rend")
     DEBUFF_FROM_BOT_TRIGGER(DisarmDebuffTrigger, "disarm", "disarm")

@@ -33,7 +33,7 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("abolish disease on party", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "low mana",
+        "medium mana",
         NextAction::array(0, new NextAction("shadowfiend", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(

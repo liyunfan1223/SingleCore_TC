@@ -177,6 +177,13 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
         virtual string getName() { return "blessing of kings on party";}
 	};
 
+	class CastGreaterBlessingOfKingsOnPartyAction : public BuffOnPartyAction
+	{
+	public:
+		CastGreaterBlessingOfKingsOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "greater blessing of kings") {}
+        virtual string getName() { return "greater blessing of kings on party";}
+	};
+
 	class CastBlessingOfSanctuaryAction : public CastBuffSpellAction
 	{
 	public:

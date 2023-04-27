@@ -175,6 +175,7 @@ namespace ai
                 creators["tiger's fury"] = &AiObjectContextInternal::tigers_fury;
                 creators["mark of the wild"] = &AiObjectContextInternal::mark_of_the_wild;
                 creators["mark of the wild on party"] = &AiObjectContextInternal::mark_of_the_wild_on_party;
+                creators["gift of the wild on party"] = &AiObjectContextInternal::gift_of_the_wild_on_party;
                 creators["regrowth"] = &AiObjectContextInternal::regrowth;
                 creators["wild growth"] = &AiObjectContextInternal::wild_growth;
                 creators["rejuvenation"] = &AiObjectContextInternal::rejuvenation;
@@ -248,6 +249,7 @@ namespace ai
             static Action* tigers_fury(PlayerbotAI* ai) { return new CastTigersFuryAction(ai); }
             static Action* mark_of_the_wild(PlayerbotAI* ai) { return new CastMarkOfTheWildAction(ai); }
             static Action* mark_of_the_wild_on_party(PlayerbotAI* ai) { return new CastMarkOfTheWildOnPartyAction(ai); }
+            static Action* gift_of_the_wild_on_party(PlayerbotAI* ai) { return new CastGiftOfTheWildOnPartyAction(ai); }
             static Action* regrowth(PlayerbotAI* ai) { return new CastRegrowthAction(ai); }
             static Action* wild_growth(PlayerbotAI* ai) { return new CastWildGrowthAction(ai); }
             static Action* rejuvenation(PlayerbotAI* ai) { return new CastRejuvenationAction(ai); }

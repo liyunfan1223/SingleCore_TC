@@ -13,6 +13,7 @@ public:
         creators["molten armor"] = &molten_armor;
         creators["mage armor"] = &mage_armor;
         creators["ice armor"] = &ice_armor;
+        creators["arcane brilliance on party"] = &arcane_brilliance_on_party;
     }
 private:
     static ActionNode* molten_armor(PlayerbotAI* ai)
@@ -36,6 +37,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("frost armor"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* arcane_brilliance_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("arcane brilliance on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("arcane intellect on party"), NULL),
+            /*C*/ NULL);
+    }
 };
 
 GenericMageNonCombatStrategy::GenericMageNonCombatStrategy(PlayerbotAI* ai) : NonCombatStrategy(ai)
@@ -47,13 +55,13 @@ void GenericMageNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigger
 {
     NonCombatStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "arcane intellect",
-        NextAction::array(0, new NextAction("arcane intellect", 21.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "arcane intellect",
+    //     NextAction::array(0, new NextAction("arcane intellect", 21.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "arcane intellect on party",
-        NextAction::array(0, new NextAction("arcane intellect on party", 20.0f), NULL)));
+        NextAction::array(0, new NextAction("arcane brilliance on party", 20.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"no drink",
