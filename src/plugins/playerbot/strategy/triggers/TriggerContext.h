@@ -124,6 +124,8 @@ namespace ai
             creators["sapphiron ground except main tank"] = &TriggerContext::sapphiron_ground_except_main_tank;
             creators["sapphiron flight"] = &TriggerContext::sapphiron_flight;
             creators["sapphiron chill"] = &TriggerContext::sapphiron_ground_chill;
+
+            creators["kel'thuzad"] = &TriggerContext::kelthuzad;
         }
 
     private:
@@ -216,5 +218,6 @@ namespace ai
         static Trigger* sapphiron_ground_except_main_tank(PlayerbotAI* ai) { return new SapphironGroundExceptMainTankTrigger(ai); }
         static Trigger* sapphiron_flight(PlayerbotAI* ai) { return new SapphironFlightTrigger(ai); }
         static Trigger* sapphiron_ground_chill(PlayerbotAI* ai) { return new SapphironGroundChillTrigger(ai); }        
+        static Trigger* kelthuzad(PlayerbotAI* ai) { return new KelthuzadTrigger(ai); }
     };
 };

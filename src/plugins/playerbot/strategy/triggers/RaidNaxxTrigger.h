@@ -163,4 +163,10 @@ namespace ai
         SapphironGroundChillTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "sapphiron", 0, "sapphiron chill") {}
         virtual bool IsActive();
     };
+
+    class KelthuzadTrigger : public BossPhaseTrigger
+    {
+    public:
+        KelthuzadTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "kel'thuzad", 0, "kel'thuzad trigger") {}
+    };
 }

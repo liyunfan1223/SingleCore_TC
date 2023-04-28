@@ -49,7 +49,7 @@ private:
 	{
 		return new ActionNode("scourge strike",
 			/*P*/ NextAction::array(0, new NextAction("blood pressence"), NULL),
-			/*A*/ NextAction::array(0, new NextAction("death strike"), NULL),
+			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 };
@@ -58,10 +58,10 @@ private:
 NextAction** UnholyDKStrategy::getDefaultActions()
 {
     return NextAction::array(0, 
-		new NextAction("scourge strike" , ACTION_NORMAL + 6), 
-		new NextAction("blood strike" , ACTION_NORMAL + 5), 
-		new NextAction("plague strike" , ACTION_NORMAL + 4), 
-		new NextAction("icy touch" , ACTION_NORMAL + 3), 
+		new NextAction("scourge strike", ACTION_NORMAL + 6), 
+		new NextAction("blood strike", ACTION_NORMAL + 5), 
+		new NextAction("plague strike", ACTION_NORMAL + 4), 
+		new NextAction("icy touch", ACTION_NORMAL + 3), 
 		new NextAction("death coil", ACTION_NORMAL + 2),
 		new NextAction("melee", ACTION_NORMAL), 
 		NULL);

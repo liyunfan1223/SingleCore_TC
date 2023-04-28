@@ -2176,3 +2176,16 @@ string PlayerbotAI::HandleRemoteCommand(string command)
     ostringstream out; out << "invalid command: " << command;
     return out.str();
 }
+
+bool PlayerbotAI::EqualLowercaseName(string s1, string s2)
+{
+    if (s1.length() != s2.length()) {
+        return false;
+    }
+    for (int i = 0; i < s1.length(); i++) {
+        if (tolower(s1[i]) != tolower(s2[i])) {
+            return false;
+        }
+    }
+    return true;
+}

@@ -240,4 +240,11 @@ namespace ai
         SapphironAvoidChillAction(PlayerbotAI* ai) : MovementAction(ai, "sapphiron avoid chill") {}
         virtual bool Execute(Event event);
     };
+
+    class KelthuzadChooseTargetAction : public AttackAction
+    {
+    public:
+        KelthuzadChooseTargetAction(PlayerbotAI* ai) : AttackAction(ai, "kel'thuzad choose target") {}
+        virtual bool Execute(Event event);
+    };
 }

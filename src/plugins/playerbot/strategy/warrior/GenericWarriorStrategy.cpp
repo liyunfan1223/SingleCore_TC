@@ -47,9 +47,9 @@ void GenericWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     MeleeCombatStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "commanding shout",
-        NextAction::array(0, new NextAction("commanding shout", ACTION_HIGH + 1), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "commanding shout",
+    //     NextAction::array(0, new NextAction("commanding shout", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "rend",
@@ -74,4 +74,28 @@ void GenericWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"critical health",
 		NextAction::array(0, new NextAction("intimidating shout", ACTION_EMERGENCY), NULL)));
+}
+
+WarriorBuffHealthStrategy::WarriorBuffHealthStrategy(PlayerbotAI* ai) : Strategy(ai)
+{
+
+}
+
+void WarriorBuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "commanding shout",
+        NextAction::array(0, new NextAction("commanding shout", ACTION_HIGH + 1), NULL)));
+}
+
+WarriorBuffDpsStrategy::WarriorBuffDpsStrategy(PlayerbotAI* ai) : Strategy(ai)
+{
+
+}
+
+void WarriorBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "battle shout",
+        NextAction::array(0, new NextAction("battle shout", ACTION_HIGH + 1), NULL)));
 }

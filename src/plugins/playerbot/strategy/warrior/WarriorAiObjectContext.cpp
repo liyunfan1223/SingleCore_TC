@@ -33,6 +33,20 @@ namespace ai
             static Strategy* nc(PlayerbotAI* ai) { return new GenericWarriorNonCombatStrategy(ai); }
             static Strategy* aoe(PlayerbotAI* ai) { return new DpsWarrirorAoeStrategy(ai); }
             static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "shoot"); }
+            
+        };
+
+        class BuffStrategyFactoryInternal : public NamedObjectContext<Strategy>
+        {
+        public:
+            BuffStrategyFactoryInternal() : NamedObjectContext<Strategy>(false, true)
+            {
+                creators["bdps"] = &warrior::BuffStrategyFactoryInternal::bdps;
+                creators["bhealth"] = &warrior::BuffStrategyFactoryInternal::bhealth;
+            }
+        private:
+            static Strategy* bdps(PlayerbotAI* ai) { return new WarriorBuffDpsStrategy(ai); }
+            static Strategy* bhealth(PlayerbotAI* ai) { return new WarriorBuffHealthStrategy(ai); }
         };
 
         class CombatStrategyFactoryInternal : public NamedObjectContext<Strategy>
@@ -214,6 +228,7 @@ WarriorAiObjectContext::WarriorAiObjectContext(PlayerbotAI* ai) : AiObjectContex
 {
     strategyContexts.Add(new ai::warrior::StrategyFactoryInternal());
     strategyContexts.Add(new ai::warrior::CombatStrategyFactoryInternal());
+    strategyContexts.Add(new ai::warrior::BuffStrategyFactoryInternal());
     actionContexts.Add(new ai::warrior::AiObjectContextInternal());
     triggerContexts.Add(new ai::warrior::TriggerFactoryInternal());
 }

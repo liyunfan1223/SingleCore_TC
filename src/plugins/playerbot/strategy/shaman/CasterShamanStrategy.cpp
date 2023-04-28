@@ -11,6 +11,7 @@ public:
     CasterShamanStrategyActionNodeFactory()
     {
         creators["magma totem"] = &magma_totem;
+        creators["totem of wrath"] = &totem_of_wrath;
     }
 private:
     static ActionNode* magma_totem(PlayerbotAI* ai)
@@ -18,7 +19,14 @@ private:
         return new ActionNode ("magma totem",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("fire nova"), NULL));
+            /*C*/ NULL);
+    }
+    static ActionNode* totem_of_wrath(PlayerbotAI* ai)
+    {
+        return new ActionNode ("totem of wrath",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("flametongue totem"), NULL),
+            /*C*/ NULL);
     }
 };
 
@@ -47,9 +55,9 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "shaman weapon",
         NextAction::array(0, new NextAction("flametongue weapon", 23.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "searing totem",
-        NextAction::array(0, new NextAction("searing totem", 19.0f), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "searing totem",
+    //     NextAction::array(0, new NextAction("searing totem", 19.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "flame shock",
@@ -69,7 +77,7 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     
     triggers.push_back(new TriggerNode(
         "no fire totem",
-        NextAction::array(0, new NextAction("flametongue totem", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("totem of wrath", 15.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",

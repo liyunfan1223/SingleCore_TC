@@ -640,3 +640,34 @@ bool SapphironAvoidChillAction::Execute(Event event)
     // }
     return MoveTo(bot->GetMapId(), bot->GetPositionX() + cos(angle) * 5.0f, bot->GetPositionY() + sin(angle) * 5.0f, bot->GetPositionZ());
 }
+
+bool KelthuzadChooseTargetAction::Execute(Event event)
+{
+    std::pair<float, float> center = {3716.19f, -5106.58f};
+    list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+    Unit* target = NULL;
+    vector<Unit*> valid_targets;
+    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
+    {
+        Unit* unit = ai->GetUnit(*i);
+        if (!unit)
+            continue;
+        if (unit->GetDistance2d(center.first, center.second) > 25.0f) {
+            continue;
+        }
+        if (!ai->IsRanged(bot) && 
+            (ai->EqualLowercaseName(unit->GetName(), "soldier of the frozen wastes") ||
+             ai->EqualLowercaseName(unit->GetName(), "soul weaver")) 
+           ) {
+            continue;
+        }
+        target = unit;
+    }
+    if (context->GetValue<Unit*>("current target")->Get() == target) {
+        return false;
+    }
+    // if (target) {
+    //     bot->Yell("Target name: " + target->GetName(), LANG_UNIVERSAL);
+    // }
+    return Attack(target, false);
+}

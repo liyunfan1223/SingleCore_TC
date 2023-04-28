@@ -34,7 +34,7 @@ bool AttackMyTargetAction::Execute(Event event)
     return Attack(target);
 }
 
-bool AttackAction::Attack(Unit* target)
+bool AttackAction::Attack(Unit* target, bool with_pet)
 {
     MotionMaster &mm = *bot->GetMotionMaster();
     if (bot->IsFlying())
@@ -84,16 +84,18 @@ bool AttackAction::Attack(Unit* target)
 
     context->GetValue<Unit*>("current target")->Set(target);
     context->GetValue<LootObjectStack*>("available loot")->Get()->Add(guid);
-
     Pet* pet = bot->GetPet();
-    if (pet)
-    {
-        pet->SetTarget(target->GetGUID());
-        pet->AI()->EnterCombat(target);
-		pet->GetCharmInfo()->SetIsCommandAttack(true);
-		pet->AI()->AttackStart(target);
+    if (pet) {
+        if (with_pet) {
+            pet->SetReactState(REACT_DEFENSIVE);
+            pet->SetTarget(target->GetGUID());
+            pet->AI()->EnterCombat(target);
+            pet->GetCharmInfo()->SetIsCommandAttack(true);
+            pet->AI()->AttackStart(target);
+        } else {
+            pet->SetReactState(REACT_PASSIVE);
+        }
     }
-
     bot->Attack(target, true);
     ai->ChangeEngine(BOT_STATE_COMBAT);
     return true;

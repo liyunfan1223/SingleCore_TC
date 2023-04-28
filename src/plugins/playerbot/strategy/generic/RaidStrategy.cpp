@@ -39,6 +39,7 @@ float LoathebGenericMultiplier::GetValue(Action* action)
 		// bot->Yell("Can\'t find Loatheb...", LANG_UNIVERSAL);
         return 1.0f;
     }
+	context->GetValue<bool>("neglect threat")->Set(true);
 	if (ai->GetCurrentState() == BOT_STATE_COMBAT && 
 		(dynamic_cast<AttackLeastHpTargetAction*>(action) || 
 		 dynamic_cast<TankAssistAction*>(action))) {
@@ -135,6 +136,20 @@ float InstructorRazuviousGenericMultiplier::GetValue(Action* action)
 	return 1.0f;
 }
 
+float KelthuzadGenericMultiplier::GetValue(Action* action)
+{
+	Unit* boss = AI_VALUE2(Unit*, "find target", "kel'thuzad");
+	if (!boss) {
+        return 1.0f;
+    }
+	if ((dynamic_cast<AttackLeastHpTargetAction*>(action) || 
+		 dynamic_cast<TankAssistAction*>(action) || 
+		 dynamic_cast<CastFireElementalTotemAction*>(action))) {
+		return 0.0f;
+	}
+	return 1.0f;
+}
+
 void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
 	// triggers.push_back(new TriggerNode(
@@ -215,6 +230,11 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"sapphiron chill", 
 		NextAction::array(0, new NextAction("sapphiron avoid chill", ACTION_RAID + 1), NULL)));
+	
+	// Kel'Thuzad
+	triggers.push_back(new TriggerNode(
+		"kel'thuzad", 
+		NextAction::array(0, new NextAction("kel'thuzad choose target", ACTION_RAID + 1), NULL)));
 }
 
 void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)
@@ -224,5 +244,5 @@ void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multiplier
 	multipliers.push_back(new ThaddiusGenericMultiplier(ai));
 	multipliers.push_back(new SapphironGenericMultiplier(ai));
 	multipliers.push_back(new InstructorRazuviousGenericMultiplier(ai));
-	
+	multipliers.push_back(new KelthuzadGenericMultiplier(ai));
 }

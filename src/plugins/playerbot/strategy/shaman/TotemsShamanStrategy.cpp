@@ -15,17 +15,17 @@ void TotemsShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "wrath of air totem",
-        NextAction::array(0, new NextAction("wrath of air totem", 13.0f), NULL)));
+        NextAction::array(0, new NextAction("wrath of air totem", 8.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "no water totem",
-        NextAction::array(0, new NextAction("healing stream totem", 12.0f), NULL)));
+        NextAction::array(0, new NextAction("mana spring totem", 7.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "strength of earth totem",
-        NextAction::array(0, new NextAction("strength of earth totem", 11.0f), NULL)));
+        NextAction::array(0, new NextAction("strength of earth totem", 6.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "no fire totem",
-        NextAction::array(0, new NextAction("flametongue totem", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("flametongue totem", 5.0f), NULL)));
 }

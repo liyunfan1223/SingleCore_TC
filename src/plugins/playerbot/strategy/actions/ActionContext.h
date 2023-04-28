@@ -99,6 +99,8 @@ namespace ai
             creators["sapphiron ground position"] = &ActionContext::sapphiron_ground_position;
             creators["sapphiron flight position"] = &ActionContext::sapphiron_flight_position;
             creators["sapphiron avoid chill"] = &ActionContext::sapphiron_avoid_chill;
+
+            creators["kel'thuzad choose target"] = &ActionContext::kelthuzad_choose_target;
         }
 
     private:
@@ -169,6 +171,7 @@ namespace ai
         static Action* sapphiron_ground_position(PlayerbotAI* ai) { return new SapphironGroundPositionAction(ai); }
         static Action* sapphiron_flight_position(PlayerbotAI* ai) { return new SapphironFlightPositionAction(ai); }
         static Action* sapphiron_avoid_chill(PlayerbotAI* ai) { return new SapphironAvoidChillAction(ai); }
+        static Action* kelthuzad_choose_target(PlayerbotAI* ai) { return new KelthuzadChooseTargetAction(ai); }
         
     };
 

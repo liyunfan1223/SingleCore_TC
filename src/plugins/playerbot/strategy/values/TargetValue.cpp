@@ -75,7 +75,9 @@ Unit* FindTargetValue::Calculate()
     if (qualifier == "") {
         return nullptr;
     }
-    
+    if (!bot->GetGroup()) {
+        return nullptr;
+    }
     for (GroupReference *gref = bot->GetGroup()->GetFirstMember(); gref; gref = gref->next()) {
         Player* member = gref->GetSource();
         if (!member) {

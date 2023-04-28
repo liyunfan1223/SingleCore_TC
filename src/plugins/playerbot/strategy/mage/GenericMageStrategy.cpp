@@ -33,7 +33,8 @@ private:
     {
         return new ActionNode ("fire blast",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("scorch"), NULL),
+            // /*A*/ NextAction::array(0, new NextAction("scorch"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
     static ActionNode* scorch(PlayerbotAI* ai)

@@ -101,7 +101,7 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "no water totem",
-        NextAction::array(0, new NextAction("healing stream totem", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("healing stream totem", 13.0f), NULL)));
     
     triggers.push_back(new TriggerNode(
         "earth shield on main tank",

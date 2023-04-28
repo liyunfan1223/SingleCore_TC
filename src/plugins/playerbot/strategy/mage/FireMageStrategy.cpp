@@ -7,7 +7,7 @@ using namespace ai;
 
 NextAction** FireMageStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("fireball", ACTION_NORMAL + 1), new NextAction("fire blast", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("fireball", ACTION_NORMAL + 1), NULL);
 }
 
 void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

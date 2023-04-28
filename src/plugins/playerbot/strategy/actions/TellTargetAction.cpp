@@ -30,7 +30,7 @@ bool TellAttackersAction::Execute(Event event)
         if (!unit || !unit->IsAlive())
             continue;
 
-        ai->TellMaster(unit->GetName());
+        ai->TellMaster(unit->GetName() + " " + to_string(unit->IsVisible()) + " " + to_string(unit->GetHealthPct()));
     }
 
     ai->TellMaster("--- Threat ---");

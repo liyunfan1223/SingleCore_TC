@@ -227,7 +227,7 @@ public:
     bool canDispel(const SpellInfo* entry, uint32 dispelType);
 
     uint32 GetEquipGearScore(Player* player, bool withBags, bool withBank);
-
+    bool EqualLowercaseName(string s1, string s2);
 private:
     void _fillGearScoreData(Player *player, Item* item, std::vector<uint32>* gearScore, uint32& twoHandScore);
 

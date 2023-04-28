@@ -47,6 +47,15 @@ namespace ai
         virtual float GetValue(Action* action);
     };
 
+    class KelthuzadGenericMultiplier : public Multiplier
+    {
+    public:
+        KelthuzadGenericMultiplier(PlayerbotAI* ai) : Multiplier(ai, "kelthuzad generic") {}
+
+    public:
+        virtual float GetValue(Action* action);
+    };
+
     class RaidNaxxGenericStrategy : public Strategy
     {
     public:

@@ -126,13 +126,14 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             // engine->addStrategy("flee");
             break;
         case CLASS_WARRIOR:
+            engine->addStrategy("bhealth");
             if (tab == 2) {
                 engine->addStrategies("tank", "tank aoe", NULL);
                 engine->ChangeStrategy("-aoe");
             }
             else if (tab == 0) {
                 engine->addStrategies("dps", "threat", NULL);
-            } else {
+            } else if (tab == 1) {
                 engine->addStrategies("melee", "threat", NULL);
                 engine->ChangeStrategy("-aoe");
             }
@@ -141,9 +142,9 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 			if (tab == 0)
 				engine->addStrategies("blood", "tank aoe", NULL);
 			else if (tab == 1)
-				engine->addStrategies("frost", "frost aoe", "dps assist", "threat", NULL);
+				engine->addStrategies("frost", "frost aoe", "threat", NULL);
 			else
-				engine->addStrategies("unholy", "unholy aoe", "dps assist", "threat", NULL);
+				engine->addStrategies("unholy", "unholy aoe", "threat", NULL);
 			break;
         case CLASS_SHAMAN:
             if (tab == 0)

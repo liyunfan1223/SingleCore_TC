@@ -180,7 +180,7 @@ namespace ai
 
 	class CastScourgeStrikeAction : public CastMeleeSpellAction {
 	public:
-		CastScourgeStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "scorgue strike") {}
+		CastScourgeStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "scourge strike") {}
 	};
 
 	class CastDeathCoilAction : public CastSpellAction {

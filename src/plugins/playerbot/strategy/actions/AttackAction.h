@@ -14,7 +14,7 @@ namespace ai
         virtual bool Execute(Event event);
 
     protected:
-        bool Attack(Unit* target);
+        bool Attack(Unit* target, bool with_pet = true);
     };
 
     class AttackMyTargetAction : public AttackAction
