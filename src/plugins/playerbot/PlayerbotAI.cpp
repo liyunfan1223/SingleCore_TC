@@ -1051,6 +1051,75 @@ uint32 PlayerbotAI::GetGroupSlotIndex(Player* player)
     return 0;
 }
 
+uint32 PlayerbotAI::GetRangedIndex(Player* player)
+{
+    if (!IsRanged(player)) {
+        return 0;
+    }
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return 0;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (player == member) {
+            return counter;
+        }
+        if (IsRanged(member)) {
+            counter++;
+        }
+    }
+    return 0;
+}
+
+uint32 PlayerbotAI::GetRangedDpsIndex(Player* player)
+{
+    if (!IsRangedDps(player)) {
+        return 0;
+    }
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return 0;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (player == member) {
+            return counter;
+        }
+        if (IsRangedDps(member)) {
+            counter++;
+        }
+    }
+    return 0;
+}
+
+uint32 PlayerbotAI::GetMeleeIndex(Player* player)
+{
+    if (IsRanged(player)) {
+        return 0;
+    }
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return 0;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (player == member) {
+            return counter;
+        }
+        if (!IsRanged(member)) {
+            counter++;
+        }
+    }
+    return 0;
+}
+
 bool PlayerbotAI::IsMainTank(Player* player) {
     Group* group = bot->GetGroup();
     if (!group) {
@@ -1105,6 +1174,12 @@ bool PlayerbotAI::IsTank(Player* player)
             break;
     }
     return false;
+}
+
+bool PlayerbotAI::IsAssistTank(Player* player) 
+{
+    assert(player);
+    return IsTank(player) && !IsMainTank(player);
 }
 
 bool PlayerbotAI::IsHeal(Player* player)

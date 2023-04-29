@@ -185,6 +185,7 @@ public:
     void Reset();
     bool IsMainTank(Player* player);
     bool IsTank(Player* player);
+    bool IsAssistTank(Player* player);
     bool IsHeal(Player* player);
     bool IsHealAssistantOfIndex(Player* player, int index);
     bool IsDps(Player* player);
@@ -192,6 +193,9 @@ public:
     bool IsRangedDps(Player* player);
     bool IsRangedDpsAssistantOfIndex(Player* player, int index);
     uint32 GetGroupSlotIndex(Player* player);
+    uint32 GetRangedIndex(Player* player);
+    uint32 GetRangedDpsIndex(Player* player);
+    uint32 GetMeleeIndex(Player* player);
     Creature* GetCreature(ObjectGuid guid);
     Unit* GetUnit(ObjectGuid guid);
     GameObject* GetGameObject(ObjectGuid guid);

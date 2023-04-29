@@ -23,6 +23,9 @@ bool FollowAction::Execute(Event event)
 
 		moved = MoveTo(loc.GetMapId(), loc.m_positionX, loc.m_positionY, loc.m_positionZ);
     }
+    Pet* pet = bot->GetPet();
+    
+    return moved;
 }
 
 bool FollowAction::isUseful()

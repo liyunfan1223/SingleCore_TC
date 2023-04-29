@@ -176,7 +176,8 @@ namespace ai
         {
             return new ActionNode ("shadowfiend",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("hymn of hope"), NULL),
+                // /*A*/ NextAction::array(0, new NextAction("hymn of hope"), NULL),
+                /*A*/ NULL,
                 /*C*/ NULL);
         }
     };

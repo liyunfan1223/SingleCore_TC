@@ -126,6 +126,7 @@ namespace ai
             creators["sapphiron chill"] = &TriggerContext::sapphiron_ground_chill;
 
             creators["kel'thuzad"] = &TriggerContext::kelthuzad;
+            creators["kel'thuzad phase two"] = &TriggerContext::kelthuzad_phase_two;
         }
 
     private:
@@ -219,5 +220,6 @@ namespace ai
         static Trigger* sapphiron_flight(PlayerbotAI* ai) { return new SapphironFlightTrigger(ai); }
         static Trigger* sapphiron_ground_chill(PlayerbotAI* ai) { return new SapphironGroundChillTrigger(ai); }        
         static Trigger* kelthuzad(PlayerbotAI* ai) { return new KelthuzadTrigger(ai); }
+        static Trigger* kelthuzad_phase_two(PlayerbotAI* ai) { return new KelthuzadPhaseTwoTrigger(ai); }
     };
 };

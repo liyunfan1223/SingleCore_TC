@@ -346,17 +346,17 @@ namespace ai
 		CastCurePoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure poison", DISPEL_POISON) {}
 	};
 
-	class CastCureDiseaseAction : public CastCureSpellAction {
-	public:
-		CastCureDiseaseAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cure disease") {}
-	};
+	// class CastCureDiseaseAction : public CastCureSpellAction {
+	// public:
+	// 	CastCureDiseaseAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cure disease") {}
+	// };
 
-	class CastCureDiseaseOnPartyAction : public CurePartyMemberAction
-	{
-	public:
-		CastCureDiseaseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure disease", DISPEL_DISEASE) {}
-		virtual string getName() { return "cure disease on party"; }
-	};
+	// class CastCureDiseaseOnPartyAction : public CurePartyMemberAction
+	// {
+	// public:
+	// 	CastCureDiseaseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure disease", DISPEL_DISEASE) {}
+	// 	virtual string getName() { return "cure disease on party"; }
+	// };
 
     class CastEarthShieldOnMainTankAction : public BuffOnMainTankAction
 	{

@@ -643,25 +643,83 @@ bool SapphironAvoidChillAction::Execute(Event event)
 
 bool KelthuzadChooseTargetAction::Execute(Event event)
 {
+    Unit* boss = AI_VALUE2(Unit*, "find target", "kel'thuzad");
+    if (!boss) {
+        return false;
+    }
+    BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
     std::pair<float, float> center = {3716.19f, -5106.58f};
     list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
     Unit* target = NULL;
-    vector<Unit*> valid_targets;
+    Unit *target_soldier = NULL, *target_weaver = NULL, *target_abomination = NULL, *target_kelthuzad = NULL, *target_guardian = NULL;
     for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
     {
         Unit* unit = ai->GetUnit(*i);
         if (!unit)
             continue;
-        if (unit->GetDistance2d(center.first, center.second) > 25.0f) {
+
+        if (ai->EqualLowercaseName(unit->GetName(), "guardian of icecrown")) {
+            if (!target_guardian) {
+                target_guardian = unit;
+            } else if (unit->GetVictim() && target_guardian->GetVictim() && 
+                       unit->GetVictim()->ToPlayer() && target_guardian->GetVictim()->ToPlayer() && 
+                       !ai->IsAssistTank(unit->GetVictim()->ToPlayer()) && ai->IsAssistTank(target_guardian->GetVictim()->ToPlayer())) {
+                target_guardian = unit;
+            } else if (unit->GetVictim() && target_guardian->GetVictim() && 
+                       unit->GetVictim()->ToPlayer() && target_guardian->GetVictim()->ToPlayer() && 
+                       !ai->IsAssistTank(unit->GetVictim()->ToPlayer()) && !ai->IsAssistTank(target_guardian->GetVictim()->ToPlayer()) &&
+                target_guardian->GetDistance2d(center.first, center.second) > bot->GetDistance2d(unit)) {
+                target_guardian = unit;
+            }
+        }
+        
+        if (unit->GetDistance2d(center.first, center.second) > 30.0f) {
             continue;
         }
-        if (!ai->IsRanged(bot) && 
-            (ai->EqualLowercaseName(unit->GetName(), "soldier of the frozen wastes") ||
-             ai->EqualLowercaseName(unit->GetName(), "soul weaver")) 
-           ) {
+        if (bot->GetDistance2d(unit) > sPlayerbotAIConfig.spellDistance) {
             continue;
         }
-        target = unit;
+        if (ai->EqualLowercaseName(unit->GetName(), "unstoppable abomination")) {
+            if (target_abomination == NULL || 
+                target_abomination->GetDistance2d(center.first, center.second) > unit->GetDistance2d(center.first, center.second)) {
+                target_abomination = unit;
+            }
+        }
+        if (ai->EqualLowercaseName(unit->GetName(), "soldier of the frozen wastes")) {
+            if (target_soldier == NULL || 
+                target_soldier->GetDistance2d(center.first, center.second) > unit->GetDistance2d(center.first, center.second)) {
+                target_soldier = unit;
+            }
+        }
+        if (ai->EqualLowercaseName(unit->GetName(), "soul weaver")) {
+            if (target_weaver == NULL || 
+                target_weaver->GetDistance2d(center.first, center.second) > unit->GetDistance2d(center.first, center.second)) {
+                target_weaver = unit;
+            }
+        }
+        if (ai->EqualLowercaseName(unit->GetName(), "kel'thuzad")) {
+            target_kelthuzad = unit;
+        }
+        
+    }
+    vector<Unit*> targets;
+    if (ai->IsRanged(bot)) {
+        if (ai->GetRangedDpsIndex(bot) <= 1) {
+            targets = {target_soldier, target_weaver, target_abomination, target_kelthuzad};
+        } else {
+            targets = {target_weaver, target_soldier, target_abomination, target_kelthuzad};
+        }
+    } else if (ai->IsTank(bot) && !ai->IsMainTank(bot)) {
+        targets = {target_abomination, target_guardian, target_kelthuzad};
+    } else {
+        targets = {target_abomination, target_kelthuzad};
+    }
+    for (Unit* t : targets) {
+        if (t) {
+            target = t;
+            break;
+        }
     }
     if (context->GetValue<Unit*>("current target")->Get() == target) {
         return false;
@@ -669,5 +727,88 @@ bool KelthuzadChooseTargetAction::Execute(Event event)
     // if (target) {
     //     bot->Yell("Target name: " + target->GetName(), LANG_UNIVERSAL);
     // }
+    if (target_kelthuzad && target == target_kelthuzad) {
+        return Attack(target, true);
+    }
     return Attack(target, false);
+}
+
+bool KelthuzadPositionAction::Execute(Event event)
+{
+    Unit* boss = AI_VALUE2(Unit*, "find target", "kel'thuzad");
+    if (!boss) {
+        return false;
+    }
+    BossAI* b_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    if (!b_ai) {
+        return false;
+    }
+    EventMap *eventMap = b_ai->GetEvents();
+    uint8 phase_mask = eventMap->GetPhaseMask();
+    if (phase_mask == 1) {
+        if (AI_VALUE(Unit*, "current target") == NULL) {
+            return MoveInside(533, 3716.19f, -5106.58f, bot->GetPositionZ(), 3.0f);
+        }
+    } else if (phase_mask == 2) {
+        Unit* shadow_fissure = NULL;
+
+        list<ObjectGuid> units = *context->GetValue<list<ObjectGuid> >("possible targets");
+        for (list<ObjectGuid>::iterator i = units.begin(); i != units.end(); i++)
+        {
+            Unit* unit = ai->GetUnit(*i);
+            if (!unit)
+                continue;
+
+            if (ai->EqualLowercaseName(unit->GetName(), "shadow fissure")) {
+                shadow_fissure = unit;
+            }
+        }
+
+        if (!shadow_fissure || bot->GetDistance2d(shadow_fissure) > 8.0f) {
+            float distance, angle;
+            if (ai->IsMainTank(bot)) {
+                if (AI_VALUE2(bool, "has aggro", "current target")) {
+                    return MoveTo(533, 3709.19f, -5104.86f, bot->GetPositionZ());
+                    // return false;
+                }
+            } else if (ai->IsRanged(bot)) {
+                uint32 index = ai->GetRangedIndex(bot);
+                if (index < 8) {
+                    distance = 20.0f;
+                    angle = index * M_PI / 4;
+                } else {
+                    distance = 32.0f;
+                    angle = (index - 8) * M_PI / 4;
+                }
+            } else if (ai->IsTank(bot)) {
+                Unit* cur_tar = AI_VALUE(Unit*, "current target");
+                if (cur_tar && cur_tar->GetVictim() && cur_tar->GetVictim()->ToPlayer() && 
+                    ai->EqualLowercaseName(cur_tar->GetName(), "guardian of icecrown") && 
+                    ai->IsAssistTank(cur_tar->GetVictim()->ToPlayer()) ) {
+                    return MoveTo(533, 3740.93f, -5111.91f, bot->GetPositionZ());
+                }
+            } else {
+                // uint32 index = ai->GetMeleeIndex(bot);
+                // distance = 8.0f;
+                // angle = index * M_PI / 4;
+            }
+            std::pair<float, float> center = {3716.19f, -5106.58f};
+            float dx, dy;
+            dx = center.first + cos(angle) * distance;
+            dy = center.second + sin(angle) * distance;
+            return MoveTo(533, dx, dy, bot->GetPositionZ());
+        } else {
+            float dx, dy;
+            float angle;
+            // if (ai->IsMainTank(bot)) {
+            //     angle = boss->GetAngle(shadow_fissure) + M_PI / 2;
+            // } else {
+            angle = bot->GetAngle(shadow_fissure) + M_PI;
+            // }
+            dx = shadow_fissure->GetPositionX() + cos(angle) * 8.0f;
+            dy = shadow_fissure->GetPositionY() + sin(angle) * 8.0f;
+            return MoveTo(533, dx, dy, bot->GetPositionZ());
+        }
+    }
+    return false;
 }

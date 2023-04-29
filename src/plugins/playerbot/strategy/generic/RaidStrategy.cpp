@@ -9,6 +9,9 @@
 #include "ReachTargetActions.h"
 #include "UseMeetingStoneAction.h"
 #include "FollowActions.h"
+#include "ShamanActions.h"
+#include "PriestActions.h"
+#include "DKActions.h"
 
 using namespace ai;
 
@@ -144,8 +147,21 @@ float KelthuzadGenericMultiplier::GetValue(Action* action)
     }
 	if ((dynamic_cast<AttackLeastHpTargetAction*>(action) || 
 		 dynamic_cast<TankAssistAction*>(action) || 
-		 dynamic_cast<CastFireElementalTotemAction*>(action))) {
+		 dynamic_cast<CastDebuffSpellOnAttackerAction*>(action) || 
+		 dynamic_cast<FollowAction*>(action) || 
+		 dynamic_cast<FleeAction*>(action))) {
 		return 0.0f;
+	}
+	BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+	EventMap* eventMap = boss_ai->GetEvents();
+    uint32 curr_phase = eventMap->GetPhaseMask();
+	
+	if (curr_phase == 1) {
+		if (dynamic_cast<CastFireElementalTotemAction*>(action) || 
+			dynamic_cast<CastShadowfiendAction*>(action) ||
+			dynamic_cast<CastRaiseDeadAction*>(action)) {
+			return 0.0f;
+		}
 	}
 	return 1.0f;
 }
@@ -234,7 +250,14 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	// Kel'Thuzad
 	triggers.push_back(new TriggerNode(
 		"kel'thuzad", 
-		NextAction::array(0, new NextAction("kel'thuzad choose target", ACTION_RAID + 1), NULL)));
+		NextAction::array(0, 
+			new NextAction("kel'thuzad choose target", ACTION_RAID + 1), 
+   			new NextAction("kel'thuzad position", ACTION_RAID + 1),
+		NULL)));
+
+	// triggers.push_back(new TriggerNode(
+	// 	"kel'thuzad phase two", 
+	// 	 NULL)));
 }
 
 void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)

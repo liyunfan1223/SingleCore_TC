@@ -227,8 +227,8 @@ namespace ai
                 creators["thunderstorm"] = &AiObjectContextInternal::thunderstorm;
                 creators["heroism"] = &AiObjectContextInternal::heroism;
                 creators["bloodlust"] = &AiObjectContextInternal::bloodlust;
-				creators["cure disease"] = &AiObjectContextInternal::cure_disease;
-				creators["cure disease on party"] = &AiObjectContextInternal::cure_disease_on_party;
+				// creators["cure disease"] = &AiObjectContextInternal::cure_disease;
+				// creators["cure disease on party"] = &AiObjectContextInternal::cure_disease_on_party;
 				creators["cure poison"] = &AiObjectContextInternal::cure_poison;
 				creators["cure poison on party"] = &AiObjectContextInternal::cure_poison_on_party;
                 creators["earth shield on main tank"] = &AiObjectContextInternal::earth_shield_on_main_tank;
@@ -289,8 +289,8 @@ namespace ai
             static Action* wind_shear_on_enemy_healer(PlayerbotAI* ai) { return new CastWindShearOnEnemyHealerAction(ai); }
 			static Action* cure_poison(PlayerbotAI* ai) { return new CastCurePoisonAction(ai); }
 			static Action* cure_poison_on_party(PlayerbotAI* ai) { return new CastCurePoisonOnPartyAction(ai); }
-			static Action* cure_disease(PlayerbotAI* ai) { return new CastCureDiseaseAction(ai); }
-			static Action* cure_disease_on_party(PlayerbotAI* ai) { return new CastCureDiseaseOnPartyAction(ai); }
+			// static Action* cure_disease(PlayerbotAI* ai) { return new CastCureDiseaseAction(ai); }
+			// static Action* cure_disease_on_party(PlayerbotAI* ai) { return new CastCureDiseaseOnPartyAction(ai); }
             static Action* earth_shield_on_main_tank(PlayerbotAI* ai) { return new CastEarthShieldOnMainTankAction(ai); }
         };
     };

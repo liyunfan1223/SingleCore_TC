@@ -247,4 +247,11 @@ namespace ai
         KelthuzadChooseTargetAction(PlayerbotAI* ai) : AttackAction(ai, "kel'thuzad choose target") {}
         virtual bool Execute(Event event);
     };
+    
+    class KelthuzadPositionAction : public MovementAction
+    {
+    public:
+        KelthuzadPositionAction(PlayerbotAI* ai) : MovementAction(ai, "kel'thuzad position") {}
+        virtual bool Execute(Event event);
+    };
 }

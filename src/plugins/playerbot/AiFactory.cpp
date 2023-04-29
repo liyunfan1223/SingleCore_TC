@@ -89,7 +89,7 @@ int AiFactory::GetPlayerSpecTab(Player* player)
 void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const facade, Engine* engine)
 {
     int tab = GetPlayerSpecTab(player);
-
+    int level = player->getLevel();
 	if (player->InBattleground() && player->GetBattlegroundTypeId()==BattlegroundTypeId::BATTLEGROUND_WS)
 	{
 		engine->addStrategies("warsong", "attack weak", "racials", "chat", "default", "dps", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
@@ -126,7 +126,11 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             // engine->addStrategy("flee");
             break;
         case CLASS_WARRIOR:
-            engine->addStrategy("bhealth");
+            if (level < 80) {
+                engine->addStrategy("bdps");
+            } else {
+                engine->addStrategy("bhealth");
+            }
             if (tab == 2) {
                 engine->addStrategies("tank", "tank aoe", NULL);
                 engine->ChangeStrategy("-aoe");

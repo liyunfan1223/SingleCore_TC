@@ -124,15 +124,16 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"bloodlust",
 		NextAction::array(0, new NextAction("bloodlust", 30.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-		"party member cure poison",
-		NextAction::array(0, new NextAction("cure poison on party", ACTION_DISPEL + 1), 
-            new NextAction("cleansing totem", ACTION_DISPEL), NULL)));
+    // name is cure toxins?
+    // triggers.push_back(new TriggerNode(
+	// 	"party member cure poison",
+	// 	NextAction::array(0, new NextAction("cure poison on party", ACTION_DISPEL + 1), 
+    //         new NextAction("cleansing totem", ACTION_DISPEL), NULL)));
 
-    triggers.push_back(new TriggerNode(
-		"party member cure disease",
-		NextAction::array(0, new NextAction("cure disease on party", ACTION_DISPEL + 1), 
-            new NextAction("cleansing totem", ACTION_DISPEL), NULL)));
+    // triggers.push_back(new TriggerNode(
+	// 	"party member cure disease",
+	// 	NextAction::array(0, new NextAction("cure poison on party", ACTION_DISPEL + 1), 
+    //         new NextAction("cleansing totem", ACTION_DISPEL), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
