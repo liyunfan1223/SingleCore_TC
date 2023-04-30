@@ -12,6 +12,9 @@
 #include "ShamanActions.h"
 #include "PriestActions.h"
 #include "DKActions.h"
+#include "HunterActions.h"
+#include "MageActions.h"
+#include "RogueActions.h"
 
 using namespace ai;
 
@@ -159,9 +162,54 @@ float KelthuzadGenericMultiplier::GetValue(Action* action)
 	if (curr_phase == 1) {
 		if (dynamic_cast<CastFireElementalTotemAction*>(action) || 
 			dynamic_cast<CastShadowfiendAction*>(action) ||
-			dynamic_cast<CastRaiseDeadAction*>(action)) {
+			dynamic_cast<CastRaiseDeadAction*>(action) ||
+			dynamic_cast<CastFeignDeathAction*>(action) || 
+			dynamic_cast<CastInvisibilityAction*>(action) ||
+			dynamic_cast<CastVanishAction*>(action)) {
 			return 0.0f;
 		}
+	}
+	if (curr_phase == 2) {
+		if (dynamic_cast<CastBlizzardAction*>(action) || 
+			dynamic_cast<CastFrostNovaAction*>(action)) {
+			return 0.0f;
+		}
+		
+	}
+	return 1.0f;
+}
+
+float AnubrekhanGenericMultiplier::GetValue(Action* action)
+{
+	Unit* boss = AI_VALUE2(Unit*, "find target", "anub'rekhan");
+	if (!boss) {
+        return 1.0f;
+    }
+	if ((dynamic_cast<AttackLeastHpTargetAction*>(action) || 
+		 dynamic_cast<TankAssistAction*>(action) || 
+		 dynamic_cast<FollowAction*>(action))) {
+		return 0.0f;
+	}
+	BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+	EventMap* eventMap = boss_ai->GetEvents();
+    uint32 curr_phase = eventMap->GetPhaseMask();
+	if (curr_phase == 2) {
+		if (dynamic_cast<FleeAction*>(action)) {
+			return 0.0f;
+		}
+	}
+	return 1.0f;
+}
+
+float FourhorsemanGenericMultiplier::GetValue(Action* action)
+{
+	Unit* boss = AI_VALUE2(Unit*, "find target", "sir zeliek");
+	if (!boss) {
+        return 1.0f;
+    }
+	if ((dynamic_cast<AttackLeastHpTargetAction*>(action) || 
+		 dynamic_cast<TankAssistAction*>(action))) {
+		return 0.0f;
 	}
 	return 1.0f;
 }
@@ -172,7 +220,7 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	// 	"often", 
 	// 	NextAction::array(0, new NextAction("try to get boss ai", ACTION_RAID), NULL)));
 	
-	// grobbulus
+	// Grobbulus
 	triggers.push_back(new TriggerNode(
 		"mutating injection", 
 		NextAction::array(0, new NextAction("go behind the boss", ACTION_RAID + 2), NULL)));
@@ -221,7 +269,6 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("razuvious use obedience crystal", ACTION_RAID + 1), NULL)));
 		
 	// four horseman
-
 	triggers.push_back(new TriggerNode(
 		"horseman attractors", 
 		NextAction::array(0, new NextAction("horseman attract alternatively", ACTION_RAID + 1), NULL)));
@@ -255,6 +302,14 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
    			new NextAction("kel'thuzad position", ACTION_RAID + 1),
 		NULL)));
 
+	// Anub'Rekhan
+	triggers.push_back(new TriggerNode(
+		"anub'rekhan", 
+		NextAction::array(0, 
+			new NextAction("anub'rekhan choose target", ACTION_RAID + 1), 
+   			new NextAction("anub'rekhan position", ACTION_RAID + 1),
+		NULL)));
+
 	// triggers.push_back(new TriggerNode(
 	// 	"kel'thuzad phase two", 
 	// 	 NULL)));
@@ -268,4 +323,7 @@ void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multiplier
 	multipliers.push_back(new SapphironGenericMultiplier(ai));
 	multipliers.push_back(new InstructorRazuviousGenericMultiplier(ai));
 	multipliers.push_back(new KelthuzadGenericMultiplier(ai));
+	multipliers.push_back(new AnubrekhanGenericMultiplier(ai));
+	multipliers.push_back(new FourhorsemanGenericMultiplier(ai));
+	
 }

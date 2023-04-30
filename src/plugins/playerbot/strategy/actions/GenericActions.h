@@ -16,4 +16,10 @@ namespace ai
         virtual string GetTargetName() { return "current target"; }
     };
 
+    class TogglePetSpellAutoCastAction: public Action
+	{
+	public:
+		TogglePetSpellAutoCastAction(PlayerbotAI* ai): Action(ai, "toggle pet spell auto cast") {}
+		virtual bool Execute(Event event);
+	};
 }

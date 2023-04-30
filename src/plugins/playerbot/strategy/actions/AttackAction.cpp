@@ -12,8 +12,10 @@ bool AttackAction::Execute(Event event)
 {
     Unit* target = GetTarget();
 
-    if (!target)
+    if (!target) {
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Attack failed because target is NULL.");
         return false;
+    }
 
     return Attack(target);
 }
@@ -40,12 +42,14 @@ bool AttackAction::Attack(Unit* target, bool with_pet)
     if (bot->IsFlying())
     {
         if (verbose) bot->Say("I cannot attack in flight", LANG_UNIVERSAL);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Attack failed because bot is flying.");
         return false;
     }
 
     if (!target)
     {
         if (verbose) bot->Say("I have no target", LANG_UNIVERSAL);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Attack failed because no target.");
         return false;
     }
 
@@ -55,18 +59,21 @@ bool AttackAction::Attack(Unit* target, bool with_pet)
     {
         msg << " is friendly to me";
         if (verbose) bot->Say(msg.str(), LANG_UNIVERSAL);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Attack failed because target is friendly.");
         return false;
     }
 	if (target->isDead())
 	{
 		msg << " is dead";
 		if (verbose) bot->Say(msg.str(), LANG_UNIVERSAL);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Attack failed because target is dead.");
 		return false;
 	}
     if (!bot->InBattleground() && !bot->IsWithinLOSInMap(target))
     {
         msg << " is not on my sight";
         if (verbose) bot->Say(msg.str(), LANG_UNIVERSAL);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Attack failed because target is not on sight.");
         return false;
     }
 
@@ -92,10 +99,24 @@ bool AttackAction::Attack(Unit* target, bool with_pet)
             pet->AI()->EnterCombat(target);
             pet->GetCharmInfo()->SetIsCommandAttack(true);
             pet->AI()->AttackStart(target);
-        } 
+        } else {
+            pet->GetCharmInfo()->SetIsCommandFollow(true);
+        }
         // else {
         //     pet->SetReactState(REACT_PASSIVE);
         // }
+    }
+    Guardian* guardian_pet = bot->GetGuardianPet();
+    if (guardian_pet) {
+        guardian_pet->SetReactState(REACT_PASSIVE);
+        if (with_pet) {
+            guardian_pet->SetTarget(target->GetGUID());
+            guardian_pet->AI()->EnterCombat(target);
+            guardian_pet->GetCharmInfo()->SetIsCommandAttack(true);
+            guardian_pet->AI()->AttackStart(target);
+        } else {
+            guardian_pet->GetCharmInfo()->SetIsCommandFollow(true);
+        }
     }
     bot->Attack(target, true);
     ai->ChangeEngine(BOT_STATE_COMBAT);

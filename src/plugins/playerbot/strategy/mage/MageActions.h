@@ -63,7 +63,7 @@ namespace ai
     {
     public:
         CastFrostNovaAction(PlayerbotAI* ai) : CastSpellAction(ai, "frost nova") {}
-        virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+        // virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
     };
 
 	class CastFrostboltAction : public CastSpellAction

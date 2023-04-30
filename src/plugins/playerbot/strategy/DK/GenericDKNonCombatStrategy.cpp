@@ -51,6 +51,9 @@ void GenericDKNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"bone shield",
 		NextAction::array(0, new NextAction("bone shield", 21.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "has pet",
+        NextAction::array(0, new NextAction("toggle pet spell", 11.0f), NULL)));
 }
 
 

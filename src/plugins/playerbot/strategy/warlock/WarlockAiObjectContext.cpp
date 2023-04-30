@@ -171,7 +171,7 @@ namespace ai
                 creators["haunt"] = &AiObjectContextInternal::haunt;
                 creators["demonic empowerment"] = &AiObjectContextInternal::demonic_empowerment;
                 creators["metamorphosis"] = &AiObjectContextInternal::metamorphosis;
-                creators["toggle pet spell"] = &AiObjectContextInternal::toggle_pet_spell;
+                
             }
 
         private:
@@ -210,7 +210,7 @@ namespace ai
             static Action* haunt(PlayerbotAI* ai) { return new CastHauntAction(ai); }
             static Action* demonic_empowerment(PlayerbotAI* ai) { return new CastDemonicEmpowermentAction(ai); }
             static Action* metamorphosis(PlayerbotAI* ai) { return new CastMetamorphosisAction(ai); }
-            static Action* toggle_pet_spell(PlayerbotAI* ai) { return new TogglePetSpellAutoCastAction(ai); }
+            
         };
     };
 };

@@ -165,9 +165,9 @@ bool ThaddiusAttackNearestPetAction::Execute(Event event) {
     if (stalagg && (!result || (bot->GetDistance2d(result) > bot->GetDistance2d(stalagg)))) {
         result = stalagg;
     }
-    if (result) {
+    // if (result) {
         // bot->Yell("Goona attack " + result->GetName(), LANG_UNIVERSAL);
-    }
+    // }
     return Attack(result);
 }
 
@@ -421,7 +421,7 @@ bool HorsemanAttractAlternativelyAction::Execute(Event event)
         } else {
             pos_to_go = 1;
         }
-        if (ai->IsRangedDpsAssistantOfIndex(bot, 0)) {
+        if (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 1)) {
             pos_to_go = 1 - pos_to_go;
         }
     }
@@ -460,25 +460,31 @@ bool HorsemanAttractAlternativelyAction::Execute(Event event)
 
 bool HorsemanAttactInOrderAction::Execute(Event event)
 {
+    Unit* target = NULL;
+    Unit* thane = AI_VALUE2(Unit*, "find target", "thane korth'azz");
+    Unit* baron = AI_VALUE2(Unit*, "find target", "baron rivendare");
     Unit* lady = AI_VALUE2(Unit*, "find target", "lady blaumeux");
-    if (lady) {
-        if (context->GetValue<Unit*>("current target")->Get() == lady && ai->GetCurrentState() == BOT_STATE_COMBAT) {
-            return false;
-        }
-        if (!bot->IsWithinLOSInMap(lady)) {
-            return MoveNear(lady, 10.0f);
-        }
-        return Attack(lady);
-    }
     Unit* sir = AI_VALUE2(Unit*, "find target", "sir zeliek");
-    if (sir) {
-        if (context->GetValue<Unit*>("current target")->Get() == sir && ai->GetCurrentState() == BOT_STATE_COMBAT) {
+    vector<Unit*> attack_order;
+    if (ai->IsAssistTank(bot)) {
+        attack_order = {baron, thane, lady, sir};
+    } else {
+        attack_order = {thane, baron, lady, sir};
+    }
+    for (Unit* t : attack_order) {
+        if (t) {
+            target = t;
+            break;
+        }
+    }
+    if (target) {
+        if (context->GetValue<Unit*>("current target")->Get() == target && ai->GetCurrentState() == BOT_STATE_COMBAT) {
             return false;
         }
-        if (!bot->IsWithinLOSInMap(sir)) {
-            return MoveNear(sir, 10.0f);
+        if (!bot->IsWithinLOSInMap(target)) {
+            return MoveNear(target, 10.0f);
         }
-        return Attack(sir);
+        return Attack(target);
     }
     return false;
 }
@@ -669,7 +675,7 @@ bool KelthuzadChooseTargetAction::Execute(Event event)
             } else if (unit->GetVictim() && target_guardian->GetVictim() && 
                        unit->GetVictim()->ToPlayer() && target_guardian->GetVictim()->ToPlayer() && 
                        !ai->IsAssistTank(unit->GetVictim()->ToPlayer()) && !ai->IsAssistTank(target_guardian->GetVictim()->ToPlayer()) &&
-                target_guardian->GetDistance2d(center.first, center.second) > bot->GetDistance2d(unit)) {
+                       target_guardian->GetDistance2d(center.first, center.second) > bot->GetDistance2d(unit)) {
                 target_guardian = unit;
             }
         }
@@ -710,7 +716,7 @@ bool KelthuzadChooseTargetAction::Execute(Event event)
         } else {
             targets = {target_weaver, target_soldier, target_abomination, target_kelthuzad};
         }
-    } else if (ai->IsTank(bot) && !ai->IsMainTank(bot)) {
+    } else if (ai->IsAssistTank(bot)) {
         targets = {target_abomination, target_guardian, target_kelthuzad};
     } else {
         targets = {target_abomination, target_kelthuzad};
@@ -785,12 +791,12 @@ bool KelthuzadPositionAction::Execute(Event event)
                 if (cur_tar && cur_tar->GetVictim() && cur_tar->GetVictim()->ToPlayer() && 
                     ai->EqualLowercaseName(cur_tar->GetName(), "guardian of icecrown") && 
                     ai->IsAssistTank(cur_tar->GetVictim()->ToPlayer()) ) {
-                    return MoveTo(533, 3740.93f, -5111.91f, bot->GetPositionZ());
+                    return MoveTo(533, 3746.05f, -5112.74f, bot->GetPositionZ());
+                } else {
+                    return false;
                 }
             } else {
-                // uint32 index = ai->GetMeleeIndex(bot);
-                // distance = 8.0f;
-                // angle = index * M_PI / 4;
+                return false;
             }
             std::pair<float, float> center = {3716.19f, -5106.58f};
             float dx, dy;
@@ -800,14 +806,101 @@ bool KelthuzadPositionAction::Execute(Event event)
         } else {
             float dx, dy;
             float angle;
-            // if (ai->IsMainTank(bot)) {
-            //     angle = boss->GetAngle(shadow_fissure) + M_PI / 2;
-            // } else {
-            angle = bot->GetAngle(shadow_fissure) + M_PI;
-            // }
+            if (!ai->IsRanged(bot)) {
+                angle = shadow_fissure->GetAngle(3716.19f, -5106.58f);
+            } else {
+                angle = bot->GetAngle(shadow_fissure) + M_PI;
+            }
             dx = shadow_fissure->GetPositionX() + cos(angle) * 8.0f;
             dy = shadow_fissure->GetPositionY() + sin(angle) * 8.0f;
             return MoveTo(533, dx, dy, bot->GetPositionZ());
+        }
+    }
+    return false;
+}
+
+bool AnubrekhanChooseTargetAction::Execute(Event event)
+{
+    Unit* boss = AI_VALUE2(Unit*, "find target", "anub'rekhan");
+    if (!boss) {
+        return false;
+    }
+    BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
+    list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+    Unit* target = NULL;
+    Unit *target_boss = NULL;
+    vector<Unit*> target_guards;
+    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
+    {
+        Unit* unit = ai->GetUnit(*i);
+        if (!unit)
+            continue;
+        if (ai->EqualLowercaseName(unit->GetName(), "crypt guard")) {
+            target_guards.push_back(unit);
+            // target_guard = unit;
+        }
+        if (ai->EqualLowercaseName(unit->GetName(), "anub'rekhan")) {
+            target_boss = unit;
+        }
+    }
+    // vector<Unit*> targets;
+    if (ai->IsMainTank(bot)) {
+        target = target_boss;
+    } else {
+        if (target_guards.size() == 0) {
+            target = target_boss;
+        } else {
+            if (ai->IsAssistTank(bot)) {
+                for (Unit* t : target_guards) {
+                    if (target == NULL || (target->GetVictim() && target->GetVictim()->ToPlayer() && ai->IsTank(target->GetVictim()->ToPlayer()))) {
+                        target = t;
+                    }
+                }
+            } else {
+                for (Unit* t : target_guards) {
+                    if (target == NULL || target->GetHealthPct() > t->GetHealthPct()) {
+                        target = t;
+                    }
+                }
+            }
+        }
+    }
+    if (context->GetValue<Unit*>("current target")->Get() == target) {
+        return false;
+    }
+    // if (target) {
+    //     bot->Yell("Let\'s attack " + target->GetName(), LANG_UNIVERSAL);
+    // }
+    return Attack(target);
+}
+
+bool AnubrekhanPositionAction::Execute(Event event)
+{
+    Unit* boss = AI_VALUE2(Unit*, "find target", "anub'rekhan");
+    if (!boss) {
+        return false;
+    }
+    BossAI* b_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    if (!b_ai) {
+        return false;
+    }
+    EventMap *eventMap = b_ai->GetEvents();
+    uint8 phase_mask = eventMap->GetPhaseMask();
+    uint32 locust = eventMap->GetNextEventTime(2);
+    uint32 timer = eventMap->GetTimer();
+    if (phase_mask == 2 || (locust && locust - timer <= 5000)) {
+        if (ai->IsMainTank(bot)) {
+            uint32 nearest = FindNearestWaypoint();
+            uint32 next_point;
+            if (phase_mask == 2) {
+                next_point = (nearest + 1) % intervals;
+            } else {
+                next_point = nearest;
+            }
+            return MoveTo(bot->GetMapId(), waypoints[next_point].first, waypoints[next_point].second, bot->GetPositionZ());
+        } else {
+            return MoveInside(533, 3272.49f, -3476.27f, bot->GetPositionZ(), 3.0f);
         }
     }
     return false;

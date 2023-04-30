@@ -209,13 +209,6 @@ namespace ai
 		CastHauntAction(PlayerbotAI* ai) : CastSpellAction(ai, "haunt") {}
 	};
 
-	class TogglePetSpellAutoCastAction: public Action
-	{
-	public:
-		TogglePetSpellAutoCastAction(PlayerbotAI* ai): Action(ai, "toggle pet spell auto cast") {}
-		virtual bool Execute(Event event);
-	};
-
 	class CastDemonicEmpowermentAction : public CastBuffSpellAction
 	{
 	public:

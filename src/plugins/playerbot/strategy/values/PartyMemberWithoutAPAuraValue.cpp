@@ -17,7 +17,7 @@ public:
         if (unit->IsPet())
         {
             Pet* pet = unit->ToPet();
-            if (pet && pet->getPetType() == SUMMON_PET)
+            if (!pet)
                 return false;
             return pet->IsAlive() && !ai->HasAura(aura, pet);
         }

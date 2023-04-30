@@ -12,7 +12,7 @@ bool InvalidTargetValue::Calculate()
     {
         return !target ||
                 target->GetMapId() != bot->GetMapId() ||
-                target->isDead() ||
+                !target->IsAlive() ||
                 target->IsPolymorphed() ||
                 target->IsCharmed() ||
                 target->isFeared() ||

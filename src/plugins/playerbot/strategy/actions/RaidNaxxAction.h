@@ -54,8 +54,9 @@ namespace ai
     class RotateAroundTheCenterPointAction : public MovementAction
     {
     public:
-        RotateAroundTheCenterPointAction(PlayerbotAI* ai, float center_x, float center_y, float radius = 40.0f, 
-            uint32 intervals = 16, bool clockwise = true, float start_angle = 0) : MovementAction(ai, "rotate around the center point") {
+        RotateAroundTheCenterPointAction(PlayerbotAI* ai, string name, 
+            float center_x, float center_y, float radius = 40.0f, 
+            uint32 intervals = 16, bool clockwise = true, float start_angle = 0) : MovementAction(ai, name) {
             this->center_x = center_x;
             this->center_y = center_y;
             this->radius = radius;
@@ -69,7 +70,7 @@ namespace ai
         }
         virtual bool Execute(Event event);
     protected:
-        virtual uint32 GetCurrWaypoint() = 0;
+        virtual uint32 GetCurrWaypoint() { return 0; }
         uint32 FindNearestWaypoint();
         float center_x, center_y, radius;
         uint32 intervals, call_counters;
@@ -80,7 +81,7 @@ namespace ai
     class RotateGrobbulusAction : public RotateAroundTheCenterPointAction
     {
     public:
-        RotateGrobbulusAction(PlayerbotAI* ai): RotateAroundTheCenterPointAction(ai, 3281.23f, -3310.38f, 35.0f, 8, true, M_PI) {}
+        RotateGrobbulusAction(PlayerbotAI* ai): RotateAroundTheCenterPointAction(ai, "rotate grobbulus", 3281.23f, -3310.38f, 35.0f, 8, true, M_PI) {}
         virtual bool isUseful() {
             return RotateAroundTheCenterPointAction::isUseful() && ai->IsMainTank(bot) && AI_VALUE2(bool, "has aggro", "boss target");
         }
@@ -252,6 +253,20 @@ namespace ai
     {
     public:
         KelthuzadPositionAction(PlayerbotAI* ai) : MovementAction(ai, "kel'thuzad position") {}
+        virtual bool Execute(Event event);
+    };
+
+    class AnubrekhanChooseTargetAction : public AttackAction
+    {
+    public:
+        AnubrekhanChooseTargetAction(PlayerbotAI* ai) : AttackAction(ai, "anub'rekhan choose target") {}
+        virtual bool Execute(Event event);
+    };
+    
+    class AnubrekhanPositionAction : public RotateAroundTheCenterPointAction
+    {
+    public:
+        AnubrekhanPositionAction(PlayerbotAI* ai) : RotateAroundTheCenterPointAction(ai, "anub'rekhan position", 3272.49f, -3476.27f, 45.0f, 16) {}
         virtual bool Execute(Event event);
     };
 }

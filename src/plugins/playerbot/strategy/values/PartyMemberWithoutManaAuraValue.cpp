@@ -16,11 +16,10 @@ public:
     {
         if (unit->IsPet())
         {
-            return false;
-            // Pet* pet = unit->ToPet();
-            // if (pet && pet->getPetType() == SUMMON_PET)
-            //     return false;
-            // return pet->IsAlive() && !ai->HasAura(aura, pet);
+            Pet* pet = unit->ToPet();
+            if (!pet)
+                return false;
+            return pet->IsAlive() && !ai->HasAura(aura, pet);
         }
         Player* player = dynamic_cast<Player*>(unit);
         return player->IsAlive() && !ai->HasAura(aura, player) && ((ai->IsRanged(player) && player->getClass() != CLASS_HUNTER) || ai->IsHeal(player));

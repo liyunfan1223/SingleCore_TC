@@ -170,6 +170,12 @@ namespace ai
         KelthuzadTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "kel'thuzad", 0, "kel'thuzad trigger") {}
     };
 
+    class AnubrekhanTrigger : public BossPhaseTrigger
+    {
+    public:
+        AnubrekhanTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "anub'rekhan", 0, "anub'rekhan trigger") {}
+    };
+
     class KelthuzadPhaseTwoTrigger : public BossPhaseTrigger
     {
     public:

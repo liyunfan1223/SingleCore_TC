@@ -8,7 +8,7 @@ namespace ai
     class UnholyDKStrategy : public GenericDKStrategy
     {
     public:
-        UnholyDKStrategy(PlayerbotAI* ai) : GenericDKStrategy(ai) {}
+        UnholyDKStrategy(PlayerbotAI* ai);
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);

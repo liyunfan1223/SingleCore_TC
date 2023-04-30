@@ -64,7 +64,7 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("nature's swiftness", ACTION_CRITICAL_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium aoe heal",
+        "group heal occasion",
         NextAction::array(0, new NextAction("tranquility", ACTION_CRITICAL_HEAL + 5), NULL)));
 
     // LOW

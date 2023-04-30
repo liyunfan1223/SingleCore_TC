@@ -46,6 +46,7 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0,
             new NextAction("power word: shield on party", ACTION_MEDIUM_HEAL + 4),
             new NextAction("penance on party", ACTION_MEDIUM_HEAL + 2), 
+            new NextAction("circle of healing", ACTION_MEDIUM_HEAL + 2),
             new NextAction("prayer of mending on party", ACTION_MEDIUM_HEAL + 1),
             new NextAction("flash heal on party", ACTION_MEDIUM_HEAL + 0),
             NULL)));
@@ -55,6 +56,7 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0,
             new NextAction("power word: shield on party", ACTION_LIGHT_HEAL + 9),
             new NextAction("penance on party", ACTION_LIGHT_HEAL + 7), 
+            new NextAction("circle of healing", ACTION_LIGHT_HEAL + 7),
             new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 6),
             new NextAction("flash heal on party", ACTION_LIGHT_HEAL + 5),
             // new NextAction("renew on party", ACTION_LIGHT_HEAL + 8),

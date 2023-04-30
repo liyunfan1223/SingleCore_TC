@@ -19,7 +19,7 @@ public:
 		//creators["unholy blight"] = &unholy_blight;
 		creators["scourge strike"] = &scourge_strike;
 		//creators["death and decay"] = &death_and_decay;
-		//creators["unholy pressence"] = &unholy_pressence;
+		//creators["unholy presence"] = &unholy_presence;
 		//creators["raise dead"] = &raise_dead;
 		//creators["army of the dead"] = &army of the dead;
 		//creators["summon gargoyle"] = &army of the dead;
@@ -34,26 +34,30 @@ private:
 	static ActionNode* death_strike(PlayerbotAI* ai)
 	{
 		return new ActionNode("death strike",
-			/*P*/ NextAction::array(0, new NextAction("blood pressence"), NULL),
+			/*P*/ NextAction::array(0, new NextAction("blood presence"), NULL),
 			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 	static ActionNode* corpse_explosion(PlayerbotAI* ai)
 	{
 		return new ActionNode("corpse explosion",
-			/*P*/ NextAction::array(0, new NextAction("blood pressence"), NULL),
+			/*P*/ NextAction::array(0, new NextAction("blood presence"), NULL),
 			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 	static ActionNode* scourge_strike(PlayerbotAI* ai)
 	{
 		return new ActionNode("scourge strike",
-			/*P*/ NextAction::array(0, new NextAction("blood pressence"), NULL),
+			/*P*/ NextAction::array(0, new NextAction("blood presence"), NULL),
 			/*A*/ NULL,
 			/*C*/ NULL);
 	}
 };
 
+UnholyDKStrategy::UnholyDKStrategy(PlayerbotAI* ai) : GenericDKStrategy(ai)
+{
+	actionNodeFactories.Add(new UnholyDKStrategyActionNodeFactory());
+}
 
 NextAction** UnholyDKStrategy::getDefaultActions()
 {

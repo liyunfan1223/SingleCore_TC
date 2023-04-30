@@ -228,19 +228,19 @@ namespace ai
     class LightAoeTrigger : public AoeTrigger
     {
     public:
-        LightAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 2, 10.0f) {}
+        LightAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 2, 8.0f) {}
     };
 
     class MediumAoeTrigger : public AoeTrigger
     {
     public:
-        MediumAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 3, 10.0f) {}
+        MediumAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 3, 8.0f) {}
     };
 
     class HighAoeTrigger : public AoeTrigger
     {
     public:
-        HighAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 4, 10.0f) {}
+        HighAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 4, 8.0f) {}
     };
 
     class BuffTrigger : public SpellTrigger

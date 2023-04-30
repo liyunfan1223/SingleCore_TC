@@ -102,6 +102,10 @@ namespace ai
 
             creators["kel'thuzad choose target"] = &ActionContext::kelthuzad_choose_target;
             creators["kel'thuzad position"] = &ActionContext::kelthuzad_position;
+
+            creators["anub'rekhan choose target"] = &ActionContext::anubrekhan_choose_target;
+            creators["anub'rekhan position"] = &ActionContext::anubrekhan_position;
+            creators["toggle pet spell"] = &ActionContext::toggle_pet_spell;
         }
 
     private:
@@ -174,7 +178,9 @@ namespace ai
         static Action* sapphiron_avoid_chill(PlayerbotAI* ai) { return new SapphironAvoidChillAction(ai); }
         static Action* kelthuzad_choose_target(PlayerbotAI* ai) { return new KelthuzadChooseTargetAction(ai); }
         static Action* kelthuzad_position(PlayerbotAI* ai) { return new KelthuzadPositionAction(ai); }
-        
+        static Action* anubrekhan_choose_target(PlayerbotAI* ai) { return new AnubrekhanChooseTargetAction(ai); }
+        static Action* anubrekhan_position(PlayerbotAI* ai) { return new AnubrekhanPositionAction(ai); }
+        static Action* toggle_pet_spell(PlayerbotAI* ai) { return new TogglePetSpellAutoCastAction(ai); }
     };
 
 };

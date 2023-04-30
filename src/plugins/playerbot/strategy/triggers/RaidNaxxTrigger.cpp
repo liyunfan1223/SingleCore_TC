@@ -84,15 +84,15 @@ bool RazuviousTankTrigger::IsActive()
 
 bool HorsemanAttractorsTrigger::IsActive()
 {
-    return BossPhaseTrigger::IsActive() && (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0));
+    return BossPhaseTrigger::IsActive() && (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0)|| 
+           ai->IsHealAssistantOfIndex(bot, 1) || ai->IsHealAssistantOfIndex(bot, 2));
 }
 
 bool HorsemanExceptAttractorsTrigger::IsActive()
 {
     return BossPhaseTrigger::IsActive() && 
-        !(ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0)) &&
-        !AI_VALUE2(Unit*, "find target", "thane korth'azz") &&
-        !AI_VALUE2(Unit*, "find target", "baron rivendare");
+        !(ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0) || 
+          ai->IsHealAssistantOfIndex(bot, 1) || ai->IsHealAssistantOfIndex(bot, 2));
 }
 
 bool SapphironGroundMainTankTrigger::IsActive()

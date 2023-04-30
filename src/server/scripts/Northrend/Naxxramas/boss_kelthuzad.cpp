@@ -323,21 +323,21 @@ public:
                         case EVENT_SKELETON:
                         {
                             ++_skeletonCount;
-                            if (_skeletonCount == 1) // the first skeleton is actually one of the pre-existing ones - I'm not sure why, but that's what the sniffs say
-                            {
-                                std::list<Creature*> skeletons;
-                                me->GetCreatureListWithEntryInGrid(skeletons, NPC_SKELETON2, 200.0f);
-                                if (skeletons.empty())
-                                { // prevent UB
-                                    EnterEvadeMode(EVADE_REASON_OTHER);
-                                    return;
-                                }
-                                std::list<Creature*>::iterator it = skeletons.begin();
-                                std::advance(it, urand(0, skeletons.size() - 1));
-                                (*it)->SetReactState(REACT_AGGRESSIVE);
-                                (*it)->AI()->DoZoneInCombat(); // will select a player on our threat list as we are the summoner
-                            }
-                            else
+                            // if (_skeletonCount == 1) // the first skeleton is actually one of the pre-existing ones - I'm not sure why, but that's what the sniffs say
+                            // {
+                            //     std::list<Creature*> skeletons;
+                            //     me->GetCreatureListWithEntryInGrid(skeletons, NPC_SKELETON2, 200.0f);
+                            //     if (skeletons.empty())
+                            //     { // prevent UB
+                            //         EnterEvadeMode(EVADE_REASON_OTHER);
+                            //         return;
+                            //     }
+                            //     std::list<Creature*>::iterator it = skeletons.begin();
+                            //     std::advance(it, urand(0, skeletons.size() - 1));
+                            //     (*it)->SetReactState(REACT_AGGRESSIVE);
+                            //     (*it)->AI()->DoZoneInCombat(); // will select a player on our threat list as we are the summoner
+                            // }
+                            // else
                             {
                                 // retail uses server-side spell 28421 for this
                                 Creature* summon = me->SummonCreature(NPC_SKELETON1, GetRandomMinionSpawnPoint(), TEMPSUMMON_CORPSE_TIMED_DESPAWN, 2 * IN_MILLISECONDS);
