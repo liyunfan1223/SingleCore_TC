@@ -74,6 +74,24 @@ namespace ai
         virtual float GetValue(Action* action);
     };
 
+    class GothikGenericMultiplier : public Multiplier
+    {
+    public:
+        GothikGenericMultiplier(PlayerbotAI* ai) : Multiplier(ai, "gothik generic") {}
+
+    public:
+        virtual float GetValue(Action* action);
+    };
+
+    class GluthGenericMultiplier : public Multiplier
+    {
+    public:
+        GluthGenericMultiplier(PlayerbotAI* ai) : Multiplier(ai, "gluth generic") {}
+
+    public:
+        virtual float GetValue(Action* action);
+    };
+
     class RaidNaxxGenericStrategy : public Strategy
     {
     public:

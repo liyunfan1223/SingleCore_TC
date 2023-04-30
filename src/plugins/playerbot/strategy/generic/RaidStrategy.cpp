@@ -15,6 +15,9 @@
 #include "HunterActions.h"
 #include "MageActions.h"
 #include "RogueActions.h"
+#include "DruidActions.h"
+#include "PaladinActions.h"
+#include "WarriorActions.h"
 
 using namespace ai;
 
@@ -136,7 +139,13 @@ float InstructorRazuviousGenericMultiplier::GetValue(Action* action)
         return 1.0f;
     }
 	context->GetValue<bool>("neglect threat")->Set(true);
-	if (dynamic_cast<FollowAction*>(action)) {
+	if (ai->GetCurrentState() == BOT_STATE_COMBAT &&
+	   (dynamic_cast<AttackLeastHpTargetAction*>(action) ||
+		dynamic_cast<TankAssistAction*>(action) || 
+		dynamic_cast<CastTauntAction*>(action) ||
+		dynamic_cast<CastDarkCommandAction*>(action) || 
+		dynamic_cast<CastHandOfReckoningAction*>(action) || 
+		dynamic_cast<CastGrowlAction*>(action))) {
 		return 0.0f;
 	}
 	return 1.0f;
@@ -214,6 +223,53 @@ float FourhorsemanGenericMultiplier::GetValue(Action* action)
 	return 1.0f;
 }
 
+float GothikGenericMultiplier::GetValue(Action* action)
+{
+	Unit* boss = AI_VALUE2(Unit*, "find target", "gothik the harvester");
+	if (!boss) {
+        return 1.0f;
+    }
+	BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+	EventMap* eventMap = boss_ai->GetEvents();
+    uint32 curr_phase = eventMap->GetPhaseMask();
+	if (curr_phase == 1 && (dynamic_cast<FollowAction*>(action))) {
+		return 0.0f;
+	}
+	if (curr_phase == 1 && (dynamic_cast<AttackAction*>(action))) {
+		Unit* target = action->GetTarget();
+		if (target == boss) {
+			return 0.0f;
+		}
+	}
+	return 1.0f;
+}
+
+float GluthGenericMultiplier::GetValue(Action* action)
+{
+	Unit* boss = AI_VALUE2(Unit*, "find target", "gluth");
+	if (!boss) {
+        return 1.0f;
+    }
+	if ((dynamic_cast<AttackLeastHpTargetAction*>(action) || 
+		 dynamic_cast<TankAssistAction*>(action) ||
+		 dynamic_cast<FleeAction*>(action) || 
+		 dynamic_cast<CastDebuffSpellOnAttackerAction*>(action))) {
+		return 0.0f;
+	}
+	if (ai->IsMainTank(bot)) {
+		Aura* aura = ai->GetAuraWithDuration("mortal wound", bot);
+		if (aura && aura->GetStackAmount() >= 5) {
+			if (dynamic_cast<CastTauntAction*>(action) ||
+				dynamic_cast<CastDarkCommandAction*>(action) || 
+				dynamic_cast<CastHandOfReckoningAction*>(action) || 
+				dynamic_cast<CastGrowlAction*>(action)) {
+				return 0.0f;
+			}
+		}
+	}
+	return 1.0f;
+}
+
 void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
 	// triggers.push_back(new TriggerNode(
@@ -223,7 +279,7 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	// Grobbulus
 	triggers.push_back(new TriggerNode(
 		"mutating injection", 
-		NextAction::array(0, new NextAction("go behind the boss", ACTION_RAID + 2), NULL)));
+		NextAction::array(0, new NextAction("grobbulus go behind the boss", ACTION_RAID + 2), NULL)));
 	
 	triggers.push_back(new TriggerNode(
 		"mutating injection removed", 
@@ -267,7 +323,11 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"razuvious tank", 
 		NextAction::array(0, new NextAction("razuvious use obedience crystal", ACTION_RAID + 1), NULL)));
-		
+	
+	triggers.push_back(new TriggerNode(
+		"razuvious nontank", 
+		NextAction::array(0, new NextAction("razuvious target", ACTION_RAID + 1), NULL)));
+
 	// four horseman
 	triggers.push_back(new TriggerNode(
 		"horseman attractors", 
@@ -310,9 +370,19 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
    			new NextAction("anub'rekhan position", ACTION_RAID + 1),
 		NULL)));
 
-	// triggers.push_back(new TriggerNode(
-	// 	"kel'thuzad phase two", 
-	// 	 NULL)));
+	// Gluth
+	triggers.push_back(new TriggerNode(
+		"gluth", 
+		NextAction::array(0, 
+			new NextAction("gluth choose target", ACTION_RAID + 1), 
+   			new NextAction("gluth position", ACTION_RAID + 1),
+			new NextAction("gluth slowdown", ACTION_RAID + 1),
+		NULL)));
+	
+	triggers.push_back(new TriggerNode(
+		"gluth main tank mortal wound", 
+		NextAction::array(0, 
+			new NextAction("taunt spell", ACTION_RAID + 1), NULL)));
 }
 
 void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)
@@ -325,5 +395,7 @@ void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multiplier
 	multipliers.push_back(new KelthuzadGenericMultiplier(ai));
 	multipliers.push_back(new AnubrekhanGenericMultiplier(ai));
 	multipliers.push_back(new FourhorsemanGenericMultiplier(ai));
-	
+	multipliers.push_back(new GothikGenericMultiplier(ai));
+	multipliers.push_back(new GluthGenericMultiplier(ai));
+		
 }

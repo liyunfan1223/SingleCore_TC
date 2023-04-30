@@ -1030,6 +1030,16 @@ bool PlayerbotAI::IsRangedDpsAssistantOfIndex(Player* player, int index)
             counter++;
         }
     }
+    // not enough
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (!group->IsAssistant(member->GetGUID()) && IsRangedDps(member)) {
+            if (index == counter) {
+                return player == member;
+            }
+            counter++;
+        }
+    }
     return false;
 }
 
@@ -1178,8 +1188,37 @@ bool PlayerbotAI::IsTank(Player* player)
 
 bool PlayerbotAI::IsAssistTank(Player* player) 
 {
-    assert(player);
     return IsTank(player) && !IsMainTank(player);
+}
+
+bool PlayerbotAI::IsAssistTankOfIndex(Player* player, int index)
+{
+    Group* group = player->GetGroup();
+    if (!group) {
+        return false;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (group->IsAssistant(member->GetGUID()) && IsAssistTank(member)) {
+            if (index == counter) {
+                return player == member;
+            }
+            counter++;
+        }
+    }
+    // not enough assistant, auto assign
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (!group->IsAssistant(member->GetGUID()) && IsAssistTank(member)) {
+            if (index == counter) {
+                return player == member;
+            }
+            counter++;
+        }
+    }
+    return false;
 }
 
 bool PlayerbotAI::IsHeal(Player* player)
@@ -1226,6 +1265,16 @@ bool PlayerbotAI::IsHealAssistantOfIndex(Player* player, int index)
     for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
         Player* member = ref->GetSource();
         if (group->IsAssistant(member->GetGUID()) && IsHeal(member)) {
+            if (index == counter) {
+                return player == member;
+            }
+            counter++;
+        }
+    }
+    // not enough
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (!group->IsAssistant(member->GetGUID()) && IsHeal(member)) {
             if (index == counter) {
                 return player == member;
             }

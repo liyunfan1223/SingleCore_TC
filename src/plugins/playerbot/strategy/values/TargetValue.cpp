@@ -73,20 +73,23 @@ Unit* BossTargetValue::Calculate()
 Unit* FindTargetValue::Calculate()
 {
     if (qualifier == "") {
-        return nullptr;
+        return NULL;
     }
-    if (!bot->GetGroup()) {
-        return nullptr;
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return NULL;
     }
-    for (GroupReference *gref = bot->GetGroup()->GetFirstMember(); gref; gref = gref->next()) {
+    for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next()) {
         Player* member = gref->GetSource();
         if (!member) {
             continue;
         }
+        assert( member->getHostileRefManager() );
         HostileReference *ref = member->getHostileRefManager().getFirst();
         while (ref)
         {
             ThreatManager *threatManager = ref->GetSource();
+            assert(threatManager);
             Unit *unit = threatManager->GetOwner();
             assert(unit);
             wstring wnamepart;
@@ -95,6 +98,7 @@ Unit* FindTargetValue::Calculate()
             if (!qualifier.empty() && qualifier.length() == wnamepart.length() && Utf8FitTo(qualifier, wnamepart)) {
                 return unit;
             }
+            assert(ref);
             ref = ref->next();
         }
     }

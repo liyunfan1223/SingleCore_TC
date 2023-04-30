@@ -116,6 +116,7 @@ namespace ai
             creators["thaddius phase thaddius"] = &TriggerContext::thaddius_phase_thaddius;
 
             creators["razuvious tank"] = &TriggerContext::razuvious_tank;
+            creators["razuvious nontank"] = &TriggerContext::razuvious_nontank;
 
             creators["horseman attractors"] = &TriggerContext::horseman_attractors;
             creators["horseman except attractors"] = &TriggerContext::horseman_except_attractors;
@@ -129,6 +130,10 @@ namespace ai
             creators["kel'thuzad phase two"] = &TriggerContext::kelthuzad_phase_two;
 
             creators["anub'rekhan"] = &TriggerContext::anubrekhan;
+
+            creators["gluth"] = &TriggerContext::gluth;
+            creators["gluth main tank mortal wound"] = &TriggerContext::gluth_main_tank_mortal_wound;
+            
         }
 
     private:
@@ -215,6 +220,8 @@ namespace ai
         static Trigger* thaddius_phase_transition(PlayerbotAI* ai) { return new ThaddiusPhaseTransitionTrigger(ai); }
         static Trigger* thaddius_phase_thaddius(PlayerbotAI* ai) { return new ThaddiusPhaseThaddiusTrigger(ai); }
         static Trigger* razuvious_tank(PlayerbotAI* ai) { return new RazuviousTankTrigger(ai); }
+        static Trigger* razuvious_nontank(PlayerbotAI* ai) { return new RazuviousNontankTrigger(ai); }
+        
         static Trigger* horseman_attractors(PlayerbotAI* ai) { return new HorsemanAttractorsTrigger(ai); }
         static Trigger* horseman_except_attractors(PlayerbotAI* ai) { return new HorsemanExceptAttractorsTrigger(ai); }
         static Trigger* sapphiron_ground_main_tank(PlayerbotAI* ai) { return new SapphironGroundMainTankTrigger(ai); }
@@ -224,6 +231,8 @@ namespace ai
         static Trigger* kelthuzad(PlayerbotAI* ai) { return new KelthuzadTrigger(ai); }
         static Trigger* kelthuzad_phase_two(PlayerbotAI* ai) { return new KelthuzadPhaseTwoTrigger(ai); }
         static Trigger* anubrekhan(PlayerbotAI* ai) { return new AnubrekhanTrigger(ai); }
+        static Trigger* gluth(PlayerbotAI* ai) { return new GluthTrigger(ai); }
+        static Trigger* gluth_main_tank_mortal_wound(PlayerbotAI* ai) { return new GluthMainTankMortalWoundTrigger(ai); }
         
     };
 };

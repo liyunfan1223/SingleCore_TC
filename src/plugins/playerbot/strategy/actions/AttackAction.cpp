@@ -102,9 +102,6 @@ bool AttackAction::Attack(Unit* target, bool with_pet)
         } else {
             pet->GetCharmInfo()->SetIsCommandFollow(true);
         }
-        // else {
-        //     pet->SetReactState(REACT_PASSIVE);
-        // }
     }
     Guardian* guardian_pet = bot->GetGuardianPet();
     if (guardian_pet) {

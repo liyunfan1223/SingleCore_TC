@@ -2,6 +2,7 @@
 #include "../Action.h"
 #include "MovementActions.h"
 #include "AttackAction.h"
+#include "GenericActions.h"
 
 namespace ai
 {
@@ -17,7 +18,7 @@ namespace ai
     class GoBehindTheBossAction : public MovementAction
     {
     public:
-        GoBehindTheBossAction(PlayerbotAI* ai, float distance = 24.0f, float delta_angle = M_PI / 8) : MovementAction(ai, "go behind the boss") {
+        GoBehindTheBossAction(PlayerbotAI* ai, float distance = 24.0f, float delta_angle = M_PI / 8) : MovementAction(ai, "grobbulus go behind the boss") {
             this->distance = distance;
             this->delta_angle = delta_angle;
         }
@@ -103,7 +104,7 @@ namespace ai
             this->prev_erupt = 0;
             this->prev_timer = 0;
             waypoints.push_back(std::make_pair(2784.58f, -3665.50f));
-            waypoints.push_back(std::make_pair(2769.59f, -3674.88f));
+            waypoints.push_back(std::make_pair(2772.27f, -3677.16f));
             waypoints.push_back(std::make_pair(2759.60f, -3690.45f));
             waypoints.push_back(std::make_pair(2755.99f, -3703.96f));
         }
@@ -178,6 +179,13 @@ namespace ai
     {
     public:
         RazuviousUseObedienceCrystalAction(PlayerbotAI* ai) : MovementAction(ai, "razuvious use obedience crystal") {}
+        virtual bool Execute(Event event);
+    };
+
+    class RazuviousTargetAction : public AttackAction
+    {
+    public:
+        RazuviousTargetAction(PlayerbotAI* ai) : AttackAction(ai, "razuvious target") {}
         virtual bool Execute(Event event);
     };
 
@@ -267,6 +275,27 @@ namespace ai
     {
     public:
         AnubrekhanPositionAction(PlayerbotAI* ai) : RotateAroundTheCenterPointAction(ai, "anub'rekhan position", 3272.49f, -3476.27f, 45.0f, 16) {}
+        virtual bool Execute(Event event);
+    };
+
+    class GluthChooseTargetAction : public AttackAction
+    {
+    public:
+        GluthChooseTargetAction(PlayerbotAI* ai) : AttackAction(ai, "gluth choose target") {}
+        virtual bool Execute(Event event);
+    };
+    
+    class GluthPositionAction : public RotateAroundTheCenterPointAction
+    {
+    public:
+        GluthPositionAction(PlayerbotAI* ai) : RotateAroundTheCenterPointAction(ai, "gluth position", 3293.61f, -3149.01f, 14.0f, 12) {}
+        virtual bool Execute(Event event);
+    };
+
+    class GluthSlowdownAction : public Action
+    {
+    public:
+        GluthSlowdownAction(PlayerbotAI* ai) : Action(ai, "slowdown") {}
         virtual bool Execute(Event event);
     };
 }

@@ -117,9 +117,9 @@ void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 void DpsWarrirorAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    triggers.push_back(new TriggerNode(
-        "rend on attacker",
-        NextAction::array(0, new NextAction("rend on attacker", ACTION_HIGH + 1), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "rend on attacker",
+    //     NextAction::array(0, new NextAction("rend on attacker", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "light aoe",

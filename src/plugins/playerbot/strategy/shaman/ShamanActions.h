@@ -334,17 +334,17 @@ namespace ai
         CastWindShearOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "wind shear") {}
     };
 
-	class CastCurePoisonAction : public CastCureSpellAction
-	{
-	public:
-		CastCurePoisonAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cure poison") {}
-	};
+	// class CastCurePoisonAction : public CastCureSpellAction
+	// {
+	// public:
+	// 	CastCurePoisonAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cure poison") {}
+	// };
 
-	class CastCurePoisonOnPartyAction : public CurePartyMemberAction
-	{
-	public:
-		CastCurePoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure poison", DISPEL_POISON) {}
-	};
+	// class CastCurePoisonOnPartyAction : public CurePartyMemberAction
+	// {
+	// public:
+	// 	CastCurePoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure poison", DISPEL_POISON) {}
+	// };
 
 	// class CastCureDiseaseAction : public CastCureSpellAction {
 	// public:

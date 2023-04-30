@@ -79,13 +79,30 @@ bool HeiganRangedTrigger::IsActive()
 
 bool RazuviousTankTrigger::IsActive()
 {
-    return BossPhaseTrigger::IsActive() && ai->IsTank(bot);
+    Difficulty diff = bot->GetRaidDifficulty();
+    if (diff == RAID_DIFFICULTY_10MAN_NORMAL) {
+        return BossPhaseTrigger::IsActive() && ai->IsTank(bot);
+    }
+    return BossPhaseTrigger::IsActive() && bot->getClass() == CLASS_PRIEST;
+}
+
+bool RazuviousNontankTrigger::IsActive()
+{
+    Difficulty diff = bot->GetRaidDifficulty();
+    if (diff == RAID_DIFFICULTY_10MAN_NORMAL) {
+        return BossPhaseTrigger::IsActive() && !(ai->IsTank(bot));
+    }
+    return BossPhaseTrigger::IsActive() && !(bot->getClass() == CLASS_PRIEST);
 }
 
 bool HorsemanAttractorsTrigger::IsActive()
 {
-    return BossPhaseTrigger::IsActive() && (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0)|| 
+    Difficulty diff = bot->GetRaidDifficulty();
+    if (diff == RAID_DIFFICULTY_25MAN_NORMAL) {
+        return BossPhaseTrigger::IsActive() && (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0) || 
            ai->IsHealAssistantOfIndex(bot, 1) || ai->IsHealAssistantOfIndex(bot, 2));
+    }
+    return BossPhaseTrigger::IsActive() && (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 0));
 }
 
 bool HorsemanExceptAttractorsTrigger::IsActive()
@@ -113,4 +130,24 @@ bool SapphironFlightTrigger::IsActive()
 bool SapphironGroundChillTrigger::IsActive()
 {
     return BossPhaseTrigger::IsActive() && !ai->IsMainTank(bot) && ai->HasAura("chill", bot);
+}
+
+bool GluthMainTankMortalWoundTrigger::IsActive()
+{
+    if (!BossPhaseTrigger::IsActive()) {
+        return false;
+    }
+    if (!ai->IsAssistTankOfIndex(bot, 0)) {
+        return false;
+    }
+    Unit* mt = AI_VALUE(Unit*, "main tank");
+    if (!mt) {
+        return false;
+    }
+    Aura* aura = ai->GetAuraWithDuration("mortal wound", mt);
+    if (!aura || aura->GetStackAmount() < 5) {
+        return false;
+    }
+    bot->Yell("Time to taunt!", LANG_UNIVERSAL);
+    return true;
 }

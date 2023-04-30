@@ -219,7 +219,7 @@ bool TankAoeTrigger::IsActive()
     if (!currentTarget)
         return true;
 
-	if (currentTarget->GetVictim() != AI_VALUE(Unit*, "self target") && currentTarget->GetVictim() != AI_VALUE(Unit*, "main tank")) {
+	if (currentTarget->GetVictim() && currentTarget->GetVictim() != AI_VALUE(Unit*, "self target") && currentTarget->GetVictim() != AI_VALUE(Unit*, "main tank")) {
 		return false;
 	}
 	

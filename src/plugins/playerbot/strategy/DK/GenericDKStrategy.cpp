@@ -209,9 +209,9 @@ void GenericDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"plague strike",
 		NextAction::array(0, new NextAction("plague strike", ACTION_HIGH + 1), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"plague strike on attacker",
-		NextAction::array(0, new NextAction("plague strike on attacker", ACTION_HIGH + 1), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"plague strike on attacker",
+	// 	NextAction::array(0, new NextAction("plague strike on attacker", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"high aoe",

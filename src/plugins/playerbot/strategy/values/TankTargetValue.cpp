@@ -23,10 +23,11 @@ public:
             minThreat = threat;
             result = creature;
         }
-        // // neglect if victim is main tank
+        // neglect if victim is main tank, or no victim (for untauntable target)
         if (threatManager->getCurrentVictim()) {
             float max_threat = threatManager->getThreat(threatManager->getCurrentVictim()->getTarget());
             Unit* victim = threatManager->getCurrentVictim()->getTarget();
+            // !creature->GetVictim() ||
             if (victim && victim->ToPlayer() && ai->IsMainTank(victim->ToPlayer())) {
                 return;
             }

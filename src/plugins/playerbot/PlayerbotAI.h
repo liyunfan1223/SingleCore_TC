@@ -185,6 +185,7 @@ public:
     void Reset();
     bool IsMainTank(Player* player);
     bool IsTank(Player* player);
+    bool IsAssistTankOfIndex(Player* player, int index);
     bool IsAssistTank(Player* player);
     bool IsHeal(Player* player);
     bool IsHealAssistantOfIndex(Player* player, int index);

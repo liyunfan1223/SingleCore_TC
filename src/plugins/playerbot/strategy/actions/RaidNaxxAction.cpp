@@ -299,31 +299,28 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
 {
     
     if (Unit* charm = bot->GetCharm()) {
-        // bot->Yell("I am charming: " + charm->GetName(), LANG_UNIVERSAL);
         Unit* target = AI_VALUE2(Unit*, "find target", "instructor razuvious");
         if (!target) {
             return false;
         }
-        // if (!charm->isMoving() && charm->GetDistance2d(target) > 0.1f) {
-            // bot->Yell("Need chase.", LANG_UNIVERSAL);
-            // MotionMaster &mm = *(charm->GetMotionMaster());
-        //     mm.Clear();
-        //     mm.MovePoint(target);
-        // }
-        // charm->GetMotionMaster()->MovePoint(target->GetMapId(), *target);
         charm->GetMotionMaster()->MoveChase(target);
         charm->Attack(target, true);
         charm->SetFacingToObject(target);
         Aura* forceObedience = ai->GetAura("force obedience", charm);
+        uint32 duration_time;
+        if (!forceObedience) {
+            forceObedience = ai->GetAura("mind control", charm);
+            duration_time = 60000;
+        } else {
+            duration_time = 90000;
+        }
         if (!forceObedience) {
             return false;
         }
-        // charm->Say("Force Obdience Duration: " + to_string(forceObedience->GetDuration()) + 
-        //     " Distance: " + to_string(charm->GetDistance(target)), LANG_UNIVERSAL);
         if (charm->GetDistance(target) <= 0.51f) {
             // taunt
             bool tauntUseful = true;
-            if (forceObedience->GetDuration() <= 85000) {
+            if (forceObedience->GetDuration() <= (duration_time - 5000)) {
                 if (target->GetVictim() && ai->HasAura(29061, target->GetVictim())) {
                     tauntUseful = false;
                 }
@@ -331,7 +328,7 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
                     tauntUseful = false;
                 }
             }
-            if (forceObedience->GetDuration() >= 89500) {
+            if (forceObedience->GetDuration() >= (duration_time - 500)) {
                 tauntUseful = false;
             }
             if ( tauntUseful && !charm->GetSpellHistory()->HasCooldown(29060) ) {
@@ -348,44 +345,77 @@ bool RazuviousUseObedienceCrystalAction::Execute(Event event)
                 charm->CastSpell(target, 61696, true);
                 charm->GetSpellHistory()->AddCooldown(61696, 0, Seconds(4));
             }
-            // // shield
-            // if (target->GetVictim() == charm && !charm->GetSpellHistory()->HasCooldown(29061)) {
-            //     charm->CastSpell(charm, 29061, true);
-            //     charm->GetSpellHistory()->AddCooldown(29061, 0, Seconds(30));
-            // }
         }
     } else {
-        // bot->Yell("Let\'s use obedience crystal.", LANG_UNIVERSAL);
-        list<ObjectGuid> npcs = AI_VALUE(list<ObjectGuid>, "nearest npcs");
-        for (list<ObjectGuid>::iterator i = npcs.begin(); i != npcs.end(); i++)
-        {
-            Creature* unit = ai->GetCreature(*i);
-            if (!unit) {
-                continue;
-            }
-            if (ai->IsMainTank(bot) && unit->GetSpawnId() != 128352) {
-                continue;
-            }
-            if (!ai->IsMainTank(bot) && unit->GetSpawnId() != 128353) {
-                continue;
-            }
-            if (MoveTo(unit)) {
+        Difficulty diff = bot->GetRaidDifficulty();
+        if (diff == RAID_DIFFICULTY_10MAN_NORMAL) {
+            list<ObjectGuid> npcs = AI_VALUE(list<ObjectGuid>, "nearest npcs");
+            for (list<ObjectGuid>::iterator i = npcs.begin(); i != npcs.end(); i++)
+            {
+                Creature* unit = ai->GetCreature(*i);
+                if (!unit) {
+                    continue;
+                }
+                if (ai->IsMainTank(bot) && unit->GetSpawnId() != 128352) {
+                    continue;
+                }
+                if (!ai->IsMainTank(bot) && unit->GetSpawnId() != 128353) {
+                    continue;
+                }
+                if (MoveTo(unit)) {
+                    return true;
+                }
+                Creature *creature = bot->GetNPCIfCanInteractWith(*i, UNIT_NPC_FLAG_SPELLCLICK);
+                if (!creature)
+                    continue;
+                creature->HandleSpellClick(bot);
                 return true;
             }
-            Creature *creature = bot->GetNPCIfCanInteractWith(*i, UNIT_NPC_FLAG_SPELLCLICK);
-            if (!creature)
-                continue;
-            creature->HandleSpellClick(bot);
-            return true;
+        } else {
+            list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+            Unit* target = NULL;
+            for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i) {
+                Unit* unit = ai->GetUnit(*i);
+                if (!unit)
+                    continue;
+                if (ai->EqualLowercaseName(unit->GetName(), "death knight understudy")) {
+                    target = unit;
+                    break;
+                }
+            }
+            if (target) {
+                if (bot->GetDistance2d(target) > sPlayerbotAIConfig.spellDistance) {
+                    return MoveNear(target, sPlayerbotAIConfig.spellDistance);
+                } else {
+                    return ai->CastSpell("mind control", target);
+                }
+            }
         }
+    }
+    return false;
+}
+
+bool RazuviousTargetAction::Execute(Event event)
+{
+    Unit* razuvious = AI_VALUE2(Unit*, "find target", "instructor razuvious");
+    Unit* understudy = AI_VALUE2(Unit*, "find target", "death knight understudy");
+    Unit* target = NULL;
+    if (ai->IsTank(bot)) {
+        target = understudy;
+    } else {
+        target = razuvious;
+    }
+    if (AI_VALUE(Unit*, "current target") == target) {
         return false;
     }
+    return Attack(target);
 }
 
 bool HorsemanAttractAlternativelyAction::Execute(Event event)
 {
     Unit* sir = AI_VALUE2(Unit*, "find target", "sir zeliek");
     Unit* lady = AI_VALUE2(Unit*, "find target", "lady blaumeux");
+    bool raid25 = bot->GetRaidDifficulty() == RAID_DIFFICULTY_25MAN_NORMAL;
     if (!sir) {
         return false;
     }
@@ -421,7 +451,7 @@ bool HorsemanAttractAlternativelyAction::Execute(Event event)
         } else {
             pos_to_go = 1;
         }
-        if (ai->IsRangedDpsAssistantOfIndex(bot, 0) || ai->IsHealAssistantOfIndex(bot, 1)) {
+        if (ai->IsRangedDpsAssistantOfIndex(bot, 0) || (raid25 && ai->IsHealAssistantOfIndex(bot, 1))) {
             pos_to_go = 1 - pos_to_go;
         }
     }
@@ -902,6 +932,109 @@ bool AnubrekhanPositionAction::Execute(Event event)
         } else {
             return MoveInside(533, 3272.49f, -3476.27f, bot->GetPositionZ(), 3.0f);
         }
+    }
+    return false;
+}
+
+bool GluthChooseTargetAction::Execute(Event event)
+{
+    Unit* boss = AI_VALUE2(Unit*, "find target", "gluth");
+    if (!boss) {
+        return false;
+    }
+    BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    EventMap* eventMap = boss_ai->GetEvents();
+    list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+    Unit* target = NULL;
+    Unit *target_boss = NULL;
+    vector<Unit*> target_zombies;
+    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
+    {
+        Unit* unit = ai->GetUnit(*i);
+        if (!unit)
+            continue;
+        if (!unit->IsAlive()) {
+            continue;
+        }
+        if (ai->EqualLowercaseName(unit->GetName(), "zombie chow")) {
+            target_zombies.push_back(unit);
+        }
+        if (ai->EqualLowercaseName(unit->GetName(), "gluth")) {
+            target_boss = unit;
+        }
+    }
+    if (ai->IsMainTank(bot) || ai->IsAssistTankOfIndex(bot, 0)) {
+        target = target_boss;
+    } else if (ai->IsAssistTankOfIndex(bot, 1)) {
+        for (Unit* t : target_zombies) {
+            if (t->GetHealthPct() > 10.0f && t->GetVictim() != bot && t->GetDistance2d(bot) <= 35.0f) {
+                target = t;
+                break;
+            }
+        }
+    } else {
+        for (Unit* t : target_zombies) {
+            if (t->GetHealthPct() <= 10.0f) {
+                target = t;
+                break;
+            }
+        }
+        if (target == NULL) {
+            target = target_boss;
+        }
+    }
+    if (!target || context->GetValue<Unit*>("current target")->Get() == target) {
+        return false;
+    }
+    return Attack(target);
+}
+
+bool GluthPositionAction::Execute(Event event)
+{
+    Unit* boss = AI_VALUE2(Unit*, "find target", "gluth");
+    if (!boss) {
+        return false;
+    }
+    BossAI* b_ai = dynamic_cast<BossAI*>(boss->GetAI());
+    if (!b_ai) {
+        return false;
+    }
+    EventMap *eventMap = b_ai->GetEvents();
+    uint8 phase_mask = eventMap->GetPhaseMask();
+    uint32 timer = eventMap->GetTimer();
+    if (ai->IsMainTank(bot) || ai->IsAssistTankOfIndex(bot, 0)) {
+        if (AI_VALUE2(bool, "has aggro", "boss target")) {
+            // return MoveTo(533, 3322.52f, -3117.11f, bot->GetPositionZ());
+            return MoveTo(533, 3331.48f, -3109.06f, bot->GetPositionZ());
+        }
+    } else if (ai->IsAssistTankOfIndex(bot, 1)) {
+        if (AI_VALUE2(bool, "has aggro", "current target")) {
+            uint32 nearest = FindNearestWaypoint();
+            uint32 next_point = (nearest + 1) % intervals;
+            return MoveTo(bot->GetMapId(), waypoints[next_point].first, waypoints[next_point].second, bot->GetPositionZ());
+        }
+    } else if (ai->IsRangedDps(bot)) {
+        return MoveInside(533, 3293.61f, -3149.01f, bot->GetPositionZ(), 1.0f);
+    } else if (ai->IsHeal(bot)) {
+        return MoveInside(533, 3303.09f, -3135.24f, bot->GetPositionZ(), 1.0f);
+    }
+    return false;
+}
+
+bool GluthSlowdownAction::Execute(Event event)
+{
+    switch (bot->getClass()) 
+    {
+        case CLASS_HUNTER:
+            // bot->Yell("Cast Frost Trap?", LANG_UNIVERSAL);
+            return ai->CastSpell("frost trap", bot);
+            break;
+        case CLASS_MAGE:
+            // bot->Yell("Cast Frost Nova?", LANG_UNIVERSAL);
+            return ai->CastSpell("frost nova", bot);
+            break;
+        default:
+            break;
     }
     return false;
 }

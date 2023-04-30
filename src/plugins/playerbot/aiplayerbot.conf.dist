@@ -162,7 +162,7 @@ AiPlayerbot.ReactDelay = 100
 
 # Distances
 AiPlayerbot.SightDistance = 100.0
-AiPlayerbot.SpellDistance = 28.0
+AiPlayerbot.SpellDistance = 28.5
 AiPlayerbot.ShootDistance = 5.0
 AiPlayerbot.ReactDistance = 150.0
 AiPlayerbot.GrindDistance = 100.0
@@ -172,7 +172,7 @@ AiPlayerbot.TooCloseDistance = 5.0
 AiPlayerbot.MeleeDistance = 0.01
 AiPlayerbot.FollowDistance = 1.5
 AiPlayerbot.WhisperDistance = 6000.0
-AiPlayerbot.ContactDistance = 0.5
+AiPlayerbot.ContactDistance = 0.01
 
 # Bot can flee for enemy
 AiPlayerbot.FleeingEnabled = 1

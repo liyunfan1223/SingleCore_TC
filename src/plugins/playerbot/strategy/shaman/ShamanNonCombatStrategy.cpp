@@ -45,13 +45,13 @@ void ShamanNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"in battleground without flag",
 		NextAction::array(0, new NextAction("mount", 1.0f), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"cure poison",
-		NextAction::array(0, new NextAction("cure poison", 21.0f), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"cure poison",
+	// 	NextAction::array(0, new NextAction("cure poison", 21.0f), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"party member cure poison",
-		NextAction::array(0, new NextAction("cure poison on party", 21.0f), NULL)));
+	// triggers.push_back(new TriggerNode(
+	// 	"party member cure poison",
+	// 	NextAction::array(0, new NextAction("cure poison on party", 21.0f), NULL)));
 
 	// triggers.push_back(new TriggerNode(
 	// 	"cure disease",

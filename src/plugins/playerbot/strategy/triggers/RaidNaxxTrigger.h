@@ -122,6 +122,13 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class RazuviousNontankTrigger : public BossPhaseTrigger
+    {
+    public:
+        RazuviousNontankTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "instructor razuvious", 0, "razuvious nontank") {}
+        virtual bool IsActive();
+    };
+
     class HorsemanAttractorsTrigger : public BossPhaseTrigger
     {
     public:
@@ -181,4 +188,18 @@ namespace ai
     public:
         KelthuzadPhaseTwoTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "kel'thuzad", 1 << (2 - 1), "kel'thuzad trigger") {}
     };
+
+    class GluthTrigger : public BossPhaseTrigger
+    {
+    public:
+        GluthTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "gluth", 0, "gluth trigger") {}
+    };
+
+    class GluthMainTankMortalWoundTrigger : public BossPhaseTrigger
+    {
+    public:
+        GluthMainTankMortalWoundTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "gluth", 0, "gluth main tank mortal wound trigger") {}
+        virtual bool IsActive();
+    };
+    
 }
