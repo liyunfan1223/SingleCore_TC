@@ -205,6 +205,7 @@ namespace ai
                 creators["seal of righteousness"] = &AiObjectContextInternal::seal_of_righteousness;
                 creators["flash of light"] = &AiObjectContextInternal::flash_of_light;
                 creators["hand of reckoning"] = &AiObjectContextInternal::hand_of_reckoning;
+                creators["righteous defense"] = &AiObjectContextInternal::righteous_defense;
                 creators["avenger's shield"] = &AiObjectContextInternal::avengers_shield;
                 creators["exorcism"] = &AiObjectContextInternal::exorcism;
                 creators["judgement of light"] = &AiObjectContextInternal::judgement_of_light;
@@ -272,6 +273,8 @@ namespace ai
             static Action* seal_of_righteousness(PlayerbotAI* ai) { return new CastSealOfRighteousnessAction(ai); }
             static Action* flash_of_light(PlayerbotAI* ai) { return new CastFlashOfLightAction(ai); }
             static Action* hand_of_reckoning(PlayerbotAI* ai) { return new CastHandOfReckoningAction(ai); }
+            static Action* righteous_defense(PlayerbotAI* ai) { return new CastRighteousDefenseAction(ai); }
+            
             static Action* avengers_shield(PlayerbotAI* ai) { return new CastAvengersShieldAction(ai); }
             static Action* exorcism(PlayerbotAI* ai) { return new CastExorcismAction(ai); }
             static Action* judgement_of_light(PlayerbotAI* ai) { return new CastJudgementOfLightAction(ai); }

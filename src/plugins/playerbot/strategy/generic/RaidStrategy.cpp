@@ -253,9 +253,11 @@ float GluthGenericMultiplier::GetValue(Action* action)
 	if ((dynamic_cast<AttackLeastHpTargetAction*>(action) || 
 		 dynamic_cast<TankAssistAction*>(action) ||
 		 dynamic_cast<FleeAction*>(action) || 
-		 dynamic_cast<CastDebuffSpellOnAttackerAction*>(action))) {
+		 dynamic_cast<CastDebuffSpellOnAttackerAction*>(action) ||
+		 dynamic_cast<CastStarfallAction*>(action))) {
 		return 0.0f;
 	}
+	
 	if (ai->IsMainTank(bot)) {
 		Aura* aura = ai->GetAuraWithDuration("mortal wound", bot);
 		if (aura && aura->GetStackAmount() >= 5) {
@@ -376,7 +378,7 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, 
 			new NextAction("gluth choose target", ACTION_RAID + 1), 
    			new NextAction("gluth position", ACTION_RAID + 1),
-			new NextAction("gluth slowdown", ACTION_RAID + 1),
+			new NextAction("gluth slowdown", ACTION_RAID),
 		NULL)));
 	
 	triggers.push_back(new TriggerNode(

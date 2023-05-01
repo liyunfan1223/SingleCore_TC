@@ -33,6 +33,8 @@ namespace ai
             creators["blessing of sanctuary"] = &blessing_of_sanctuary;
             creators["seal of command"] = &seal_of_command;
             creators["taunt spell"] = &hand_of_reckoning;
+            creators["righteous defense"] = &righteous_defense;
+            creators["avenger's shield"] = &avengers_shield;
         }
     private:
         static ActionNode* blessing_of_sanctuary(PlayerbotAI* ai)
@@ -151,8 +153,21 @@ namespace ai
         {
             return new ActionNode ("hand of reckoning",
                 /*P*/ NULL,
-                /*A*/ NULL,
-                // /*A*/ NextAction::array(0, new NextAction("judgement of justice"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("righteous defense"), NULL),
+                /*C*/ NULL);
+        }
+        static ActionNode* righteous_defense(PlayerbotAI* ai)
+        {
+            return new ActionNode ("righteous defense",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("avenger's shield"), NULL),
+                /*C*/ NULL);
+        }
+        static ActionNode* avengers_shield(PlayerbotAI* ai)
+        {
+            return new ActionNode ("righteous defense",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("judgement of wisdom"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* judgement_of_wisdom(PlayerbotAI* ai)

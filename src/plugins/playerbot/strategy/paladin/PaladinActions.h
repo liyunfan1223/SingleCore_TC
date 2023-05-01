@@ -337,6 +337,13 @@ class CastSealOfTheCrusaderAction : public CastBuffSpellAction
 		CastHandOfReckoningAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of reckoning") {}
 	};
 
+	class CastRighteousDefenseAction : public CastSpellAction
+	{
+	public:
+		CastRighteousDefenseAction(PlayerbotAI* ai) : CastSpellAction(ai, "righteous defense") {}
+		virtual Unit* GetTarget();
+	};
+	
 	class CastCleansePoisonAction : public CastCureSpellAction
 	{
 	public:

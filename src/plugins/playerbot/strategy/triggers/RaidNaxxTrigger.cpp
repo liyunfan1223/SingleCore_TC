@@ -148,6 +148,6 @@ bool GluthMainTankMortalWoundTrigger::IsActive()
     if (!aura || aura->GetStackAmount() < 5) {
         return false;
     }
-    bot->Yell("Time to taunt!", LANG_UNIVERSAL);
+    // bot->Yell("Time to taunt!", LANG_UNIVERSAL);
     return true;
 }

@@ -1043,11 +1043,11 @@ bool PlayerbotAI::IsRangedDpsAssistantOfIndex(Player* player, int index)
     return false;
 }
 
-uint32 PlayerbotAI::GetGroupSlotIndex(Player* player)
+int32 PlayerbotAI::GetGroupSlotIndex(Player* player)
 {
     Group* group = bot->GetGroup();
     if (!group) {
-        return 0;
+        return -1;
     }
     Group::MemberSlotList const& slots = group->GetMemberSlots();
     int counter = 0;
@@ -1061,14 +1061,14 @@ uint32 PlayerbotAI::GetGroupSlotIndex(Player* player)
     return 0;
 }
 
-uint32 PlayerbotAI::GetRangedIndex(Player* player)
+int32 PlayerbotAI::GetRangedIndex(Player* player)
 {
     if (!IsRanged(player)) {
-        return 0;
+        return -1;
     }
     Group* group = bot->GetGroup();
     if (!group) {
-        return 0;
+        return -1;
     }
     Group::MemberSlotList const& slots = group->GetMemberSlots();
     int counter = 0;
@@ -1084,14 +1084,36 @@ uint32 PlayerbotAI::GetRangedIndex(Player* player)
     return 0;
 }
 
-uint32 PlayerbotAI::GetRangedDpsIndex(Player* player)
+int32 PlayerbotAI::GetClassIndex(Player* player, uint8_t cls)
 {
-    if (!IsRangedDps(player)) {
-        return 0;
+    if (player->getClass() != cls) {
+        return -1;
     }
     Group* group = bot->GetGroup();
     if (!group) {
-        return 0;
+        return -1;
+    }
+    Group::MemberSlotList const& slots = group->GetMemberSlots();
+    int counter = 0;
+    for (GroupReference* ref = group->GetFirstMember(); ref; ref = ref->next()) {
+        Player* member = ref->GetSource();
+        if (player == member) {
+            return counter;
+        }
+        if (member->getClass() == cls) {
+            counter++;
+        }
+    }
+    return 0;
+}
+int32 PlayerbotAI::GetRangedDpsIndex(Player* player)
+{
+    if (!IsRangedDps(player)) {
+        return -1;
+    }
+    Group* group = bot->GetGroup();
+    if (!group) {
+        return -1;
     }
     Group::MemberSlotList const& slots = group->GetMemberSlots();
     int counter = 0;
@@ -1107,14 +1129,14 @@ uint32 PlayerbotAI::GetRangedDpsIndex(Player* player)
     return 0;
 }
 
-uint32 PlayerbotAI::GetMeleeIndex(Player* player)
+int32 PlayerbotAI::GetMeleeIndex(Player* player)
 {
     if (IsRanged(player)) {
-        return 0;
+        return -1;
     }
     Group* group = bot->GetGroup();
     if (!group) {
-        return 0;
+        return -1;
     }
     Group::MemberSlotList const& slots = group->GetMemberSlots();
     int counter = 0;
