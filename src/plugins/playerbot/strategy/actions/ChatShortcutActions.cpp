@@ -54,6 +54,18 @@ bool FleeChatShortcutAction::Execute(Event event)
     return true;
 }
 
+bool NaxxChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    ai->Reset();
+    ai->ChangeStrategy("+naxx", BOT_STATE_NON_COMBAT);
+    ai->ChangeStrategy("+naxx", BOT_STATE_COMBAT);
+    return true;
+}
+
 bool GoawayChatShortcutAction::Execute(Event event)
 {
     Player* master = GetMaster();

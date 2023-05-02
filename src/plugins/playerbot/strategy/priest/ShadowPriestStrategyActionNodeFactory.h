@@ -30,7 +30,8 @@ namespace ai
         {
             return new ActionNode ("dispersion",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
+                // /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
+                /*A*/ NULL,
                 /*C*/ NULL);
         }
     };

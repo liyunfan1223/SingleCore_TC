@@ -975,7 +975,7 @@ bool GluthChooseTargetAction::Execute(Event event)
     } else {
         for (Unit* t : target_zombies) {
             if (t->GetHealthPct() <= 10.0f) {
-                if (target == NULL || target->GetDistance2d(target_boss) > t->GetDistance2d(target_boss)) {
+                if (target == NULL || target->GetDistance2d(3331.48f, -3109.06f) > t->GetDistance2d(3331.48f, -3109.06f)) {
                     target = t;
                 }
             }

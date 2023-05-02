@@ -139,7 +139,7 @@ void PlayerbotFactory::Randomize(bool incremental)
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing skills (step 1)...");
     InitSkills();
-    InitTradeSkills();
+    // InitTradeSkills();
     InitSpecialSpells();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing talents...");
@@ -152,7 +152,7 @@ void PlayerbotFactory::Randomize(bool incremental)
     InitMounts();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing skills (step 2)...");
-    UpdateTradeSkills();
+    // UpdateTradeSkills();
     bot->SaveToDB();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing equipmemt...");
@@ -167,7 +167,7 @@ void PlayerbotFactory::Randomize(bool incremental)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing food...");
     InitFood();
 
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing poison...");
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing class items...");
     InitClassItems();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing potions...");
@@ -177,7 +177,7 @@ void PlayerbotFactory::Randomize(bool incremental)
     // InitSecondEquipmentSet();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing inventory...");
-    InitInventory();
+    // InitInventory();
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing glyphs...");
     InitGlyphs();
@@ -192,6 +192,7 @@ void PlayerbotFactory::Randomize(bool incremental)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Saving to DB...");
     bot->SetMoney(urand(level * 1000, level * 5 * 1000));
     bot->SaveToDB();
+
 }
 
 void PlayerbotFactory::InitPet()
@@ -637,11 +638,13 @@ bool PlayerbotFactory::CanEquipItem(ItemTemplate const* proto, uint32 desiredQua
     else if (level < 40)
         delta = 10; //urand(5, 10);
     else if (level < 60)
-        delta = 8; // urand(3, 7);
+        delta = 6; // urand(3, 7);
     else if (level < 70)
-        delta = 6; // urand(2, 5);
+        delta = 9; // urand(2, 5);
     else if (level < 80)
-        delta = 6; // urand(2, 4);
+        delta = 9; // urand(2, 4);
+    else if (level == 80)
+        delta = 2; // urand(2, 4);
 
     if (desiredQuality > ITEM_QUALITY_NORMAL &&
             (requiredLevel > level || requiredLevel < level - delta))
@@ -1685,7 +1688,7 @@ void PlayerbotFactory::InitFood()
             proto->Bonding != NO_BIND)
             continue;
 
-        if (proto->RequiredLevel > bot->getLevel() || proto->RequiredLevel < bot->getLevel() - 10)
+        if (proto->RequiredLevel > bot->getLevel() || proto->RequiredLevel < bot->getLevel() - 9)
             continue;
 
         if (proto->RequiredSkill && !bot->HasSkill(proto->RequiredSkill))
@@ -1730,6 +1733,7 @@ void PlayerbotFactory::InitFood()
 void PlayerbotFactory::InitClassItems()
 {
     // int cls = bot->getClass();
+    int level = bot->getLevel();
     switch (bot->getClass()) 
     {
         case CLASS_ROGUE:
@@ -1756,7 +1760,34 @@ void PlayerbotFactory::InitClassItems()
             bot->StoreNewItemInBestSlots(46978, 1); // totem
             break;
         case CLASS_WARLOCK:
-            bot->StoreNewItemInBestSlots(6265, 5); // shard
+            bot->StoreNewItemInBestSlots(6265, 10); // shard
+            break;
+        case CLASS_PRIEST:
+            if (level >= 48 && level < 60) {
+                bot->StoreNewItemInBestSlots(17028, 40); // Wild Berries
+            } else if (level >= 60 && level < 80) {
+                bot->StoreNewItemInBestSlots(17029, 40); // Wild Berries
+            } else if (level >= 80) {
+                bot->StoreNewItemInBestSlots(44615, 40); // Wild Berries
+            }
+            break;
+        case CLASS_MAGE:
+            bot->StoreNewItemInBestSlots(17020, 40); // Arcane Powder
+            break;
+        case CLASS_DRUID:
+            if (level >= 50 && level < 60) {
+                bot->StoreNewItemInBestSlots(17021, 40);
+            } else if (level >= 60 && level < 70) {
+                bot->StoreNewItemInBestSlots(17026, 40);
+            } else if (level >= 70 && level < 80) {
+                bot->StoreNewItemInBestSlots(22148, 40);
+            } else if (level >= 80) {
+                bot->StoreNewItemInBestSlots(44605, 40);
+            }
+            // bot->StoreNewItemInBestSlots(44605, 40); // Wild Spineleaf
+            break;
+        case CLASS_PALADIN:
+            bot->StoreNewItemInBestSlots(21177, 100);
             break;
         default:
             break;
@@ -2205,7 +2236,8 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
     if (isDoubleHand && 
         !(cls == CLASS_WARRIOR && tab == 1) && 
         !(cls == CLASS_DRUID && tab == 1) &&
-        !(cls == CLASS_PALADIN && tab == 2)) {
+        !(cls == CLASS_PALADIN && tab == 2) &&
+        !(cls == CLASS_DEATH_KNIGHT && tab == 0)) {
         score *= 0.5;
     }
     // enhancement, rogue, ice/unholy dk

@@ -114,7 +114,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
         //thesawolf - check for alt account playerbot
         uint32 botAccount = bot->GetSession()->GetAccountId();
         uint32 masterGacct = master->GetSession()->GetAccountId();
-        if (isRandomAccount)
+        if (isRandomAccount && bot->getLevel() > master->getLevel())
         {        
             //thesawolf - faction change - still flags opposing for pvp.. but non-KOS
             bot->setFaction(master->getFaction());
@@ -293,6 +293,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_NORMAL);
                     factory.CleanRandomize();
+                    bot->GetPlayerbotAI()->ResetStrategies();
                     return "ok";
                 }
                 else
@@ -304,6 +305,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_UNCOMMON);
                     factory.CleanRandomize();
+                    bot->GetPlayerbotAI()->ResetStrategies();
                     return "ok";
                 }
                 else
@@ -315,6 +317,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_RARE);
                     factory.CleanRandomize();
+                    bot->GetPlayerbotAI()->ResetStrategies();
                     return "ok";
                 }
                 else
@@ -326,6 +329,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_EPIC);
                     factory.CleanRandomize();
+                    bot->GetPlayerbotAI()->ResetStrategies();
                     return "ok";
                 }
                 else
@@ -337,6 +341,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
                 {            
                     PlayerbotFactory factory(bot, master->getLevel(), ITEM_QUALITY_LEGENDARY);
                     factory.CleanRandomize();
+                    bot->GetPlayerbotAI()->ResetStrategies();
                     return "ok";
                 }
                 else
@@ -428,11 +433,12 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
         messages.push_back("Usage: .bot add / remove PLAYERNAME");
         messages.push_back("       .bot lookup [CLASS] (without to see list of classes)");
         messages.push_back("       .bot update / random / init=[QUALITY]");
+        messages.push_back("       .bot addclass [CLASS]");
         return messages;
     }
 
     char *cmd = strtok ((char*)args, " ");
-    char *charname = strtok (NULL, " ");
+    const char *charname = strtok (NULL, " ");
 
     //thesawolf - display lookup legend
     if ((cmd) && (!charname))
@@ -466,8 +472,14 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
     //thesawolf - without this null check, tc was crashing because of the null to string conversion
     if (charname == NULL)
     {
-        messages.push_back("ERROR: No bot was specified. Try again.");
-        return messages;
+        std::string ch_name;
+        bool isPlayer = sObjectMgr->GetPlayerNameByGUID(master->GetTarget(), ch_name);
+        if (isPlayer) {
+            charname = ch_name.c_str();
+        } else {
+            messages.push_back("ERROR: No bot was specified. Try again.");
+            return messages;
+        }
     }
         
     std::string cmdStr = cmd;
@@ -529,6 +541,7 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
         else if (charnameStr == "dk" || charnameStr == "DK" || charnameStr == "deathknight" || charnameStr == "DeathKnight")
         {
             claz = 6;
+            icon = "|TInterface\\icons\\Ability_Creature_Cursed_03.png:25:25:0:-1|t ";
         }
         else
         {
@@ -587,6 +600,90 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
             return messages;
         }
         messages.push_back("(Usage: .bot add PLAYERNAME)");
+        return messages;
+    } else if (cmdStr == "addclass")
+    {
+        uint8 claz;
+        if (charnameStr == "warrior" || charnameStr == "Warrior" || charnameStr == "WARRIOR")
+        {
+            claz = 1;
+        }
+        else if (charnameStr == "paladin" || charnameStr == "Paladin" || charnameStr == "PALADIN")
+        {
+            claz = 2;
+        }                
+        else if (charnameStr == "hunter" || charnameStr == "Hunter" || charnameStr == "HUNTER")
+        {
+            claz = 3;
+        }
+        else if (charnameStr == "rogue" || charnameStr == "Rogue" || charnameStr == "ROGUE" || charnameStr == "rouge" || charnameStr == "Rouge" || charnameStr == "ROUGE") // for my friends that cannot spell
+        {
+            claz = 4;
+        }                
+        else if (charnameStr == "priest" || charnameStr == "Priest" || charnameStr == "PRIEST")
+        {
+            claz = 5;
+        }                
+        else if (charnameStr == "shaman" || charnameStr == "Shaman" || charnameStr == "SHAMAN")
+        {
+            claz = 7;
+        }                
+        else if (charnameStr == "mage" || charnameStr == "Mage" || charnameStr == "MAGE")
+        {
+            claz = 8;
+        }                
+        else if (charnameStr == "warlock" || charnameStr == "Warlock" || charnameStr == "WARLOCK")
+        {
+            claz = 9;
+        }                
+        else if (charnameStr == "druid" || charnameStr == "Druid" || charnameStr == "DRUID")
+        {
+            claz = 11;
+        }
+        else if (charnameStr == "dk" || charnameStr == "DK" || charnameStr == "deathknight" || charnameStr == "DeathKnight")
+        {
+            claz = 6;
+        }
+        else
+        {
+            messages.push_back("Error: Invalid Class. Try again.");
+            return messages;
+        }
+        uint8 master_race = master->getRace();
+        string race_limit;
+        switch (master_race)
+        {
+            case 1:
+            case 3:
+            case 4:
+            case 7:
+            case 11:
+                race_limit = "1, 3, 4, 7, 11";
+                break;
+            case 2: 
+            case 5:
+            case 6:
+            case 8:
+            case 10:
+                race_limit = "2, 5, 6, 8, 10";
+                break;
+        }
+        QueryResult lresults = CharacterDatabase.PQuery("SELECT guid FROM characters WHERE name IN (SELECT name FROM ai_playerbot_names) AND class = '%u' AND online = 0 AND race IN (%s) ORDER BY RAND() LIMIT 1", claz, race_limit);
+        if (lresults)
+        {
+            Field* fields = lresults->Fetch();
+            ObjectGuid guid = ObjectGuid(HighGuid::Player, fields[0].GetUInt32());
+            AddPlayerBot(guid.GetRawValue(), master->GetSession()->GetAccountId());
+            if (!master->GetGroup()) {
+                
+            }
+            if (master->GetGroup()) {
+                master->GetGroup()->AddMember(sObjectMgr->GetPlayerByLowGUID(guid));
+            }
+            messages.push_back("addclass ok.");
+            return messages;
+        }
+        messages.push_back("addclass failed.");
         return messages;
     }
 

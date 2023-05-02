@@ -4021,7 +4021,7 @@ Custom.GainHonorOnEliteKill = 0
 #     Default : 1.0 (Normal speed)
 #
 
-Custom.RespawnSpeed = 1.0
+Custom.RespawnSpeed = 0.5
 
 #
 #     Custom.FastFishing

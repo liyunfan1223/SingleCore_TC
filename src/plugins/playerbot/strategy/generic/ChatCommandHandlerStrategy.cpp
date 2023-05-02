@@ -131,6 +131,10 @@ void ChatCommandHandlerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "attackers",
         NextAction::array(0, new NextAction("tell attackers", relevance), NULL)));
+    
+    triggers.push_back(new TriggerNode(
+        "naxx",
+        NextAction::array(0, new NextAction("naxx chat shortcut", relevance), NULL)));
 }
 
 
@@ -176,4 +180,5 @@ ChatCommandHandlerStrategy::ChatCommandHandlerStrategy(PlayerbotAI* ai) : PassTr
     supported.push_back("save mana");
     supported.push_back("formation");
     supported.push_back("sendmail");
+    supported.push_back("drink");
 }

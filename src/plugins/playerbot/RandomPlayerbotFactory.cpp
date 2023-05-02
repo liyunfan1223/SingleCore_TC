@@ -337,18 +337,27 @@ string RandomPlayerbotFactory::CreateRandomBotName()
     Field *fields = result->Fetch();
     uint32 maxId = fields[0].GetUInt32();
 
-    uint32 id = urand(0, maxId);
-    result = CharacterDatabase.PQuery("SELECT n.name FROM ai_playerbot_names n "
-            "LEFT OUTER JOIN characters e ON e.name = n.name "
-            "WHERE e.guid IS NULL AND n.name_id >= '%u' LIMIT 1", id);
-    if (!result)
-    {
-        sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "No more names left for random bots");
-        return "";
+    int tries = 10;
+    while(--tries) {
+        uint32 id = urand(0, maxId / 2);
+        result = CharacterDatabase.PQuery("SELECT n.name FROM ai_playerbot_names n "
+                "LEFT OUTER JOIN characters e ON e.name = n.name "
+                "WHERE e.guid IS NULL AND n.name_id >= '%u' AND n.in_use=0 LIMIT 1", id);
+        if (!result)
+        {
+            // CharacterDatabase.CommitTransaction(tx);
+            continue;
+        }
+        fields = result->Fetch();
+        string ret = fields[0].GetString();
+        if (ret.size()) {
+            CharacterDatabase.DirectPExecute("UPDATE ai_playerbot_names SET in_use=1 WHERE name='%s'", ret);
+        }
+        // CharacterDatabase.CommitTransaction(tx);
+        return ret;
     }
-
-    fields = result->Fetch();
-    return fields[0].GetString();
+    sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "Failed to create randombot name!");
+    return "";
 }
 
 void RandomPlayerbotFactory::CreateRandomBots()
@@ -365,7 +374,7 @@ void RandomPlayerbotFactory::CreateRandomBots()
                 sAccountMgr->DeleteAccount(fields[0].GetUInt32());
             } while (results->NextRow());
         }
-
+        CharacterDatabase.Execute("UPDATE ai_playerbot_names SET in_use=0 WHERE in_use=1");
         CharacterDatabase.Execute("DELETE FROM ai_playerbot_random_bots");
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random bot accounts deleted");
     }
@@ -378,11 +387,11 @@ void RandomPlayerbotFactory::CreateRandomBots()
         if (results)
             continue;
 
-        string password = "";
-        for (int i = 0; i < 10; i++)
-        {
-            password += (char)urand('!', 'z');
-        }
+        string password = "rndbotpassword";
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     password += (char)urand('!', 'z');
+        // }
         sAccountMgr->CreateAccount(accountName, password, "playerbot");
 
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "+ Account %s created for random bots", accountName.c_str());

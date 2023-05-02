@@ -23,7 +23,8 @@ private:
     {
         return new ActionNode ("viper sting",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("mana potion", 10.0f), NULL),
+            // /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
 
     }
