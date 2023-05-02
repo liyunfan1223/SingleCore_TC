@@ -82,7 +82,7 @@ private:
     {
         return new ActionNode ("innervate",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
 };

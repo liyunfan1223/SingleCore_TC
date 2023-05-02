@@ -26,18 +26,12 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0,
             new NextAction("holy shock on party", ACTION_CRITICAL_HEAL + 5), 
             new NextAction("holy light on party", ACTION_CRITICAL_HEAL + 4),
-            // new NextAction("power word: shield", ACTION_CRITICAL_HEAL + 4),
-            // new NextAction("flash heal on party", ACTION_CRITICAL_HEAL + 3),
-            // new NextAction("prayer of mending on party", ACTION_CRITICAL_HEAL + 2),
             NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
 		NextAction::array(0,
             new NextAction("holy light on party", ACTION_MEDIUM_HEAL + 5), 
-            // new NextAction("power word: shield", ACTION_MEDIUM_HEAL + 4),
-            // new NextAction("prayer of mending on party", ACTION_MEDIUM_HEAL + 3),
-            // new NextAction("flash heal on party", ACTION_MEDIUM_HEAL + 2),
             NULL)));
 
 	triggers.push_back(new TriggerNode(
@@ -45,17 +39,12 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0,
             new NextAction("holy light on party", ACTION_LIGHT_HEAL + 9),
             new NextAction("flash of light on party", ACTION_LIGHT_HEAL + 8),
-            // new NextAction("penance on party", ACTION_LIGHT_HEAL + 8), 
-            // new NextAction("power word: shield", ACTION_LIGHT_HEAL + 7),
-            // new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 6),
-            // new NextAction("flash heal on party", ACTION_LIGHT_HEAL + 5),
             NULL)));
     
     triggers.push_back(new TriggerNode(
         "party member almost full health",
 		NextAction::array(0, 
             new NextAction("flash of light on party", ACTION_LIGHT_HEAL + 3),
-            // new NextAction("penance on party", ACTION_LIGHT_HEAL + 2), 
             NULL)));
 
     triggers.push_back(new TriggerNode(

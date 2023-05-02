@@ -288,7 +288,7 @@ namespace ai
     class GluthPositionAction : public RotateAroundTheCenterPointAction
     {
     public:
-        GluthPositionAction(PlayerbotAI* ai) : RotateAroundTheCenterPointAction(ai, "gluth position", 3293.61f, -3149.01f, 14.0f, 12) {}
+        GluthPositionAction(PlayerbotAI* ai) : RotateAroundTheCenterPointAction(ai, "gluth position", 3293.61f, -3149.01f, 12.0f, 12) {}
         virtual bool Execute(Event event);
     };
 
@@ -298,4 +298,19 @@ namespace ai
         GluthSlowdownAction(PlayerbotAI* ai) : Action(ai, "slowdown") {}
         virtual bool Execute(Event event);
     };
+
+    class LoathebPositionAction : public MovementAction
+    {
+    public:
+        LoathebPositionAction(PlayerbotAI* ai) : MovementAction(ai, "loatheb position") {}
+        virtual bool Execute(Event event);
+    };
+    
+    class LoathebChooseTargetAction : public AttackAction
+    {
+    public:
+        LoathebChooseTargetAction(PlayerbotAI* ai) : AttackAction(ai, "loatheb choose target") {}
+        virtual bool Execute(Event event);
+    };
+    
 }

@@ -202,4 +202,10 @@ namespace ai
         virtual bool IsActive();
     };
     
+    class LoathebTrigger : public BossPhaseTrigger
+    {
+    public:
+        LoathebTrigger(PlayerbotAI* ai) : BossPhaseTrigger(ai, "loatheb", 0, "loatheb trigger") {}
+    };
+    
 }

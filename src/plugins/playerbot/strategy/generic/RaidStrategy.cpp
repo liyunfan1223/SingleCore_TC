@@ -51,7 +51,9 @@ float LoathebGenericMultiplier::GetValue(Action* action)
 	context->GetValue<bool>("neglect threat")->Set(true);
 	if (ai->GetCurrentState() == BOT_STATE_COMBAT && 
 		(dynamic_cast<AttackLeastHpTargetAction*>(action) || 
-		 dynamic_cast<TankAssistAction*>(action))) {
+		 dynamic_cast<TankAssistAction*>(action) ||
+		 dynamic_cast<CastDebuffSpellOnAttackerAction*>(action) ||
+		 dynamic_cast<FleeAction*>(action))) {
 		return 0.0f;
 	}
 	if (!dynamic_cast<CastHealingSpellAction*>(action)) {
@@ -169,7 +171,7 @@ float KelthuzadGenericMultiplier::GetValue(Action* action)
     uint32 curr_phase = eventMap->GetPhaseMask();
 	
 	if (curr_phase == 1) {
-		if (dynamic_cast<CastFireElementalTotemAction*>(action) || 
+		if (dynamic_cast<CastTotemAction*>(action) || 
 			dynamic_cast<CastShadowfiendAction*>(action) ||
 			dynamic_cast<CastRaiseDeadAction*>(action) ||
 			dynamic_cast<CastFeignDeathAction*>(action) || 
@@ -385,6 +387,13 @@ void RaidNaxxGenericStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"gluth main tank mortal wound", 
 		NextAction::array(0, 
 			new NextAction("taunt spell", ACTION_RAID + 1), NULL)));
+	// Loatheb
+	triggers.push_back(new TriggerNode(
+		"loatheb", 
+		NextAction::array(0, 
+			new NextAction("loatheb position", ACTION_RAID + 1),
+			new NextAction("loatheb choose target", ACTION_RAID + 1),
+			NULL)));
 }
 
 void RaidNaxxGenericStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)

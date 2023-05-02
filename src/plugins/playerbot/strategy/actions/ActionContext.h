@@ -115,7 +115,8 @@ namespace ai
             creators["gluth position"] = &ActionContext::gluth_position;
             creators["gluth slowdown"] = &ActionContext::gluth_slowdown;
 
-            
+            creators["loatheb position"] = &ActionContext::loatheb_position;
+            creators["loatheb choose target"] = &ActionContext::loatheb_choose_target;
         }
 
     private:
@@ -195,6 +196,8 @@ namespace ai
         static Action* gluth_choose_target(PlayerbotAI* ai) { return new GluthChooseTargetAction(ai); }
         static Action* gluth_position(PlayerbotAI* ai) { return new GluthPositionAction(ai); }
         static Action* gluth_slowdown(PlayerbotAI* ai) { return new GluthSlowdownAction(ai); }
+        static Action* loatheb_position(PlayerbotAI* ai) { return new LoathebPositionAction(ai); }
+        static Action* loatheb_choose_target(PlayerbotAI* ai) { return new LoathebChooseTargetAction(ai); }
     };
 
 };

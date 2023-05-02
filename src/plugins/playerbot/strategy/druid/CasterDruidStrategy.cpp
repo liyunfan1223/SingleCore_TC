@@ -144,7 +144,7 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	// 	NextAction::array(0, new NextAction("nature's grasp", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "low mana",
+        "medium mana",
         NextAction::array(0, new NextAction("innervate", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(

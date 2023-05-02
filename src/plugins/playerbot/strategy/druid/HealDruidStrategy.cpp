@@ -95,7 +95,7 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
             NULL)));
 
     triggers.push_back(new TriggerNode(
-        "low mana",
+        "medium mana",
         NextAction::array(0, new NextAction("innervate", ACTION_HIGH + 5), NULL)));
     
     triggers.push_back(new TriggerNode(

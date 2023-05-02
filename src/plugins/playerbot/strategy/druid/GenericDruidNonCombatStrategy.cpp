@@ -44,7 +44,7 @@ private:
     {
         return new ActionNode ("innervate",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("drink"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
 	static ActionNode* revive(PlayerbotAI* ai)
@@ -103,9 +103,9 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 		"party member to resurrect",
 		NextAction::array(0, new NextAction("revive", ACTION_DISPEL), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "low mana",
-        NextAction::array(0, new NextAction("innervate", ACTION_DISPEL + 5), NULL)));
+    // triggers.push_back(new TriggerNode(
+    //     "low mana",
+    //     NextAction::array(0, new NextAction("innervate", ACTION_DISPEL + 5), NULL)));
     
     triggers.push_back(new TriggerNode(
         "party member critical health",

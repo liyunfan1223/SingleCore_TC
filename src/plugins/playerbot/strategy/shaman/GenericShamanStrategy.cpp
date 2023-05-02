@@ -136,7 +136,7 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     //         new NextAction("cleansing totem", ACTION_DISPEL), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "low mana",
+        "medium mana",
         NextAction::array(0, new NextAction("mana tide totem", ACTION_EMERGENCY + 5), NULL)));
 }
 

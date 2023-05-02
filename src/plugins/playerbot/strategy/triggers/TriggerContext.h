@@ -134,6 +134,7 @@ namespace ai
             creators["gluth"] = &TriggerContext::gluth;
             creators["gluth main tank mortal wound"] = &TriggerContext::gluth_main_tank_mortal_wound;
             
+            creators["loatheb"] = &TriggerContext::loatheb;
         }
 
     private:
@@ -233,6 +234,7 @@ namespace ai
         static Trigger* anubrekhan(PlayerbotAI* ai) { return new AnubrekhanTrigger(ai); }
         static Trigger* gluth(PlayerbotAI* ai) { return new GluthTrigger(ai); }
         static Trigger* gluth_main_tank_mortal_wound(PlayerbotAI* ai) { return new GluthMainTankMortalWoundTrigger(ai); }
+        static Trigger* loatheb(PlayerbotAI* ai) { return new LoathebTrigger(ai); }
         
     };
 };

@@ -166,6 +166,7 @@ namespace ai
                 creators["dispersion"] = &AiObjectContextInternal::dispersion;
                 creators["penance on party"] = &AiObjectContextInternal::penance_on_party;
                 creators["prayer of mending on party"] = &AiObjectContextInternal::prayer_of_mending_on_party;
+                creators["prayer of healing on party"] = &AiObjectContextInternal::prayer_of_healing_on_party;
                 creators["shadowfiend"] = &AiObjectContextInternal::shadowfiend;
                 creators["hymn of hope"] = &AiObjectContextInternal::hymn_of_hope;
                 creators["divine hymn"] = &AiObjectContextInternal::divine_hymn;
@@ -219,6 +220,7 @@ namespace ai
             static Action* inner_fire(PlayerbotAI* ai) { return new CastInnerFireAction(ai); }
             static Action* penance_on_party(PlayerbotAI* ai) { return new CastPenanceOnPartyAction(ai); }
             static Action* prayer_of_mending_on_party(PlayerbotAI* ai) { return new CastPrayerOfMendingOnPartyAction(ai); }
+            static Action* prayer_of_healing_on_party(PlayerbotAI* ai) { return new CastPrayerOfHealingOnPartyAction(ai); }
             static Action* shadowfiend(PlayerbotAI* ai) { return new CastShadowfiendAction(ai); }
             static Action* hymn_of_hope(PlayerbotAI* ai) { return new CastHymnOfHopeAction(ai); }
             static Action* divine_hymn(PlayerbotAI* ai) { return new CastDivineHymnAction(ai); }

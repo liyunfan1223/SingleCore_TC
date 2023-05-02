@@ -120,7 +120,8 @@ namespace ai
         {
             return new ActionNode ("circle of healing",
                 /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
-                /*A*/ NextAction::array(0, new NextAction("flash heal on party"), NULL),
+                // /*A*/ NextAction::array(0, new NextAction("flash heal on party"), NULL),
+                /*A*/ NULL,
                 /*C*/ NULL);
         }
         static ActionNode* prayer_of_fortitude_on_party(PlayerbotAI* ai)
