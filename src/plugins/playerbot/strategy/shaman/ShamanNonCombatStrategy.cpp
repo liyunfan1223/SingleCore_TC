@@ -30,12 +30,20 @@ void ShamanNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("water walking on party", 11.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "critical health",
-        NextAction::array(0, new NextAction("healing wave", 70.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0, new NextAction("healing wave on party", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("healing wave on party", 27.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+        "party low health",
+        NextAction::array(0, new NextAction("healing wave on party", 26.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"party medium health",
+		NextAction::array(0, new NextAction("healing wave on party", 25.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"party almost full health",
+		NextAction::array(0, new NextAction("healing wave on party", 24.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium aoe heal",

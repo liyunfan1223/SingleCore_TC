@@ -469,21 +469,23 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
         return messages;
     }
 
+    std::string cmdStr = cmd;
+    std::string charnameStr;
     //thesawolf - without this null check, tc was crashing because of the null to string conversion
     if (charname == NULL)
     {
         std::string ch_name;
         bool isPlayer = sObjectMgr->GetPlayerNameByGUID(master->GetTarget(), ch_name);
         if (isPlayer) {
-            charname = ch_name.c_str();
+            charnameStr = ch_name;
         } else {
             messages.push_back("ERROR: No bot was specified. Try again.");
             return messages;
         }
+    } else {
+        charnameStr = charname;
     }
         
-    std::string cmdStr = cmd;
-    std::string charnameStr = charname;
 
     //thesawolf - lookup routine.. you know ANY of those RANDOM names?
     if (cmdStr == "lookup" || cmdStr == "LOOKUP")
