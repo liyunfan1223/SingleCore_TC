@@ -480,7 +480,7 @@ void RandomPlayerbotMgr::Randomize(Player* bot)
     }
 	else
 	{
-        if (bot->getLevel() >= sPlayerbotAIConfig.randomBotMaxLevel) {
+        if (bot->getLevel() >= sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL)) {
             RandomizeFirst(bot, sPlayerbotAIConfig.randomBotMinLevel);
         } else {
             IncreaseLevel(bot);

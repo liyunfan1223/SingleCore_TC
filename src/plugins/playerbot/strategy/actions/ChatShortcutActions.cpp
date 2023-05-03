@@ -63,6 +63,7 @@ bool NaxxChatShortcutAction::Execute(Event event)
     ai->Reset();
     ai->ChangeStrategy("+naxx", BOT_STATE_NON_COMBAT);
     ai->ChangeStrategy("+naxx", BOT_STATE_COMBAT);
+    bot->Say("Add Naxx Strategies!", LANG_UNIVERSAL);
     return true;
 }
 
