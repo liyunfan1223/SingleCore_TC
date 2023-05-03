@@ -388,11 +388,11 @@ void DBUpdater<T>::ApplyFile(DatabaseWorkerPool<T>& pool, std::string const& hos
             "You cannot use auto-update system and import sql files from TrinityCore repository with your sql client. "
             "If you are a developer, please fix your sql query.",
             path.generic_string().c_str(), pool.GetConnectionInfo()->database.c_str());
-        TC_LOG_FATAL("sql.updates", "Args:");
-        for (std::string arg : args) {
-            TC_LOG_FATAL("sql.updates", "%s",
-            arg.c_str());
-        }
+        // TC_LOG_FATAL("sql.updates", "Args: %s", DBUpdaterUtil::GetCorrectedMySQLExecutable().c_str());
+        // for (std::string arg : args) {
+        //     TC_LOG_FATAL("sql.updates", "%s",
+        //     arg.c_str());
+        // }
         throw UpdateException("update failed");
     }
 }

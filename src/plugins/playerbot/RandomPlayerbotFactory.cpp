@@ -321,6 +321,10 @@ bool RandomPlayerbotFactory::CreateRandomBot(uint8 cls)
 
     player->setCinematic(2);
     player->SetAtLoginFlag(AT_LOGIN_NONE);
+    if (player->getClass() == CLASS_DEATH_KNIGHT)
+	{
+		player->LearnSpell(50977, false);
+	}
     player->SaveToDB(true);
     // sWorld->AddCharacterInfo(player->GetGUID(), accountId, name, gender, race, cls, 1);
 

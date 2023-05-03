@@ -680,7 +680,7 @@ list<string> PlayerbotHolder::HandlePlayerbotCommand(char const* args, Player* m
             if (master->GetGroup()) {
                 master->GetGroup()->AddMember(sObjectMgr->GetPlayerByLowGUID(guid));
             }
-            messages.push_back("addclass ok.");
+            messages.push_back("addclass " + charnameStr + " ok.");
             return messages;
         }
         messages.push_back("addclass failed.");
