@@ -185,12 +185,14 @@ namespace ai
 		virtual bool isUseful() { return CastTotemAction::isUseful() && !AI_VALUE2(bool, "has totem", "mana tide totem"); }
     };
 
-    class CastMagmaTotemAction : public CastMeleeSpellAction
+    class CastMagmaTotemAction : public CastTotemAction
     {
     public:
-        CastMagmaTotemAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "magma totem") {}
+        CastMagmaTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "magma totem") {
+            range = ATTACK_DISTANCE;
+        }
         virtual string GetTargetName() { return "self target"; }
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "has totem", name); }
+        // virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "has totem", name); }
     };
 
     class CastFireNovaAction : public CastSpellAction {
