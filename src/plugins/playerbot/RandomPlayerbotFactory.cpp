@@ -253,6 +253,11 @@ bool RandomPlayerbotFactory::CreateNotRandomBot(uint32 nid)
 
     player->setCinematic(2);
     player->SetAtLoginFlag(AT_LOGIN_NONE);
+    // leave original quests
+    if (player->getClass() == CLASS_DEATH_KNIGHT)
+	{
+		player->LearnSpell(50977, false);
+	}
     player->SaveToDB(true);
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Preset bot created for account %d - name: \"%s\"; race: %u; class: %u",
@@ -345,7 +350,6 @@ string RandomPlayerbotFactory::CreateRandomBotName()
                 "WHERE e.guid IS NULL AND n.name_id >= '%u' AND n.in_use=0 LIMIT 1", id);
         if (!result)
         {
-            // CharacterDatabase.CommitTransaction(tx);
             continue;
         }
         fields = result->Fetch();
@@ -353,7 +357,6 @@ string RandomPlayerbotFactory::CreateRandomBotName()
         if (ret.size()) {
             CharacterDatabase.DirectPExecute("UPDATE ai_playerbot_names SET in_use=1 WHERE name='%s'", ret);
         }
-        // CharacterDatabase.CommitTransaction(tx);
         return ret;
     }
     sLog->outMessage("playerbot", LOG_LEVEL_ERROR, "Failed to create randombot name!");

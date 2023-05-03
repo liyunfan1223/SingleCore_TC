@@ -474,13 +474,17 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, 
 
 void RandomPlayerbotMgr::Randomize(Player* bot)
 {
-    if (!bot->GetGuildId() || bot->getLevel() >= sPlayerbotAIConfig.randomBotMaxLevel)
+    if (!bot->GetGuildId())
 	{
-        RandomizeFirst(bot);
+        RandomizeFirst(bot, 0);
     }
 	else
 	{
-        IncreaseLevel(bot);
+        if (bot->getLevel() >= sPlayerbotAIConfig.randomBotMaxLevel) {
+            RandomizeFirst(bot, sPlayerbotAIConfig.randomBotMinLevel);
+        } else {
+            IncreaseLevel(bot);
+        }
 	}
 }
 
@@ -502,34 +506,34 @@ void RandomPlayerbotMgr::IncreaseLevel(Player* bot)
 	RandomTeleportForLevel(bot);
 }
 
-void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
+void RandomPlayerbotMgr::RandomizeFirst(Player* bot, uint32 level)
 {
-	bool takePlayerLevel = sPlayerbotAIConfig.randomBotBracketPlayer;
-    uint32 maxLevel = sPlayerbotAIConfig.randomBotMaxLevel;
-	uint32 minLevel = sPlayerbotAIConfig.randomBotMinLevel;
-	uint32 level = 0;
-    if (maxLevel > sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
-        maxLevel = sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL);
-	if (minLevel < 1)
-		minLevel = 1;
-	if (takePlayerLevel)
-	{
-		level = GetMasterLevel();
-		if (level == 0)
-		{
-			level = urand(minLevel, maxLevel);
-		}
-		minLevel = level - level % 10;
-		maxLevel = level - (level % 10) + 9;
-	}
-	else {
-		// try to random level
-        if (bot->getClass() == CLASS_DEATH_KNIGHT) {
-		    level = urand(std::max(55u, minLevel), std::max(55u, maxLevel));
-        } else {
+    if (!level) {
+        bool takePlayerLevel = sPlayerbotAIConfig.randomBotBracketPlayer;
+        uint32 maxLevel = sPlayerbotAIConfig.randomBotMaxLevel;
+        uint32 minLevel = sPlayerbotAIConfig.randomBotMinLevel;
+        if (maxLevel > sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
+            maxLevel = sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL);
+        if (minLevel < 1)
+            minLevel = 1;
+        if (takePlayerLevel)
+        {
+            level = GetMasterLevel();
+            if (level == 0)
+            {
+                level = urand(minLevel, maxLevel);
+            }
+            minLevel = level - level % 10;
+            maxLevel = level - (level % 10) + 9;
+        }
+        else {
+            // try to random level
             level = urand(minLevel, maxLevel);
         }
-	}
+    }
+    if (bot->getClass() == CLASS_DEATH_KNIGHT) {
+        level = std::max(55u, level);
+    }
 	PlayerbotFactory factory(bot, level);
 	factory.CleanRandomize();
 	RandomTeleportForLevel(bot);
@@ -754,7 +758,7 @@ bool RandomPlayerbotMgr::HandlePlayerbotConsoleCommand(ChatHandler* handler, cha
             if (cmd == "init")
             {
 		        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Detected cmd is init.");
-                sRandomPlayerbotMgr.RandomizeFirst(bot);
+                sRandomPlayerbotMgr.RandomizeFirst(bot, 0);
             }
             else if (cmd == "teleport")
             {

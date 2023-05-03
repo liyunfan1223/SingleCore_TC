@@ -31,7 +31,7 @@ class RandomPlayerbotMgr : public PlayerbotHolder
         bool IsRandomBot(Player* bot);
         bool IsRandomBot(uint32 bot);
         void Randomize(Player* bot);
-        void RandomizeFirst(Player* bot);
+        void RandomizeFirst(Player* bot, uint32 level);
         void IncreaseLevel(Player* bot);
         void ScheduleTeleport(uint32 bot);
         void HandleCommand(uint32 type, const string& text, Player& fromPlayer);
