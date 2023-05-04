@@ -35,14 +35,15 @@ enum Events
     EVENT_CLEAVE               = 7,
     EVENT_TAILLASH             = 8,
     EVENT_CLASSCALL            = 9,
+    EVENT_SHADOWBLINK          = 10,
     // UBRS
-    EVENT_CHAOS_1              = 10,
-    EVENT_CHAOS_2              = 11,
-    EVENT_PATH_2               = 12,
-    EVENT_PATH_3               = 13,
-    EVENT_SUCCESS_1            = 14,
-    EVENT_SUCCESS_2            = 15,
-    EVENT_SUCCESS_3            = 16,
+    EVENT_CHAOS_1              = 11,
+    EVENT_CHAOS_2              = 12,
+    EVENT_PATH_2               = 13,
+    EVENT_PATH_3               = 14,
+    EVENT_SUCCESS_1            = 15,
+    EVENT_SUCCESS_2            = 16,
+    EVENT_SUCCESS_3            = 17,
 };
 
 enum Says
@@ -127,6 +128,7 @@ enum Spells
     SPELL_VEILOFSHADOW          = 7068,
     SPELL_CLEAVE                = 20691,
     SPELL_TAILLASH              = 23364,
+    SPELL_SHADOWBLINK           = 22664,
 
     SPELL_MAGE                  = 23410,     // wild magic
     SPELL_WARRIOR               = 23397,     // beserk
@@ -204,13 +206,15 @@ public:
             _EnterCombat();
 
             Talk(SAY_GAMESBEGIN_2);
-
+            // SetCombatMovement(false);
             me->setFaction(103);
             me->SetUInt32Value(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_NONE);
             DoCast(me, SPELL_NEFARIANS_BARRIER);
             me->SetStandState(UNIT_STAND_STATE_STAND);
+            me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IMMUNE_TO_PC);
             AttackStart(target);
+            events.ScheduleEvent(EVENT_SHADOWBLINK, 500);
             events.ScheduleEvent(EVENT_SHADOW_BOLT, urand(3000, 10000));
             events.ScheduleEvent(EVENT_FEAR, urand(10000, 20000));
             //events.ScheduleEvent(EVENT_MIND_CONTROL, urand(30000, 35000));
@@ -286,6 +290,10 @@ public:
                             break;
                         case EVENT_PATH_3:
                             me->GetMotionMaster()->MovePath(NEFARIUS_PATH_3, false);
+                            break;
+                        case EVENT_SHADOWBLINK:
+                            DoCastSelf(SPELL_SHADOWBLINK);
+                            events.ScheduleEvent(EVENT_SHADOWBLINK, urand(30000, 40000));
                             break;
                         default:
                             break;
@@ -422,6 +430,21 @@ public:
 
         void EnterCombat(Unit* /*who*/) override
         {
+            me->HandleEmoteCommand(EMOTE_ONESHOT_LAND);
+            me->SetCanFly(false);
+            me->SetDisableGravity(false);
+            Position land = me->GetPosition();
+            me->GetMotionMaster()->MoveLand(0, land);
+            // me->RemoveUnitFlag(UNIT_FLAG_NOT_SELECTABLE);
+            me->GetMotionMaster()->MoveIdle();
+
+            me->SetReactState(REACT_AGGRESSIVE);
+            DoZoneInCombat();
+            if (me->GetVictim())
+            {
+                AttackStart(me->GetVictim());
+            }
+
             events.ScheduleEvent(EVENT_SHADOWFLAME, 12000);
             events.ScheduleEvent(EVENT_FEAR, urand(25000, 35000));
             events.ScheduleEvent(EVENT_VEILOFSHADOW, urand(25000, 35000));

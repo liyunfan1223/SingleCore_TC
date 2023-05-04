@@ -115,7 +115,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
         uint32 botAccount = bot->GetSession()->GetAccountId();
         uint32 masterGacct = master->GetSession()->GetAccountId();
         if (isRandomAccount && bot->getLevel() > master->getLevel())
-        {        
+        {
             //thesawolf - faction change - still flags opposing for pvp.. but non-KOS
             bot->setFaction(master->getFaction());
         
@@ -212,7 +212,7 @@ void PlayerbotHolder::OnBotLogin(Player * const bot)
     }
 
     ai->ResetStrategies();
-    ai->TellMaster("Hey there!");
+    ai->TellMaster("Hey there!", PLAYERBOT_SECURITY_DENY_ALL);
 
 	uint32 account = sObjectMgr->GetPlayerAccountIdByGUID(bot->GetGUID());
 	if (sPlayerbotAIConfig.IsInRandomAccountList(account))

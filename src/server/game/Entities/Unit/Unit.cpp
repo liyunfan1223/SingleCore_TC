@@ -4407,7 +4407,7 @@ void Unit::RemoveAllAuras()
         AuraMap::iterator aurIter;
         for (aurIter = m_ownedAuras.begin(); aurIter != m_ownedAuras.end();)
             RemoveOwnedAura(aurIter);
-        if (++tries > 10000) {
+        if (++tries > 100) {
             break;
         }
         // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d %d", m_appliedAuras.size(), m_ownedAuras.size());
