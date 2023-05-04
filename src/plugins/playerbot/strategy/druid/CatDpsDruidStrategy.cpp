@@ -111,8 +111,10 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "combo points available",
-        NextAction::array(0, new NextAction("ferocious bite", ACTION_NORMAL + 9),
-        new NextAction("rip", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, 
+            new NextAction("rip", ACTION_NORMAL + 10),
+            new NextAction("ferocious bite", ACTION_NORMAL + 9),
+            NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium threat",

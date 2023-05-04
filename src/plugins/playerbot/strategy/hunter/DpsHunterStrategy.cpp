@@ -84,7 +84,7 @@ NextAction** DpsHunterStrategy::getDefaultActions()
         new NextAction("aimed shot", 14.0f), 
         new NextAction("arcane shot", 13.0f),
         new NextAction("steady shot", 12.0f),
-        new NextAction("hunter's mark", 11.0f),
+        // new NextAction("hunter's mark", 11.0f),
         new NextAction("auto shot", 10.0f), 
         NULL);
 }
@@ -117,9 +117,9 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "hunters pet low health",
         NextAction::array(0, new NextAction("mend pet", 60.0f), NULL)));
 
-    // triggers.push_back(new TriggerNode(
-    //     "hunter's mark",
-    //     NextAction::array(0, new NextAction("hunter's mark", 52.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "hunter's mark",
+        NextAction::array(0, new NextAction("hunter's mark", 12.0f), NULL)));
 
     // triggers.push_back(new TriggerNode(
     //     "freezing trap",

@@ -84,3 +84,8 @@ bool SummonAction::Teleport()
     ai->TellMasterNoFacing("There is not enough place to summon me");
     return false;
 }
+
+bool SummonAction::isUseful()
+{
+    return !bot->IsFlying();
+}

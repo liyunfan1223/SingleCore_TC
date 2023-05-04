@@ -2230,15 +2230,7 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
         !(ITEM_SUBCLASS_MASK_WEAPON_RANGED & (1 << proto->SubClass));
     // shield tank
     if (isDoubleHand && IsShieldTank()) {
-        score *= 0.5;
-    }
-    // double hand penalty (except fury (talent), bear, retribution (cannot double-hand))
-    if (isDoubleHand && 
-        !(cls == CLASS_WARRIOR && tab == 1) && 
-        !(cls == CLASS_DRUID && tab == 1) &&
-        !(cls == CLASS_PALADIN && tab == 2) &&
-        !(cls == CLASS_DEATH_KNIGHT && tab == 0)) {
-        score *= 0.5;
+        score *= 0.1;
     }
     // enhancement, rogue, ice/unholy dk
     if (isDoubleHand && 
@@ -2246,6 +2238,14 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
          (cls == CLASS_ROGUE) ||
          (cls == CLASS_DEATH_KNIGHT && tab != 0))
        ) {
+        score *= 0.1;
+    }
+    // double hand penalty (except fury (talent), bear, retribution (cannot double-hand))
+    if (isDoubleHand && 
+        !(cls == CLASS_WARRIOR && tab == 1) && 
+        !(cls == CLASS_DRUID && tab == 1) &&
+        !(cls == CLASS_PALADIN && tab == 2) &&
+        !(cls == CLASS_DEATH_KNIGHT && tab == 0)) {
         score *= 0.5;
     }
     return (0.01 + score) * itemLevel * (quality + 1);   

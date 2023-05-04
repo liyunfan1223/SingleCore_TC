@@ -11,7 +11,7 @@ namespace ai
         SummonAction(PlayerbotAI* ai, string name = "summon") : MovementAction(ai, name) {}
 
         virtual bool Execute(Event event);
-
+        virtual bool isUseful();
     protected:
         bool Teleport();
     };
