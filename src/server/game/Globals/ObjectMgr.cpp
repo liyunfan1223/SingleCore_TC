@@ -890,7 +890,7 @@ void ObjectMgr::CheckCreatureTemplate(CreatureTemplate const* cInfo)
 
     if (!cInfo->unit_class || ((1 << (cInfo->unit_class-1)) & CLASSMASK_ALL_CREATURES) == 0)
     {
-        TC_LOG_ERROR("sql.sql", "Creature (Entry: %u) has invalid unit_class (%u) in creature_template. Set to 1 (UNIT_CLASS_WARRIOR).", cInfo->Entry, cInfo->unit_class);
+        TC_LOG_DEBUG("sql.sql", "Creature (Entry: %u) has invalid unit_class (%u) in creature_template. Set to 1 (UNIT_CLASS_WARRIOR).", cInfo->Entry, cInfo->unit_class);
         const_cast<CreatureTemplate*>(cInfo)->unit_class = UNIT_CLASS_WARRIOR;
     }
 
@@ -1112,7 +1112,7 @@ void ObjectMgr::LoadGameObjectAddons()
         GameObjectData const* goData = GetGOData(guid);
         if (!goData)
         {
-            TC_LOG_ERROR("sql.sql", "GameObject (GUID: %u) does not exist but has a record in `gameobject_addon`", guid);
+            TC_LOG_DEBUG("sql.sql", "GameObject (GUID: %u) does not exist but has a record in `gameobject_addon`", guid);
             continue;
         }
 
@@ -1943,7 +1943,7 @@ void ObjectMgr::LoadCreatureGroups()
         CreatureGroupDataContainer::iterator cgitr = _creatureGroupDataStore.find(groupId);
         if (cditr == _creatureDataStore.end())
         {
-            TC_LOG_ERROR("server.loading", "Creature %u in group %u not found in Creature Data!", creatureId, groupId);
+            TC_LOG_DEBUG("server.loading", "Creature %u in group %u not found in Creature Data!", creatureId, groupId);
             continue;
         }
         else if(cgitr == _creatureGroupDataStore.end())
@@ -2695,7 +2695,7 @@ void ObjectMgr::LoadItemTemplates()
 
         }
         else
-            TC_LOG_ERROR("sql.sql", "Item (Entry: %u) does not exist in item.dbc! (not correct id?).", entry);
+            TC_LOG_DEBUG("sql.sql", "Item (Entry: %u) does not exist in item.dbc! (not correct id?).", entry);
 
         if (itemTemplate.Class >= MAX_ITEM_CLASS)
         {
@@ -9137,7 +9137,7 @@ bool ObjectMgr::IsVendorItemValid(uint32 vendor_entry, uint32 item_id, int32 max
         if (player)
             ChatHandler(player->GetSession()).PSendSysMessage(LANG_ITEM_NOT_FOUND, item_id);
         else
-            TC_LOG_ERROR("sql.sql", "Table `(game_event_)npc_vendor` for Vendor (Entry: %u) have in item list non-existed item (%u), ignore", vendor_entry, item_id);
+            TC_LOG_DEBUG("sql.sql", "Table `(game_event_)npc_vendor` for Vendor (Entry: %u) have in item list non-existed item (%u), ignore", vendor_entry, item_id);
         return false;
     }
 

@@ -1061,7 +1061,7 @@ void ScriptMgr::Initialize()
         if (scriptName.empty())
             continue;
 
-        TC_LOG_ERROR("sql.sql", "ScriptName '%s' exists in database, "
+        TC_LOG_DEBUG("sql.sql", "ScriptName '%s' exists in database, "
                      "but no core script found!", scriptName.c_str());
     }
 
