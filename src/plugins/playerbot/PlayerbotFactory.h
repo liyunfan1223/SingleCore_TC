@@ -65,9 +65,16 @@ private:
     float CalculateItemScore(uint32 item_id);
     bool IsShieldTank();
     bool NotSameArmorType(uint32 item_subclass_armor) {
-        return (bot->HasSkill(SKILL_PLATE_MAIL) && item_subclass_armor != ITEM_SUBCLASS_ARMOR_PLATE) ||
-               (bot->HasSkill(SKILL_MAIL) && item_subclass_armor != ITEM_SUBCLASS_ARMOR_MAIL) ||
-               (bot->HasSkill(SKILL_LEATHER) && item_subclass_armor != ITEM_SUBCLASS_ARMOR_LEATHER);
+        if (bot->HasSkill(SKILL_PLATE_MAIL)) {
+            return item_subclass_armor != ITEM_SUBCLASS_ARMOR_PLATE;
+        }
+        if (bot->HasSkill(SKILL_MAIL)) {
+            return item_subclass_armor != ITEM_SUBCLASS_ARMOR_MAIL;
+        }
+        if (bot->HasSkill(SKILL_LEATHER)) {
+            return item_subclass_armor != ITEM_SUBCLASS_ARMOR_LEATHER;
+        }
+        return false;
     }
 /*
     void Prepare(); 
