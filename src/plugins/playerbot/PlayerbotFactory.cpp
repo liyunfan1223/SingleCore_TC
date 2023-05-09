@@ -2208,17 +2208,17 @@ float PlayerbotFactory::CalculateItemScore(uint32 item_id)
                (cls == CLASS_PALADIN && tab == 1)) {
         // TANK WITH SHIELD
         score = strength * 1 + agility * 2 + attack_power * 0.2
-            + defense * 2.5 + parry * 2 + dodge * 2 + resilience * 2 + block * 2 + armor * 0.2 + stamina * 3
+            + defense * 2.5 + parry * 2 + dodge * 2 + resilience * 2 + block * 2 + armor * 0.5 + stamina * 3
             + hit * 1 + crit * 0.2 + haste * 0.5 + expertise * 3;
     } else if (cls == CLASS_DEATH_KNIGHT && tab == 0){
         // BLOOD DK TANK
         score = strength * 1 + agility * 2 + attack_power * 0.2
-            + defense * 3.5 + parry * 2 + dodge * 2 + resilience * 2 + armor * 0.2 + stamina * 2.5 
+            + defense * 3.5 + parry * 2 + dodge * 2 + resilience * 2 + armor * 0.5 + stamina * 2.5 
             + hit * 2 + crit * 0.5 + haste * 0.5 + expertise * 3.5;
     } else {
         // BEAR DRUID TANK (AND FERAL DRUID...?)
         score = agility * 1.5 + strength * 1 + attack_power * 0.5 + armor_penetration * 0.5 + dps * 2
-            + defense * 0.25 + dodge * 0.25 + armor * 0.25 + stamina * 1.5
+            + defense * 0.25 + dodge * 0.25 + armor * 0.5 + stamina * 1.5
             + hit * 1 + crit * 1 + haste * 0.5 + expertise * 3;
     }
     if (NotSameArmorType(proto->SubClass))
