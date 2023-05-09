@@ -516,6 +516,9 @@ void RandomPlayerbotMgr::RandomizeFirst(Player* bot, uint32 level)
             maxLevel = sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL);
         if (minLevel < 1)
             minLevel = 1;
+        if (bot->getClass() == CLASS_DEATH_KNIGHT) {
+            minLevel = std::max(55u, minLevel);
+        }
         if (takePlayerLevel)
         {
             level = GetMasterLevel();
