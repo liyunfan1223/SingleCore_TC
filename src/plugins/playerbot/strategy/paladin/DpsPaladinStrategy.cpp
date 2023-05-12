@@ -36,7 +36,7 @@ private:
     {
         return new ActionNode ("seal of command",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of wisdom"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* blessing_of_might(PlayerbotAI* ai)
