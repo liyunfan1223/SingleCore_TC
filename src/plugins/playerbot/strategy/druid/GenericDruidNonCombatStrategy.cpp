@@ -79,10 +79,6 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 {
     NonCombatStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "tree of life",
-        NextAction::array(0, new NextAction("tree of life", ACTION_NORMAL + 10), NULL)));
-
     // triggers.push_back(new TriggerNode(
     //     "mark of the wild",
     //     NextAction::array(0, new NextAction("mark of the wild", 12.0f), NULL)));
