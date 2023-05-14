@@ -11,7 +11,7 @@ void ShamanNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"party member to resurrect",
-		NextAction::array(0, new NextAction("ancestral spirit", ACTION_EMERGENCY), NULL)));
+		NextAction::array(0, new NextAction("ancestral spirit", ACTION_HIGH + 9), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"water breathing",
