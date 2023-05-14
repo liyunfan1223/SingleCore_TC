@@ -75,6 +75,9 @@ FormationSlot* ArrowFormation::FindSlot(Player* member)
 void ArrowFormation::FillSlotsExceptMaster()
 {
     Group* group = bot->GetGroup();
+    if (!group) {
+        return;
+    }
     GroupReference *gref = group->GetFirstMember();
     uint32 index = 0;
     while (gref)
@@ -94,6 +97,9 @@ void ArrowFormation::FillSlotsExceptMaster()
 void ArrowFormation::AddMasterToSlot()
 {
     Group* group = bot->GetGroup();
+    if (!group) {
+        return;
+    }
     GroupReference *gref = group->GetFirstMember();
     uint32 index = 0;
     while (gref)
