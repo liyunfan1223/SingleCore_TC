@@ -201,9 +201,9 @@ void GenericDKStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"icy touch",
 		NextAction::array(0, new NextAction("icy touch", ACTION_HIGH + 1), NULL)));
 
- 	triggers.push_back(new TriggerNode(
-		"icy touch on attacker",
-		NextAction::array(0, new NextAction("icy touch on attacker", ACTION_HIGH + 1), NULL)));
+ 	// triggers.push_back(new TriggerNode(
+	// 	"icy touch on attacker",
+	// 	NextAction::array(0, new NextAction("icy touch on attacker", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"plague strike",

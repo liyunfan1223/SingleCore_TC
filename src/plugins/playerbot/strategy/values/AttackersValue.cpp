@@ -65,7 +65,7 @@ void AttackersValue::AddAttackersOf(Unit* unit, set<Unit*>& targets)
         Unit *attacker = threatManager->GetOwner();
         Unit *victim = attacker->GetVictim();
 
-        if (unit->IsValidAttackTarget(attacker)) {
+        if (unit->IsValidAttackTarget(attacker) && unit->GetDistance2d(attacker) < sPlayerbotAIConfig.sightDistance) {
             targets.insert(attacker);
         }
         // HostileReference* refVictim = threatManager->getCurrentVictim();
