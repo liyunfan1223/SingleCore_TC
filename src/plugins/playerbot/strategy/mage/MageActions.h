@@ -94,6 +94,10 @@ namespace ai
     {
 	public:
 		CastArcaneBrillianceOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "arcane brilliance") {}
+        virtual bool isUseful() {
+			Group* group = bot->GetGroup();
+			return group && group->isRaidGroup();
+		}
 	};
 
 	class CastRemoveCurseAction : public CastCureSpellAction
