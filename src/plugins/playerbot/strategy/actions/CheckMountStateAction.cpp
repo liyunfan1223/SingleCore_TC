@@ -50,6 +50,7 @@ bool CheckMountStateAction::Mount()
 {
 	Player* master = GetMaster();
 	ai->RemoveShapeshift();
+	ai->RemoveAura("tree of life");
 	int32 masterSpeed = 150;
 	const SpellInfo *masterSpell = NULL;
 	if (master != NULL && master->GetAuraEffectsByType(SPELL_AURA_MOUNTED).size() > 0)
