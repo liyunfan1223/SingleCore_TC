@@ -49,6 +49,10 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "party member cure poison",
         NextAction::array(0, new NextAction("abolish poison on party", ACTION_DISPEL + 7), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "party member remove curse",
+        NextAction::array(0, new NextAction("remove curse on party", ACTION_DISPEL + 7), NULL)));
+
     // CRITICAL
     triggers.push_back(new TriggerNode(
         "party member critical health",

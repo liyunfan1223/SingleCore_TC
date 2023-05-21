@@ -92,6 +92,7 @@ namespace ai
                 creators["eclipse (solar)"] = &TriggerFactoryInternal::eclipse_solar;
                 creators["eclipse (lunar)"] = &TriggerFactoryInternal::eclipse_lunar;
                 creators["bash on enemy healer"] = &TriggerFactoryInternal::bash_on_enemy_healer;
+                creators["party member remove curse"] = &TriggerFactoryInternal::party_member_remove_curse;
             }
 
         private:
@@ -115,6 +116,7 @@ namespace ai
             static Trigger* cat_form(PlayerbotAI* ai) { return new CatFormTrigger(ai); }
             static Trigger* tree_of_life(PlayerbotAI* ai) { return new TreeFormTrigger(ai); }
             static Trigger* bash_on_enemy_healer(PlayerbotAI* ai) { return new BashInterruptEnemyHealerSpellTrigger(ai); }
+            static Trigger* party_member_remove_curse(PlayerbotAI* ai) { return new DruidPartyMemberRemoveCurseTrigger(ai); }
         };
     };
 };
@@ -200,6 +202,7 @@ namespace ai
                 creators["lifebloom on party"] = &AiObjectContextInternal::life_bloom_on_party;
                 creators["swiftmend on party"] = &AiObjectContextInternal::swiftmend_on_party;
                 creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
+                creators["remove curse on party"] = &AiObjectContextInternal::remove_curse_on_party;
             }
 
         private:
@@ -273,6 +276,7 @@ namespace ai
             static Action* life_bloom_on_party(PlayerbotAI *ai) { return new CastPartyLifeBloomAction(ai); }
             static Action* swiftmend_on_party(PlayerbotAI *ai) { return new CastPartySwiftmendAction(ai); }
             static Action* natures_swiftness(PlayerbotAI *ai) { return new CastNaturesSwiftnessAction(ai); }
+            static Action* remove_curse_on_party(PlayerbotAI *ai) { return new CastDruidRemoveCurseOnPartyAction(ai); }
         };
     };
 };

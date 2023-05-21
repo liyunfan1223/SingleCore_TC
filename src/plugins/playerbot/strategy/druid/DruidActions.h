@@ -116,6 +116,12 @@ namespace ai
 		}
 	};
 
+	class CastDruidRemoveCurseOnPartyAction : public CurePartyMemberAction
+    {
+    public:
+        CastDruidRemoveCurseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "remove curse", DISPEL_CURSE) {}
+    };
+
 	class CastSurvivalInstinctsAction : public CastBuffSpellAction {
 	public:
 		CastSurvivalInstinctsAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "survival instincts") {}

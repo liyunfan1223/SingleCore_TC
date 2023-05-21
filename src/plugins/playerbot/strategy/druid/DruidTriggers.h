@@ -86,6 +86,12 @@ namespace ai {
         PartyMemberCurePoisonTrigger(PlayerbotAI* ai) : PartyMemberNeedCureTrigger(ai, "cure poison", DISPEL_POISON) {}
     };
 
+    class DruidPartyMemberRemoveCurseTrigger : public PartyMemberNeedCureTrigger
+    {
+    public:
+        DruidPartyMemberRemoveCurseTrigger(PlayerbotAI* ai) : PartyMemberNeedCureTrigger(ai, "druid remove curse", DISPEL_CURSE) {}
+    };
+
     class BearFormTrigger : public BuffTrigger
     {
     public:
