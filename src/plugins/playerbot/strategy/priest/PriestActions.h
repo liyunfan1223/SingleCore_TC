@@ -180,9 +180,9 @@ namespace ai
     class CastPrayerOfFortitudeOnPartyAction : public BuffOnPartyAction {
 	public:
 		CastPrayerOfFortitudeOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "prayer of fortitude") {}
-        virtual bool isUseful() {
+        virtual bool isPossible() {
 			Group* group = bot->GetGroup();
-			return group && group->isRaidGroup();
+			return BuffOnPartyAction::isPossible() && group && group->isRaidGroup();
 		}
 	};
 
@@ -194,9 +194,9 @@ namespace ai
     class CastPrayerOfSpiritOnPartyAction : public BuffOnPartyAction {
 	public:
 		CastPrayerOfSpiritOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "prayer of spirit") {}
-        virtual bool isUseful() {
+        virtual bool isPossible() {
 			Group* group = bot->GetGroup();
-			return group && group->isRaidGroup();
+			return BuffOnPartyAction::isPossible() && group && group->isRaidGroup();
 		}
 	};
 

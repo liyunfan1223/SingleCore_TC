@@ -94,9 +94,9 @@ namespace ai
     {
 	public:
 		CastArcaneBrillianceOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "arcane brilliance") {}
-        virtual bool isUseful() {
+        virtual bool isPossible() {
 			Group* group = bot->GetGroup();
-			return group && group->isRaidGroup();
+			return BuffOnPartyAction::isPossible() && group && group->isRaidGroup();
 		}
 	};
 
