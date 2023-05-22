@@ -117,7 +117,8 @@ float SapphironGenericMultiplier::GetValue(Action* action)
 	if (!boss) {
         return 1.0f;
     }
-	if (dynamic_cast<FollowAction*>(action)) {
+	if (dynamic_cast<FollowAction*>(action) || 
+		dynamic_cast<CastDeathGripAction*>(action)) {
 		return 0.0f;
 	}
 	BossAI* boss_ai = dynamic_cast<BossAI*>(boss->GetAI());

@@ -59,8 +59,8 @@ private:
 	{
 		return new ActionNode("dark command",
 			/*P*/ NextAction::array(0, new NextAction("frost presence"), NULL),
-			// /*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
-			/*A*/ NULL,
+			/*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
+			// /*A*/ NULL,
 			/*C*/ NULL);
 	}
 	
