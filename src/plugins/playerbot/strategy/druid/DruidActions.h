@@ -110,9 +110,9 @@ namespace ai
 	class CastGiftOfTheWildOnPartyAction : public BuffOnPartyAction {
 	public:
 		CastGiftOfTheWildOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "gift of the wild") {}
-		virtual bool isUseful() {
+		virtual bool isPossible() {
 			Group* group = bot->GetGroup();
-			return group && group->isRaidGroup();
+			return BuffOnPartyAction::isPossible() && group && group->isRaidGroup();
 		}
 	};
 
