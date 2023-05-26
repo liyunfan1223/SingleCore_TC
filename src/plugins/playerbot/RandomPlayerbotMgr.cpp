@@ -313,7 +313,7 @@ bool RandomPlayerbotMgr::ProcessBot(Player* player)
     uint32 teleport = GetEventValue(bot, "teleport");
     if (!teleport)
     {
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
+        sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Random teleporting bot %d", bot);
 		// RandomTeleportForLevel(player);
         PlayerbotFactory factory(player, player->getLevel());
         factory.Refresh();

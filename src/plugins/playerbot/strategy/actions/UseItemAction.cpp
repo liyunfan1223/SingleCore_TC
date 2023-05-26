@@ -221,7 +221,7 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
         if (bot->IsInCombat())
             return false;
 
-		bot->AddUnitState(UNIT_STAND_STATE_SIT);
+		// bot->SetStandState(UNIT_STAND_STATE_SIT);
         ai->InterruptSpell();
         ai->SetNextCheckDelay(20000);
     }
